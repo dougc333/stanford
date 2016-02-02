@@ -1,0 +1,450 @@
+<HTML>
+<HEAD>
+<TITLE>CS 244B Assignment 2</TITLE>
+</HEAD>
+
+<body bgcolor="#ffffff">
+<center>
+<h1>Mazewar: A Multiplayer Computer Game</h1>
+CS244b Assignment #2<br>
+Instructor: David Cheriton<br>
+Assigned: Thursday, April 29, 1999<br>
+Choose teams by: Monday, May 3, 1999<br>
+Design due by: Tuesday, May 11, 1999<br>
+Final due by: Friday, May 21, 1999<br>
+</center>
+<p>
+
+<hr>
+
+<h2>Introduction</h2>
+
+You are to design and implement CS244B Mazewar, a distributed, multiplayer
+game that is described below. So that you do not have to deal with user
+interface and other framework issues, you have been provided with a
+single-player Mazewar game.
+
+<hr>
+
+<a name="gamedesc">
+<h2>Game Description</h2>
+</a>
+
+CS244B Mazewar is a distributed, multiplayer game that allows each
+player to control a rat in a maze.  A player receives points for
+tagging other rats with a projectile and loses points for
+being tagged.
+
+<p>
+
+The game is based on the X Window System version of Mazewar, which is in
+turn based on the classic game of Mazewar that ran on the Xerox Alto in
+the 1970s.  It is also based on Amaze, a multi-player game with a
+distributed implementation on top of the V kernel.  Amaze is described in
+[E.Berglund and D.R.Cheriton. Amaze: a multiplayer computer game.  IEEE
+Software. 2(3):30-39, May 1985].
+ 
+<h3>1. The Interface</h3>
+
+The maze is presented graphically in a window. There are three parts to
+the window:
+<ul>
+<li> Rat's eye view: The upper section is a perspective view of a
+rat's view forward. 
+<li> Bird's eye view: The top level view of the maze showing the
+position and orientation of a rat from above.</li>
+<li> Status view: The bottom area is reserved for text to be used
+to report the scores and status of other players.</li>
+</ul>
+
+Only your own rat appears in the bird's-eye view.  In the status view,
+rats that are visible in the perspective view are highlighted.
+
+<h3>2. The Rules</h3>
+
+The rules of the game are as follows.
+
+<ul>
+<li>    Each instantiation of the program is a separate player.</li>
+
+<li>    Each player controls a single rat in the maze.</li>
+
+<li>    The maze consists of a 32x16 array of cells.  Each
+cell is either occupied by a wall, a rat, or is empty.</li>
+
+<li>    A player sees the top level view of the maze, but only their
+own rat's position and orientation in the bird's eye view.</li>
+
+<li>    A player sees any ``visible'' (not blocked by intervening walls)
+opposing rats in the perspective view.</li>
+
+<li>    There are commands which allow a rat to peek left and right around
+corners without exposing itself (perspective view only).</li>
+
+<li>    There are commands to rotate your rat 90, 180, and 270 degrees,
+    move forward or backward by 1 cell, and throw a projectile in the
+    direction your rat is facing.</li>
+
+<li>    Projectiles have a finite speed.  (You can choose it, e.g. 1
+cell every 200 milliseconds.)</li>
+
+<li>    A rat needs some amount of time to recuperate (your choice of
+how long) after throwing a projectile.  It can do anything except
+launch another projectile.  It is an allowable design decision to
+limit the number of outstanding ``missiles'' a rat can own to one, and
+(i.e., a rat can launch a missile as soon as the earlier one hits a rat or a wall).  Alternatively, a rat can recover after, for example, two
+seconds.  Keep this as simple as possible. </li>
+
+<li>    A rat touched by an opponent's projectile is tagged
+instantly.  Projectiles pass through their own rat transparently,
+without causing any harm.  Projectiles are the full width of the
+corridor, so that if a projectile passes through any cell, it certainly
+tags the rat in that cell.</li>
+
+<li>    A rat that is tagged loses 5 points.  A rat that tags another rat
+gains 11 points.  A projectile that is thrown costs 1 point.</li>
+
+<li>    When a rat is tagged, it reappears at a random position (in a
+clear cell only, not one occupied by a wall or another rat) with a
+random orientation (although not facing a wall) in the maze.</li>
+
+</ul>
+
+<h3>3. Keyboard and Mouse Commands</h3>
+
+<center>
+<table border=1 cellpadding=5 cellspacing=5 width=80%>
+<tr>
+<td>Input of Rat</td>
+<td>Gesture or Action </td>
+<tr>
+<td>A</td><td>About face (180 deg turn) </td>
+</tr><tr>
+<td>S</td><td>Left turn (270 deg turn) </td>
+</tr><tr>
+<td>D</td><td>Forward </td>
+</tr><tr>
+<td>F</td><td>Right turn (90 deg turn) </td>
+</tr><tr>
+<td>Space</td><td>Back one space </td>
+</tr><tr>
+<td>Mouse Left</td><td>Peek left </td>
+</tr><tr>
+<td>Mouse Right</td><td>Peek right </td>
+</tr><tr>
+<td>Mouse Middle</td><td>Throw projectile </td>
+</tr>
+</table>
+</center>
+
+<p>
+These commands are already implemented in the framework.
+
+<hr>
+
+<h2>Starting Point</h2>
+
+The game framework is in <samp>/usr/class/cs244b/mazewar</samp>.  Copy all
+files in this directory (using <samp>cp -r</samp>) to your directory. You
+can <samp>make</samp> mazewar and run it (the executable is
+<samp>mazewar</samp>). The provided code is for a single player - it
+executes entirely locally, and the throwing of projectiles is not
+implemented. You can play with a robotic rat by running <samp>mazewar
+-robot</samp> (use <samp>-time_interval <<msec>></samp>
+to control the speed of the robot). 
+
+<p>
+
+You should read the relevant material, look over the provided software and
+think about the design issues in advance of the review session on Friday
+04/30/99.
+
+<p>
+
+We assume that all students are familiar with C and Unix.  We also
+assume that you have the programming experience that you would acquire
+in CS244A; in other words the ability to write code that sends and
+receives packets over the network.
+
+<p>
+
+The programming assignment will be tested on the Sweet Hall machines, so
+please make sure they work there.
+
+<p>
+
+Some routines that are provided to you are described briefly below. Also,
+sample code for opening a multicast socket and joining a group is provided
+in the function <tt>netInit()</tt> in toplevel.c.
+
+<p>
+
+<h3>1. Utility and Initialization Routines</h3>
+
+<tt>NewPosition(Loc *x, Loc *y, Direction *dir)</tt> sets x, y, and dir to
+a random point in the maze, guaranteed to not be inside a wall, and not
+facing a wall.  You will need to modify this in order to guarantee that a
+randomly placed rat is not placed on top of another rat. (toplevel.c)
+
+<p>
+
+<tt>MazeInit(int argc, char **argv)</tt> is called to initialize the maze,
+the window system etc. Pass in argc and argv as passed to the toplevel
+program. (init.c)
+
+<h3>2. Display Routines</h3>
+
+The following routines are used to control the display manager.  They
+are not meant to control the state of the game.
+
+<p>
+
+<tt>SetRatPosition(RatId ratId, Loc xpos, Loc ypos, Direction dir)</tt>
+informs the display manager that the position of rat # ratId is
+(xpos,ypos), facing in direction dir. (display.c)
+
+<p>
+
+<tt>ClearRatPosition(RatId ratId)</tt> informs the display manager that
+rat # ratId is no longer to be displayed. (display.c)
+
+<p>
+
+<tt>ShowView(Loc x, Loc y, Direction dir)</tt> shows the perspective view
+from position (x,y) in direction dir.  Other rats are displayed as set by
+previous calls to SetRatPosition(). (display.c)
+
+<p>
+
+<tt>ShowPosition(Loc xloc, Loc yloc, Direction tdir)</tt> shows the local
+rat's position as an arrow in the top-down view. (display.c)
+
+<h3>3. Input Routines</h3>
+
+The following routines are used to interact with the user.  They all
+take an argument, <samp> prompt</samp>, which is a string used to prompt a
+user, and they all return their values in the locations pointed to by
+the other arguments, and all of the returned values are allocated out
+of the heap by malloc.  You can manage the memory accordingly.
+
+<p>
+
+<tt>getName(char *prompt, char **ratName)</tt> returns a user name, if
+none is given the username (login ID) is determined from the environment.
+When getName ("Enter foo", &r) returns, r points at the name of the
+rat. (init.c)
+
+<p>
+
+<tt>getString(char *prompt, char **string)</tt> prompts for an arbitrary
+string. CR alone returns NULL. The string is returned in string. (init.c)
+
+<p>
+
+<tt>NextEvent(MWEvent *event, int socket)</tt> returns the next X event,
+or an arrival of a network packet on socket. If your implementation
+requires you to listen on more than one socket at a time, you must modify
+the function NextEvent. (winsys.c)
+
+<hr>
+
+<h2>Doing the Assignment</h2>
+
+Students should try to form teams consisting of at least three people but
+not more than seven people.  Notify the TAs by email - specify the names
+and email addresses of the members of your team. You will then be provided
+with a unique UDP port number. If you're having trouble forming a group,
+post a note to the su.class.cs244b newsgroup.
+
+<p>
+
+The teams are for the purpose of designing and specifying a protocol for
+the game, <b> not for jointly writing code</b>.  You may not share code;
+you may not use code from the X version of Mazewar, nor may you use code
+from the V kernel version of Amaze. The members of a team should
+<b>not</b> work together to answer the questions in part three; we are
+interested in your individual answers.
+
+<p>
+You are <b>each</b> required to write a complete implementation of CS244B
+Mazewar and demonstrate that your program interacts correctly
+with those of the other members of your team.
+
+<p>
+We suggest that you stick to the rules provided in the Mazewar game
+description, but you are free to make any additions that
+you think improve the game, as long as
+<ol>
+<li>you document them clearly,
+<li>the result is still a distributed system about which you can
+meaningfully answer the questions below, and 
+<li>you clear all changes with us before you implement them.
+</ol>
+
+What to Submit:
+<ol>
+<li>34% <a href="#des">Design</a>:  due May 11, 1999
+<br><b>Jointly</b> design the distributed game of 
+Mazewar as described in the <a href="#gamedesc">
+Mazewar game description</a>. You must choose a group and 
+notify the TA before submitting the design.
+
+<li>33% <a href="#imp">Program</a>: due May 21, 1999
+<br><b>Individually</b> implement the game according
+to the specification you agreed upon in part one, and using 
+the framework
+provided for you. You must schedule a demo to run this game with 
+group members before you submit the code.
+
+<li>33% <a href="#qu">Questions</a>: due May 21, 1999
+<br><b>Individually</b> answer the questions in the last section
+of this document.
+
+</ol>
+
+<a name="des">
+<h3>1. Protocol Design and Specification</h3>
+</a>
+
+Your team is to jointly design the specification of the protocol used by
+the game.  The specification must be complete enough so that all members
+of the team can independently implement a mazewar program to the
+specification and have it interoperate with each of the other programs.
+Programs running on different architectures (e.g. Sun Ultra or
+HP PA-RISC) need to be able to correctly interact with each other.
+
+<p>
+
+The protocol design should specify a distributed game.  A single
+centralized server that treats the nodes as terminals is not acceptable.
+Using a distinguished node tends to create a centralized single point of
+failure, so this approach should be avoided if possible, or at least
+handled (and justified) carefully. You are also not allowed to use
+broadcast to disseminate state. Sample code for joining a multicast group
+is provided in the netInit() function.
+
+<p>
+
+Submit a description of this specification by putting the specification in
+a file named <samp>mazewar-spec</samp> and doing <samp>
+"/usr/class/cs244b/bin/submit s"</samp> in the directory that
+<samp>mazewar-spec</samp> resides. The file must state who are to
+implement this specification. The description should
+have the information that you would expect to find in an RFC for
+Mazewar. There is no need to justify your decisions in the design - that
+is the focus of the third part of the assignment.
+
+<p>
+The protocol specification should include:
+<ul>	
+<li>The packet types and formats;
+	a reasonable model to follow is any Internet RFC.  
+<li>The sequencing and semantics of the packets,
+	including how a user locates, joins and leaves a game of Mazewar.
+	What happens if a player loses contact with one player?
+	What about losing contact with all of the other players?
+<li>Timings of protocol events,
+	and how they provide for sufficient consistency for the game state.
+</ul>
+
+The team design and specification of the communication protocol will be
+graded for the group as a whole (i.e., a single grade will be given to all
+members of the group), based on the following criteria:
+<ol>
+<li>Correctness: 
+	Does the design support a distributed game of mazewar
+	that conforms to the specification in the game description?
+<li>Clarity/Simplicity: 
+	Is it clear enough for independent implementors to implement it
+    consistently? Does it avoid mechanism that does not contribute to the
+    game play? (Lack of clarity and extraneous complexity can increase development time 
+	and can further detract from programs in the group interoperating - a further 
+	potential penalty.)
+<li>Performance: 
+	Does the protocol minimize the network packet traffic and also avoid extraneous 
+	processing load on each node? (We are interested in designs avoiding unnecessary
+	overhead.  Extreme optimization is not important.)
+</ol>
+
+A team may revise its specification between the time it is submitted and the
+final due date as long as the revisions are documented and justified.
+If you revise your specification,
+resubmit one copy of it for your team at the time that individuals submit
+parts two and three of the assignment.  In addition, each individual
+submission of part two/three should state that the specification has been
+revised.
+
+<a name="imp">
+<h3>2. Game Implementation: </h3>
+</a>
+
+Implement Mazewar using the framework provided, conforming to the game
+description.  The protocol used to communicate between the nodes in the
+game and the behavior of the nodes must obey the specification created by
+your team in part one.  Submit the program by running
+<samp>/usr/class/cs244b/bin/submit 2</samp> from the directory containing
+the code.
+
+<p>
+The implementation will be graded on a demo of the running program
+as well as the submitted source code.
+Each group will sign up for a demo in Sweet Hall
+during the week of the final due date (signups to be announced later).
+At demo time, each member of your group should be prepared to
+run his/her program with those of the rest of the group,
+and also be prepared to rebuild the program from source code
+if so requested.
+
+<p>
+
+We don't expect you to have to make many changes outside of toplevel.c and
+mazewar.h. However, there are a couple of implementation choices that you
+might consider that do require such changes:
+
+<ul>
+<li>If you listen on more than one socket at a time, you need to
+modify the code in NextEvent().  This function is called by 
+play() in  toplevel.c and is implemented in 
+winsys.c.
+<li>You should be able to write your program without needing to modify the
+name of M (struct _mazewar), the representation of the maze itself, or the
+slots in M that refer to the location and orientation of the local rat,
+and the peek, etc.  If you decide that you absolutely must change one or
+more of these things, you must modify the references in the code to the
+maze (M.maze), to the location of the local rat (M.xloc, M.yloc and M.dir)
+and to m.MyRatId, M.xPeek, M.yPeek, and M.dirPeek. There are a lot of
+references in toplevel.c (which we expect you modify substantially
+anyway), none in display.c, RepaintWindow(), initMaze(), RandomEvent()
+in winsys.c, and MazeInit() and getMaze() in init.c.
+</ul>
+
+<a name="qu">
+<h3>3. Questions:</h3>
+</a>
+
+Answer each of the following questions in the README file sent with your
+code. Point form answers are encouraged.
+
+<ol>
+  
+  <li>Evaluate the portion of your design that deals with starting, 
+maintaining, and exiting a game - what are its strengths and weaknesses?
+
+  <li>Evaluate your design with respect to its performance on its current
+platform (i.e. a small LAN linked by ethernet).  How does it scale for an
+increased number of players? What if it is played across a WAN?  Or if
+played on a network with different capacities?
+
+  <li>Evaluate your design for consistency.  What local or global
+inconsistencies can occur?  How are they dealt with?
+
+  <li>Evaluate your design for security. What happens if there are
+malicious users?
+
+</ol>
+      
+<hr>
+<i>Last updated 04/29/99</i>
+
+</body>
+</html>

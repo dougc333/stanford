@@ -1,0 +1,34 @@
+Solution to the extra credit problem assignment 4
+ 
+ You were asked to prove that every 1-letter CFL is also regular. This can
+be easily be proved by converting the CFG for the given 1 letter CFL into
+a right linear (or for that matter a left linear) grammar. A right linear
+grammar is one where all productions are of the special form
+			   X->a or X-->aY.
+ But since the hint asked to use the pumping lemma, I will present a proof
+based on the pumping lemma.
+If the 1-letter language is a CFL, by the pumping lemma there is a pumping
+constant p, such that all strings whose length is greater than p can
+be pumped. The number of strings of length less than p happens to be finite. 
+So L(<p) is a finite language. Consider the fragment of the L 
+where all strings are of length >=p.
+Let q be any string in this fragment. q can be written as uvwxy ,
+s.t. 0<|vx|<p. for all i,
+  uv(^i)wx(^i)y is also in L(>p). Since a is the only letter in the
+language, the sub-language "generated " by this string can be written as
+a^(M) (a^N)*. Which is regular and N <p. But the only problem is that we
+may end up with an infinite number of possibilities for M and regular
+languages are NOT closed under infinite union.
+To take care of this, consider the language Li,j as a^i (a^j)* where
+0<=i<j<=p. There are O(p^2) such languages. Any a^M(a^N)* can be written
+as
+   L(M mod N),N - { a finite number of strings}.
+ 
+Now the infinite union over infinite LM,N leads to a finite union over
+some of the L(i,j)s minus an infinite intersection of a series of finite
+languages. Countable intersection of finite languages remains finite.
+So we have proved (although sketchily) that any 1-letter CFL is actually
+regular.
+ 
+Surprisingly enough, most of the people who attempted it gave an
+acceptable proof. Two of you got it entirely correct.

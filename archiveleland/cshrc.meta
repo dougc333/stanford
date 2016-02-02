@@ -1,0 +1,85 @@
+
+######### Meta Global environment variable Fri Feb 19 17:42:50 PST 1999 #########
+# Using FLEXlm license file
+
+setenv installdir /afs/ir.stanford.edu/class/ee/hspice/98.2
+setenv META_FLEX 1
+setenv META_QUEUE 1
+
+#unsetenv META_FLEX
+#unsetenv META_QUEUE
+
+if ( $?LM_LICENSE_FILE ) then
+   if ( "$LM_LICENSE_FILE" !~ *"/afs/ir.stanford.edu/class/ee/hspice/98.2/license.dat"* ) then
+      setenv LM_LICENSE_FILE /afs/ir.stanford.edu/class/ee/hspice/98.2/license.dat:$LM_LICENSE_FILE
+   endif
+else
+   setenv LM_LICENSE_FILE /afs/ir.stanford.edu/class/ee/hspice/98.2/license.dat
+endif
+
+unsetenv LANG
+unsetenv LC_ALL
+
+setenv ARCH      `$installdir/bin/get_arch -q`
+######### End of Global section ##########
+
+
+# AvanWaves Additions on Fri Feb 19 17:42:21 PST 1999
+if ( $?LD_LIBRARY_PATH )  then
+   if ( "$LD_LIBRARY_PATH" !~ *"$installdir/$ARCH"* ) then
+      setenv LD_LIBRARY_PATH $installdir/"$ARCH":$LD_LIBRARY_PATH
+   endif
+else
+   setenv LD_LIBRARY_PATH $installdir/$ARCH
+endif
+
+if ( $?LIBPATH ) then
+   if ( "$LIBPATH" !~ *"$installdir/$ARCH"* ) then
+      setenv LIBPATH $installdir/"$ARCH":$LIBPATH
+   endif
+else
+   setenv LIBPATH $installdir/$ARCH
+endif
+# End of AvanWaves Additions
+
+
+# Star-Hspice Additions on Fri Feb 19 17:42:47 PST 1999
+# disable /tmp_mnt/nfs in paths in hspice script
+#setenv NO_NFSMOUNTS 1
+# set the location of hspice temporary files
+#setenv tmpdir /tmp
+# End of Star-Hspice Additions
+
+
+######### Meta Global environment variable Fri Feb 19 17:42:51 PST 1999 #########
+if ( $?PATH ) then
+    if ( "$PATH" !~ *"$installdir/bin:$installdir/""$ARCH"""* ) then
+        setenv PATH $installdir/bin:$installdir/"$ARCH":$PATH
+    endif
+else
+    setenv PATH $installdir/bin:$installdir/"$ARCH":/bin:/usr/bin:/usr/ucb
+endif
+
+if ( $?hspicelinkpath ) then
+   if ( "$PATH" !~ *"$hspicelinkpath"* ) then
+      setenv PATH "$hspicelinkpath":$PATH
+   endif
+endif
+
+if ( $?MANPATH ) then
+    if ( "$MANPATH" !~ *"$installdir/docs:/usr/man:/etc/man"* ) then
+       setenv MANPATH $installdir/docs:$MANPATH
+    endif
+else
+    setenv MANPATH $installdir/docs:/usr/man:/etc/man
+endif
+
+#  echo '1. To run hspicelink, append the contents inside the file'
+#  echo '   $mgcinstalldir/mgc_location_map'
+#  echo '   to your location map file pointed to by the environment variable'
+#  echo '   MGC_LOCATION_MAP'
+#  echo '2. Include $mgcinstalldir/bin path in your .cshrc file'
+#  echo '3. Include the path to awaves executable in your .cshrc file'
+
+######### End of Global section ##########
+

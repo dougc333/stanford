@@ -1,0 +1,2 @@
+main.o: main.cc stack.h
+stack.o: stack.cc stack.h

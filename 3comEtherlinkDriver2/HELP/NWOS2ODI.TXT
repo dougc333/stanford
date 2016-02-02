@@ -1,0 +1,78 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                    The EtherLink 10 NIC Family
+            Installing a NIC in a NetWare OS/2 ODI Client
+
+This section describes how to install the driver for an OS/2 client.
+
+1.  Install the OS/2 operating system on the computer.
+
+2.  Download the latest version of the Novell NetWare Requester from one
+    of the following:
+
+    -  Novell's ftp site: ftp.novell.com
+    -  NetWire: On CompuServe, type: go Netwire
+
+3.  Insert the first NetWare Requester diskette in the floppy drive.
+
+4.  Go to the Drives icon and bring up the drive for the NetWare Requester
+    Install diskette.
+
+5.  Bring up the installation bar and single-click Installation.
+
+6.  Double-click INSTALL.EXE.
+
+7.  Follow the on-line instructions to install the NetWare Requester on the
+    computer.
+
+8.  Type the name of the target directory where the Requester files will be
+    copied.
+
+9.  Choose the ODI LAN driver from the list that appears.
+
+10. Click on the "v" in the information bar. You will be asked to insert
+    the diskette labeled WSDRV_1, or the diskette containing the
+    third-party ODI driver.
+
+11. Insert the WSDRV_1 diskette.
+
+12. Select the 3Com driver from the list of ODI drivers.
+
+13. Complete the installation for the NetWare Requester.
+
+14. Install the EtherLink 10 ISA NIC and connect it to the network.
+
+15. Exit to DOS from OS/2 by doing one of the following:
+
+    -  Boot your computer from a plain DOS diskette.
+
+    -  In an OS/2 window, type:
+
+       cd /OS2 [Enter]
+
+       Then type:
+
+       BOOT /DOS [Enter]
+
+16. Insert the EtherDisk #2 diskette in drive A and at the DOS prompt, type:
+
+    A:\INSTALL [Enter]
+
+17. On the main menu, select Driver Installation and Update and press
+    [Enter].
+
+18. On the Network Drivers screen, select Install Novell NetWare Drivers
+    and press [Enter].
+
+19. On the Novell NetWare Drivers screen, select Copy OS/2 ODI Driver and
+    press [Enter].
+
+20. If you want to copy the driver to the NETWARE directory on drive C:
+    press [Enter]. Otherwise, type another drive letter and directory name
+    (for example, D:\ODIDRIVER), and press [Enter].
+
+21. Reboot the computer.
+
+
+      (%VER NWOS2ODI.TXT - NetWare OS/2 ODI Client Installation V6.1a)
+

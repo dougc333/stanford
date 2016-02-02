@@ -1,0 +1,222 @@
+<TITLE>Goedel's incompleteness theorem</TITLE>
+<H1>The Undecidability of Arithmetic, Goedel's Incompleteness Theorem,
+and the class of Arithmetical Languages</H1>
+
+<I>Arithmetic</I> is the <A HREF=fol.html>first order logic</A> with
+constants 0 and 1, binary operators + and x and a binary predicate =.
+One normally writes (t+u) instead of +(t,u) and tu instead x(t,u). Thus
+the multiplication symbol x is oppressed, and brackets are left out
+when no confusion arises, assuming that x binds stronger than +.  An
+arithmetical term is known as a (positive) <I>polynomial</I>.
+Arithmetic is interpreted in terms of the natural numbers, and the
+meaning of 0, 1, +, x and = is well known. Every formula is either
+true or false (if there are free variables a formula is considered
+equivalent to its universal closure).
+<P>
+<B>Theorem:</B> It is undecidable whether an arithmetical formula is true.
+<P>
+<B>Proof:</B> Suppose there is an algorithm A that, given an
+arithmetical formula, decides whether that formula is true.
+I will use that to give a decision algorithm for the language {(M,w)
+| M is the description of a Turing machine that accepts the string w}.
+As the latter problem is undecidable this will show that A cannot exists.
+<P>
+Given a Turing machine M, a configuration of M is given by
+<OL>
+<LI> a state of M,
+<LI> the string on M's tape to the left of the position of the head of
+     M (call it the left-string),
+<LI> and the string on M's tape including the square where the head is,
+     and extending to the right of it (the right-string).
+</OL>
+These 3 ingredients will be represented as natural numbers:
+<OL>
+<LI> The states of M will be numbered by an initial segment of the
+natural numbers. The initial state will get number 0 and the accepting
+state number 1.
+<LI> Suppose the tape alphabet of a given Turing machine M has size n.
+The left-string on M's tape will be interpreted as the n-adic
+representation of a natural number.
+The blank symbol will have value n and the other symbols values 1 to n-1.
+The n-adic representation yields a perfect 1-to-1 correspondence
+between strings and numbers.
+<LI> The right-string on M's tape ends in an infinite sequence of
+blanks that somehow "don't count". Such a string can handily
+represented as the n-ary representation of a natural number in reverse.
+This time the blank symbol has the value 0 and the other symbols
+(again) values 1 to n-1. In the n-ary representation of natural
+numbers leading 0's don't count either, so again the correspondence
+is perfect.
+</OL>
+Suppose that the numbers q, x and y hold the values of the current
+state, the left-string and the right-string in a configuration of M.
+And suppose that there is a transition from state q (a number) to
+state r (also a number), labelled with a<img src="arrow.gif" alt="->">b,R.
+Let u and v be the values of the left- and right-string of the
+configuration that is reached by taking that transition.
+Than the n-ary representation of y must have ended with the digit a,
+while v is obtained by chopping of that digit. Thus y=nv+a.
+Furthermore, the n-adic representation of u is obtained by appending b
+to the n-adic representation of x. Thus u=nx+b.
+<P>
+An arbitrary configuration can be represented by a triple (Q,X,Y) of
+variables, whose values represent the state, left-string and
+right-string of that configuration, respectively. Now the formula
+<P align=center>
+Q=q <img src="and.gif" alt="&"> R=r <img src="and.gif" alt="&"> U=nX+b
+<img src="and.gif" alt="&"> Y=nV+a
+</P>
+expresses the property that a configuration given by (Q,X,Y) evolves
+into one given by (R,U,V) by taking the transition from q to r
+labelled with a<img src="arrow.gif" alt="->">b,R.
+Thanks to the use of n-ary representation for the right-string, there
+is no need to treat the case that Y represents a string of mere blanks
+separately (as I did with <A HREF=fol.html>first order logic</A>).
+<P>
+In case of a left-moving transition a<img src="arrow.gif" alt="->">b,L
+from q to r, the left-string looses a digit, say c, that is appended
+to the right-string after the last digit of the right-string is
+changed from a to b. Unless the left-string doesn't have any digits,
+i.e. is empty; in that case the last digit of y merely changes from a to b.
+This gives rise to the formula
+<P align=center>
+Q=q <img src="and.gif" alt="&"> R=r <img src="and.gif" alt="&"> 
+<FONT SIZE=+3>(</FONT>
+<img src="exists.gif" alt="there is ">c: <FONT SIZE=+2>(</FONT>0 < c < n
+<img src="and.gif" alt="&"> X=nU+c <img src="and.gif" alt="&"> 
+<img src="exists.gif" alt="there is ">Z:
+(Y=nZ+a <img src="and.gif" alt="&"> V=n(nZ+b)+c)<FONT SIZE=+2>)</FONT>
+<img src="or.gif" alt="or"> <FONT SIZE=+2>(</FONT>
+X=nU+n <img src="and.gif" alt="&"> <img src="exists.gif" alt="there is ">Z:
+(Y=nZ+a <img src="and.gif" alt="&"> V=n(nZ+b))<FONT SIZE=+2>)</FONT>
+<img src="or.gif" alt="or"> <FONT SIZE=+2>(</FONT>
+X=U=0 <img src="and.gif" alt="&"> <img src="exists.gif" alt="there is ">Z:
+(Y=nZ+a <img src="and.gif" alt="&"> V=nZ+b)<FONT SIZE=+2>)</FONT>
+<FONT SIZE=+3>)</FONT>.
+</P>
+Note that the case where c is the blank symbol is treated separately
+(through the middle disjunction). This is because in the left-string
+n-adic representation is used, and the value of c is n, whereas in the
+right-string n-ary representation is used, and the value of c is 0.
+The right-most disjunction deals with the case that the head of M was
+already in the left-most square, so that it couldn't move further to
+the left, and thus stays where it is. Arithmetic doesn't have the
+symbol <. However, c < n can be rewritten as
+<img src="exists.gif" alt="there is ">k: c+1+k=n.
+
+<P>
+
+For every transition in M there is a formula of one the the two forms
+above telling how a configuration (Q,X,Y) is related to a
+configuration (R,U,V), reached from (Q,X,Y) by taking that transition. 
+Let T(Q,X,Y,R,U,V) be the disjunction of all those formulas.  As M has
+finitely many transitions, this disjunction is finite as well, and
+thus a formula of arithmetic.  T(Q,X,Y,R,U,V) has free variables Q,X,Y
+and R,X,Y. It says, in the language of arithmetic, that there is a
+transition transforming (Q,X,Y) into (R,U,V). That is, the formula
+T(Q,X,Y,R,U,V) is true exactly when there is such a transition.
+<P>
+Using the formula T(Q,X,Y,R,U,V) it is possible to build another
+formula T*(Q,X,Y,R,U,V) in the language of arithmetic, with free
+variables Q,X,Y and R,U,V, that says that it is possible to proceed
+from configuration (Q,X,Y) to configuration (R,U,V) by following zero
+or more transitions.  T*(Q,X,Y,R,U,V) can be regarded as the reflexive
+and transitive closure of T(Q,X,Y,R,U,V).  Building such a transitive
+closure within the language of arithmetic is a bit tricky and
+therefore skipped in class. I will provide the details upon request.
+<P>
+Now the formula
+<P Align=center>
+<img src="exists.gif" alt="there is ">U
+<img src="exists.gif" alt="there is ">V:
+T*(0,0,w,1,U,V)
+</P>
+says that it is possible that to proceed from the initial configuration
+with the word w on the tape and the head of M in its left-most
+position, to a configuration involving the accept state. This formula
+is true exactly when the Turing machine M accepts the word w.
+<P>
+Thus, in order to decide whether or not M accepts w, it suffices to
+check whether or not the formula above is true in arithmetic.
+This constitutes a reduction of the acceptance problem for Turing
+machines to the problem of determining truth in arithmetic.
+As the former problem is undecidable, so must be the latter.
+<P>
+<B>Theorem:</B> The language of true arithmetical formulas is not even
+recognizable.
+<P>
+<B>Proof:</B> Suppose B would be a Turing machine recognizing true
+arithmetical formulas. For any formula P in arithmetic, either P
+itself or its negation <img src="not.gif" alt="~">P is true. Thus the
+truth of P can be decided by running B on P and B on
+<img src="not.gif" alt="~">P in parallel. Within a finite amount of
+time either P or <img src="not.gif" alt="~">P will be accepted, which
+settles the question of whether P is true or not. Thus truth in
+arithmetic would be decidable, contradicting the previous theorem.
+Hence B does not exists and arithmetical truth is not recognizable.
+<P>
+<B>Theorem:</B> For every reasonable method of provability, the
+language of provable arithmetical formulas is enumerable (and thus
+recognizable).
+<P>
+<B>Proof:</B> The first requirement of a reasonable method of
+provability is that it should be possible to determine whether a given
+piece of text is a proof or not. Hence it is possible to enumerate all
+proofs, namely by enumerating all finite pieces of text, and deleting
+those that aren't proofs. The second requirement of a reasonable
+method of provability is that it should be possible to determine,
+given a proof, what formula it is that it proves. This enables the
+enumeration of all proofs to be converted into an enumeration of all
+provable formulas
+<P>
+<B>Goedel's incompleteness theorem:</B>
+If a proof system for arithmetic is sound (meaning that only true
+formulas are provable) then there must be a true formula that is not
+provable.
+<P>
+<B>Proof:</B> The set of provable formulas is enumerable, and the set
+of true formulas isn't. Therefore there must be a difference. QED
+<P>
+<B>Remark:</B> The proof of Goedel's incompleteness theorem given
+here rests heavily on Church's thesis, which is not a mathematical
+theorem. Goedel's own proof bypasses Church's thesis (in fact it
+predates it by several years) and therefore is much more complicated.
+The undecidability proof of truth goes through also in the absence of
+Church's thesis: truth is then not recursive. However, showing that
+provability is recursive enumerable is a lot of work, and requires
+slightly stronger assumptions regarding the notion of a reasonable
+method of provability. It is possible to bypass the use of
+decidability and recursive enumerability by showing that provability
+is arithmetical (see below), whereas truth is not. Alternatively it is
+possible to construct an actual formula that is true but not provable;
+this is what Goedel did.
+<HR>
+<B>Definition:</B> A set L of natural numbers is called
+<I>arithmetical</I> if there exists an arithmetical formula P(W) with
+one free variable W, such that L can be given as L={w | P(w)}.
+<P>
+A language is called arithmetical if it consists of the set of
+strings that are the n-adic representations of an arithmetical set of
+natural numbers. (In fact this definition is invariant under a change
+of the algorithm coupling strings and numbers.)
+<P>
+<B>Theorem:</B> Any recursive enumerable language is arithmetical.
+<P>
+<B>Proof:</B> Suppose L is the set of strings w accepted by a Turing
+machine M. Then L={w | <img src="exists.gif" alt="there is ">U
+<img src="exists.gif" alt="there is ">V:
+T*(0,0,w,1,U,V)}, where T* is the formula presented earlier.
+Thus P(W) is the formula <img src="exists.gif" alt="there is ">U
+<img src="exists.gif" alt="there is ">V: T*(0,0,W,1,U,V).
+<P>
+The class of arithmetical formulas is much larger than the class of
+recursive enumerable ones. In fact, all languages that have been shown
+to be undecidable or unrecognizable in the book, turn out to be
+arithmetical. The only example of a nonarithmetical language
+encountered so far is the set of true formulas in arithmetic.
+<HR>
+<TABLE border=0 width=100%><TR><TD>
+<A HREF=../..>Rob van Glabbeek</A>
+</TD><TD Align=right>
+<A HREF=mailto:rvg@cs.stanford.edu>rvg@cs.stanford.edu</A>
+</TD></TR></TABLE>

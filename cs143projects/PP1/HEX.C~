@@ -1,0 +1,8 @@
+
+
+int main(void){
+
+double d = 10.0E3;
+printf("double is:%g\n",d);
+return 0;
+}

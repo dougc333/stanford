@@ -1,0 +1,449 @@
+; %VER 3Com EtherDisk for EtherLink 10 ISA Family Adapters 1.0f
+[version]
+LayoutFile=layout.inf
+signature="$CHICAGO$"
+Class=Net
+provider=%V_3Com%
+
+[Manufacturer]
+%V_3COM%=3COM
+
+
+[SourceDisksNames]
+50="3Com EtherDisk for EtherLink 10 ISA Family Adapters (Disk 1)",,0
+
+[SourceDisksFiles]
+
+elnk3ND4.sys =50,,,12345
+elnk3ND3.sys =50,,,12345
+W95EL5X9.INF =50,,,1234
+ 
+;Pacecfg.cpl =50
+;Pacecfg.hlp =50
+TCAUM509.DLL =50
+TCAUDCUS.txt =50
+TCAUDEXP.txt =50
+TCAUDVAR.txt =50
+TCAUDIAG.exe =50
+TCAUDIAG.url =50
+TCAUDIAG.hlp =50
+TCAUPROT.hlp =50
+TCAUM509.hlp =50
+TCAUPROT.dll =50
+un3c509A.exe =50
+
+TCAEGT16.DLL =50
+TCAEGT32.DLL =50
+TCAEHWAC.dll =50
+TCAACCHG.vxd =50
+TCAEN509.dll =50 
+TCAATDI.INF =50,,,1234
+ELNK3.DOS =50,,, 12345
+3C5X9.COM =50,,, 12345
+
+
+ 
+[3COM]
+%mca_627D.DeviceDesc%=MCA_627D.ndi, MCA_627D 
+%mca_627C.DeviceDesc%=MCA_627C.ndi, MCA_627C 
+
+%*pnp80F7.DeviceDesc%=*PNP80F7.ndi, *PNP80F7 
+%*pnp80F8.DeviceDesc%=*pnp80F8.ndi, *PNP80F8 
+
+%pnpTCM5090.DeviceDesc%=pnpTCM5090.ndi, ISAPNP\TCM5090 
+%pnpTCM5091.DeviceDesc%=pnpTCM5091.ndi, ISAPNP\TCM5091 
+%pnpTCM5094.DeviceDesc%=pnpTCM5094.ndi, ISAPNP\TCM5094 
+%pnpTCM5095.DeviceDesc%=pnpTCM5095.ndi, ISAPNP\TCM5095 
+%pnpTCM5098.DeviceDesc%=pnpTCM5098.ndi, ISAPNP\TCM5098 
+
+
+
+[pnpTCM5090.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=pnpTCM5090.ndi.reg, elnk3.ndi.reg, elnk3.params, Options-reg
+
+[pnpTCM5090.ndi.reg]
+HKR,Ndi,DeviceID,,"ISAPNP\TCM5090"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[pnpTCM5091.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=pnpTCM5091.ndi.reg, elnk3.ndi.reg, elnk3.params, Options-reg
+
+[pnpTCM5091.ndi.reg]
+HKR,Ndi,DeviceID,,"ISAPNP\TCM5091"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[pnpTCM5094.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=pnpTCM5094.ndi.reg, elnk3.ndi.reg, elnk3.params, Options-reg
+
+[pnpTCM5094.ndi.reg]
+HKR,Ndi,DeviceID,,"ISAPNP\TCM5094"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[pnpTCM5095.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files
+AddReg=pnpTCM5095.ndi.reg, elnk3.ndi.reg, elnk3.params, Options-reg
+
+[pnpTCM5095.ndi.reg]
+HKR,Ndi,DeviceID,,"ISAPNP\TCM5095"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[pnpTCM5098.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files
+AddReg=pnpTCM5098.ndi.reg, elnk3.ndi.reg, elnk3.params, Options-reg
+
+[pnpTCM5098.ndi.reg]
+HKR,Ndi,DeviceID,,"ISAPNP\TCM5098"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[*TCM5098.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=*TCM5098.ndi.reg,elnk3.ndi.reg,slot, Options-reg
+
+[*TCM5098.ndi.reg]
+HKR,Ndi,DeviceID,,"*TCM5098"
+
+[*TCM5098.ndi.PosDup]
+*pnp80f7
+
+[*TCM5095.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=*TCM5095.ndi.reg,elnk3.ndi.reg,slot, Options-reg
+[*TCM5095.ndi.reg]
+HKR,Ndi,DeviceID,,"*TCM5095"
+
+[*TCM5095.ndi.PosDup]
+*pnp80f7
+
+[*TCM5094.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=*TCM5094.ndi.reg,elnk3.ndi.reg,slot, Options-reg
+
+[*TCM5094.ndi.reg]
+HKR,Ndi,DeviceID,,"*TCM5094"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[*TCM5094.ndi.PosDup]
+*pnp80f7
+
+[*TCM5093.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=*TCM5093.ndi.reg,elnk3.ndi.reg,slot, Options-reg
+
+[*TCM5093.ndi.reg]
+HKR,Ndi,DeviceID,,"*TCM5093"
+
+[*TCM5093.ndi.PosDup]
+*pnp80f7
+
+[*TCM5092.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=*TCM5092.ndi.reg,elnk3.ndi.reg,slot, Options-reg
+[*TCM5092.ndi.reg]
+HKR,Ndi,DeviceID,,"*TCM5092"
+
+[*TCM5092.ndi.PosDup]
+*pnp80f7
+
+[*TCM5091.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=*TCM5091.ndi.reg,elnk3.ndi.reg,slot, Options-reg
+
+[*TCM5091.ndi.reg]
+HKR,Ndi,DeviceID,,"*TCM5091"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[*TCM5091.ndi.PosDup]
+*pnp80f7
+
+[*TCM5090.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles, Diag-files 
+AddReg=*TCM5090.ndi.reg,elnk3.ndi.reg,slot, Options-reg
+
+[*TCM5090.ndi.reg]
+HKR,Ndi,DeviceID,,"*TCM5090"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[*TCM5090.ndi.PosDup]
+*pnp80f7
+
+[*pnp80F8.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles,Diag-Installer-files, Diag-files 
+AddReg=*pnp80F8.ndi.reg,elnk3.ndi.reg,elnk3.params, Options-reg
+
+[*pnp80F8.ndi.reg]
+HKR,Ndi,DeviceID,,"*pnp80F8"
+HKR,Ndi,MatchAndMoveID,,"*PNP80F7"
+
+[*pnp80F8.ndi.PosDup]
+*pnp80f7
+
+[*PNP80F7.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles,Diag-Installer-files, Diag-files 
+AddReg=*PNP80F7.ndi.reg,elnk3.ndi.reg,elnk3.params, Options-reg
+LogConfig=*PNP80F7.LogConfig
+
+[*PNP80F7.ndi.reg]
+HKR,Ndi,DeviceID,,"*PNP80F7"
+
+[*PNP80F7.LogConfig]
+ConfigPriority=HARDRECONFIG
+IOConfig=10@200-3FF%FFF0(3FF::)
+
+[MCA_627C.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles 
+AddReg=MCA_627C.ndi.reg,elnk3.ndi.reg,slot
+
+[MCA_627C.ndi.reg]
+HKR,Ndi,DeviceID,,"MCA_627C"
+HKR,INSTALLING,INSTALL_PACE,,%InstallPace%
+HKR,INSTALLING,INSTALL_DIAG,,"NO"
+HKR,INSTALLING,INSTALL_INSTALLER,,"NO"
+HKR,INSTALLING,INSTALL_SHORTCUTS,,"NO"
+
+[*MCA_627C.ndi.PosDup]
+*MCA_627D
+
+[MCA_627D.ndi]
+Copyfiles=elnk3.inf.Copyfiles, 3C5X9.CopyFiles 
+addReg=MCA_627D.ndi.reg,elnk3.ndi.reg,slot
+
+[MCA_627D.ndi.reg]
+HKR,Ndi,DeviceID,,"MCA_627D"
+HKR,INSTALLING,INSTALL_PACE,,%InstallPace%
+HKR,INSTALLING,INSTALL_DIAG,,"NO"
+HKR,INSTALLING,INSTALL_INSTALLER,,"NO"
+HKR,INSTALLING,INSTALL_SHORTCUTS,,"NO"
+
+[*MCA_627D.ndi.PosDup]
+*MCA_627C
+[elnk3.ndi.reg]
+HKR,,DeviceVxDs,,elnk3ND3.sys
+HKR,,3CUNINSTALL,,3C509
+HKR,Ndi,InstallInf,,"TCAATDI.INF"
+HKR,,DevLoader,,*ndis
+HKR,Ndi,NdiInstaller,,"TCAEN509.dll, MyNdiProc"
+HKR,NDIS,LogDriverName,,"ELNK3"
+HKR,NDIS,MajorNdisVersion,1,02
+HKR,NDIS,MinorNdisVersion,1,0A
+HKR,NDIS\NDIS2,DriverName,,"ELNK3$"
+HKR,NDIS\NDIS2,FileName,,"ELNK3.DOS"
+HKR,NDIS\ODI,DriverName,,"3C5X9"
+HKR,NDIS\ODI,FileName,,"3C5X9.COM"
+HKR,Ndi\Interfaces,DefUpper,,"ndis2,ndis3,ndis4"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis4,ndis3,ndis2,odi"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Install,ndis4,,"elnk3.ndis4"
+HKR,Ndi\Install,ndis3,,"elnk3.ndis3"
+HKR,Ndi\Install,ndis2,,"elnk3.ndis2" 
+HKLM,System\CurrentControlSet\Services\VxD\ISAPNP,RDPOverRide,3,74,02
+
+HKLM,Software\Microsoft\Windows\CurrentVersion\Run,TCASUTIEXE,,"TCAUDIAG.exe -off"
+
+HKR,,TCAUDIAG,,"TCAUM509"
+HKLM,Software\3Com\TCAUDIAG\TCAUM509,DriverNames,,"3C5X9.COM;ELNK3.DOS;SYSTEM\ELNK3ND3.SYS;SYSTEM\ELNK3ND4.SYS"
+;HKLM,Software\3Com\TCAUDIAG\TCAUM509\Extentions\Pace,CPLName,,"PACECFG.CPL"
+
+
+[elnk3.params]
+HKR,,IOAddress,1,02,00,00,00
+HKR,NDI\params\IOAddress,resc,1,02,00,00,00
+HKR,NDI\params\IOAddress,ParamDesc,,"I/O Base Address"
+HKR,NDI\params\IOAddress,flag,1,30,00,00,00
+HKR,NDI\params\MaxTransmits,ParamDesc,,"Maximum Transmits"
+HKR,NDI\params\MaxTransmits,flag,1,30,00,00,00
+HKR,NDI\params\MaxTransmits,type,,int
+HKR,Ndi\params\MaxTransmits,default,,6
+HKR,NDI\params\MaxTransmits,min,,2
+HKR,NDI\params\MaxTransmits,max,,50
+HKR,NDI\params\MaxTransmits,step,,1
+HKR,NDI\params\MaxTransmits,optional,,1
+HKR,,NDIS_VERSION,,"AUTO"
+HKR,NDI\params\NDIS_VERSION,,,"AUTO"
+HKR,NDI\params\NDIS_VERSION,ParamDesc,,"NDIS Driver Version"
+HKR,NDI\params\NDIS_VERSION,flag,1,20,00,00,00
+HKR,NDI\params\NDIS_VERSION,type,,enum
+HKR,NDI\params\NDIS_VERSION,optional,,0
+HKR,Ndi\params\NDIS_VERSION\enum,AUTO,,"Auto Select"
+HKR,Ndi\params\NDIS_VERSION\enum,NDIS3,,"NDIS 3"
+HKR,Ndi\params\NDIS_VERSION\enum,NDIS4,,"NDIS 4"
+HKR,,IDPort,,110
+HKR,NDI\params\IDPort,ParamDesc,,"IDPort Address"
+HKR,NDI\params\IDPort,type,,dword
+HKR,NDI\params\IDPort,base,,16
+HKR,NDI\params\IDPort,flag,1,20,00,00,00
+HKR,Ndi\params\IDPort,default,,110
+HKR,NDI\params\IDPort,min,,110
+HKR,NDI\params\IDPort,max,,1F0
+HKR,NDI\params\IDPort,step,,10
+HKR,NDI\params\IDPort,optional,,0
+
+[ELNK3.ndis4]
+CopyFiles=elnk3.ndis4.CopyFiles, elnk3.inf.Copyfiles
+
+[elnk3.ndis4.CopyFiles]
+elnk3ND4.sys
+elnk3ND3.sys
+
+[ELNK3.ndis3]
+CopyFiles=elnk3.ndis3.CopyFiles, elnk3.inf.Copyfiles
+
+[elnk3.ndis3.CopyFiles]
+elnk3ND3.sys
+elnk3ND4.sys
+
+[ELNK3.ndis2]
+CopyFiles=elnk3.ndis2.CopyFiles, elnk3.inf.Copyfiles
+[elnk3.ndis2.CopyFiles]
+ELNK3.DOS
+
+[3C5X9.odi]
+CopyFiles=3C5X9.odi.CopyFiles, elnk3.inf.Copyfiles
+[3C5X9.odi.CopyFiles]
+3C5X9.COM
+
+[elnk3.inf.CopyFiles]
+W95EL5X9.INF
+TCAATDI.INF
+
+[3C5X9.CopyFiles]
+TCAEN509.dll 
+un3c509A.exe 
+
+[DestinationDirs]
+DefaultDestDir =11 
+elnk3.ndis4.CopyFiles =11
+elnk3.ndis3.CopyFiles =11
+elnk3.ndis2.CopyFiles =26 
+3C5X9.odi.CopyFiles =26 
+elnk3.inf.CopyFiles =17 
+3C5X9.CopyFiles =11 
+Diag-files =11 
+;Pace-files =11 
+
+
+[Options-reg]
+HKR,INSTALL_OPTIONS,INSTALL_PACE,,%InstallPace%
+HKR,INSTALL_OPTIONS,INSTALL_DIAG,,%InstallDiag%
+HKR,INSTALL_OPTIONS,INSTALL_INSTALLER,,%InstallInstaller%
+HKR,INSTALL_OPTIONS,INSTALL_SHORTCUTS,,%InstallShortcuts%
+HKR,INSTALL_OPTIONS,TCAATDI,,"Supported"
+
+[Diag-files]
+TCAUDIAG.exe 
+TCAUDIAG.url
+TCAUDIAG.hlp
+TCAUPROT.hlp 
+TCAUM509.hlp 
+
+TCAUM509.DLL 
+TCAUDCUS.txt 
+TCAUDEXP.txt 
+TCAUDVAR.txt 
+TCAUPROT.dll 
+TCAEHWAC.dll 
+TCAACCHG.vxd 
+TCAEGT16.DLL 
+TCAEGT32.DLL 
+
+;[Pace-files]
+;Pacecfg.cpl 
+;Pacecfg.hlp 
+
+
+[strings]
+InstallPace= "NO"
+InstallDiag= "YES"
+InstallInstaller= "YES"
+InstallShortcuts= "YES"
+
+V_MS="Microsoft"
+V_3COM="3Com"
+V_FARALLON="Farallon"
+
+;PACEKEY="\SOFTWARE\3Com\PACECards\Applications"
+
+mca_627C.DeviceDesc= "3Com EtherLink 10 MCA (3C529) Coax/AUI"
+mca_627D.DeviceDesc= "3Com EtherLink 10 MCA (3C529) Twisted-Pair/AUI"
+*pnp80f7.DeviceDesc= "3Com EtherLink 10 ISA (3C509/3C509b) in Legacy mode"
+pnpTCM5090.DeviceDesc="3Com EtherLink 10 ISA TP (3C509b-TP) in PnP mode "
+pnpTCM5091.DeviceDesc="3Com EtherLink 10 ISA (3C509b) in PnP mode"
+pnpTCM5094.DeviceDesc="3Com EtherLink 10 ISA Combo (3C509b-Combo) in PnP mode"
+pnpTCM5095.DeviceDesc="3Com EtherLink 10 ISA TPO (3C509b-TPO) in PnP mode"
+pnpTCM5098.DeviceDesc="3Com EtherLink 10 ISA TPC (3C509b-TPC) in PnP mode"
+*pnp80F8.DeviceDesc= "EtherLink 10 ISA (3C509b) compatible in PnP mode"
+
+
+
+
+;[Pace-reg]
+;HKR,,PACENAME,,ELNK3
+;HKLM,SOFTWARE\3Com\PACECards\elnk3,Description,,"3Com Etherlink 10 ISA" 
+
+;HKLM,%PACEKEY%\Emotion CreativePartner (IPX),Protocol,,IPX
+;HKLM,%PACEKEY%\Emotion CreativePartner (IPX),Enabled,,FALSE
+;HKLM,%PACEKEY%\Emotion CreativePartner (IPX),RangeStart,,87C7
+;HKLM,%PACEKEY%\Emotion CreativePartner (IPX),RangeEnd,,87C8;
+
+;HKLM,%PACEKEY%\Emotion CreativePartner (TCP/IP),Protocol,,UDP
+;HKLM,%PACEKEY%\Emotion CreativePartner (TCP/IP),Enabled,,FALSE
+;HKLM,%PACEKEY%\Emotion CreativePartner (TCP/IP),RangeStart,,0453
+;HKLM,%PACEKEY%\Emotion CreativePartner (TCP/IP),RangeEnd,,0455
+
+;HKLM,%PACEKEY%\Insoft Communique!,Protocol,,UDP
+;HKLM,%PACEKEY%\Insoft Communique!,Enabled,,FALSE
+;HKLM,%PACEKEY%\Insoft Communique!,RangeStart,,"1025, 1500"
+;HKLM,%PACEKEY%\Insoft Communique!,RangeEnd,,"1050,1525"
+
+;HKLM,%PACEKEY%\Picturetel LiveLAN (over IPX),Protocol,,IPX
+;HKLM,%PACEKEY%\Picturetel LiveLAN (over IPX),Enabled,,FALSE
+;HKLM,%PACEKEY%\Picturetel LiveLAN (over IPX),RangeStart,,4050
+;HKLM,%PACEKEY%\Picturetel LiveLAN (over IPX),RangeEnd,,4082
+
+;HKLM,%PACEKEY%\Picturetel LiveLAN (over TCP/IP),Protocol,,UDP
+;HKLM,%PACEKEY%\Picturetel LiveLAN (over TCP/IP),Enabled,,FALSE
+;HKLM,%PACEKEY%\Picturetel LiveLAN (over TCP/IP),RangeStart,,06a4
+;HKLM,%PACEKEY%\Picturetel LiveLAN (over TCP/IP),RangeEnd,,06d6
+
+;HKLM,%PACEKEY%\Precept FlashWare,Protocol,,UDP
+;HKLM,%PACEKEY%\Precept FlashWare,Enabled,,FALSE
+;HKLM,%PACEKEY%\Precept FlashWare,RangeStart,,"8000, C000"
+;HKLM,%PACEKEY%\Precept FlashWare,RangeEnd,,"8000, C000"
+
+;HKLM,%PACEKEY%\Progressive Networks RealAudio,Protocol,,UDP
+;HKLM,%PACEKEY%\Progressive Networks RealAudio,Enabled,,FALSE
+;HKLM,%PACEKEY%\Progressive Networks RealAudio,RangeStart,,6970
+;HKLM,%PACEKEY%\Progressive Networks RealAudio,RangeEnd,,7170
+
+;HKLM,%PACEKEY%\Starlight Networks StarCast,Protocol,,UDP
+;HKLM,%PACEKEY%\Starlight Networks StarCast,Enabled,,FALSE
+;HKLM,%PACEKEY%\Starlight Networks StarCast,RangeStart,,1911
+;HKLM,%PACEKEY%\Starlight Networks StarCast,RangeEnd,,1911
+
+;HKLM,%PACEKEY%\VCON Cruiser 100,Protocol,,UDP
+;HKLM,%PACEKEY%\VCON Cruiser 100,Enabled,,FALSE
+;HKLM,%PACEKEY%\VCON Cruiser 100,RangeStart,,"1500,1600"
+;HKLM,%PACEKEY%\VCON Cruiser 100,RangeEnd,,"1500,1600"
+
+;HKLM,%PACEKEY%\VXtreme Web Theater,Protocol,,UDP
+;HKLM,%PACEKEY%\VXtreme Web Theater,Enabled,,FALSE
+;HKLM,%PACEKEY%\VXtreme Web Theater,RangeStart,,7000
+;HKLM,%PACEKEY%\VXtreme Web Theater,RangeEnd,,7020
+
+;HKLM,%PACEKEY%\Xing Technology Streamworks,Protocol,,UDP
+;HKLM,%PACEKEY%\Xing Technology Streamworks,Enabled,,FALSE
+;HKLM,%PACEKEY%\Xing Technology Streamworks,RangeStart,,1558
+;HKLM,%PACEKEY%\Xing Technology Streamworks,RangeEnd,,1558
+
+;HKLM,%PACEKEY%\Vosaic Software Server,Protocol,,TCP
+;HKLM,%PACEKEY%\Vosaic Software Server,Enabled,,FALSE
+;HKLM,%PACEKEY%\Vosaic Software Server,RangeStart,,04D3
+;HKLM,%PACEKEY%\Vosaic Software Server,RangeEnd,,04D3
+
+;HKLM,%PACEKEY%\Vosaic Software Client,Protocol,,UDP
+;HKLM,%PACEKEY%\Vosaic Software Client,Enabled,,FALSE
+;HKLM,%PACEKEY%\Vosaic Software Client,RangeStart,,F169
+;HKLM,%PACEKEY%\Vosaic Software Client,RangeEnd,,F17D

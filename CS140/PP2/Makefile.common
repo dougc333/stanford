@@ -1,0 +1,224 @@
+# This is part of a GNU Makefile, included by the Makefiles in
+# each of the subdirectories.  
+#
+# This file includes all of the baseline code provided by Nachos.
+# Whenever you add a .h or .cc file, put it in the appropriate 
+# _H,_C, or _O list.
+#
+# The dependency graph between assignments is:
+#   1. THREADS before everything else
+#   2. USERPROG must come before VM
+#   3. USERPROG can come before or after FILESYS, but if USERPROG comes 
+#	before (as in this distribution), then it must define FILESYS_STUB
+#
+#   Other than that, you have complete flexibility.
+#
+# Also whenever you change the include structure of your program, you should 
+# do a gmake depend in the subdirectory -- this will modify the Makefile
+# to keep track of the new dependency.
+
+# You might want to play with the CFLAGS, but if you use -O it may
+# break the thread system.  You might want to use -fno-inline if
+# you need to call some inline functions from the debugger.
+
+# Copyright (c) 1992-1996 The Regents of the University of California.
+# All rights reserved.  See copyright.h for copyright notice and limitation 
+# of liability and disclaimer of warranty provisions.
+
+CFLAGS = -g -Wall -fwritable-strings $(INCPATH) $(DEFINES) $(HOST) -DCHANGED
+
+ifdef SIMOS
+CFLAGS += -static 
+GCCDIR = /usr/class/cs240a/w97/mips-sgi/bin/
+CPP=/usr/ccs/lib/cpp
+CC = $(GCCDIR)gcc
+AS = $(GCCDIR)as -mips2 -mcpu=r4000
+LD = $(GCCDIR)gcc -v
+MACHINEDIR = simos
+else
+# These definitions may change as the software is updated.
+# Some of them are also system dependent
+CPP=/usr/ccs/lib/cpp
+CC = g++
+LD = g++
+AS = /usr/ccs/bin/as
+MACHINEDIR = machine
+endif
+PROGRAM = nachos
+
+THREAD_H = ../../lib/bitmap.h\
+	../../lib/copyright.h\
+	../../lib/debug.h\
+	../../lib/hash.h\
+	../../lib/libtest.h\
+	../../lib/list.h\
+	../../lib/sysdep.h\
+	../../lib/utility.h\
+	../../$(MACHINEDIR)/callback.h\
+	../../$(MACHINEDIR)/interrupt.h\
+	../../$(MACHINEDIR)/stats.h\
+	../../$(MACHINEDIR)/timer.h\
+	../../threads/alarm.h\
+	../../threads/kernel.h\
+	../../threads/main.h\
+	../../threads/scheduler.h\
+	../../threads/switch.h\
+	../../threads/synch.h\
+	../../threads/synchlist.h\
+	../../threads/thread.h\
+	../../threads/constants.h\
+	../../threads/mailbox.h\
+	../../$(MACHINEDIR)/elevator.h\
+	../../$(MACHINEDIR)/elevatortest.h
+
+ifdef SIMOS
+THREAD_H += ../../simos/simos.h
+endif
+
+THREAD_C = ../../lib/bitmap.cc\
+	../../lib/debug.cc\
+	../../lib/hash.cc\
+	../../lib/libtest.cc\
+	../../lib/list.cc\
+	../../lib/sysdep.cc\
+	../../$(MACHINEDIR)/interrupt.cc\
+	../../$(MACHINEDIR)/stats.cc\
+	../../$(MACHINEDIR)/timer.cc\
+	../../threads/alarm.cc\
+	../../threads/kernel.cc\
+	../../threads/main.cc\
+	../../threads/scheduler.cc\
+	../../threads/synch.cc\
+	../../threads/synchlist.cc\
+	../../threads/thread.cc\
+	../../threads/mailbox.cc\
+	../../$(MACHINEDIR)/elevatortest.cc\
+	../../$(MACHINEDIR)/elevator.cc
+
+ifdef SIMOS
+THREAD_C += ../../$(MACHINEDIR)/simos.cc
+endif
+
+THREAD_S = ../../threads/switch.s
+
+ifdef SIMOS
+THREAD_S += ../../simos/locore.s
+endif
+
+THREAD_O = bitmap.o debug.o libtest.o sysdep.o interrupt.o stats.o timer.o \
+	alarm.o kernel.o main.o scheduler.o synch.o thread.o elevator.o \
+	elevatortest.o mailbox.o
+
+ifdef SIMOS
+THREAD_O += simos.o
+endif
+
+USERPROG_H = ../../userprog/addrspace.h\
+	../../userprog/userkernel.h\
+	../../userprog/syscall.h\
+	../../userprog/synchconsole.h\
+        ../../filesys/filesys.h\
+        ../../filesys/openfile.h\
+        ../../$(MACHINEDIR)/console.h\
+        ../../$(MACHINEDIR)/machine.h\
+	../../userprog/memman.h\
+	../../threads/constants.h\
+        ../../$(MACHINEDIR)/registers.h
+
+ifndef SIMOS
+USERPROG_H += ../../$(MACHINEDIR)/mipssim.h ../../$(MACHINEDIR)/translate.h
+endif
+
+USERPROG_C = ../../userprog/addrspace.cc\
+        ../../userprog/exception.cc\
+	../../userprog/synchconsole.cc\
+	../../userprog/userkernel.cc\
+	../../userprog/memman.cc\
+        ../../$(MACHINEDIR)/console.cc
+
+ifndef SIMOS
+USERPROG_C += ../../$(MACHINEDIR)/mipssim.cc ../../$(MACHINEDIR)/translate.cc \
+        ../../$(MACHINEDIR)/machine.cc
+
+endif
+
+USERPROG_O = addrspace.o exception.o synchconsole.o console.o userkernel.o\
+memman.o
+
+
+ifndef SIMOS
+USERPROG_O += mipssim.o translate.o machine.o
+endif
+
+VM_H = 
+VM_C = 
+VM_O = 
+
+FILESYS_H =../../filesys/directory.h \
+	../../filesys/filehdr.h\
+	../../filesys/filesys.h \
+	../../filesys/openfile.h\
+	../../filesys/pbitmap.h\
+	../../filesys/synchdisk.h\
+        ../../$(MACHINEDIR)/disk.h
+
+ifdef SIMOS
+FILESYS_H += ../../simos/simos.h
+endif
+
+
+FILESYS_C =../../filesys/directory.cc\
+	../../filesys/filehdr.cc\
+	../../filesys/filesys.cc\
+	../../filesys/fstest.cc\
+	../../filesys/openfile.cc\
+	../../filesys/pbitmap.cc\
+	../../filesys/synchdisk.cc\
+	../../$(MACHINEDIR)/disk.cc
+
+FILESYS_O =directory.o filehdr.o filesys.o fstest.o openfile.o synchdisk.o\
+	pbitmap.o
+
+FILESYS_O += disk.o
+
+
+NETWORK_H = ../../network/netkernel.h ../../network/post.h ../../$(MACHINEDIR)/network.h
+
+NETWORK_C = ../../network/netkernel.cc ../../network/post.cc ../../$(MACHINEDIR)/network.cc
+
+NETWORK_O = netkernel.o post.o network.o
+
+S_OFILES = switch.o
+
+ifdef SIMOS
+S_OFILES += locore.o
+endif
+
+OFILES = $(C_OFILES) $(S_OFILES)
+
+$(PROGRAM): $(OFILES)
+	$(LD) $(OFILES) $(LDFLAGS) -o $(PROGRAM)
+
+$(C_OFILES): %.o:
+	$(CC) $(CFLAGS) -c $<
+
+switch.o: ../../threads/switch.s
+	$(CPP) $(CPP_AS_FLAGS) $(DEFINES) -P $(INCPATH) $(HOST) ../../threads/switch.s > swtch.s
+	$(AS) $(ASFLAGS) -o switch.o swtch.s
+
+locore.o: ../../simos/locore.s
+	$(CPP) $(CPP_AS_FLAGS) $(DEFINES) -P $(INCPATH) $(HOST) ../../simos/locore.s > lo.s
+	$(AS) $(ASFLAGS) -o locore.o lo.s
+
+depend: $(CFILES) $(HFILES)
+	$(CC) $(INCPATH) $(DEFINES) $(HOST) -DCHANGED -M $(CFILES) > makedep
+	echo '/^# DO NOT DELETE THIS LINE/+2,$$d' >eddep
+	echo '$$r makedep' >>eddep
+	echo 'w' >>eddep
+	echo 'q' >>eddep
+	ed - Makefile < eddep
+	rm eddep makedep 
+	echo '# DEPENDENCIES MUST END AT END OF FILE' >> Makefile
+	echo '# IF YOU PUT STUFF HERE IT WILL GO AWAY' >> Makefile
+	echo '# see make depend above' >> Makefile
+

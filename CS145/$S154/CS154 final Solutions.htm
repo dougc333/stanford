@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0048)http://www-db.stanford.edu/~ullman/hmu/fsol.html -->
+<HTML><HEAD><TITLE>CS154 Midterm Solutions</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Midterm Solutions</H1><B>Question #1</B>: 
+<P>(a) Maybe; (b) Maybe (c) Maybe (d) Certain (e) Certain (f) Never (g) Maybe. 
+<P>An important principle to remember is that a limit on how hard the tail 
+(starting point) of a reduction is does not limit how hard the head is. For 
+example, many people answered ``Certain'' for (a), but saying A is NP-complete 
+does not force B to be NP-complete; B could be harder, even non-RE. 
+<P>(b) is a Maybe because P=NP is still possible. (f) is Never, because if C is 
+in P, then D is in P. Since P is closed under complementation, ~D is in P as 
+well. 
+<P><B>Question #2</B>: 
+<P>(a) Never (b) Maybe (c) Maybe (d) Never (e) Maybe (f) Certain (g) Certain (h) 
+Certain. The same principle as in Q1 explains most of these answers. For (g), 
+note that the RE languages are closed under union (use a nondeterministic TM to 
+guess one of the languages and test that language). Also, in (h), the RE 
+languages are closed under intersection (test one, and if it is ``yes,'' then 
+test the other). 
+<P><B>Question #3</B>: 
+<P>This is probably the world's simplest polynomial-time reduction, but some 
+people still didn't get the sense of what it means to do a reduction, and lost 
+all credit on this question. 
+<P>(a) Turn input expression E into the expression NOT(E). Note, incidentally, 
+that this takes <I>O(n)</I> time, not O(1), as several people claimed, since you 
+have to at least read E to copy it. 
+<P>(b) If there is a truth assignment T that makes NOT(E) false, then T also 
+makes E true. Thus, if NOT(E) is not a tautology, then E is satisfiable. 
+Conversely, if E is satisfiable, the same truth assignment will show NOT(E) is 
+not a tautology. 
+<P>(c) This part proved rather difficult. First, many people forgot the 
+definition of NP-completeness: L is NP-complete if every problem in P 
+polynomial-time reduces to L. Colloquially, we often say ``L is NP-complete if 
+the statement `if L is in P then P=NP' holds.'' In fact, I noticed that several 
+proofs in the reader use that ``definition,'' even though it is really a 
+consequence of the correct definition and may not be equivalent to the real 
+definition (we don't know). I accepted either definition, but still few people 
+got this part right. 
+<P>Using the correct definition, the argument is as follows. We know every 
+language L in NP polynomial-time reduces to SAT. Follow that reduction by the 
+polynomial-time reduction from SAT to NT that we gave in (a). Since the cascade 
+of two polynomial-time reductions is polynomial-time, we see that every L 
+polynomial-time reduces to NT. 
+<P>I also accepted: Suppose NT is in P. Then because of the reduction from (a), 
+SAT is in P. Since SAT in NP complete, every L in NP is in P. Thus, NT-in-P 
+implies P=NP, so NT is NP-complete. 
+<P>I did not accept arguments about how NT was ``at least as hard as'' SAT, 
+since that argument, while intuitively correct, begs the question; it is 
+essentially what the skeptic in (c) does not believe. 
+<P><B>Question #4</B>: 
+<P>Many people tried to place a coordinate or coordinates in single tape cells, 
+or even in the finite control. You can't do either; the first because the tape 
+alphabet becomes infinite and the latter because the state set becomes infinite. 
+Although we might need only a finite number of tape symbols or states at any 
+finite time, we would need symbols or states beyond limit to keep the simulation 
+going. No finite set of states/symbols allows that. 
+<P>(a) There are many ways that work: by rows, by columns, or by diagonals, for 
+example. I'll be clever and make (c) easy by using columns. That is, record on 
+the 1D tape each column, up to the infinite sequence of blanks that must appear 
+in the column, followed by a special marker #. List each column, in order, up to 
+the last column that contains a nonblank. Keep the head of the 1D tape at the 
+same cell as the head of the 2D tape. 
+<P>(b) <TT>#0110#110#0011#0B01#BBB...</TT> 
+<P>(c) Make the required symbol change and move one position right. If we meet 
+the <TT>#</TT>, then shift the tape over one cell and insert a blank there. 
+<P><B>Question #5</B>: 
+<P>(a) The solution must start with 1, because choices 2 and 3 result in an 
+immediate mismatch. But then, the A-string is shorter than the B-string, and 
+there is no pair that allows the length of the A-string to grow faster than that 
+of the B-string. 
+<P>(b) How about (1, 1) for pair 4. Then 4 is a solution. You were rewarded for 
+this ``outside the box'' thinking. If you created a solution with two index 
+integers, you lost 2 points; if your shortest solution was of length 3 or more, 
+you lost 3 points. 
+<P><B>Problem #6</B>: q_0 0110 |- 1q_1 110 |- q_2 1010 |- 1q_0 010 |- 11q_1 10 
+|- 1q_2 100 |- 11q_0 00 |- 111q_1 0 
+<P><B>Question #7</B>: 
+<P>The answer is simple: the reduction is not (known to be) polynomial-time. 
+There were no other answers that I accepted. 
+<P><B>Question #8</B>: 
+<P>(a) (1) contained in (2). (2) generates all strings of 0's and 1's, while (1) 
+doesn't generate strings like 11, or any odd-length string. 
+<P>(b) (1) contained in (2). These almost look the same. (2) is the set of 
+strings of the form <I>0^n1^m</I> such that <I>0 &lt;= m &lt;= n</I>. However, 
+the PDA of (1) cannot reach state <I>p</I> without reading at least one 0 and 
+one 1, so it accepts the set of strings of the form <I>0^n1^m</I> such that <I>1 
+&lt;= m &lt;= n</I>. 
+<P>(c) The languages are equal. 
+<P>(d) (1) contains (2). (1) is all strings of 0's and 1's with two consecutive 
+1's. (2) misses some of these strings, e.g., something ending with 110101. 
+<P>(e) Equal. Both define the language of regular expression (0(0+1)*0)*. 
+<P><B>Question #9</B>: 
+<P>(a) REG. With 5 states, we can keep track of the difference in the number of 
+0's and 1's, as long as that difference is -2, -1, -, 1, or 2. If the difference 
+ever goes outside that range, we can go to a dead state. 
+<P>(b) CF-CF. Here is how a PDA works. Let m be the number of 0's seen so far 
+and n the number of 1's. If <I>m &gt; 2n</I>, we'll have <I>m-2n</I> X's on the 
+stack, and if <I>m &lt; 2n</I> we'll have <I>2n-m</I> Y's on the stack. You 
+should be able to figure out how to adjust X's or Y's as 0's and 1's come in. 
+This strategy lets you design PDA's for both the language and its complement; 
+you just need to decide differently when to accept what you've seen so far. 
+<P>(c) This language is not context-free. 
+<P>(d) CF-CF. The trick is to realize that 1's and 2's can each be regarded as 
+1's. Then the problem becomes like (b), only easier because we can match one 0 
+against one 1, instead of two 1's. 
+<P>(e) Imagine a DFA that has states of the form [i,j,k], where each of i, j, 
+and k are in the range 0 to 100. Use one component to count each of the three 
+input symbols, but top out at 100; i.e., if i=100, and another 0 comes in 
+(assuming i counts 0's), leave i at 100. [100,100,100] is the only accepting 
+state. 
+<P><B>Question #10</B>: <PRE>A
+A	A
+A	A	AB
+AS	A	AB	AB
+AB	AS	AB	AB	AB
+a	b	a	a	a
+</PRE>There was a small flaw in that B is useless --- the result of a last 
+minute change in the grammar. However, I accepted the answer above, as well as 
+the answer in which B doesn't appear. 
+<P><B>Question #11</B>: 
+<P>A surprising number of people tried to do this with a short string <I>z</I> 
+like 00. You need to pick something that is bigger than the pumping-lemma 
+constant, as I was forced to remind you at the exam because someone pointed out 
+a mistake in the reader. I do not have much sympathy for someone who didn't get 
+the point (even if you were taking the exam elsewhere or at another time), 
+because the condition was stated correctly in class, in the notes, and in the 
+``adversary'' rules on p. 232. In fact, Example 4.3 on p. 113 is a proof of 
+nonregularity of the same language. You can get the answer to this question by 
+mimicking the proof there. 
+<P>Specifically, for (a) pick <I>z</I> to be <I>0^p</I> for the the smallest 
+prime <I>p</I> that is at least <I>n+2</I>. For (b), pick <I>i = p-m</I>, where 
+<I>m = |vx|</I>. The answer to (c) is in Example 4.3, where we show that 
+<I>uv^{p-m}wx^{p-m}y</I> has a length that is the product of two factors neither 
+of which is 1. 
+<P><B>Question #12</B>: 
+<P>This problem was intended to test your mettle, and indeed it did. Only one 
+person got full credit, but a number of people got most of the ideas. The 
+biggest mistake was not reading the definitions (a common error that transcends 
+automata theory and is actually seen in the real world). Thus, many people 
+thought ``nice'' meant ``if L is regular then M is regular.'' Actually, it's the 
+other way round. 
+<P>(a) Not nice. The union with 0* can obscure a hard problem and make f(L) be 
+regular even when L isn't. For instance, use L = {0^p | p is a prime}, which we 
+know is not regular. 
+<P>(b) Nice. The homomorphism h(0)=1 and h(1)=0 turns f(L) into L. It also turns 
+L into f(L), but that is not the point you needed to make to prove this function 
+is nice. 
+<P>(c) Nice. L = (f(L)/1)/1, using the operation covered in HW2, problem 6. 
+<P>(d) Not nice. Similarly to (a), we can hide the difficulty by throwing away 
+the first symbol. A commonly chosen example is L = {a0^n | a = 1 and n is prime 
+or a = 0 and n is not prime}. Then f(L) = 0*, which is regular, but it is easy 
+to show L itself is not regular. </P></BODY></HTML>

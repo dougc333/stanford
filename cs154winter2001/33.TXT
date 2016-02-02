@@ -1,0 +1,9 @@
+3. (a) The following CFG recognizes the language:
+ 
+        S -> aSa | bSb | a | b | E (epsilon)
+ 
+   (b) The following CFG recognizes the language:
+ 
+        S -> 0A | B1
+        A -> 0A | 0A1 | E
+        B -> B1 | 0B1 | E

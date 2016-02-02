@@ -1,0 +1,234 @@
+<TITLE>Decidability</TITLE>
+<H1>Decidability</H1>
+
+Let a <I>language</I> be any set of strings (or <I>words</I>) over a
+given finite alphabet. The alphabet could consist of the symbols we
+normally use for communication, such as the ASCII characters on a
+keyboard, including spaces and punctuation marks. In this way any story
+can be regarded as a "word".
+<P>
+<B>Definition:</B> A language is called <I>decidable</I> if there
+exists a method - any method at all - to determine whether a given word
+belongs to that language or not.
+<P>
+<B>Working hypothesis I:</B> Decidability is well defined above.
+<P>
+The hypothesis above appears to be plausible indeed. However, considering
+that the concept of <A HREF=definability.html>definability</A> is not
+well defined, one might wonder whether the situation for decidability
+is different. Church' thesis says that it is, and in a very profound way.
+But in this section I tell what can be concluded without invoking
+Church' thesis, so we stick with the working hypothesis.
+<P>
+An <I>algorithm</I> or <I>recipe</I> for recognizing languages is
+anything that can be fed a word over the given alphabet, and that
+depending on its input either "accepts" the input after some time, or
+"rejects" it, or runs forever without accepting or rejecting its input.
+An algorithm is <I>halting</I>, or <I>guaranteed to halt</I>, if the
+third possibility does not occur, i.e. if it accepts or rejects within
+a finite amount of time.
+Any method that qualifies for the definition of decidability above
+counts as a halting algorithm for recognizing languages.
+<P>
+<B>Proposition:</B> The decidable languages are closed under union
+and intersection.
+<P>
+<B>Proof:</B> Let L and M be languages that are decided by algorithms
+A and B respectively. In order to decide their union (or intersection)
+simply run A and B in parallel on the same given input string until
+they either accept or reject. The input string is accepted iff either
+one (or both, respectively) accepts it, and rejected otherwise.
+<P>
+<B>Proposition:</B> The decidable languages are closed under complementation.
+<P>
+<B>Proof:</B> Upon halting, simply exchange the verdicts accept and reject.
+<P>
+<B>Definition:</B> A language is called <I>semi-decidable</I> (or
+<I>recognizable</I>) if there exists an algorithm that accepts a given
+string if and only if the string belongs to that language. In case the
+string does not belong to the language, the algorithm either rejects
+it or runs forever.
+<P>
+Clearly, any decidable language is recognizable.
+We still have to see whether or not there are recognizable languages that
+are not decidable, and whether or not there are languages that are not
+recognizable.
+<P>
+<B>Proposition:</B> The recognizable languages are closed under union
+and intersection.
+<P>
+<B>Proof:</B> Let L and M be languages that are recognized by algorithms
+A and B respectively. In order to decide their union (or intersection)
+simply run A and B in parallel on the same given input string. The input
+string is accepted when either one (or both, respectively) accepts it.
+<P>
+<B>Theorem:</B> A language is decidable iff both it and its complement
+are recognizable.
+<P>
+<B>Proof:</B> Surely, a decidable language is recognizable.
+Moreover, if a language is decidable, then so is its complement, and
+hence that complement is recognizable.
+<BR>
+Now suppose a language L and its complement are recognizable.
+Let A be a recognizer for L, and B for its complement.
+A decision method for L is obtained by running A and B in parallel on
+a given input string. In case A accepts the string, it is accepted as a
+member of L, and in case B accepts it, it is rejected as member of L.
+One of these outcomes will occur within a finite amount of time.
+<P>
+<B>Definition:</B>
+An <I>enumerator</I> is an algorithm that doesn't take an input, and
+outputs a possibly infinite sequence of strings, allowing repetitions.
+<BR>
+A language is called <I>enumerable</I> if there exists an enumerator
+that outputs exactly those words that belong to that language.
+<P>
+<B>Theorem:</B>
+A language is recognizable if and only if it is enumerable.
+<P>
+<B>Proof:</B>
+Suppose a language L is recognizable. Let A be the algorithm that
+recognizes the strings that belong to L. It is not hard to come up
+with an enumerator that enumerates all pairs (w,n) with w a string and
+n a natural number. Construct an enumerator E for L as follows:
+enumerate all pairs (w,n), and for each such pair, run algorithm A on
+string w for n minutes. If in that time A accepts w, output w as part
+of the enumeration. If it doesn't, just go on with the next pair.
+As every string in L will be accepted by A in a finite amount of time,
+it will be enumerated by E (infinitely often). Strings not accepted by
+A will never be enumerated.
+<BR>
+Now suppose L is enumerable. Let E be an enumerator for L. Define
+algorithm A as follows: given an input string w, run E until it
+outputs w; when that happens accept. In case E will never output w,
+the algorithm A will run forever without accepting w. Therefore A
+accepts exactly those strings that are enumerated by E.
+<P>
+Based on this result, the words "semi-decidable", "recognizable" and
+"enumerable" may be used interchangeably.
+<P>
+<B>Working hypothesis II:</B> An algorithm can be presented as text,
+i.e. as a string of letters from the finite alphabet we use for
+communication.
+<P>
+The hypothesis above is extremely plausible, and can be taken for
+granted. Any method to recognize the strings in a language can be put
+into words.
+<P>
+Now take as alphabet all symbols used for communication, and consider
+the algorithms for recognizing languages over that alphabet.
+Such an algorithm can be represented (or given) by a string over that
+very alphabet. As any string can be fed to an algorithm, one
+distinguishes those algorithms (represented as strings) that accept
+themselves, from those that don't.
+<P>
+<B>Theorem:</B> There exists an unrecognizable language.	
+<P>
+<B>Proof:</B>
+Consider the set L of algorithms (for recognizing languages) -
+represented as strings - that do not accept themselves. I claim that L is
+an unrecognizable language. For assume that there is an algorithm,
+represented as a word w, that recognizes L. Suppose that w accepts
+itself. Then, by the definition of L, w is not in L. But by the
+definition of w recognizing L, w must be in L. This is a contradiction.
+Now suppose that w does not accept itself. Then, by the definition of
+L, w is in L. But by the definition of w recognizing L, w cannot be
+in L. This is a contradiction as well. As both possibilities concerning w
+accepting itself lead to a contradiction, the assumption that their
+exists an algorithm recognizing L must be false. Therefore L is is not
+recognizable.
+<P>
+<B>Working hypothesis III:</B> For each piece of text we can decide
+whether it counts as an algorithm for recognizing languages or not.
+<P>
+The hypothesis above is extremely plausible, for when one cannot
+decide from a piece of text whether it is an algorithm or not, it
+appears impossible to apply that algorithm to recognize a particular
+language, and hence it is no algorithm at all. On the other hand, one
+might argue that there are pieces of text for which it is a judgment
+call to decide whether they are sufficiently precise to count as an
+algorithm. However, it appears that this kind of judgment calls can
+be resolved in variety of ways, and that each of these ways leads to a
+workable version of the hypothesis above.
+<P>
+<B>Theorem:</B> There exists a language that is recognizable but not decidable.
+<P>
+<B>Proof:</B>
+Consider the set M of algorithms (for recognizing languages) -
+represented as strings - that do accept themselves. I claim that the
+language M is recognizable but not decidable. For the first claim,
+construct an algorithm recognizing M as follows: when presented with
+a string w, check if w is an algorithm for recognizing languages or not.
+If not, reject. If so, run the algorithm represented by w on the
+string w. Accept exactly when w accepts. This algorithm clearly
+recognizes M.
+<BR>
+For the second claim, suppose that M would be decidable. Then also its
+complement would be decidable, as well as the intersection of its
+complement with the language of all algorithms for recognizing languages.
+But this intersection is exactly L, the language shown to be
+unrecognizable, and thus surely undecidable, in the previous proof.
+This contradiction shows that M is undecidable.
+
+<HR>
+
+<A NAME=reduction>
+The material above has been treated in class on Monday. The material
+below on Wednesday.
+<P>
+<B>Corollary</B> (the <B>acceptance problem</B>):
+The language AP of all strings (v,w) where v is an algorithm accepting
+the word w is recognizable but undecidable.
+<P>
+<B>Proof:</B> That AP is recognizable is shown in the same way as for
+the language M above. Construct an algorithm recognizing AP as
+follows: when presented with a string (v,w), check if v is an
+algorithm for recognizing languages or not. If not, reject. If so, run
+the algorithm represented by v on the string w. Accept exactly when w
+accepts. This algorithm clearly recognizes AP.
+<BR>
+That AP is undecidable follows by <I>reduction</I> to the
+undecidability of the language M above. Suppose we would have an
+algorithm deciding AP. Then an algorithm for deciding whether a string
+w is in M would simply consist of feeding the string (w,w) to the
+algorithm deciding AP. As M is undecidable, such an algorithm cannot
+exists, and hence AP must be undecidable as well.
+<P>
+<B>Remark:</B> The acceptance problem as formulated above suffers from
+ambiguity: it may be that a given string can be parsed in several
+different ways as a pair (v,w). This happens if there are commas in v or w.
+A solution to this problem is to write any comma "," appearing in v or
+w as "\," and any backslash "\" as "\\". Under this convention the
+comma separating v from w is uniquely recognizable as such.
+<P>
+We say that an algorithm <I>halts</I> on input w if it either accepts
+or rejects the word w (in a finite amount of time). An algorithm is
+<I>halting</I> if it halts on every input.
+<P>
+<B>Corollary</B> (the <B>halting problem</B>):
+The language HP of all strings (v,w) where v is an algorithm halting
+on the input w is undecidable.
+<P>
+<P>
+<B>Proof:</B> by reduction to the undecidability of AP.
+Suppose we would have an algorithm deciding HP. Then an algorithm
+deciding AP is obtained as follows. Feed the input string to HP.
+If it is rejected, reject. Otherwise, the input string must have the
+form (v,w) in which v is an algorithm halting on input w. So run v on
+w and check whether w is accepted. One finds out about that in a
+finite amount of time, because it is known already that v will halt.
+<P>
+<B>Homework:</B> Let K be the set of halting algorithms (for
+recognizing languages) - represented as strings - that accept
+themselves. Show that K is an undecidable language.
+<P>
+<B>Homework:</B> Prove that the language H of all halting algorithms
+is undecidable, i.e. it impossible to decide whether a given algorithm
+halts on all inputs.
+
+<HR>
+<TABLE border=0 width=100%><TR><TD>
+<A HREF=../..>Rob van Glabbeek</A>
+</TD><TD Align=right>
+<A HREF=mailto:rvg@cs.stanford.edu>rvg@cs.stanford.edu</A>
+</TD></TR></TABLE>

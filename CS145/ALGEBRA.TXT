@@ -1,0 +1,348 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - RELATIONAL ALGEBRA
+=========================================================================
+
+Steps in creating and using a database:
+
+(1) Design schema
+
+(2) Create schema (using DDL)
+
+(3) "Bulk load" initial data
+-> Now have populated database
+
+(4) Repeat: execute queries and updates on the database
+
+
+Database Query Languages
+------------------------
+
+- Given a database, ask questions, get data as answers
+
+Ex: Get all students with GPA > 3.7 who applied to Berkeley and San Diego
+    and nowhere else
+
+Ex: Get all humanities departments at campuses in southern California
+    with < 1000 applicants
+
+Ex: Get the campus with highest average accept rate over the last five
+    years
+
+- Some questions are easy to pose, some are not.
+
+- Some questions are easy for DBMS to answer, some are not.
+
+- "Query language" also used to update the database.
+
+
+Relational Query Languages
+--------------------------
+
+Formal: relational algebra, relational calculus, Datalog
+
+Actual: SQL, Quel, Query-by-Example
+
+- In all languages, a query is executed over a set of relations, get a
+  relation as the result.
+
+
+Relational Algebra
+------------------
+
+Example schema:
+
+   Student(ID, name, address, GPA, SAT)        // ID is key
+   Campus(location, enrollment, rank)          // location is key
+   Apply(ID, location, date, major, decision)  // (ID,location) is key
+
+
+1. Simplest query: relation name
+
+   Ex: "Campus" returns all tuples in Campus relation
+
+
+Relational algebra "operators" to combine, filter, etc. the relations:
+
+
+2. SELECT operator
+
+<ex: Students with GPA > 3.7>
+
+
+
+
+<ex: Students with GPA > 3.7 and SAT < 1300>
+
+
+
+
+<ex: Applications to S.C. geology dept>
+
+
+
+
+General case: SELECT_{C}(R)
+
+   where C can include attribute names, constants, comparisons (= <, etc.),
+   and connectives (AND, OR, NOT)
+
+
+3. PROJECT operator
+
+<ex: ID and date of all applications>
+
+
+
+
+-> PROJECT eliminates columns while SELECT eliminates rows.
+
+To do both, combine ("compose") operators:
+
+<ex: name and address of Students with GPA > 3.7 or SAT > 1400>
+
+
+
+
+SELECT produces a relation, PROJECT operates on that relation
+
+
+General case: PROJECT_{A1, A2, ..., Am}(E)
+              where E is any expression producing a relation
+
+
+Q: Is it ever useful to compose two projection operators?
+
+<ex: PROJECT_{enrollment}(PROJECT{location, enrollment}(Campus))
+
+
+
+
+
+Q: Is it ever useful to compose two selection operators?
+
+<ex: SELECT_{SAT < 1300}(SELECT_{GPA > 3.7(Student))
+
+
+
+
+Duplicates:
+
+PROJECT_{date,decision}(Apply) can produce many tuples with same value
+
+- Relational algebra semantics says remove duplicates
+
+- SQL does not -- one difference between formal and actual query
+  languages
+
+
+4. CARTESIAN PRODUCT (cross-product)
+
+Campus X Apply
+
+- Schema of result is schema(Campus) union schema(Apply)
+
+
+
+
+
+
+
+- Naming conflicts: prepend relation name
+
+- One tuple in result for each pair of tuples in Campus, Apply
+
+
+Formally: R1 X R2 = {t | t = <t1,t2> and t1 in R1 and t2 in R2}
+
+
+Q: Looks odd to glue unrelated tuples together.  Why use it?
+
+
+
+
+
+
+
+
+
+<ex: Names and addresses of all students with GPA > 3.7 who applied
+     to CS major and were rejected>
+
+
+
+
+
+
+
+Q: Can we write it in a different way?
+
+
+
+
+
+
+
+5. NATURAL JOIN
+
+- Enforces equality on all attributes with same name
+
+- Eliminates one copy of duplicate attributes
+
+<ex: show schema of Campus JOIN Apply>
+
+
+
+
+
+<ex: Names and addresses of all students with GPA > 3.7 who applied
+     to CS major and were rejected>
+
+
+
+
+
+<ex: Names and addresses of all students with GPA > 3.7 who applied
+     to CS major at campus with enrollment < 15,000 and were rejected>
+
+
+
+
+
+General case:
+
+  E1 JOIN E2 = PROJECT_{schema(E1) U schema(E2)} (
+                 SELECT_{E1.A = E2.A and E1.B = E2.B and ...} (E1 X E2))
+
+
+
+
+
+-> Need to be careful -- suppose we have:
+
+     Student(ID, name, address, GPA, SAT)
+     Campus(name, enrollment, rank)
+
+Student JOIN Campus doesn't make sense
+
+
+6. THETA JOIN
+
+E1 JOIN_{C} E2 = SELECT_{C}(E1 X E2)
+
+
+
+- DBMS often implements theta-join as basic operation
+
+- Use of term "join" in implementation circles usually refers to
+  theta-join or sometimes to cross-product
+
+
+7. UNION
+
+"Subclass" schema:
+
+     Student(ID, name, address, GPA, SAT)
+     OutofStateStudent(ID, name, address, GPA, SAT, state)
+     ForeignStudent(ID, name, address, GPA, SAT, country)
+
+<ex: List name and address of all students>
+
+Q: Can we do it with cross-products or joins?
+
+
+
+
+
+
+
+For union operator:
+
+- Schemas must match exactly
+- Duplicates eliminated (as usual)
+
+<ex: List name and address of all students with GPA > 3.7>
+
+
+
+
+
+8. DIFFERENCE
+
+Back to original schema:
+
+     Student(ID, name, address, GPA, SAT)        // ID is key
+     Campus(location, enrollment, rank)          // location is key
+     Apply(ID, location, date, major, decision)  // (ID,location) is key
+
+<ex: find ID's of all students who didn't apply anywhere>
+
+
+
+
+
+Q: What if want name of students?
+
+
+
+
+
+For difference operator:
+
+- Schemas must match exactly
+
+
+9. INTERSECTION
+
+As expected.  Note E1 INTERSECT E2 = E1 - (E1 - E2)
+
+
+10. RENAMING
+
+Suppose we have:
+
+     Student(ID, name, address)
+     Parent(child-ID, parent-name)
+
+<ex: want list of all student and parent names>
+
+
+
+
+
+<ex: want names of all pairs of students who live at same address>
+<ex: no dups>
+
+
+
+
+
+
+
+
+
+
+
+
+General case: RENAME_{R(A1, A2, ..., Am)}(E) or RENAME_{R}(E)
+
+
+
+Summary of Relational Algebra
+-----------------------------
+
+Basic:
+
+E ::= R
+   |  SELECT_{C}(R)
+   |  PROJECT_{A1, A2, ..., An}(R)
+   |  E1 X E2
+   |  E1 U E2
+   |  E1 - E2
+   |  RENAME_{R(A1, A2, ..., Am)}(E)
+
+Abbreviations:
+
+   |  E1 JOIN E2
+   |  E1 JOIN_{C} E2
+   |  E1 INTERSECT E2

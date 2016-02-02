@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+12
+Small(Cube(a)) FrontOf Tet(e)(Cube(a)) ~ BackOf(x, b)Cube(a) & Cube(b) | Cube(c)Cube(a) % Cube(b) % Cube(e) ?x ~(Cube x)?a (Cube(a) & Small(a))?x Cube(x) & Small(x)?y (Tet(y) & Large(y))@y (Cube(x) $ ~Medium(x))@x (Tet(x) & Small(x) $ FrontOf(x, e))@u ((Tet(u) & Medium(u)) $ BackOf(u, c))

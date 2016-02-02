@@ -1,0 +1,371 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - TRANSACTIONS
+=========================================================================
+
+Transactions are motivated by two of the properties of DBMS's
+discussed way back in our first lecture:
+
+- MULTI-USER database access
+- SAFE from system crashes
+
+
+Multi-user database access
+--------------------------
+
+Most database systems run as servers where multiple clients can
+simultaneously operate on the same database.
+
+<picture>
+
+
+
+
+
+
+
+
+
+
+Problems created by concurrency -> need "concurrency control"
+
+
+Example 1:
+   Client 1 - UPDATE Student SET GPA = 3.7 WHERE ID = 123
+   Client 2 - UPDATE Student SET SAT = 1300 WHERE ID = 123
+
+Each client reads tuple, modifies attribute, writes tuple.
+Possible outcomes w/o concurrency control: one change or both
+
+
+Example 2 (even worse):
+  Client 1 - UPDATE Apply SET decision = 'Y' WHERE location = 'SB'
+  Client 2 - UPDATE Apply SET date = 3/1/00 WHERE date = 2/29/00
+
+Possible outcomes w/o concurrency control: each tuple has one change
+or both, may be inconsistent across tuples
+
+
+Example 3 (more complicated):
+
+  Client 1 - INSERT INTO Archive (SELECT * FROM Apply where decision = 'N')
+             DELETE FROM Apply WHERE decision = 'N'
+
+  Client 2 - SELECT COUNT(*) FROM Apply;
+             SELECT COUNT(*) FROM Archive
+
+
+-> Want to allow a sequence of SQL statements to be executed in isolation
+
+
+Safe from system crashes
+------------------------
+
+Bulk-loading the database, system crashes in the middle - what now?
+
+
+Example 3 Client 1:
+  INSERT INTO Archive (SELECT * FROM Apply where decision = 'N')
+  DELETE FROM Apply WHERE decision = 'N'
+
+System crashes in the middle - what now?
+
+
+Performed lots of update operations and DBMS is buffering the database
+in memory for efficiency.  System crashes - what now?
+
+
+-> Need "crash recovery"
+
+
+Solution: Transactions
+----------------------
+
+A transaction is a sequence of one or more SQL operations treated as a
+unit.
+
+- Transactions appear to run in isolation.
+
+- If the system crashes, each transaction's changes are reflected in
+  the persistent database either entirely or not at all.
+
+
+SQL2 (and Oracle):
+
+- Transaction begins automatically when first SQL command is issued.
+
+- Transaction ends (and new one begins) when command "COMMIT" is issued.
+
+
+
+
+
+
+
+
+Transaction properties
+----------------------
+
+Transactions obey the "ACID properties": Atomicity, Consistency,
+Isolation, Durability
+
+
+(1) Isolation
+-------------
+
+<picture of multiple clients issuing streams of transactions>
+
+
+
+
+
+
+
+
+
+
+Isolation obtained through "serializability": operations within
+transactions may be interleaved but execution must be equivalent to
+some sequential (serial) order.
+
+
+Q: How is this guarantee achieved?
+
+A: Take CS245
+
+
+
+
+- Solves Examples 1,2,3 above
+
+
+Example 4 (variant on 3):
+
+  Client 1 - INSERT INTO Archive (SELECT * FROM Apply WHERE decision = 'N')
+             DELETE FROM Apply WHERE decision = 'N'
+
+  Client 2 - UPDATE Apply SET decision = 'U' WHERE Campus = 'Irvine'
+
+Serialization order can make a big difference.
+This is the application's problem to solve, not the DBMS.
+
+
+(2) Durability
+--------------
+
+If system crashes after transaction commits, all effects of
+transaction remain in database.
+
+Q: Seems obvious, but all DBMS's manipulate the data in memory, so how
+is this guarantee achieved?
+
+A: Take CS245 and CS347
+
+
+
+
+(3) Atomicity
+-------------
+
+Each transaction's operations are executed all-or-nothing, never left
+"half done".
+
+E.g., If system crashes before transaction commits, no effects of
+transaction remain in database - transaction can start over when
+system comes back up.
+
+E.g., If error or exception occurs during a transaction, partial
+effects of the transaction are undone.
+
+
+Q: How is this guarantee achieved?
+
+A: Take CS245
+
+
+
+
+"Transaction rollback" = "transaction abort"
+
+- Undoes partial effects of a transaction
+
+- May be system-initiated or client-initiated
+
+
+Robust application wraps every transaction with exception for
+system-initiated rollback.
+
+
+Client-generated rollback:
+
+   <begin transaction>
+   <get input from user>
+   SQL commands based on input
+   <confirm results with user>
+   IF input = confirm-OK THEN commit ELSE rollback
+
+Note: Rollback only undoes database changes, not other changes (e.g.,
+program variables) or side-effects (e.g., printing to screen,
+delivering cash).
+
+
+(4) Consistency
+---------------
+
+Not considered highly relevant any more.
+
+Idea: Assume all constraints are true at the start of every
+transaction, client guarantees true at the end of every transaction.
+
+
+Weaker properties
+-----------------
+
+There's a lot of overhead to guaranteeing the ACID properties.
+Sometimes full isolation (i.e., full serializability) is not required.
+
+
+Read-only transactions
+----------------------
+
+Can tell system a transaction will not perform writes, system will
+optimize accordingly.
+
+SET TRANSACTION READ ONLY
+
+Many, many transactions and applications fall into this category.
+
+Q: If there are five READ-ONLY transactions and no other transactions,
+what does the system need to do to guarantee serializability?
+
+
+
+
+Dirty reads
+-----------
+
+A data item is "dirty" if it has been written by an uncommitted
+transaction.
+
+
+Example 5:
+
+  Client 1 - <begin transaction>
+             ...
+             UPDATE Student SET SAT = SAT - (.01 * SAT)
+             ...
+             <commit or rollback>
+
+  Client 2 - <begin transaction>
+            ...
+            SELECT Avg(SAT) FROM Student
+            ...
+            <commit or rollback>
+
+Client 2 may only care about approximate average - dirty reads okay
+
+
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+
+
+Committed reads
+---------------
+
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+
+- Cannot read uncommitted writes
+- But still not necessarily serializable
+
+
+Modified Example 5:
+
+  Client 1 - <begin transaction>
+             ...
+             UPDATE Student SET SAT = SAT - (.01 * SAT)
+             ...
+             <commit or rollback>
+
+  Client 2 - <begin transaction>
+            ...
+            SELECT Avg(SAT) FROM Student  // executes before Client 1
+            ...
+            SELECT Avg(SAT) FROM Student  // executes after Client 1
+            ...
+            <commit or rollback>
+
+
+Repeatable read
+---------------
+
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+
+
+Modified example 5: get same average both times
+
+- But still not necessarily serializable!
+
+
+Example 6:
+
+  Client 1 - <begin transaction>
+             ...
+             UPDATE Student SET SAT = SAT - (.01 * SAT)
+             UPDATE Student SET GPA = GPA + (.01 * GPA)
+             ...
+             <commit or rollback>
+
+  Client 2 - <begin transaction>
+            ...
+            SELECT Avg(SAT) FROM Student  // executes before Client 1
+            ...
+            SELECT Avg(GPA) FROM Student  // executes after Client 1
+            ...
+            <commit or rollback>
+
+
+Repeatable read does not apply to INSERT-ed tuples
+
+
+Example 7:
+
+  Client 1 - <begin transaction>
+             ...
+             UPDATE Student SET SAT = SAT - (.01 * SAT)   [a]
+             ...
+             INSERT INTO Student <100 new students>       [b]
+             ...
+             <commit or rollback>
+
+  Client 2 - <begin transaction>
+            ...
+            SELECT Avg(SAT) FROM Student  // executes between [a] and [b]
+            ...
+            SELECT Avg(SAT) FROM Student  // executes after [b]
+            ...
+            <commit or rollback>
+
+
+New inserted tuples are called "phantoms".
+
+
+Summary
+-------
+
+Default: transactions are SERIALIZABLE
+
+Weaker isolation levels increase performance by eliminating overhead
+and increasing concurrency.  From weakest to strongest and the read
+behaviors they permit:
+
+isolation level     dirty reads   nonrepeatable reads    phantoms
+-------------------------------------------------------------------
+READ UNCOMMITTED         Y                 Y                Y
+READ COMMITTED           N                 Y                Y
+REPEATABLE READ          N                 N                Y
+SERIALIZABLE             N                 N                N
+-------------------------------------------------------------------
+
+Can also tell system that a transaction is READ ONLY.
+
+
+-> Much, much more on transactions in CS245 and CS347

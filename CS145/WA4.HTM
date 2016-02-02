@@ -1,0 +1,204 @@
+<title> CS145 Written Assignment 4 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Written Assignment #4
+<br>Due Wednesday May 10</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Problem 1</h4>
+
+Recall from Problem 9 in <a
+href="http://www-db.stanford.edu/~widom/cs145/wa3.html">Written
+Assignment #3</a> the relation <tt>Flight(from,to,cost,airline)</tt>,
+containing nonstop flights from one city to another.  We were
+interested in part (c) of that problem in writing a single SQL query
+that would return the cheapest cost of flying between each pair of
+cities, regardless of the number of stops.  While it is not possible
+to write such a query in SQL2, it is possible to compute the answer
+using SQL in conjunction with a programming language, and that's your
+task in this problem.  You may use SQL embedded within a C-like
+language as presented in Section 7.1 of the textbook, you may use a
+PL/SQL-like syntax, or you may use ODBC/JDBC-style dynamic SQL.
+Regardless, we are not particularly concerned with correct syntax, and
+you can certainly "wing it" on syntax for things like checking for end
+conditions.  We're interested primarily in your overall algorithm, and
+the interaction between programming constructs and SQL.
+
+<h4>Problem 2</h4>
+
+This problem is a restatement of Exercise 7.2.3 on page 389 of the
+textbook.  Consider the four operations in parts (a), (b), (c), and
+(d) of Exercise 7.2.1 on page 388 of the textbook.  For this problem
+you only need to consider the English descriptions of the operations -
+you need not rewrite them in SQL unless it helps you.
+
+<p><b>(a)</b> Suppose a transaction <tt>T</tt> executes the operation
+in part (a) of Exercise 7.2.1, and any number of other transactions
+may at the same time be executing any number of all four operations.
+Briefly describe in English a behavior of <tt>T</tt>'s operation that
+can occur if all transactions are running with isolation level
+<tt>READ</tt> <tt>UNCOMMITTED</tt> that cannot occur if all
+transactions are running with isolation level <tt>SERIALIZABLE</tt>.
+
+<p><b>(b)</b> Same as part (a) except suppose transaction <tt>T</tt>
+executes the operation in part (b) of Exercise 7.2.1.
+
+<p><b>(c)</b> Same as part (a) except suppose transaction <tt>T</tt>
+executes the operation in part (c) of Exercise 7.2.1.
+
+<p><b>(d)</b> Same as part (a) except suppose transaction <tt>T</tt>
+executes the operation in part (d) of Exercise 7.2.1.
+
+<h4>Problem 3</h4>
+
+<I>In this problem you will be graded on simplicity of your examples
+as well as correctness.</I>
+
+<p>Consider one of our favorite relational schemas - <tt>Product</tt>,
+<tt>PC</tt>, <tt>Laptop</tt>, and <tt>Printer</tt> - e.g., appearing
+in Exercise 6.6.2 of the textbook on the top of page 358.
+
+<p><b>(a)</b> Give an example of two transactions <tt>T1</tt> and
+<tt>T2</tt> operating on this database.  Assume that transaction
+<tt>T1</tt> has isolation level <tt>SERIALIZABLE</tt>.  (But note that
+true serializability is guaranteed only when <i>all</i> transactions
+have this isolation level.)  For transaction <tt>T2</tt>, consider
+isolation levels <tt>READ</tt> <tt>UNCOMMITTED</tt> and <tt>READ</tt>
+<tt>COMMITTED</tt>.  Design your transactions so that there is some
+result allowed when <tt>T2</tt> uses <tt>READ</tt>
+<tt>UNCOMMITTED</tt> that is not allowed when <tt>T2</tt> uses
+<tt>READ</tt> <tt>COMMITTED</tt>.  Assume that transactions
+<tt>T1</tt> and <tt>T2</tt> both commit.  More specifically, give:
+
+<ol>
+
+<p><li> The two transactions <tt>T1</tt> and <tt>T2</tt>, each
+specified as a sequence of one or more SQL statements followed by
+<tt>commit</tt>.  Your transactions should be as simple as possible;
+e.g., they certainly do not need to involve all of the relations in
+the schema.
+
+<li> A simple initial set of data for the relations used by your
+transactions (the initial state).
+
+<li> The state of the data after <tt>T1</tt> and <tt>T2</tt> have both
+executed such that this final state could result when <tt>T2</tt> uses
+<tt>READ</tt> <tt>UNCOMMITTED</tt>, but could not result when
+<tt>T2</tt> uses <tt>READ</tt> <tt>COMMITTED</tt>.  Also specify the
+interleaving (ordering) of the statements between the two transactions
+that produced this final state.
+
+</ul>
+
+<p><b>(b)</b> Do part (a) again, except this time for transaction
+<tt>T2</tt> consider isolation levels <tt>READ</tt> <tt>COMMITTED</tt>
+and <tt>REPEATABLE</tt> <tt>READ</tt>, where the final state could
+result when <tt>T2</tt> uses <tt>READ</tt> <tt>COMMITTED</tt>, but
+could not result when <tt>T2</tt> uses <tt>REPEATABLE</tt>
+<tt>READ</tt>.
+
+<p><b>(c)</b> Do part (a) again, except this time for transaction <tt>T2</tt>
+consider isolation levels <tt>REPEATABLE</tt> <tt>READ</tt> and
+<tt>SERIALIZABLE</tt>, where the final state could result when
+<tt>T2</tt> uses <tt>REPEATABLE</tt> <tt>READ</tt>, but could not
+result when <tt>T2</tt> uses <tt>SERIALIZABLE</tt>.
+
+<h4>Problem 4</h4>
+
+<I>In this problem you will be graded on simplicity of your example as
+well as correctness.</I>
+
+<p>Continue with the schema used in Problem 3.  Suppose multiple
+clients are operating on the database, and all of their transactions
+use isolation level <tt>SERIALIZABLE</tt>.  Give a realistic example
+where the final state of the database depends on the order in which
+concurrent transactions are serialized.  Please specify:
+
+<ol>
+
+<p><li> An initial state for one or more relations.
+
+<li> Transactions issued by two clients concurrently (one
+transaction per client, one or more SQL statements per transaction).
+
+<li> Two different valid final states of the relations, depending
+on which transaction executed first.
+
+</ol>
+
+<h4>Problem 5</h4>
+
+Consider a set of users <tt>U</tt>, <tt>V</tt>, <tt>W</tt>,
+<tt>X</tt>, and <tt>Y</tt>.  Suppose that user <tt>U</tt> creates a
+relation <tt>R(A)</tt> and is thus the owner of relation <tt>R</tt>.
+Now suppose the following set of statements is executed in order:
+
+<p>
+<TABLE BORDER=1>
+<tr><th>stmt<th>user<th>operation<tr>
+<td>1<td><tt>U</tt><td><tt>grant select on R to V,W with grant option</tt><tr>
+<td>2<td><tt>V</tt><td><tt>grant select on R to W</tt><tr>
+<td>3<td><tt>W</tt><td><tt>grant select on R to X,Y</tt><tr>
+<td>4<td><tt>U</tt><td><tt>grant select on R to Y</tt><tr>
+<td>5<td><tt>U</tt><td><tt>revoke select on R from V restrict</tt><tr>
+<td>6<td><tt>U</tt><td><tt>revoke select on R from W cascade
+</table>
+
+<p>Show the grant diagram after steps 4, 5, and 6.  Since all of the
+nodes in the diagrams will be for privilege "<tt>select on R</tt>",
+you may omit writing it in each node.
+
+<h4>Problem 6</h4>
+
+<i>Warning: this is your open-ended question for this assignment,
+although we expect that most students can come up with some solution,
+and some of you will come up with the best solution.</i>
+
+<p>There's a type of database security that was not covered in class
+or in the textbook called "statistical authorization".  With
+statistical authorization, some users may be permitted to retrieve
+only aggregate information from the database, e.g., average salaries
+but not individual salaries.  Furthermore, to prevent users from
+applying aggregates to very small numbers of tuples (such as the
+average of one salary!), the system requires that a certain minimum
+number of tuples contribute to each aggregate result.  Finally, to
+prevent the user from using intersection properties to deduce a single
+value (e.g., the user could ask for <tt>X=sum(A1,A2,A3,A4,A5)</tt>,
+then ask for <tt>Y=sum(A2,A3,A4,A5)</tt>, then compute <tt>X-Y</tt>
+to deduce the value of <tt>A1</tt>), the system may require that the
+tuples participating in multiple queries issued by the same user have
+a small intersection.  In this problem you will explore how, even with
+such security measures, specific information can still be deduced from
+the database.
+
+<p>Here's the problem.  Consider the simple relation
+<tt>student(ID,GPA)</tt>.  Suppose that, for security reasons, the
+following restrictions are made on user <tt>U</tt>'s set of queries
+against this relation:
+
+<ul>
+
+<p><li> The result of every query must be a single aggregate
+value - a SQL aggregate function applied to one of the attributes of
+the relation.
+
+<li> At least 4 different tuples must be used in the aggregate to
+produce each query's result.
+
+<li> For any two queries issued by user <tt>U</tt>, the sets of tuples
+used to produce the two query results must have an intersection no
+larger than 2.
+
+</ul>
+
+<p>Assume that student IDs are in the range 1 to 50, and that
+attribute GPA is of type <tt>float</tt>.  Give a set of queries that
+satisfies the above restrictions, and from whose answers you can
+determine the GPA of the student with <tt>ID=1</tt>.  Write the
+queries in SQL, then show the computation that produces the GPA for
+the student with <tt>ID=1</tt> from the query results.  Use as few
+queries as you can.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

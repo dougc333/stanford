@@ -1,0 +1,10 @@
+4.0 
+WNDS
+Sent
+21
+@x [Tet(x) | ?y LeftOf(x, y)]
+;Put a prenex form of 1 in this space.@x [(Cube(x) & ?y Smaller(y, x)) $ Medium(x)]?x Cube(x) % @x Small(x)@v [?x Larger(x, v) % ?x LeftOf(x, v)]@x @y [(x # y & Cube(x) & Cube(y)) $ ?z Between(z, y, x)]?x [Cube(x) $ @x Small(x)]
+?x [Cube(x) $ @x Cube(x)]
+;This one is a bit tricky.  What is the simplest prenex 
+;sentence you can find that is logically equivalent.   ~?x [Cube(x) & @y (Tet(y) $ ?z Between(z, x, y))] ~ [@x Tet(x) % @y Small(y)]~[@x Cube(x) | @x Tet(x) | @x Dodec(x)];Sorry, that's all the sentences.
+;You could make up some more for practice, though.

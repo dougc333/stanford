@@ -1,0 +1,422 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - ENTITY-RELATIONSHIP MODEL
+=========================================================================
+
+Database Design
+---------------
+
+Steps in building a database for an application:
+
+1. Understand real-world domain being captured
+
+2. Specify it using a database design model
+
+3. Translate specification to model of DBMS
+
+4. Create schema using DBMS commands (DDL)
+
+5. Load data
+
+
+Real-world domain
+      to
+Design data model  (entity-relationship E/R, object-oriented OO)
+      to
+DBMS data model    (relational, object-relational, OO)
+
+
+- Design-to-DBMS step may be automated (e.g., E/R to relational)
+- Middle stage sometimes skipped: directly to relational model
+
+
+Real-world domain in book: movies
+Real-world domain for lectures: UC admissions
+Real-word domain for programming project: you pick
+
+
+Entity-Relationship (E/R) Model
+-------------------------------
+
+- Historically very popular
+- "Watered down" object-oriented design model
+- Graphical
+- Not implemented by any DBMS
+
+
+ENTITY SETS: Like classes
+
+Set of ENTITIES (objects)
+
+<ex: Students and Campuses>
+
+
+
+
+
+
+Entities have ATTRIBUTES
+
+<add attributes to example>
+
+
+
+
+
+
+
+
+
+
+
+
+Can informally think of entities as records
+(Will formalize after studying relational model)
+
+<show records for example>
+
+
+
+
+
+
+
+
+KEYS: no two entities may agree on all key attributes
+
+- Underline
+- We will require keys on all entity sets
+
+<add keys to example>
+
+
+
+
+
+
+
+
+RELATIONSHIP SETS: tie together entities from different entity sets
+
+<ex: add Counties, relationship sets Apply and Located>
+
+
+
+
+
+
+
+
+
+
+
+
+RELATIONSHIP: one element of a relationship set
+(Distinction is not made clearly in the textbook)
+
+Think of relationship as connection between entities, or as a record
+
+<examples of each>
+
+
+
+
+
+
+
+
+
+
+-> Not all entities need to participate in relationships.
+
+Relationships can have ATTRIBUTES
+
+<add attributes to example>
+
+
+
+
+
+
+
+
+
+
+MULTIPLICITY of relationships (entity sets E1 and E2)
+
+(1) ONE-ONE: Each entity in E1 is related to at most one entity in E2
+             and vice-versa
+
+<abstract picture>
+
+
+
+
+
+
+
+<notation>
+
+
+
+
+
+Q: Examples from application?
+
+
+
+
+
+(1) MANY-ONE: Each entity in E1 is related to at most one entity in E2
+    (converse is ONE-MANY)
+
+<abstract picture>
+
+
+
+
+
+
+
+<notation>
+
+
+
+
+
+Q: Examples from application?
+
+
+
+
+
+(1) MANY-MANY: Each entity in E1 may be related to 0 or more entities
+    in E2 and vice-versa
+
+<abstract picture>
+
+
+
+
+
+
+
+<notation>
+
+
+
+
+
+Q: Examples from application?
+
+
+
+
+
+Relationship set involving only one entity set
+
+<ex: Students entity set with Sibling relationship set>
+<show as connections>
+
+
+
+
+
+
+
+
+
+May have ROLES
+
+<add roles to example>
+<show as labeled records>
+
+
+
+
+
+
+
+
+
+MULTIWAY RELATIONSHIP SETS
+
+<ex: Students, High Schools, Campuses + Apply relationship set>
+
+
+
+
+
+
+
+
+
+
+
+
+How about MULTIPLICITY?
+
+Formal meaning of arrow pointing to entity set E in multiway
+relationship: pick one entity from each other set, together they must
+be related to at most one entity in E
+
+<ex: arrow to Students>
+
+<ex: change relationship set to TopScholar>
+
+Q: What if we also have an arrow to Campuses?
+
+
+
+
+
+
+Q: What if we have an arrow to High Schools only?
+
+
+
+
+
+
+<change back to ApplyFromTo>
+
+Alternatives to multiway relationships:
+
+(1) First alternative: add more relationships
+
+
+
+
+
+
+Q: Advantages and disadvantages of this design?
+
+
+
+
+
+
+
+
+(2) Second alternative: change relationship set to entity set
+
+
+
+
+
+
+
+
+
+
+Q: Advantages and disadvantages of this design?
+
+
+
+
+
+
+
+
+
+Q: In last example, what is key for ApplyFromTo?
+
+
+
+WEAK ENTITY SET: Entity set without its own key
+
+<Simpler ex: Students, Folders, Officers>
+
+
+
+
+
+
+
+
+
+
+Weak entity sets must have many-one (or one-one) relationship with a
+strong entity set, called WEAK RELATIONSHIP SET
+
+- "value" of weak entity is attributes + key for related strong entity
+   set
+
+<show in example>
+
+
+
+
+- key for weak entity set is key for related strong entity set + any
+  underlined attributes
+
+<show in example>
+
+
+
+
+- weak relationship sets cannot have attributes
+
+Q: What if we want date attribute?
+
+
+
+
+
+** In general, a weak entity set may have (weak) relationships with
+   several strong entity sets; values and keys for weak entities are
+   constructed from all of the strong entity sets together.  See book.
+
+
+"SUBCLASSES" in E/R
+
+<ex: Students, InStates, OutofStates, add APStudents>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Can think of objects as being constructed from multiple entities
+  connected by Is-a relationships
+
+- Is-a relationships are one-one implicitly
+
+
+Summary of E/R Model
+-------------------
+
+- Entity sets with attributes and keys
+
+
+
+- Relationship sets with attributes
+
+
+
+- Multiplicity of relationship sets
+
+
+
+- Roles
+
+
+
+- Multiway relationship sets
+
+
+
+- Weak entity sets
+
+
+
+- "Is-a" relationships

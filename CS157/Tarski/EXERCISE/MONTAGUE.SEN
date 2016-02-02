@@ -1,0 +1,15 @@
+4.0 
+WNDS
+Sent
+10
+@x (Cube(x) $ _______________________ )
+;@x (Cube(x) $ x-is-to-the-left-of-every-tet)@x ((Cube(x) & Small(x)) $ _____________ )
+;@x ((Cube(x) & Small(x)) $ x-is-in-back-of-a-large-cube)?x (Cube(x) & _____________________ )
+;?x (Cube(x) & x-is-in-front-of-every-tet)?x (Cube(x) & Large(x) & _______________ )
+;?x (Cube(x) & Large(x) & x-is-in-front-of-a-small-cube)@x ~(______________________ )
+;@x ~(x-is-larger-than-everything)@x ((Cube(x) &  ____________________ ) $ Large(x))
+;@x ((Cube(x) &  x-is-in-front-of-every-tet ) $ Large(x))@x ( ___________________________ $ Small(x))
+;@x ( x-is-to-the-right-of-a-large cube $ Small(x))@x ( (_________ & ________ ) $ ~Large(x))
+;@x ( (x-is-in-back-of-a-cube & x-is-in-front-of-a-cube) $ ~Large(x))@x (________________________ $ Cube(x))
+;@x (there-is-nothing-in-back-of-x $ Cube(x))@x (Dodec(x) $ ______________________ )
+;@x (Dodec(x) $ x-is-smaller-than-some-tet)

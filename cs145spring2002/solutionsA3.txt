@@ -1,0 +1,361 @@
+Solutions to hw3:
+
+1.
+a) A -> B, C -> B, AC-> B
+b)  A ->> B, c ->> B
+
+2. (3.6.4 in the textbook)
+
+R(A,B,C)
+A|B|C
+-----
+1|k|NY
+2|k|CA
+
+
+
+
+S(A,B)
+A|B
+---
+1|k
+2|k
+
+
+
+T(B,C)
+B|C
+----
+k|NY
+k|CA
+
+
+
+S Join T
+A|B|C
+-----
+1|k|NY
+1|k|CA   *
+2|k|NY   *
+2|k|CA
+
+
+Obviously the * tuples in the join are not
+included in the original table.
+This is because joining T and S on a non-key
+attribute B results in all the different combinations of A and C (for a given B)
+even though in the original table R not all combinations
+of A and C appeared.
+
+
+
+3. 
+a)
+
+Here's a very simple table keeping information about students taking classes from
+professors, and their final grades:
+ 
+University(StudentName, studentID, studentAddr, classNo, ClassTitle, enrollment, InstructorName, InstructorID)
+
+It is reasonable to assume the following functional dependences:
+studentID -> studentName, studentAddr
+classNo ->classTitle, enrollment
+InstructorID -> InstructorName
+Note that we want to allow for two instructors teaching the same course (e.g cs155)
+
+Based on the above FDs, we determine the key of the table:
+
+{StudentID, ClassNo, InstructorID}
+
+b)
+
+It is easy to see that the above FDs violate the BCNF rule, since the left parts are not
+a superkey of the original table.
+
+We choose to decompose the original database according to the first violating FD (randomly).
+Taking the closure of StudentID gives us
+studentID -> studentName, studentAddr
+
+so we have the following new schema:
+
+Student(studentID, studentName, studentAddr)
+CourseInfo(studentID, classNo, classTitle, enrollment, InstructorID, InstructorName)
+
+Now we apply the rules of section 3.5.7 in order to identify what FDs hold from the
+original set of FDs and involve only attributes of a single table (Student or CourseInfo but not
+both). In this example we discover that all the FDs from earlier still apply to the
+new tables, so we have:
+for Student Table
+StudentID -> studentName, studentAddr
+
+and for CourseInfo :
+classNo -> classTitle, enrollment
+InstructorID -> InstructorName
+
+
+Notice that CourseInfo has classNo, InstructID, StudentID as its key and so we again find that
+CourseInfo is not in BCNF. Repeating this process again by splitting CourseInfo according to
+the first violating FD we find the following tables:
+
+Student(studentID, studentName, studentAddr)
+Courses(classNo, ClassTitle, enrollment)
+Teaching(classNo, InstructorID, InstructorName, studentID)
+
+Applying again the algorithm of section 3.5.7, we determine that the FDs for the
+new tables are the same as before:
+
+
+for Student Table
+StudentID -> studentName, studentAddr
+
+and for Course :
+classNo -> classTitle, enrollment
+
+and for Teaching:
+InstructorID -> InstructorName
+
+Finally, we recognize that Teaching has InstructorID, studentID, classNo as its key
+so Teaching is not in BCNF. We split the table in two as above and the final
+schema is:
+
+Students(studentID, studentName, studentAddr)
+Courses(classNo, ClassTitle, enrollment)
+Instructors(InstructorID, InstructorName)
+ClassTaking(classNo, instructorID, studentID)
+
+
+c)
+Assume the above schema (which is in BCNF) and notice that our intention is to allow for
+classes with two or more instructors giving (in the style of cs155).
+
+In that case, the following MVD holds for the table classTaking:
+classNo ->> studentID
+ie. for a given class, every combination of student and instructor should exist
+in the table, since all the students attend all the instructors' lectures.
+
+The key for the table ClassTaking is:
+classNo, InstructorID, studentID
+
+d)
+Notice that ClassTaking violates 4NF. Applying a similar methodology for
+spliting the table we get:
+Teaching(classNo, InstructorID)
+Attending(classNo, studentID)
+with no non-trivial MVDs in them.
+
+
+
+4.
+
+A|B|C
+-----
+1|a|CA
+2|a|NY
+1|b|NY
+
+obviously A,B -> C
+but it's false that A->C (look at the first and third tuples)
+and it's false that B->C (look at the first and second tuples)
+
+
+5.
+
+A|B|C
+-----
+1|a|CA
+1|b|CA
+
+is a simple example where A ->> B
+but where it's false that A -> B
+
+
+A|B|C
+-----
+1|a|CA
+1|b|NY
+1|a|NY
+1|b|CA
+2|c|TX
+
+is a longer one.
+
+
+
+6.
+
+Suppose A -> BB holds, CC -> D holds, and CC is a subset of BB. Then for all tuples t and u, 
+if t[A]=u[A] then t[BB]=u[BB]. Since CC is a subset of BB then
+t[BB]=u[BB] implies t[CC]=u[CC].
+But if t[CC]=u[CC] then according to CC->D we must also have that
+t[D]=u[D]. Therefore, we conclude that
+for all tuples t, u where
+t[A]=u[A] it is implied that t[D]=u[D]. But this is the definition of A->D.
+
+
+
+7.
+Given the facts: 
+   A -> BB, CC -> D, CC is a subset of BB
+
+we compute the closure (A)+ as follows:
+
+(A)+ includes A
+Then it must also include BB, according to the first FD.
+But then it already includes CC which is a subset of BB.
+Thus, (A)+ also includes D according to the second FD.
+
+All in all,
+(A)+ = {A, BB, D}
+and thus A->D
+
+
+8.
+
+A -> BB
+implies that
+A -> B sub i, for each i designating a different attribute in BB (splitting)
+
+which implies that
+A-> B sub i, for just those i designating an attribute that is in CC (and BB) 
+
+Which implies that
+A -> CC  (combining)
+
+which implies that
+A -> D (transitive, applied on A->CC and CC->D)
+
+
+
+Challenge Problems.
+
+1.
+Suppose the following :
+AA ->> BB (1) 
+and 
+AA ->> CC (2)
+hold. 
+
+Let's call EE the attributes both in BB and CC, DD = BB minus CC, and FF = CC minus BB
+and let's assume that there exist t and u in the table such that t[AA]=u[AA]
+
+
+                               C1,  C2, ...Cm      Cm+1,Cm+2...Cm+p     
+                               ====================================
+                D1, D2, ...Dk  E1,  E2, ...Em  
+                =============  ===============  
+A1, A2, ...An,  B1, B2, ...Bk, Bk+1,Bk+2...Bk+m,   F1,  F2, ...  Fp
+=============   ================================  ==================
+a1, a2, ...an,  b1, b2, ...bk, e1,  e2, ...em,     d1,  d2, ...  dp      <= t
+
+a1, a2,... an,  b1',b2',...bk',e1', e2',...em',    d1', d2',...  dp'     <= u
+
+
+Then according to (1) we also have to at least include in the table the following tuples v1, and v2
+(in reality, all the combinations of BBs and FFs, for a given AA):
+
+                               C1,  C2, ...Cm      Cm+1,Cm+2...Cm+p     
+                               ====================================
+                D1, D2, ...Dk  E1,  E2, ...Em  
+                =============  ===============  
+A1, A2, ...An,  B1, B2, ...Bk, Bk+1,Bk+2...Bk+m,   F1,  F2, ...  Fp
+=============   ================================  ==================
+a1, a2, ...an,  b1, b2, ...bk, e1,  e2, ...em,     d1,  d2, ...  dp      <= t
+
+a1, a2, ...an,  b1',b2',...bk',e1', e2',...em',    d1', d2',...  dp'     <= u
+
+a1, a2, ...an,  b1, b2, ...bk, e1,  e2, ...em,     d1', d2', ... dp'     <= v1 (agrees with t[BB] and u[FF])
+
+a1, a2, ...an,  b1',b2',...bk',e1', e2',...em',    d1,  d2, ...  dp      <= v2 (agrees with u[BB] and t[FF])
+...
+
+
+Now, according to (2), we must include at least the following tuples v3-v4 (in reality, all the combinations
+of CCs and DDs, for a given AA):
+
+                               C1,  C2, ...Cm      Cm+1,Cm+2...Cm+p     
+                               ====================================
+                D1, D2, ...Dk  E1,  E2, ...Em  
+                =============  ===============  
+A1, A2, ...An,  B1, B2, ...Bk, Bk+1,Bk+2...Bk+m,   F1,  F2, ...  Fp
+=============   ================================  ==================
+a1, a2, ...an,  b1, b2, ...bk, e1,  e2, ...em,     d1,  d2, ...  dp      <= t
+
+a1, a2, ...an,  b1',b2',...bk',e1', e2',...em',    d1', d2',...  dp'     <= u
+
+a1, a2, ...an,  b1, b2, ...bk, e1,  e2, ...em,     d1', d2', ... dp'     <= v1
+
+a1, a2, ...an,  b1',b2',...bk',e1', e2',...em',    d1,  d2, ...  dp      <= v2
+
+a1, a2, ...an,  b1',b2',...bk',e1,  e2, ...em,     d1,  d2, ...  dp      <= v3  (agrees with t[CC] and u[DD])
+
+a1, a2, ...an,  b1, b2, ...bk, e1', e2',...em',    d1', d2',...  dp'     <= v4  (agrees with u[CC] and t[DD])
+
+a1, a2, ...an,  b1, b2, ...bk, e1,  e2, ...em,     d1', d2',...  dp'     <= v5  (agrees with v1[CC] and t[DD])
+
+a1, a2, ...an,  b1',b2',...bk',e1', e2',...em',    d1,  d2, ...  dp      <= v6  (agrees with v2[CC] and u[DD])
+
+...
+
+
+
+
+Thus, when (1) and (2) hold, and for the pair of tuples t, u where t[AA]=v[AA] there exists
+a tuple v4 such that v4[AA]=t[AA] and v4[DD]=t[DD] and v4=u[CC] which is the definition for
+
+AA->> DD  =  AA->> (BB minus CC)
+
+
+
+2.
+
+A high level description of the algorithm is given first :
+Let X be the set of FD's not implied by the given FD's. We claim that X is 
+implied by the set Y of n FD's: An -> An-1, An-1 -> An-2, ..., A2 -> A1. 
+(Notice that they're the 'reverse' of the given FDs)
+
+Given this claim, we just need a relation that violates all of these FD's. 
+We can violate An -> An-1 with two tuples that agree on An and disagree on 
+An-1, and similarly for An-1 -> An-2 (one of the tuples for violating An -> 
+An-1 can be recycled to violate An-1 -> An-2), etc.
+
+
+
+Even better, you can give an "instance" (with actual numbers) that satisfies
+the given conditions.  A "minimal" solution is simple:  
+
+  A1  A2  A3  A4 ... An
+-------------------------
+  1  1   1   1   ... 1
+  2  1   1   1   ... 1
+  3  2   1   1   ... 1
+  4  3   2   1   ... 1
+  ....
+
+  n  n-1 n-2 n-3 ... 1
+
+
+
+For example, for n=5, the solution is:
+  1 1 1 1 1
+  2 1 1 1 1
+  3 2 1 1 1
+  4 3 2 1 1
+  5 4 3 2 1
+
+This satisfies the FD A_i -> A_j if and only if i < j.
+
+
+
+3.
+
+R(A,B,C,D)
+set F (of FDs):  A->B, B->C
+
+decomposition based on A->B:   R1(A,B), R2(A,C,D)
+
+Now, if we find all FDs that follow from the original set F, we should get
+A->C, indicating that R2 needs further decomposition.  However, if we
+simply take the original set of FDs for R, we do not have A->C, so we will
+not decompose R2, therefore we produce a final set of relations that are
+not in BCNF (R2 is not BCNF).
+

@@ -1,0 +1,253 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                  The EtherLink 10 ISA NIC Family
+               Artisoft LANtastic Installation Notes
+
+
+Artisoft LANtastic Version 6.0
+------------------------------
+This procedure describes how to install Artisoft LANtastic 6.0 using the
+3Com NDIS 2.01 driver ELNK3.DOS.  To install LANtastic from the DOS prompt
+or from Windows, follow these steps:
+
+
+Installing from the DOS Prompt
+------------------------------
+1.  Insert Artisoft's LANtastic Install Disk 1 of 4 in the floppy drive.
+
+2.  Type:
+
+    INSTALL
+
+    This launches Windows and starts the installation of LANtastic.
+
+3.  Go to step 4 under the "Installing from Windows" procedure and
+    continue with the remaining steps.
+
+
+Installing from Windows
+-----------------------
+1.  Launch Windows, if it is not already opened.
+
+2.  Select Run from the Windows File menu.
+
+3.  Type:
+
+    A:\INSTALL
+
+    If you are using a different drive, use the letter for that drive.
+
+4.  Follow the instructions and answer the questions that appear.
+
+5.  Select NDIS Support for Network Adapters in the Select Network Adapter
+    window.
+
+6.  When prompted, remove the LANtastic diskette, insert the EtherDisk #2
+    diskette provided with the 3Com EtherLink 10 ISA NIC, and press [Enter].
+
+    The NDIS driver is copied to your hard drive.
+
+7.  When prompted, reinsert the LANtastic Install Disk 1 in the drive.
+
+8.  Answer the questions concerning your PC name and drives based on your
+    configuration.
+
+
+Changes and Additions to PC Startup Files
+-----------------------------------------
+The following lines are added or changed in these PC startup files:
+
+
+AUTOEXEC.BAT File
+-----------------
+call C:\LANTASTI\STARTNET.BAT
+
+
+CONFIG.SYS File
+---------------
+DEVICE=C:\LANTASTI\PROTMAN.DOS /I:C:\LANTASTI
+DEVICE=C:\LANTASTI\ELNK3.DOS
+
+
+PROTOCOL.INI File
+-----------------
+[PROTMAN]
+  DRIVERNAME = PROTMAN$
+  DYNAMIC = YES
+
+[ELNK3_NIF]
+  DRIVERNAME = ELNK3$
+
+
+STARTNET.BAT File
+-----------------
+C:
+cd C:\LANTASTI
+
+SET LAN_CFG=C:\LANTASTI
+
+rem If LANtastic is disabled, skip everything.
+IF EXIST DISABLED GOTO :STARTNET_DONE
+
+@echo ===== Begin LANtastic configuration =====
+
+PATH C:\LANTASTI;C:\LANTASTI\NW;%PATH%
+SET LAN_DIR=C:\LANTASTI.NET
+SET NWDBPATH=C:\LANTASTI\NW
+
+LOADHIGH AI-NDIS BIND_TO=ELNK3_NIF
+
+AILANBIO @STARTNET.CFG
+
+REDIR ACME1111CT @STARTNET.CF ======> Just an example !!!
+
+IF EXIST NOSHARE GOTO :NOSHARE
+SERVER C:\LANTASTI.NET @STARTNET.CFG
+NET LOGIN \\ACME1111CT ======> Just an example !!!
+GOTO :CONTINUE
+
+:NOSHARE
+@echo LANtastic server was installed but turned off.
+
+:CONTINUE
+
+rem If CONNECT.BAT exists, run it to set up connections.
+IF EXIST CONNECT.BAT GOTO :CONNECT
+
+rem Otherwise set up connections specified
+rem  during install.
+
+NET LOGIN/wait \\ABC        ======> Just an example !!!
+NET USE D: \\ABC\C-DRIVE    ======> Just an example !!!
+NET LPT TIMEOUT 10
+GOTO :CONNECT_DONE
+
+:CONNECT
+@echo Setting up LANtastic connections from CONNECT.BAT
+rem Build CONNECT.BAT like this:
+rem        "NET SHOW/BATCH > C:\LANTASTI\CONNECT.BAT"
+rem   (or run the batch file SETNET.BAT)
+call CONNECT.BAT
+
+:CONNECT_DONE
+NET POSTBOX
+
+@echo ===== End LANtastic configuration =====
+
+:STARTNET_DONE
+cd \
+
+
+SYSTEM.INI File (Windows)
+-------------------------
+[boot]
+shell=progman.exe
+network.drv=C:\LANTASTI\LANTNET.DRV
+
+[boot.description]
+network.drv=LANtastic for Windows Version 6.00
+
+[386Enh]
+network=*vnetbios,C:\LANTASTI\LANTASTI.386
+
+[network drivers]
+netcard=ELNK3.DOS
+
+[LANtastic]
+Comment=Add 1 Network_IRQ per NIC, specify correct Irq values.
+Network_IRQ=15
+
+
+WIN.INI  File (Windows)
+-----------------------
+[windows]
+spooler=no
+load=NWPOPUP.EXE C:\LANTASTI\WNET.EXE
+run=C:\LANTASTI\MKWGROUP.EXE
+
+
+
+Artisoft LANtastic Version 7.0
+------------------------------
+
+This procedure describes how to install Artisoft LANtastic 7.0 under Microsoft
+Windows using the 3Com EtherLink 10 ISA NDIS 2 driver. To install LANtastic 7.0
+follow the steps below:
+
+
+LANtastic 7.0, Windows 3.1x Installation Procedure
+--------------------------------------------------
+
+1. Insert the LANtastic 7.0 CD-ROM or diskettes into the appropriate drive.
+In Windows 3.1x select File - Run... from the Program Manager menu and type
+A:\SETUP. In Windows '95 click Start on the Taskbar, select Run... and type
+A:\SETUP. (A denotes the letter of the drive you are installing LANtastic
+from).
+
+2. Follow the instructions on the screen and complete all registration
+information, serial number and verification key, and other information that
+will identify your computer on your network when prompted.
+
+3. LANtastic 7.0 gives you the option to configure your PC as a Server as
+well as a Client to the rest of your network. This option is selected as
+follows during the installation.
+
+Under the window entitled LANtastic 7.0 Setup you will find the option
+"Share this computer's drives & printers (run server)". Check the box next
+to this option if you wish to configure your PC as a server as well as a
+client. If you chose not to select this option your PC will be configured as
+a client only.
+
+Note that during the installation, LANtastic 7.0 gives you other options as
+well, such as, "Allow connections to Windows for Workgroups or Windows '95
+networks", "Allow connections to existing Novell Servers", "Enable HP
+JetDirect printer support", Modem sharing options, TCP/IP support, and
+Internet Gateway Service on your PC. Check the box next to each option that
+you wish to install during LANtastic 7.0 Setup.
+
+4. After you have selected the appropriate options that you want LANtastic
+to install you will need to setup and configure your 3Com EtherLink 10 ISA
+NIC.  LANtastic 7.0 Setup will display the following options for your
+Ethernet NIC.
+
+        Artisoft NodeRunner Pro Adapter
+        Artisoft NodeRunner Adapter
+        Common Adapters
+        NDIS Support for Artisoft Adapters
+        Use NDIS Driver for Non-Artisoft Adapter
+
+Note that the setup option "Allow connections to existing Novell servers"
+from step 3 works only with Artisoft NodeRunner Adapters. If you have
+selected this option you will not be able to choose any other type of
+adapter to install. You must go back and un-select this option in order to
+install the driver for the 3Com EtherLink 10 ISA NIC.
+
+5. Select the last option for the type of NIC driver that you want to
+install i.e. "Use NDIS Driver for Non-Artisoft Adapter". Type the letter of
+your floppy drive and insert the 3Com EtherLink 10 ISA driver diskette. Then
+click on Search. The program will display the name of your 3Com EtherLink
+10 ISA NIC at the top of the LANtastic 7.0 Setup window. Click OK to confirm
+this selection and then click INSTALL to copy the LANtastic files from the
+CD-ROM or diskettes to your hard disk.
+
+6. At the end of the installation select Restart the computer. This will
+close Windows and reboot your PC. LANtastic should be installed and
+configured when you start Windows. For additional information on setting up
+shares and using LANtastic refer to your Artisoft LANtastic User's Manual.
+
+
+LANtastic 7.0, Windows '95 Installation Procedure
+-------------------------------------------------
+
+Under Windows '95 the installation of LANtastic 7.0 is slightly different
+than that for Windows 3.1x. The reason is that Windows '95 installs and
+configures your 3Com EtherLink 10 ISA NIC automatically. Thus, LANtastic
+retrieves the NIC driver information from Windows without the need for user
+intervention.
+
+To install and configure LANtastic 7.0 under Windows '95, follow steps 1, 2,
+ 3, and 6 from the list above.  Your NIC configuration will be incorporated
+into LANtastic automatically from your Windows '95 setup.
+
+
+              (%VER LANTASTK.TXT - Artisoft LANtastic v6.1a)

@@ -1,0 +1,83 @@
+cs_143 pp1
+
+Ourproject1istowritethepreprocessor_and_scanner.
+
+_thisisnotanidentifier
+
+
+void test_compiler {
+	/* This is to test the multiple lines comment.  We test if the * and / are recognized as not terminated
+	 * punctauations until they are placed together.
+	 */
+	
+	//declaration indented by 1 tab
+	int intValue1 = 13, intValue2 = 011;
+	
+	/ /declaration indented by 16 spaces
+                int hexaValue1 = 0xA, hexaValue2 = 0X124321Af34Ddd, invalidHexa = 0xh;
+	
+	bool true should return as a bool.
+	bool false should return as a bool.
+	bool TRue is not a bool.
+	bool falSe is not a bool.
+	bool truefalse is not a bool.
+	bool tr ue is not a bool.
+
+	double invalidDouble1 = .352, invalidDouble2 = 10E+12, invalidDouble3 = .E+12;
+	double invalidDouble4 = 4.33E+;
+	double doubleVal1 = 0.1, doubleVal2 = 000., doubleVal3 = 313.213;
+	double doubleVal4 = 00.000E12, doubleVal5 = 13.13e-13, doubleVal6 = 132.24E5;
+		 	
+	string strVal1 = "this is a valid string";
+	string strVal2 = "this string ends after the second quote" not third"
+	string invalidStr = "this is not a valid string because missing a quote;
+
+	This program should return the ascii value for the following punctuations/operators:
+	   +-*/
+	   %
+	   <
+	   >
+	   =
+	   ! ; , . [
+	   ] (    )    {}
+
+	The following are to test for keywords:
+
+		ifelse is not a keyword.
+		void	vOid
+		int	iNT
+		double	DOUBle
+		bool	BOOL
+		string	STring
+		class	CLass
+		interface	INTERFace
+		null	this
+		extends	implements
+		for	while	if
+		else	return	break	New	NewArray
+
+	The following are to test for double punctuations and errors:
+	
+		<= >= 
+		== 
+		!=
+		&& ||
+
+		this_is_a_test_for_a_lengthy_identifier_that_is_over_30_letters_long.
+		test_"string"_or_"identifer".
+		$$$
+		"proper string"
+		"nested"string"
+		"unterminated string**************************
+		should generate an error
+	
+	if (intVal1 == intVal2) {
+		return hello_world123;
+	} else {
+		break;
+	}
+
+	if(strcmp(strVal1, "hello") != 0) {
+		return goodbye;
+	}
+}

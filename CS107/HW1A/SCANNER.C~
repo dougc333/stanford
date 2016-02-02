@@ -1,0 +1,190 @@
+#include "scanner.h"  
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+
+bool IsCharADelimiter(char s, char* delimiters);
+
+/* Fill in your Scanner implementation here. */
+
+struct ScannerImplementation {
+  char *delimiters;
+  int numOfDelimiters;
+  FILE *fileHandle;
+  bool createdFile;
+  bool discardDelimiters;
+};
+
+
+/* Function: NewScannerFromFileName(const char *filename, const char *delimiters, bool discardDelimiters)
+ * -----------------------------------------
+ *
+ * 
+ *
+ * 
+ */
+
+Scanner NewScannerFromFilename(const char *filename, const char *delimiters,
+						     bool discardDelimiters) 
+{
+  Scanner scanner;
+
+
+  printf("calling NewScanerFromFileName\n");
+
+  scanner = malloc(sizeof(Scanner));
+  scanner->numOfDelimiters = strlen(delimiters);
+  scanner->discardDelimiters = discardDelimiters;
+  scanner->createdFile = true;
+
+  printf("scanner numOfDelimiters is:%d\n",scanner->numOfDelimiters);
+
+  scanner->delimiters = malloc(strlen(delimiters)*sizeof(char));
+  
+  printf("filename is:%s\n",filename);
+  scanner->fileHandle = fopen(filename,"r");
+
+  if(scanner->fileHandle == NULL){
+    printf("error, file %s not found!!\n", filename);
+    return NULL;
+  }
+
+  if(discardDelimiters==true){
+    printf("discardDelimiters is true\n");
+    scanner->numOfDelimiters=0;
+    return scanner;
+  }
+
+  scanner->delimiters = delimiters;
+  printf("the length of scanner->delimiters is:%d\n",strlen(scanner->delimiters));
+  
+  return scanner;
+
+}
+
+/* Function NewScannerFromFile()
+ * ----------------------------
+ *
+ *
+ *
+ */
+Scanner NewScannerFromFile(FILE *fp, const char *delimiters,
+				     bool discardDelimiters) 
+{
+  Scanner scanner;
+
+  printf("calling NewScannerFromFile\n");
+
+  scanner = malloc(sizeof(Scanner));
+  scanner->numOfDelimiters = strlen(delimiters);
+  scanner->discardDelimiters=discardDelimiters;
+  scanner->createdFile = false;
+
+  printf("scanner numOfDelimiters is:%d\n",scanner->numOfDelimiters);
+
+  scanner->delimiters = malloc(strlen(delimiters)*sizeof(char));
+  
+  scanner->fileHandle = fp;
+
+  if(discardDelimiters==true){
+    printf("discardDelimiters is true\n");
+    scanner->numOfDelimiters=0;
+    return scanner;
+  }
+
+  scanner->delimiters = delimiters;
+  printf("the length of scanner->delimiters is:%d\n",strlen(scanner->delimiters));
+  
+  return scanner;
+
+}
+
+/* Function FreeScanner()
+ * ---------------------
+ *
+ *
+ */
+
+void FreeScanner(Scanner s)
+{
+  free(s->delimiters);
+  if(s->createdFile==true){
+    free(s->fileHandle);
+  }
+  free (s);
+
+}
+
+/* Function ReadNextToken()
+ * ------------------------
+ *
+ *
+ *
+ */
+
+bool ReadNextToken(Scanner s, char buffer[], int bufLen) 
+{
+  char string;
+
+  printf("calling ReadNextToken\n");
+  fscanf(s->fileHandle,"%c",&string);
+  printf("string is:%c\n",string);
+  
+  if (IsCharADelimiter(string, s->delimiters)){
+    if(s->discardDelimiters==false){
+      buffer[0]= string;
+    }
+    else{
+      
+    }
+    
+  }
+
+
+  if(string==EOF || string ==NULL){
+    return false;
+  }
+  
+  
+  return true;
+
+
+}
+
+
+
+int SkipOver(Scanner s, const char *skipSet) 
+{
+  return EOF;  // here so compile of stub file is warning-free
+}
+
+int SkipUntil(Scanner s, const char *untilSet) 
+{
+  return EOF;  // here so compile of stub file is warning-free
+}
+
+/* Function IsCharADelimiter()
+ * ---------------------------------
+ * iterate through each one of the delimiter chars to see if the 
+ * char is part of the delimiter set.
+ *
+ */
+
+bool IsCharADelimiter(char s, char* delimiters){
+  
+  int i;
+
+  for(i=0;i<strlen(delimiters);i++){
+    if(s==*(delimiters+i))
+      return true;
+  }
+
+  return false;
+
+}
+
+
+
+

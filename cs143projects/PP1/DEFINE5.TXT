@@ -1,0 +1,4 @@
+#define TEST replace
+#define de
+#define
+we#define HELLO world

@@ -1,0 +1,36 @@
+The problem is the following:
+Show that the following problem k-PDS is NP-complete: given a family of
+sets and a number k, are there k pairwise disjoints sets in the family?
+ 
+Here is my solution:
+We are going to show that k-clique on graph G is polynomial reducible to
+k-PDS on a family of sets S.
+In order to do so, we construct an instance of k-PDS i.e. a family of
+sets, and we take the number k of the k-clique. The family of sets consts
+of one set for every node in G. The sets {S1 ... Sn}
+coresponding to nodes {1 ... n} can be constructed as follows:
+ 
+forall i = 1 ... n
+        forall j = 1 ... n such that
+        j =/= i and there is no edge between i and j in G
+                     i
+                add n  to Si and to Sj
+                     j
+ 
+This family of sets has the particularity that G is the graph of
+independencies between sets if we identify each set with its corresponding
+node: two sets are connected by an edge in G iff they are disjoint.
+Therefore G has a k-clique iff there is a solution to k-PDS for (S,k).
+ 
+Let's look now at the complexity of the translation from k-clique to
+k-PDS:
+        - there are n nodes and thus n sets
+        - each set consts of at most n elements
+        - we assume we can access one node's adjacent edges in constant
+time with a good data representation, which is obtained in polynomial time
+t(n) from the original input.
+ 
+Therefore, the translation takes time O(t(n) + n^2) which is still
+polynomial. It follows that k-PDS is NP-complete because we could show a
+polynomial reduction from k-clique which is known to be NP-complete to
+k-PDS.

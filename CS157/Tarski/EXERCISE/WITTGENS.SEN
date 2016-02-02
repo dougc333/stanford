@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+25
+Large(d)Large(c)Large(f)Medium(c)Medium(b)Medium(f)Larger(c, b)Larger(d, e)Larger(d, f)Larger(a, e)BackOf(b, e)BackOf(b, f)BackOf(f, a)LeftOf(b, a)LeftOf(a, b)LeftOf(a, a)RightOf(a, b)RightOf(b, d)Between(d, e, f)Between(e, d, f)Between(c, a, f)Between(c, d, b)Between(c, b, e)Between(c, c, c)Between(c, a, e)

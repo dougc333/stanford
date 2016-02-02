@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://www-db.stanford.edu/~ullman/hmu/hw6sols.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 6 Solutions</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #6 Solutions</H1>
+<OL>
+  <LI>Think of the positions of <I>M_2</I>'s tape as 
+  <I>...X_{-2}X_{-1}X_0X_1X_2...</I>, where <I>X_0</I> is the contents of the 
+  cell at which the head is initially placed. Then the tape of <I>M_1</I> will 
+  have two tracks. The leftmost cell will hold <I>X_0</I> in the upper track and 
+  a special marker * in the lower track. Other cells will hold <I>X_i</I> in the 
+  upper track and <I>X_{-i}</I> in the lower track. We identify input symbol 
+  <I>a</I> with the pair <I>[a,B]</I>. 
+  <P>The state of <I>M_1</I> will have states of the form <I>[q,U]</I> 
+  (<I>M_2</I> is in state <I>q</I> and working on the upper track) and 
+  <I>[q,L]</I> (<I>M_2</I> is working on the lower track in state <I>q</I>). 
+  <I>M_1</I> will have a special start state <I>[q_0,S]</I>, where <I>q_0</I> is 
+  the start state of <I>M_2</I>; its role is to place the special marker * on 
+  the first cell of the lower track, as well as simulating <I>q_0</I> on the 
+  upper track. The rules of <I>delta</I> are: 
+  <P>
+  <UL>
+    <LI>If <I>delta_2(q,X) = (p,Y,R)</I> then: 
+    <OL>
+      <LI><I>delta_1([q,U],[X,Z]) = ([p,U],[Y,Z],R)</I> for all tape symbols 
+      <I>Z</I>. I.e., if <I>M_2</I> is at or to the right of its initial 
+      position, simulate it on the upper track. 
+      <LI><I>delta_1([q,L],[Z,X]) = ([p,L],[Z,Y],L)</I> for all <I>Z</I>. I.e., 
+      if <I>M_2</I> is to the left of its initial position, simulate it, but in 
+      reverse. 
+      <LI><I>delta_1(q,L),[X,*]) = ([p,U],[Y,*],R)</I>. Here, <I>M_1</I> has 
+      simulated <I>M_2</I> moving from the left, back to its original position. 
+      <I>M_1</I> thinks it is working on the lower track, but needs to switch to 
+      the upper. 
+      <LI>In addition, if <I>q = q_0</I>, then <I>delta_1([q_0,S],[X,B]) = 
+      ([p,U],[Y,*],R)</I>. </LI></OL>
+    <P></P>
+    <LI>If <I>delta_2(q,X) = (p,Y,L)</I> then: 
+    <OL>
+      <LI><I>delta_1([q,U],[X,Z]) = ([p,U],[Y,Z],L)</I> for all tape symbols 
+      <I>Z</I>. I.e., if <I>M_2</I> is at or to the right of its initial 
+      position, simulate it on the upper track. 
+      <LI><I>delta_1([q,L],[Z,X]) = ([p,L],[Z,Y],R)</I> for all <I>Z</I>, 
+      including *. I.e., if <I>M_2</I> is to the left of its initial position, 
+      simulate it, but in reverse. 
+      <LI><I>delta_1(q,U),[X,*]) = ([p,L],[Y,*],R)</I>. Here, <I>M_1</I> has 
+      simulated <I>M_2</I> moving from the right, back to its original position. 
+      <I>M_1</I> thinks it is working on the upper track, but needs to switch to 
+      the lower. 
+      <LI>In addition, if <I>q = q_0</I>, then <I>delta_1([q_0,S],[X,B]) = 
+      ([p,L],[Y,*],R)</I>. </LI></OL></LI></UL>
+  <P></P>
+  <LI>As you read the 0's, increment two different counts for each 0. When 1's 
+  come in, leave the first of these counters fixed, and decrement the second 
+  counter, once for each 1. Then, when 2's come in, decrement the second counter 
+  once for each 2. If both counters are 0, accept; otherwise, don't. Hmm... that 
+  only used two counters. I wonder what we need the third for? 
+  <P></P>
+  <LI>For (a), <I>P</I> is a nontrivial property of the RE languages, so by 
+  Rice's Theorem, it is undecidable. 
+  <P>Now, consider (b). We show that <I>-P</I> (our HTML representation of the 
+  complement of <I>P</I>) is RE. Then, if <I>P</I> were RE, it would be 
+  recursive, which it is not. To show <I>-P</I> is RE, we design a 102-tape 
+  nondeterministic TM to accept it. Every invalid TM code is deemed to represent 
+  a TM that accepts (0+1)*, and therefore will accept at least 101 strings and 
+  be in <I>-P</I>. The first step for our NTM is to check that the input TM code 
+  is valid, and accept if not. 
+  <P>Otherwise, the NTM guesses 101 strings and simulates its input TM on each 
+  of them, ``in parallel.'' If all are accepted, the NTM accepts its own input. 
+  <P></P>
+  <LI>(a) Yes; 1,2,3,1 is an example of a solution. 
+  <P>(b) No. There are many possible arguments. Here's one. First, there can be 
+  no solution that consists of index 1's only, because the B (second list) 
+  string will be longer than the A (first list) string. If there is a solution 
+  with only 1,'s and 3's, then it can't use 3's, because the third pair has a 0 
+  in the A string and there is no way to get a matching 0 in the B string. Since 
+  we already know index 1 alone is not enough for a solution, we know that 1 and 
+  3 alone is not enough. Thus, if there is a solution, it must use pair 2. But 
+  then, the solution string has 00 somewhere. But no string composed from the 
+  A-list strings can have 00, since the only 0 (in <I>w_3</I>) is followed by 1. 
+  Thus, there is no solution. 
+  <P></P>
+  <LI>Let <I>S</I> be the start symbol of <I>G</I>. Grammar <I>H</I> consists of 
+  all the productions of <I>G</I>, plus a new start symbol <I>T</I>, a new 
+  terminal <I>a</I>, and the production <I>T -&gt; SaSaSaSaSaSaS</I>. If 
+  <I>G</I> has a string <I>w</I> with two different parse trees, then we can use 
+  the production above at the root to get 2^7 = 128 different parse trees for 
+  <I>wawawawawawaw</I>. Thus, if <I>G</I> is ambiguous, <I>H</I> is 
+  superambiguous. 
+  <P>Conversely, suppose <I>G</I> is unambiguous. Let <I>x = 
+  w_1aw_2aw_3aw_4aw_5aw_6aw_7</I> be a string in <I>L(H)</I>. Because <I>a</I> 
+  is a symbol that appears only in the introduced production, it must be that 
+  each <I>w_i</I> is in <I>L(G)</I>. Thus, each <I>w_I</I> has a unique leftmost 
+  derivation, and the only leftmost derivation of <I>x</I> must begin with a use 
+  of production <I>T -&gt; SaSaSaSaSaSaS</I>, followed, by a leftomost 
+  derivation of <I>w_1</I>, then a leftmost derivation of <I>w_2</I>, and so on. 
+  We conclude that if <I>G</I> is unambiguous, then <I>H</I> must be 
+  unambiguous, and thus surely not superambiguous. 
+  <P>Note that the use of <I>a</I> to separate strings derived from <I>S</I> is 
+  essential. Otherwise, we could have an unambiguous grammar like <I>S -&gt; 
+  epsilon | b | bb</I>. If we simply used <I>T -&gt; SSSSSSS</I> as the new 
+  production for <I>H</I>, a string like <I>bbbbbbb</I> would have hundreds of 
+  parse trees. While we might use <I>S -&gt; b</I> seven times to derive 
+  <I>bbbbbbb</I>, we could also use it five times, use <I>S -&gt; epsilon</I> 
+  once and <I>S -&gt; bb</I> once, yielding 42 different parse trees. We could 
+  also use <I>S -&gt; b</I> only three times, yielding 210 more parse trees, or 
+  only once, yielding 140 more. </P></LI></OL></BODY></HTML>

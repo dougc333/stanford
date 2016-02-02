@@ -1,0 +1,206 @@
+                        3Com (R) Corporation
+                    EtherDisk (R) Diskette for the
+                  3C509B EtherLink 10 ISA NIC Family
+             NetWare Client 32 Driver Installation Notes
+
+This text describes how to update the Novell client 32 driver in
+Windows 95 and DOS.
+
+
+Installing the Updated ODI 32-bit Driver on Windows 95 Clients
+--------------------------------------------------------------
+
+The 32-bit ODI driver only works in a system with Client 32 installed
+on it.  Installing Client 32 on your system correctly can be very
+difficult so 3Com has supplied these instructions.  The installation
+procedure is different depending on your system's current networking
+setup, but most likely your system is in one of 3 different states.
+
+I.   If you already have Client 32 installed on your system but do
+     not have an EtherLink 10 ISA NIC installed, do steps number 12
+     through 15 to disable any other NICs in the system and then go to
+     step 20.
+
+II.  If you already have both an EtherLink 10 ISA NIC and Client 32 on your
+     system and just want to update the driver then remove all references 
+     to the NIC as shown in steps 1 through 15 and then go to step 20.
+
+III. If you are installing Client 32 on your system at the same time as
+     the EtherLink 10 ISA NIC, start at step 1.
+
+
+
+ 1.  Double-click on My computer.
+
+ 2.  Double-click on Control Panel.
+
+ 3.  Double-click on Network.
+
+ 4.  Open the Network control panel on your desktop.
+
+ 5.  Remove any EtherLink 10 ISA NICs (NOTE: The 3C509 product name has
+     changed from EtherLink III, references to EtherLink III can be viewed
+     the same as references to EtherLink 10 ISA) if they appear in the
+     Network control panel.  Do this by selecting the name of the NIC and
+     then clicking Remove.
+
+ 6.  When you have removed all of the EtherLink 10 ISA NICs from the control
+     panel click OK.
+
+ 7.  If the system ask you if you want to reboot the computer click NO.
+     DO NOT REBOOT THE SYSTEM AT THIS POINT.
+
+ 8.  In the Control Panel Double-click on System.
+
+ 9.  Click on the Device Manager tab.
+
+ 10. If there is an entry called Network adapters double-click on it.
+     If there is not go to step 17.
+
+ 11. This will open a list of the NICs installed in your system.
+     If any EtherLink 10 ISA NICs appear in this list remove them by
+     selecting them and clicking remove.  DO NOT REBOOT THE SYSTEM.
+
+ 12. If this leaves any NICs in your system you will have to disable
+     them.  Follow steps 13 through 15 for each NIC in the list.
+
+ 13. Select the desired NIC and click Properties.
+
+ 14. Find the Current Configuration at the bottom of the General page.
+     It can be found by looking for the line with (Current) in the
+     Device usage box.
+
+ 15. Disable the NIC by clicking on the small box to remove the
+     check mark, and click OK
+
+ 16. In the System Properties window click OK.
+
+ 17. Insert disk 1 of the client 32 installation disks and run
+     SETUP.EXE.
+
+ 18. Follow Novell's installation instructions.  If you are asked
+     to select a device, choose a NIC that you do not own (For
+     example the 3Com EtherLink III Bus-Master PCI Ethernet Adapter)
+     This will save you from reinstalling the Novell disks later.
+     You will be prompted to select Preferred Server or Tree.  See your
+     network administrator for the correct information to enter to
+     satisfy these prompts.
+
+ 19. When the installation program is finished you will have a
+     choice of rebooting the system, returning to windows , or
+     customize.  Click return to windows.  DO NOT REBOOT THE
+     SYSTEM.
+
+ 20. Right click on the Start button on your taskbar.  In the menu
+     that appears click find.
+
+ 21. Change the "Look in" field from
+
+     C:\WINDOWS\Start Menu
+     to
+     C:\WINDOWS\INF.
+
+     NOTE: this assumes you installed Windows 95 in the directory
+           C:\WINDOWS
+
+ 22. Click on the advanced tab, and in the "Containing text" field
+     type:
+
+     3c509
+
+     Then click Find Now. If no files are found, double check that
+     the entered text is correct.
+
+ 23. Select all of the files you find and remove them to the
+     Recycle Bin. Then empty your Recycle Bin.
+
+     NOTE:  You must do this to guarantee that Windows 95 will
+            load the right files when you reboot the system.
+
+ 24. Shutdown your system, and add any NICs that you want to add
+     while the system is shut down.
+
+ 25. Turn your system back on and wait for Windows 95 to detect
+     the 3C509 EtherLink 10 ISA NIC.  The message "Your network adapter is
+     not working properly" may appear on this screen.  This message is a
+     result from step 18 above.  Click OK.
+
+ 26. Select driver from disk provided by hardware manufacturer,
+     and click OK.
+
+ 27. Insert the EtherDisk 6.1 #2 diskette into the A drive and type:
+
+     A:\NWSERVER
+
+ 28. Click OK.
+
+ 29. Follow the instructions to insert the correct diskettes,
+     and reboot the system.
+
+     Note: If you get errors trying to find files make sure
+           the path is set to A:\ whenever you are copying
+           from a disk.
+
+ 30. When the system reboots you must remove the adapter you
+     don't own that was used as a place holder in step 18.
+     (using the same method in steps 1 through 7.)
+
+ 31. You must also turn on any devices you disabled in steps
+     12 through 15, by opening the property page and putting the
+     check mark back in the box.
+
+ 32. Reboot the system and you are finished.
+
+
+Installing a NIC for NetWare CLIENT32 for DOS
+---------------------------------------------
+
+The following steps describe how to install your 3Com network NIC in a
+NetWare Client32 environment running DOS.
+
+1.  Ensure the card has been configured properly in the computer by
+    reviewing the configuration and diagnostic tests.
+
+   (This is accomplished by running a:\3c5x9cfg on EtherDisk #2.  From 
+    the main menu select Configure NIC under Install.  After configuring 
+    and testing the NIC, Quit the Configuration and Diagnostic Program and
+    you will be returned to the DOS prompt.)
+
+2. Insert the "CLIENT32 DOS/WINDOWS 3.11 DISK 1 DOS" diskette from Novell.
+
+3. Run A:\INSTALL.
+
+4. Follow the screen instructions for NetWare Client 32 Install.
+
+5. You will be asked to "Select a LAN Driver Type".
+
+        a. Answer "32 bit LAN drivers". Hit <RETURN>
+
+        b. Next is the driver name selection in the window "32-Bit Network
+         Board Drivers."
+
+        c. Page down to the bottom of the list and select "USER SPECIFIED 32
+           BIT DRIVER" and press ENTER.  You must hit the ENTER key for a
+           prompt to insert the driver disk.
+
+        d. Select the correct NetWare Version directory for your network
+           environment. On EtherDisk #2, the correct directory is NWSERVER.
+
+        e. The driver name will appear in the "32-bit Network Board Drivers"
+           window. Press ENTER to change settings such as frame type.
+           Press F10 to save and continue.
+
+6. Follow the remaining instructions for Client32 installation.  Towards
+   the end of installing Client32 you will be prompted for 3COM's driver
+   diskette.  Insert EtherDisk #2 when the Client 32 installer requests it.
+
+7. Reboot the computer when prompted.
+
+NOTE: If you experience trouble loading the Client32 LAN driver (3C5X9.LAN) it may be
+because the adapter has PnP disable, if PnP is disable the driver load line requires
+the ISA parameter be specified, for example:
+
+    LOAD C:\NOVELL\CLIENT32\3C5X9.LAN ISA PORT=300 FRAME=ETHERNET_802.2
+
+
+          (%VER CLIENT32.TXT - Installation guide v6.1a)

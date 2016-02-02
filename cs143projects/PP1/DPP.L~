@@ -1,0 +1,156 @@
+/* hong lam honglam@stanford.edu
+ * doug chang dougc@stanford.edu
+ * dpp.l Preprocessor scanner
+ * ---------------------------------------------------------
+ * This preprocessor functionality consists of:
+ * 1) Removing all well formed comments and replacing them with \n
+ * 2) detecting unterminated comments, remove and replace with \n. Report
+ *    an error for all unterminated comments.
+ * 3) Multiline comments are replaced with a \n without an error message
+ * 4) entering WELL DEFINED define macro substitutions into a hashtable. A 
+ *    macro is defined as #define NAME replacement. We tested gcc to det
+ *    comments and spaces are permitted before a #define. A declaration as in 
+ *    int i; #define A 10 is not permitted. 
+ *     
+ *    WELL DEFINED is described as:
+ *    - starting with #define (we can have leading spaces before #define) 
+ *    - one space between #define and the NAME (must be in caps)          
+ *    - one space between the NAME and replacement
+ *    - the replacement can be a string with macros; this is not processed
+ *      as another macro or comment. This is just echoed without processing.
+ *    - macros in string literals are treated as being part of the string.This is 
+ *      part of the rule: \"[^\n^"]*\"   
+ *    - a macro name can be redefined with the new replacement We implemented this
+ *      with the ChangeValue function and the rule:#[A-Z]+ .
+ *
+ * 5) replace #NAME with a previously defined macro.
+ * 
+ * 6) removing malformed macros reporting an invalid directive message and replacing with \n
+ *    MALFORMED MACROS are described as:
+ *    - a noncapital letter immediately following a #
+ *    
+ * 7) output to stdout the file with malformed comments removed, malformed
+ *    #define macros removed, and with the #define macro substitutions
+ *    completed
+ *    - a macro definition is substituted only when the identifier has a #
+ *      in front of it.
+ */
+
+
+
+
+
+%{
+#include "utility.h"
+#include "errors.h"
+#include "hash.h"
+
+void InitPreProcessor(void);
+symtabADT hashTable;
+
+%}
+
+%x comment
+
+
+
+%%
+	int line_num = 1;
+\n				{
+				  ++line_num;
+				  putchar('\n');
+				}
+"/*"				{
+                          BEGIN(comment);
+                        }
+<comment>[^*\n]*
+<comment>"*"+[^*/\n]*
+<comment>\n			{
+				  ++line_num;
+				  putchar('\n');
+				}
+<comment>"*/"		{
+                          BEGIN(INITIAL);
+                        }
+<comment><<EOF>>	{
+				  putchar(EOF);
+                  	  ReportError(line_num,err_unterm_comment,yytext);
+				  return 0;
+		      	}
+"//"[^\n]*
+
+ ^#define[ ][A-Z]+[ ][^\n]*                { char key[yyleng], value[yyleng];
+                          int i=8, j=0, k=0;
+
+                          while( (yytext[i]!=' ') && (yytext[i]!='\t') &&(yytext[i]!='\n') && (i<yyleng)){
+                            key[j]=yytext[i];
+			    i++;	
+                            j++;
+                          }
+
+			  while(i<yyleng){
+			    i++;
+		            value[k]=yytext[i];
+                            k++;
+			  }
+                          
+                          key[j] = '\0';
+		          value[k] = '\0';
+                          /*printf("#define match, key:%s, value:%s\n",key,value);*/
+                       
+                          if(Lookup(hashTable,key)==NULL){
+                            Enter(hashTable,key,value);      
+                          }
+                          else{
+                            ChangeValue(hashTable,key,value);    
+			  }
+                                        
+                        }
+
+\"[^\n^"]*\"  		{/*printf("in string test rule\n");*/
+			 ECHO;
+		        }
+
+#[A-Z]+                 { /*printf("in rule #[A-Z]+");*/
+                          char temp[yyleng];
+                          int i=1, j=0;
+                          while((yytext[i]!=' ') && (i<yyleng)){
+                              temp[j]=yytext[i];
+			      i++;	
+                              j++;
+                          }
+
+                          temp[j] = '\0';
+                          /*printf("temp is:%s\n",temp);*/
+                          char *value = Lookup(hashTable,temp);
+
+                          if(value!=NULL){
+                             /*printf("hash match, yytext is:%s hashtable returned value:%s linenumber is:%d\n",yytext,value,line_num);*/
+                             
+                             for(int i=0;i<strlen(value);i++){
+                               putc(value[i],stdout);
+                             }
+                          }
+                          else{
+                             ReportError(line_num,err_inval_dir);
+                          }
+                        }
+
+
+#[^A-Z].*               { /*printf("yytext is:%s, line_num is:%d\n",yytext,line_num);*/
+                          ReportError(line_num,err_inval_dir );
+                         
+                        }
+
+           
+.|\n                   {/* I want the nonmatches to be echoed to stdout */
+                        /* printf("last rule");*/
+                         ECHO;
+                       }                              
+
+%%
+
+void InitPreProcessor(void)
+{
+   hashTable = NewSymbolTable();
+}

@@ -1,0 +1,151 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - AUTHORIZATION
+=========================================================================
+
+- Make sure users only see the data they're supposed to.
+- Guard the database against updates by malicious users.
+
+
+Solution:
+
+- Users have PRIVILEGES =
+  Users can only operate on data for which they're AUTHORIZED
+
+
+For a relation R and user U, U may be authorized for:
+
+SELECT ON R
+INSERT ON R, INSERT(A) ON R
+UPDATE ON R, UPDATE(A) ON R
+DELETE ON R
+
+
+Ex: UPDATE Apply
+    SET decision = 'Y'
+    WHERE ID IN (SELECT ID FROM Student WHERE GPA > 3.9)
+
+Q: What privileges are needed for this statement?
+
+
+
+
+
+
+
+
+Ex: DELETE FROM Student
+    WHERE ID NOT IN (SELECT ID FROM Apply)
+
+Q: What privileges are needed for this statement?
+
+
+
+
+
+
+
+
+Obtaining privileges
+--------------------
+
+- Creator of relation is OWNER.
+- Owner has all privileges and may GRANT privileges.
+
+
+SQL: GRANT <privileges> ON R TO <users> [ WITH GRANT OPTION ]
+
+<privileges>: operations as earlier, separated by commas
+
+<users>: list of user/group names, or PUBLIC
+
+
+Ex: GRANT DELETE, UPDATE(A) ON R TO PUBLIC;
+
+
+- A user granted privileges WITH GRANT OPTION may grant equal or
+  lesser privileges to other users.
+
+
+Grant diagrams
+--------------
+
+- Illustrates history of privileges granted
+
+<example grant diagram>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Revoking privileges
+-------------------
+
+SQL: REVOKE <privileges> ON R FROM <users> [ CASCADE | RESTRICT ]
+
+
+Ex: REVOKE INSERT(A), DELETE ON R FROM JW;
+
+
+CASCADE: Also revoke privileges previously granted as a result of the
+privileges now being revoked (transitively)
+
+<examples>
+
+
+
+
+
+
+
+
+
+
+Equivalent definition: After executing the initial REVOKE statement,
+delete any privilege nodes no longer reachable from an owner.
+
+
+RESTRICT: REVOKE command not allowed if it would cause any privileges
+to no longer be reachable from an owner.
+
+Equivalent definition: REVOKE command not allowed if CASCADE would
+revoke additional privileges.
+
+
+Miscellaneous
+-------------
+
+- Can also REVOKE GRANT OPTION FOR <privileges> ON R ...
+
+- We've been assuming a session with a known user U.
+
+  CREATE TABLE -> U becomes owner
+
+  SQL command -> check U's privileges
+
+- Can also create "modules" associated with a user U.  U must have
+privileges to execute statements in the module.  The module can be
+invoked by a user V who does not have the proper privileges.
+
+Q: When is this setup useful?
+
+
+
+
+
+
+
+
+- Not covering REFERENCES or USAGE privileges.
+
+- Not covering DDL authorization.

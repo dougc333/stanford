@@ -1,0 +1,267 @@
+Group: Screwed
+Elias Dagher 	dagher@leland
+Lionel Gresse   gresse@leland
+Doug Chang      dougc@leland
+CS140, Summer 1999
+Homework 3
+
+                                   -README-
+
+Program Notes:
+-------------
+	
+All of our changes can be identified through #ifdef PP3_1 and PP3 in the
+included source files.  All parts must be enabled in /threads/constants.h
+#define statements for this assignment to work.  Please also see the
+TESTCASES file for test cases that prove our functionality.
+
+
+
+----------------------------------------------------------------------------------
+General Stuff
+----------------------------------------------------------------------------------
+
+The virtual memory assignment consists of implementing a memory manager
+with a swap file to provide the illusion of unlimited physical memory. A
+software TLB functionality was added to simulate a CPU swapping in virtual
+to physical address translation entries. In addition to unlimited memory
+for multiprogram operation, we added support for memory mapped files
+through additional system calls.
+
+
+----------------------------------------------------------------------------------
+Problem 1: Implementing A Software-Managed TLB via IPT
+----------------------------------------------------------------------------------
+
+A.  Major Design Decisions
+    1. IPT implementation
+	a. Must have fast lookups
+	b. Minimize IO on context switch
+	c. Keep pages from different processes in main memory
+	d. Needs to by synchronized with TLB on every IPT modification or
+TLB modification.
+	e. Synchronize all IPT updates using locks.
+	To support fast look ups of pages on TLB page faults, the IPT is
+stored as a hash.  The hash key is a concatenation of the process id and
+the virtual page number.  This allows us to keep pages in memory that
+belong to more than one process.  Thus we reduced the amount of disk I/O
+for each context switch.  
+    2.  TLB interaction
+	Since in nachos we are allowed to access the tlb via an array of
+Translation entries, autonomy of tlb writing operations is not
+guaranteed.  To resolve this we disabled interrupts when any writes are
+made to the the TLB.  If we did not do this, then a context switch could
+occur during a TLB update.  We take care to minimize the amount of
+instructions that occur while interrupts are off.
+    3.  Round Robin TLB replacement algorithm.
+	We want TLB replacement to take the least amount of
+time. Therefore, we chose round robin, because all that needs to be done
+on a replacement is replace the entry that is next in the round robin
+queue.  Performing LRU on TLB would be too slow.
+    4.  Physical memory management
+	The free space in memory is managed by a bitmap of the
+memory. This removes the burned from the IPT to account for valid and
+invalid IPT page entries.  Thus if a page is found in the IPT it is valid,
+because the IPT only manages valid pages.  Invalid pages are removed from
+the IPT and cleared from the bitmap.
+    
+B.  The following explains what happens on page fault from the TLB or from
+the internal user/kernel to kernel/user memory transfer routines
+
+    1.  When a PageFault Exception is generated, the exception handler
+invokes HandlePageFault().  If the page fault occurs due to an internal
+user/kernel to kernel/user memory transfer routine, then  similar
+actions are carried out by MemoryManager::GetAndPlaceVA().  Two functions
+were made because of the slight differences in the way they interact
+with other kernel functions. 
+    2.  HandlePageFault() does the following:
+	a. Checks to see if the virtual address (VA) is in the IPT.  If
+it is then the TLB is updated with the new page table entry from the IPT.
+	b. If the VA is not in the IPT it will perform demand paging
+(See Problem 2).
+	c. If the VA is invalid the process is terminated and an error is
+generated.
+
+C.  The following explains what happens on a context switch to IPT and TLB.
+    1.  The TLB use and dirty bits are copied back into the IPT.  The use
+of the use of the use and dirty bits is explained in Problem 2. This is done
+in AddrSpace::SaveState();
+    2.  The TLB is flushed so that the next process does not use incorrect
+TLB entries.  This is done in Scheduler::Run() just before the SWITCH
+statement.
+
+----------------------------------------------------------------------------------
+Problem 2: Implementing Virtual Memory
+----------------------------------------------------------------------------------
+A.  Major Design Decisions
+    1.  Use demand paging with a permanent fixed sized swap file
+	a.  Bring into memory only pages that demanded
+	b.  Use the variant of Demand Paging that copies an entire file
+image to the swap file.  We chose that variant of demand paging for 1)
+It's easy of implementation 2) Faster and easier management of where page
+is located if it is not found in main memory.  Since we are using the
+nachos file system to implement the swap file we will not derive any
+benefits of faster IO between main memory and swap.  However, we believe
+that by simplifying the virtual memory system by initially coping all file
+images to the swap before they are demanded by main memory we will benefit
+by not having the complex accounting information about where a page is in
+a file image and where we need to copy back dirty main memory pages.
+    2.  Use LRU second chance replacement algorithm when main memory is full.
+    3.  IPT page entries hold:
+	a.  virtual to physical memory page translations
+	b.  dirty bit
+	c.  use bit
+	d.  pid
+    4.  Have per process page table that holds:
+	a.  virtual to swap file page translations
+	b.  keep page table as a hash table since virtual memory is large
+and sparsely populated.
+    5.  Create a swap file manager
+	a.  Directed by memory manager
+	b.  Copies to and from swap memory and main memory
+	c.  Copies file images into swap 
+    6.  Stack is grown only if a page fault appears to be caused by the
+stack.  A page fault appears to be caused by the stack when the requested
+VA is in the page just below the last page of the stack.
+
+B.  The following explains what happens when a page needs to be paged in to
+memory.
+    1.  HandlePageFault() or MemoryManger::GetAndPlaceVA() create new a
+new IPT entry for the needed page.  The page's attributes, including read
+permissions and the location of the page in the swap file are retrieved
+from the per process page table.  The new IPT will reflect the location of
+the page in physical memory.
+    2.  HandlePageFault() or GetAndPlaceVA() tell MemoryManger::PageIn()
+to grab a virtual page for a particular process.
+    3.  PageIn looks at the bitmap and determines if there are free pages
+in memory.  If there are, then the page is copied from the swap file to
+main memory and PageIn() returns the physical page number of the page.
+Otherwise we continue.
+    4.  The IPT is synchronized with the TLB's entries to get the use and
+dirty flags.
+    5.  The LRU second chance algorithm is performed on the IPT by
+cycling through it and checking on the use bits, clearing the use bits if
+they are set and selecting the first entry that has no use bit.
+    6.  If the victim page is dirty the we copy the page back to swap
+file.
+    7.  The page is copied from the swap file to main memory and PageIn()
+returns the physical page number of the page.
+    8.  The TLB is updated with the new page entry.
+
+C.  The following explains what happens when the stack appears to be growing.
+    1.  HandlePageFault() or GetAndPlaceVA() determine that the requested
+VA is invalid.
+    2.  The functions then look to see if the VA lands in the page just
+below the stack page.  If it does then the kernel speculates that the
+stack is growing and will call MemoryManager::VMAllocate() to get a new
+virtual page for the stack.
+    3.  If MemoryManager::VMAllocate() returns a valid page number then a
+new IPT entry is created for the page and the page is demand paged in to
+physical memory as explained above.
+
+D.  The following explains what happens when a process loads up
+    1.  The swap file bitmap is checked to see if the there is space for
+the process.
+    2.  The per process page table is set up with the appropriate flags and
+a physical page number that represents the location of the page in the
+swap file.
+    3.  The stack is allocated space a the top of virtual memory.
+    4.  The process's binary file image is copies into the swap file.
+
+E.  Design Evaluation
+    1.  Pros:
+	a.  Simple hierarchy of memory.  Allows us to easily locate a
+page if it is not in memory.  All we have to do is refer to the per
+process page table to find out whether a page is valid and where it is in
+the swap.  Then we can simply just copy the page into memory from the
+swap since the file image was previously load into the swap.
+	b.  Small overhead.  IPT and per process page tables are hashes,
+thus they only hold valid entries.  Main memory, swap file, and process
+virtual memory free spaces each have bitmap to help manage free pages.
+	c.  TLB misses are easily and quickly done because of simple
+memory hierarchy.
+	d.  Page faults are minimized by having a <pid,va> tuple as the
+key to IPT.  Thus we can keep several pages from different processes in
+memory at the same time.
+    2.  Cons:
+	a.  Using nachos file system to store swap.  Thus, we cannot derive
+the benefits from specially formated swap partitions that have larger
+block sizes and no file structure hierarchy to deal with.
+	b.  Since our scheduler is not using the optimizations from
+Project 1, context switches occur too often; driving the page fault rate up.
+    3.  Demonstration that LRU works over RANDOM
+	To demonstrate this we used the matmul.c program and shrank our
+memory down to 4x512kB pages.   Using LRU we had 87648 page faults and
+using random we had 93207 page faults.  The rates are high, but this is
+because on every context switch we flush the TLB. We context switch
+very often because our scheduler is not using the optimizations from Project
+1.  This lack of optimization severely hurts the LRU algorithm, because
+the history stored in the used bit does not go back long enough to help
+the algorithm predict the future use of the pages.  By the final project
+we will try to include all those optimizations.  The only reason we did
+not include them now was because our Project 1 was not stable enough and we
+were allowed to start from the stub code in Project 2, which we did.
+
+----------------------------------------------------------------------------------
+Problem 3:  Memory Mapped Files
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+    1.  Length, return the byte length of a file  
+    2.  Mmap, required copying the contents of the file to contiguous
+pages in the process page table.
+    3.  Munmap, writing the contents from the memory to the file. 
+    4.  Implement wc -l. C program to implement wc using length for the
+byte count. Search for a /n or space or	contiguous white spaces. Accept
+the 3 flags -c, -l, and -w. 	
+    5.  Extensive Testing, we tested over 30 corner cases for the system
+calls since we lost the most points in this area from the last
+assignment. We tested uninititlized variables, multiple operations, and
+illegal operations that would compile but were illegal run time
+scenarios. A listing is provided in the test file.
+    	
+B.  System Calls
+    1.  SC_Length call.  This was implemented testing for the end of a
+file, and counting the number of bytes till the end of file. The error
+conditions we tested on this include:
+	-length on a closed file
+	-length on a nonexistent file
+	-length on the same file many times
+	-length on an invalid file ID, -1.
+	-length on a nonfile fileID, the standard input and output devices.
+	-multiple permuations of the above cases. 
+    2.  SC_Mmap: This was impelemented by:
+	- retrieving the OpenFileID, and verifying a valid fileID
+	- checking if there is enough space available, we first look for
+CONTIGUOUS pages in the swap file.
+	- if they exist, we allocate swap file paes.
+	- calculate a globally unique Mmap segment return value. This is
+an integer and its incrementation is protected by a lock since this is a
+global variable in the process address space.
+	- allocate PTEntries into the IPT. This is a function call, and is
+locked.
+		
+    3.  SC_Unmap: This was impelemented by:
+	- retrieving the OpenFileID, and verifying a valid fileID
+	- checking if there is enough space available, we first look for
+CONTIGUOUS pages in the swap file.
+	- if they exist, we allocate swap file paes.
+	- calculate a globally unique Mmap segment return value. This is
+an integer and is locked since this is a global variable.
+	- allocate PTEntries into the IPT. This is a function call, and is locked.
+	- check the see the entries exist, deallocate the swap table
+allocation for the process
+ 	- remove entries from the swap table 
+	- remove entries from the IPT
+	- remove entries from the segementIDtable
+
+    4.  wc implementation	
+	- Provides the same functionalities as the unix utility: counts
+words, lines and length of a given file.
+	- accept all the flags -c, -l, -w to get the number of bytes,
+lines, words in a file.
+
+   	
+
+
+

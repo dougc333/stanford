@@ -1,0 +1,117 @@
+<html>
+
+<head>
+<title>Assignment 1</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+
+
+<meta name="Microsoft Theme" content="canvas 001, default"><meta name="Microsoft Border" content="tb"></head>
+
+<body background="../_themes/canvas/cnvbkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#6699FF" vlink="#006666" alink="#FF3300"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="arial, helvetica">
+
+<p align="center"><img src="_derived/shmem.htm_cmp_canvas000_bnr.gif" width="600" height="60" border="0" alt="Assignment 1"></p>
+
+<p align="center"><nobr>[&nbsp;<a href="../assignment.htm">Up</a>&nbsp;]</nobr></p>
+
+<!--msthemeseparator--><p align="center"><img src="../_themes/canvas/cnvrule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top"><!--mstheme--><font face="arial, helvetica">
+<div align="center"><center>
+
+<!--mstheme--></font><table border="0">
+  <tr>
+    <td valign="top" align="left"><!--mstheme--><font face="arial, helvetica"><h2 align="center"><!--mstheme--><font face="arial black, arial, helvetica">Consistent Distributed Shared Memory<!--mstheme--></font></h2>
+    <p align="center">CS244b Assignment #1<br>
+    Instructor: David Cheriton<br>
+    Assigned: Tuesday, March 30, 1999<br>
+    Design Due: Monday, April 12, 1999<br>
+    Due: Friday, April 23, 1999<br>
+    <br>
+    We estimate that this assignment will require about 25 hours of work, so please plan
+    ahead! </p>
+    <h3><!--mstheme--><font face="arial black, arial, helvetica">1. Introduction<!--mstheme--></font></h3>
+    <p>The purpose of this assignment is to get you to understand the key notions of shared
+    memory consistency and distributed interprocess synchronization, protocols for
+    implementing these, and the performance, reliability and usability issues with distributed
+    shared memory.<br>
+    <br>
+    To this end, you are to extend a simple distributed shared memory system that can be used
+    with simple applications running in parallel across at least three machines, and collect
+    some basic performance measurements from running this software. </p>
+    <h3><!--mstheme--><font face="arial black, arial, helvetica">2. Starting Point<!--mstheme--></font></h3>
+    <p>The relevant distributed shared memory issues, techniques and protocols are discussed
+    in Chapter 2 of the reader and in the Li/Hudak and TreadMarks papers. </p>
+    <p>You are provided with a simple C++ implementation of a DSM, as well as some sample
+    applications (see <tt>/usr/class/cs244b/shared-memory</tt>). Your first objective should
+    be to familiarize yourself with the code, run the sample applications, and become
+    comfortable with the workings of the system.<br>
+    <br>
+    A tutorial is scheduled for Friday, April 2 (11:00-11:50) to review the assignment,
+    discuss the provided code and answer questions. You should read the relevant material and
+    look over the given code in advance of this tutorial. </p>
+    <h3><!--mstheme--><font face="arial black, arial, helvetica"><a name="submit">3. What to submit</a><!--mstheme--></font></h3>
+    <p>The first deadline is for submission of the design for your modifications. It is
+    sufficient to submit a state diagram for the client and server.</p>
+    <p>For the final deadline, you must submit the following:</p>
+    <ol>
+      <li>The final design for your modifications. You should justify any changes that you made
+        from your initial design submission.</li>
+      <li>The code for each modification. You should clearly indicate your modifications in the
+        code. You should also supply a README file for each modification that outlines the code
+        changes that you made for that modification.</li>
+      <li>For each modification (where appropriate), a concise description of the consistency and
+        syncronization protocols that you implemented, and how they interact. </li>
+      <li>A description of the performance of your distributed shared memory system and
+        applications, including: <!--mstheme--></font><!--msthemelist--><table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <!--msthemelist--><tr><td valign="baseline" width="42"><img src="../_themes/canvas/cnvbull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="arial, helvetica">The time for a memory reference for which the page needs to be fetched from the server,<!--mstheme--></font><!--msthemelist--></td></tr>
+          <!--msthemelist--><tr><td valign="baseline" width="42"><img src="../_themes/canvas/cnvbull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="arial, helvetica">The time for a memory reference when the page is owned by another process,<!--mstheme--></font><!--msthemelist--></td></tr>
+          <!--msthemelist--><tr><td valign="baseline" width="42"><img src="../_themes/canvas/cnvbull2.gif" width="12" height="12" hspace="15"></td><td valign="top" width="100%"><!--mstheme--><font face="arial, helvetica">The elapsed time for running the applications using this shared memory entirely locally,
+            across 2 machines and across 3 machines (or more if you so choose).<!--mstheme--></font><!--msthemelist--></td></tr>
+        <!--msthemelist--></table><!--mstheme--><font face="arial, helvetica">
+      </li>
+      <li>Your recommendation of when to use distributed shared memory, any caveats on its use,
+        and the effect of different page sizes, network speeds, memory sizes and processor speeds.
+      </li>
+    </ol>
+    <p>In addition, you will receive a short list of design questions by email a few days
+    after you submit your assignment. These questions will require you to write a short
+    paragraph about how you solved two or three key design issues. You will also have to give
+    references to the locations in the code where these solutions are implemented. The entire
+    solution to these design questions needn't exceed a page in length. You will have 48 hours
+    from the receipt of these questions to email back your answers. </p>
+    <h3><!--mstheme--><font face="arial black, arial, helvetica">4. Description and Implementation<!--mstheme--></font></h3>
+    <p>Click here for the <a href="shmem-desc.htm">full description</a> of the code we supply.
+    </p>
+    <h3><!--mstheme--><font face="arial black, arial, helvetica">5. Working in groups<!--mstheme--></font></h3>
+    <p>You should work individually if you only do the base assignment. You can work in groups
+    of 2 or 3 if you do significant extensions beyond the basic assignment, in applications,
+    protocols and measurement, that reflect the additional capacity of the group. In this
+    case, you only submit one copy per group with group members indicated in the README file. <br>
+    <br>
+    Below you will find a list of &quot;Basic Modifications&quot;. All students, including
+    those working individually must complete these modifications. Below you will also find a
+    list of &quot;Assignment Extension Suggestions&quot;. These are not required of those who
+    do the assignment individually. Groups of two will be required to implement two extensions
+    in addition to the Required Modifications in order to obtain full credit. Groups of three
+    are required to complete Extension D below in addition to the Required Modifications to
+    obtain full credit. Students may also suggest extensions, provided that they are
+    pre-approved no less than one week in advance of the due date by one of the TAs. </p>
+    <h3><!--mstheme--><font face="arial black, arial, helvetica">6. Modifications<!--mstheme--></font></h3>
+    <p>Click here for the <a href="shmem-impl.htm">full description</a> of the modifications
+    you are asked to implement. <!--mstheme--></font></td>
+  </tr>
+</table><!--mstheme--><font face="arial, helvetica">
+</center></div>
+
+<p>&nbsp; 
+<!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="arial, helvetica">
+
+<p align="center"><img src="../images/stanford_seal64.gif" alt="7003.gif (16024 bytes)" WIDTH="64" HEIGHT="64"></p>
+
+<!--msthemeseparator--><p align="center"><img src="../_themes/canvas/cnvrule.gif" width="300" height="10"></p>
+
+<p align="center"><font size="1"><em><a name="disabled" href="../index.htm">Back to CS
+244B Homepage</a><br>
+This page was last modified March 29, 1999<br>
+<a href="mailto:benw@cs.stanford.edu">benw@cs.stanford.edu</a></em></font></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table></body>
+</html>

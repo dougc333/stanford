@@ -1,0 +1,81 @@
+Here is the solution to the problem I worked in the first section. Your
+proofs should be roughly equivalent in terms of thoroughness.
+
+
+problem 2.4, pg. 48 of the textbook
+
+Suppose d is the transition function for a DFA. Prove that for any input
+strings x and y, d(q, xy) = d(d(q, x), y). [Hint: use induction on |y|]
+
+Basis
+-----
+Let y be the empty string, so |y| = 0.
+
+	xy = x, so d(q, xy) = d(q,x)
+
+	d(q, empty string) = q, so d(d(q, x), y) = d(q, x)
+
+Since both terms reduce to the same term, we have proved our basis:
+
+	d(q, xy) = d(d(q, x), y), where y is the empty string
+
+
+Inductive step
+--------------
+Assume d(q, xw) = d(d(q,x), w) for all strings w, where |w| < n for some
+integer n > 0.  [inductive hypothesis]
+
+We know we have two main pieces to work with here: our inductive
+hypothesis, and the definition of the transition function:
+
+	d(q, wa) = d(d(q, w), a)
+
+First step: rewrite y as
+	
+	y = wa
+
+where |y| = n, a is the last symbol in y, and w is the remainder of y.
+
+We seek to prove
+
+	d(q, xy) = d(d(q, x), y)
+
+Starting with the left side and substituting in:
+
+	d(q, xy) = d(q, xwa)
+	         = d(d(q, xw), a)       [def. of transition function]
+	         = d(d(d(q, x), w), a)  [inductive hypothesis]
+
+We then tackle the other term:
+
+	d(d(q, x), y) = d(d(q, x), wa)
+	              = d(d(d(q, x), w) a)   [def. of transition function]
+
+Since both sides expand to the same term, they are equal. 
+
+
+By induction,
+
+	d(q, xy) = d(d(q, x), y)
+
+QED.
+
+
+comments
+--------
+For this proof, as in most others, the formality requirements constrain
+you to a small set of definitions, hypotheses, and standard mathematical
+operations. This actually makes thing easier, insofar as there are only so
+many things you can try. In this case, the proof requires only two
+substantial building blocks - the definition of the transition function
+and the inductive hypothesis.
+
+If you watch the video of Friday's section, you can see me fumbling around
+a bit at the end of the proof. So it is actually very common to lose track
+of where you are in a proof. But if you just keep in mind your goal and
+the tools you have to get there, you should be able to generate a solution.
+
+
+Kevin Lee
+kevinlee@cs.stanford.edu
+

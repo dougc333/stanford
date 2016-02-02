@@ -1,0 +1,22 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                The EtherLink 10 ISA Adapter Family
+           NetWare 3.11 Server Driver Installation Notes
+
+
+Netware 3.11 is no longer supported on this EtherDisk.  If you need to
+install an EtherLink 10 ISA adapter in a Netware 3.11 server, obtain the
+LANDR6 support file from Novell and follow the directions in that file
+to install a Netware server specification 3.2 driver.
+
+At the very minimum, you will need the following NLMs from LANDR6:
+
+   MSM31X.NLM
+   ETHERTSM.NLM
+   LSLENH.NLM
+   PATCHMAN.NLM
+   MONITOR.NLM
+
+
+
+%VER - 3C5X9 Netware 3.11 Server installation notes V6.1a

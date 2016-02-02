@@ -1,0 +1,4 @@
+#define HELLO world
+#define
+#define HELLO there
+#HELLO

@@ -1,0 +1,140 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./HW8_Problem3_files/filelist.xml">
+<title>1</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Preferred Customer</o:Author>
+  <o:LastAuthor>Preferred Customer</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>83</o:TotalTime>
+  <o:Created>2001-03-07T02:36:00Z</o:Created>
+  <o:LastSaved>2001-03-07T02:36:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Company>Dell Computer Corporation</o:Company>
+  <o:Lines>1</o:Lines>
+  <o:Paragraphs>1</o:Paragraphs>
+  <o:Version>9.3821</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h3
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:13.0pt;
+	font-family:Arial;}
+p.SuperScript, li.SuperScript, div.SuperScript
+	{mso-style-name:SuperScript;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	vertical-align:super;}
+p.SubScript, li.SubScript, div.SubScript
+	{mso-style-name:SubScript;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	vertical-align:sub;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+</head>
+
+<body lang=EN-US style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h3 align=center style='text-align:center'>Homework 8 Problem 3</h3>
+
+<p class=MsoNormal><b><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></b></p>
+
+<p class=MsoNormal><b>P is closed under union</b>.&nbsp; For any two
+P-languages L1 and L2 let M1 and<br>
+M2 be the TM's that decided them in polynomial time.&nbsp; We construct a TM M'<br>
+that decides the union of L1 and L2 in polynomial time:<br>
+<br>
+M'=&quot;On input &lt;w&gt;:<br>
+1. Run M1 on w. If it accepts, accept.<br>
+2. Run M2 on w. if it accepts, accept. Otherwise reject.&quot;<br>
+<br>
+M' accepts w iff either M1 or M2 ACCEPTS w. Therefore, M' decides the union<br>
+of L1 and L2.&nbsp; Since both stages take polynomial time, the algorithm runs<br>
+in polynomial time.<br>
+<br>
+<b>P is closed<span style="mso-spacerun: yes">  </span>under Concatenation</b>.&nbsp;
+For any two P-languages L1 and L2 let<br>
+M1 and M2 be the TM's that decide them in polynomial time.&nbsp; We construct a<br>
+TM M' that decides the Concatenation of L1 and L2 in polynomial time:<br>
+M'=&quot;On input &lt;w&gt;:<br>
+1.<span style="mso-spacerun: yes">  </span>For each i from 0 to (length(w) – 1)</p>
+
+<p class=MsoNormal>2.<span style="mso-spacerun: yes">  </span>w as a string of
+characters, w1w2….wn.<span style="mso-spacerun: yes">  </span>Split w into wA =
+w1w2…wi and wB = w(i+1)…wn.<br>
+3. Run M1 on wA and M2 on wB.&nbsp; If both accept, accept. <br>
+4. If w is not accepted after trying all the possible cuts reject.&quot;<br>
+M' accepts w iff w can be written as wAwB such that M1 accepts wA and M2<br>
+accepts wB.&nbsp; Therefore, M' decides the concatenation of L1 and L2.&nbsp;
+Since<br>
+stage 2 runs in polynomial time and is repeated at most 0(n) times, The<br>
+algorithm runs in polynomial time.<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoNormal><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></p>
+
+<p class=MsoNormal><b>P is closed under complement</b>.&nbsp; For any
+P-languages L, let M be the TM<br>
+that decides it in polynomial time.&nbsp; We construct a TM M' that decides the<br>
+complement of L in polynomial time:<br>
+<span style="mso-spacerun: yes"> </span><br>
+M'=&quot;On input &lt;w&gt;:<br>
+1. Run M on w. <br>
+2. If M accepts, rejects. If it rejects, accept.&quot;<br>
+M' decides the complement of L. Since M runs in polynomial time, M' also<br>
+runs in polynomial time.</p>
+
+</div>
+
+</body>
+
+</html>

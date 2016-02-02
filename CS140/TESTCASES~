@@ -1,0 +1,420 @@
+Group: Screwed
+Elias Dagher 	dagher@leland
+Lionel Gresse   gresse@leland
+Doug Chang      dougc@leland
+CS140, Summer 1999
+Homework 4
+
+
+TESTCASES FILE
+
+
+     The testing consists of 2 partss:
+
+	1) Functional Testing: This section consists of 4 parts to show meeting the requirements of the assignment. We have also included additional test programs to validate functionality and robustness.
+	2) Performance Testing: This section is for the cache only.
+
+
+1) FUNCTIONAL TESTING:
+
+Problem 1: Growing large files:
+
+	Growing files to 1MB in size. We verified this in several ways, using cp t o copy a large file into the DISK, and using cat to verify the file is correct. Alse we implemented a genfile program that counts to large numbers, creating a large file. 
+
+2) FUNCTIONAL TESTING
+Problem 2: Extensible files:
+
+	We show addition of files into the directory file past the 10 file limit. 
+
+This is a listing of the current files in the directory at 10. 
+
+saga12:~/cs140/pp4/filesys> SUN/nachos -f -RL
+--ls
+SwapFile
+shell
+cp
+echo
+cat
+remove
+wc
+testjoinA
+testjoinB
+testjoinC
+
+Total files and directories: 10
+--
+
+We now add directories and do a listing to show directories can grow past the 10 file limit:
+
+--mkdir sorkin
+--mkdir sorkin1
+--mkdir sorkin3 
+--ls
+SwapFile
+shell
+cp
+echo
+cat
+remove
+wc
+testjoinA
+testjoinB
+testjoinC
+sorkin/
+sorkin1/
+sorkin3/
+
+Total files and directories: 13
+--
+
+3) FUNCTIONAL TESTING:
+Problem 3: Hierarchial Name Space and file system programs mkdir, ls, cd, cat, cp, remove, wc, testJoinA, filetest, genfile, and echo.
+
+
+
+mkdir:
+
+The following shows the command mkdir test. It shows the directory test in the filesystem.
+
+The code for mkdir is in both the test directory,the exception handler, and the shell
+:
+The following is a listing of mkdir.c as a standalone command mkdir.
+
+#include "syscall.h"
+void printd(int n);
+void prints(char *s);
+int strlen(char *s);
+
+void main(int argc, char *argv[]){
+
+  char *dirname;
+
+  //get the path name from argv
+
+  if (argc > 2 | argc < 1) {
+    prints("Usage cd path\n" );
+  }
+  
+  dirname = argv[1];
+
+  Mkdir(dirname);
+
+
+
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+
+
+The following is a listing of the syscall implementation in the exception handler:
+
+void HandleMkdir(void) {
+   char *comLine;
+
+   int  cmdLinePtr;
+  // get command line
+   cmdLinePtr = kernel->machine->ReadRegister(4);
+
+  // copy command line in the kernel space
+   int curChar =0;
+   bool stopRead=FALSE;
+   comLine = new char[60];
+
+   do {
+     kernel->memoryManager->UserToKernel(comLine+curChar, cmdLinePtr+curChar, 1);
+     if ((comLine[curChar]!='\0') && ((curChar+1)<60))
+       curChar++;
+     else stopRead=TRUE;
+     
+   } while (!stopRead);
+
+   OpenFile* MyOpenFile = NULL;
+   comLine = kernel->fileSystem->ParseFile(comLine, &MyOpenFile);
+   if (comLine == NULL) {
+     printf("Path is invalid.\n");
+     kernel->machine->WriteRegister(2,-1);
+     delete comLine;
+     delete MyOpenFile;
+     return;
+   }
+   if(!kernel->fileSystem->CreateDirectoryInDir(comLine, MyOpenFile)) {
+     printf("Path is invalid.\n");
+     kernel->machine->WriteRegister(2,-1);
+     delete comLine;
+     delete MyOpenFile;
+     return;
+   }
+   kernel->machine->WriteRegister(2,0);
+   return;
+ }
+
+
+The following is a listing of the modifications to shell to support mkdir, ls, cd, exit, join, and halt to make testing easier.
+
+char elias[]="Elias";
+int strcmp(char *s, char *t);
+void strcpy(char *s, char *t, char token, int offset);
+void prints(char *s);
+int strlen(char *s);
+int
+main()
+{
+  SpaceId newProc;
+  OpenFileId input = StandardInput;
+  OpenFileId output = StandardOutput;
+  char prompt[2], ch, buffer[120], shellCmdBuffer[120];
+  int i;
+  int joinIt;
+  
+  
+  prompt[0] = '-';
+  prompt[1] = '-';
+  
+  while( 1 )
+    {
+      Write(prompt, 2, output);
+      
+      i = 0;
+      
+      do {
+	
+	Read(&buffer[i], 1, input); 
+	i++;
+      } while(( buffer[i-1] != '\n') && (i<120) );
+      
+      buffer[--i] = '\0';
+      
+      if (buffer[0]!='&')
+	joinIt=1;
+      else 
+	joinIt=0;
+      strcpy(shellCmdBuffer, buffer, ' ', 0);
+      if( i > 0 ) {
+	if (!strcmp(shellCmdBuffer, "halt")) {
+	  prints("Thank you for using Screwed OS 2000\n");
+	  Halt();
+	} else if (!strcmp(shellCmdBuffer, "cd")) {
+	  strcpy(shellCmdBuffer, buffer, '\0', 3);
+	  Chdir(shellCmdBuffer);
+	} else if (!strcmp(shellCmdBuffer, "mkdir")) {
+	  strcpy(shellCmdBuffer, buffer, '\0', 6);
+	  Mkdir(shellCmdBuffer);
+	} else if (!strcmp(shellCmdBuffer, "ls")) {
+	  Lsdir();
+	} else if (!strcmp(shellCmdBuffer, "exit")) {
+          Exit(0);
+	} else if (joinIt) {
+	  newProc = Exec(buffer);
+	  Join(newProc);
+	} else newProc = Exec(buffer+1);
+      } 
+    }
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+int strcmp(char *s, char *t) {
+  for ( ; *s == *t; s++, t++)
+    if (*s == '\0')
+      return 0;
+  return *s - *t;
+}
+
+void strcpy(char *s, char *t, char token, int offset) {
+  int i;
+  for (i = 0; i < offset; i++)
+    t++;;
+  while (*t != token && *t != '\0' ) {
+    *s = *t;
+    s++;
+    t++;
+  }
+  //s++;
+  *s = '\0';
+}
+
+
+PRINT OUT OF ls, cd, mkdir working:
+
+--ls
+SwapFile
+shell
+cp
+echo
+cat
+remove
+wc
+testjoinA
+testjoinB
+testjoinC
+
+Total files and directories: 10
+--mkdir test
+--ls
+SwapFile
+shell
+cp
+echo
+cat
+remove
+wc
+testjoinA
+testjoinB
+testjoinC
+test/
+
+Total files and directories: 11
+--
+
+The following shows making a subdirectory in test with 
+
+--mkdir /test/toto/
+--ls
+SwapFile
+shell
+cp
+echo
+cat
+remove
+wc
+testjoinA
+testjoinB
+testjoinC
+test/
+
+
+Total files and directories: 11
+--cd test  
+--ls
+./
+../
+toto/
+
+Total files and directories: 3
+--
+
+
+
+We also implemented additional test programs for testing including touch, genfile, cp, remove.
+
+Code Listing for touch:
+
+#include "syscall.h"
+void printd(int n);
+void prints(char *s);
+int strlen(char *s);
+
+void main(int argc, char *argv[]){
+
+  char *filename;
+
+  //get the path name from argv
+
+  if (argc > 2 | argc < 1) {
+    prints("Usage remove TARGET\n" );
+  }
+  
+  filename = argv[1];
+  Create(filename);
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+
+Results for testing touch with command line parsing:
+
+
+
+Implementation of ../ ./
+
+
+
+
+
+
+4) FUNCTIONAL TESTING:
+Problem 4: File Cache and demonstration of performance. Show a workload where the cache helps, and one where it does not.
+
+
+

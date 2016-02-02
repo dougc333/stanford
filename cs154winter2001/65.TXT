@@ -1,0 +1,37 @@
+> CS 154, Assignment 6, Problem 5 model solution
+>
+> Show that it is undecidable whether a biNFA accepts the empty language.
+>
+> If E_biNFA was decidable (E_biNFA being the set of  biNFA's that accept
+> the empty language), then we could decide PCP.
+>
+> The idea is to construct the transition table of the biNFA out of the
+> dominoes of P (where PCP decides P), and then E_biNFA can be used to
+> determine whether P contains dominoes that can arrange a single input on
+> the top and bottom.
+>
+> Construct the E_biNFA for a given P of dominoes as follows:
+>
+> q0 is the start state and should transition into a domino's beginning
+> state if the both heads can move on the given input so far.
+>
+> q_final is the accepting state when both heads have finished moving past a
+> domino's top and bottom strings.
+>
+> For every domino dk = [ak1...aki, bk1...bkj] we have transitions
+> d(q0, ak1, bk1) -> qk1
+> d(qk1, ak2, bk2) -> qk2
+>   .............
+> d(qk(n-2), ak(n-1), bk(n-1)) -> qk(n-1)
+> d(qk(n-1), akn, bkn) -> q_final
+>
+> Here n = max[i, j], akx = epsilon for x > i, bkx = epsilon for x > j.
+>
+> To transition to the next domino, q_final should have an epsilon
+> transition back to the start (which already is set up to transition to
+> every other domino).
+>
+> d(q_final, e, e)-> q0
+>
+> So given E_biNFA, we can decide PCP by translating every P into the proper
+> biNFA states and transition tables.

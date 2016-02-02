@@ -1,0 +1,267 @@
+CS145 Assignment 2 Solutions
+
+Exercises
+
+1(i) Exercise 6.1.3
+
+  (c) SELECT maker
+      FROM Product
+      WHERE type = 'printer';
+
+  (d) SELECT model, ram, screen
+      FROM Laptop
+      WHERE price > 2000;
+
+1(ii) Exercise 6.2.2
+
+  (c) (SELECT maker
+       FROM Product
+       WHERE type = 'laptop')
+      EXCEPT
+      (SELECT maker
+       FROM Product
+       WHERE type = 'pc');
+
+  (e) SELECT p1.model as model1, p2.model as model2
+      FROM PC p1, PC p2
+      WHERE p1.model < p2.model AND p1.speed = p2.speed AND p1.ram = p2.ram;
+
+1(iii) Exercise 6.3.1
+
+  (b) SELECT model
+      FROM Printer
+      WHERE price >= ALL(SELECT price
+		         FROM Printer)
+
+      SELECT model
+      FROM Printer p1
+      WHERE NOT EXISTS(SELECT *
+		       FROM Printer p2
+		       WHERE p2.price > p1.price);
+
+  (c) SELECT model
+      FROM Laptop
+      WHERE speed < ANY(SELECT speed
+		        FROM PC);
+
+      SELECT model
+      FROM Laptop
+      WHERE NOT EXISTS(SELECT *
+		       FROM PC
+		       WHERE Laptop.speed >= PC.speed);
+
+  (d) SELECT model
+      FROM ((SELECT model, price FROM PC) UNION
+	    (SELECT model, price FROM Laptop) UNION
+	    (SELECT model, price FROM Printer))
+      WHERE price >= ALL(SELECT price FROM PC) AND
+	    price >= ALL(SELECT price FROM Laptop) AND
+	    price >= ALL(SELECT price FROM Printer);
+
+      SELECT model
+      FROM ((SELECT model, price FROM PC) UNION
+	    (SELECT model, price FROM Laptop) UNION
+	    (SELECT model, price FROM Printer)) E
+      WHERE NOT EXISTS(SELECT * FROM PC WHERE PC.price > E.price) AND
+            NOT EXISTS(SELECT * FROM Laptop WHERE Laptop.price > E.price) AND
+            NOT EXISTS(SELECT * FROM Printer WHERE Printer.price > E.price);
+
+1(iv) Exercise 6.4.3
+   No duplicates in solutions above.
+
+1(v) Exercise 6.4.6
+
+  (b) SELECT AVG(speed)
+      FROM Laptop
+      WHERE price > 2000;
+
+  (d) SELECT AVG(price)
+      FROM ((SELECT PC.model, price
+	     FROM Product, PC
+	     WHERE Product.model = PC.model and Product.maker = 'D')
+	    UNION
+	    (SELECT Laptop.model, price
+	     FROM Product, Laptop
+	     WHERE Product.model = Laptop.model and Product.maker = 'D'));
+
+  (g) SELECT maker
+      FROM Product, PC
+      WHERE Product.model = PC.model
+      GROUP BY maker
+      HAVING count(*) >= 3;
+
+1(vi) Exercise 6.5.1
+
+  (b) INSERT INTO Laptop
+        SELECT model+1100, speed, ram, hd, 15, price+500
+        FROM PC;
+      INSERT INTO Product
+        SELECT maker, PC.model+1100, 'laptop'
+	FROM PC, Product
+	WHERE PC.model = Product.model;
+
+  (d) DELETE FROM Laptop lp
+      WHERE NOT EXISTS(SELECT *
+		       FROM Product prod1, Product prod2, Printer prt
+		       WHERE lp.model = prod1.model AND
+			     prod1.maker = prod2.maker AND
+			     prod2.model = prt.model);
+
+      DELETE FROM Product prod1
+      WHERE type = 'laptop' AND
+	    NOT EXISTS(SELECT *
+		       FROM Product prod2, Printer prt
+		       WHERE prod1.maker = prod2.maker AND
+			     prod2.model = prt.model);
+
+  (g) UPDATE Laptop
+      SET screen = screen + 1, price = price - 100
+      WHERE model IN (SELECT model
+		      FROM Product
+		      WHERE maker = 'B');
+
+
+2.
+(a) /STARS/STAR [ADDRESS/* = 'Hollywood'] / NAME
+
+(b) //MOVIE [YEAR > '1975'] /TITLE
+
+(c) /STARS/STAR [Contains(MOVIES/MOVIE[2]/TITLE, 'Strikes')]
+
+(d) The original problem was:
+    Write an XQuery expression to find all pairs of star names where the
+    two stars acted in a movie together. Assume that a movie is uniquely
+    identified by its title and year. The elements in your query result
+    should be of the form:
+      <Pair>
+        <Name1>...</Name1>
+	<Name2>...</Name2>
+      </Pair>
+    Stars should not be paired with themselves (you may assume that star
+    names are unique), and each pair should occur exactly once, not once
+    in each order.
+
+    A correct solution to the original problem requires nested
+    SOME-SATISFIES clauses. It took us a while to ensure that this is
+    legal (it is) and this nesting was not covered in class.  However,
+    congratulations to a number of students who did come up with this
+    solution.
+
+    Solution to the original problem:
+
+    <result> {
+      FOR $s1 IN /STARS/STAR
+      FOR $s2 IN /STARS/STAR
+      WHERE $s1/NAME < $s2/NAME and
+	    (SOME $m1 IN $s1/MOVIES/MOVIE SATISFIES
+	        (SOME $m2 IN $s2/MOVIES/MOVIE SATISFIES
+		    ($m1/TITLE = $m2/TITLE AND $m1/YEAR = $m2/YEAR)))
+      RETURN <Pair>
+	       <Name1> $s1/NAME </Name1>
+	       <Name2> $s2/NAME </Name2>
+	     </Pair>
+    }
+
+    One simplifying assumption we suggested was to assume that a movie is
+    uniquely identified by its title only (which we even edited into the
+    online version of the assignment).  With this simplification, the
+    solution is:
+
+    <result> {
+      FOR $s1 in /STARS/STAR
+      FOR $s2 in /STARS/STAR
+      WHERE $s1/NAME < $s2/NAME and
+	    $s1/MOVIES/MOVIE/TITLE = $s2/MOVIES/MOVIE/TITLE
+      RETURN <Pair>
+	       <Name1> $s1/NAME </Name1>
+	       <Name2> $s2/NAME </Name2>
+	     </Pair>
+    } </result>
+
+    Another simplification we suggested was to tolerate some duplicates in
+    the result.  With this simplification, here is a solution:
+
+    <result> {
+      FOR $s1 in /STARS/STAR
+      FOR $s2 in /STARS/STAR
+      FOR $m1 in $s1/MOVIES/MOVIE
+      FOR $m2 in $s2/MOVIES/MOVIE
+      WHERE $s1/NAME < $s2/NAME and
+	    $m1/TITLE = $m2/TITLE and
+	    $m1/YEAR = $m2/YEAR
+      RETURN <Pair>
+	       <Name1> $s1/NAME </Name1>
+	       <Name2> $s2/NAME </Name2>
+	     </Pair>
+    } </result>
+
+    NOTE: the following is NOT a correct solution to the original problem:
+          <result> {
+            FOR $s1 in /STARS/STAR
+            FOR $s2 in /STARS/STAR
+            WHERE $s1/NAME < $s2/NAME and
+	          $s1/MOVIES/MOVIE/TITLE = $s2/MOVIES/MOVIE/TITLE
+	          $s1/MOVIES/MOVIE/YEAR = $s2/MOVIES/MOVIE/YEAR
+	    RETURN <Pair>
+		   <Name1> $s1/NAME </Name1>
+		   <Name2> $s2/NAME </Name2>
+		   </Pair>
+	  } </result>
+	  The above query would return pairs of stars who acted in
+	  movies of the same title (but not necessarily the same year),
+	  and also acted in movies of the same year (but not necessarily
+	  the same title).
+
+(e) <result> {
+      LET $y := /STARS/STAR/MOVIES/MOVIE/YEAR
+      FOR $s in /STARS/STAR
+      WHERE $s/MOVIES/MOVIE/YEAR < avg($y)
+      RETURN $s/NAME
+    } </result>
+
+
+
+
+Challenge Problems
+
+1. Example:
+   Two tables:
+     Courses2002(title)
+     Courses2001(title)
+   Each table may contain duplicates, since a course can be offered
+   more than once in each year.
+   Query: Find all courses in 2002 that were also offered in 2001.
+
+   SELECT title FROM Courses2002
+   WHERE title IN (SELECT title FROM Courses2001);
+
+   Suppose CS145 appears twice in Courses2002 and twice in Courses2001.
+   The above query would return 2 copies of CS145.  However, the following
+   query without subqueries would return 4 copies:
+     SELECT c2.title
+     FROM Courses2001 c1, Courses2002 c2
+     WHERE c1.title = c2.title;
+   If we added "DISTINCT" it would return only 1 copy of CS145.  In fact,
+   we cannot write a query without subqueries so that it returns the same
+   number of duplicates as the original query.
+
+2. No.  If some students' GPAs are NULL, they will be treated as nonexistent
+   in the first query, but zero GPA in the second query.
+
+3. For XPath: Yes.
+     Suppose the ID attribute is called "Ident."  To dereference A in
+     /L1/L2/.../Ln/@A and continue with another subexpression S, one can use:
+       //*[@Ident = /L1/L2/.../Ln/@A]/S
+     (If you thought that absolute paths were not allowed in the middle
+      of an XPath expression, and answered No to this question, no points
+      were deducted.)
+
+   For XQuery: Yes.
+     Suppose the ID attribute is called "Ident."  To dereference A in
+     /L1/L2/.../Ln/@A and continue with another subexpression S, one can use:
+     <result> {
+       FOR $x in /L1/L2/.../Ln/@A
+       FOR $y in //*/@Ident
+       WHERE $x = $y
+       RETURN $y/S
+     } </result>

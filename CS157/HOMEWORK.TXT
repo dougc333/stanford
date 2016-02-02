@@ -1,0 +1,386 @@
+Doug Chang CS157 Assignment #2 4/27/00
+dougc@leland.stanford.edu
+I worked with the following people in this assignment
+phartke@leland.stanford.edu
+jsmarr@leland.stanford.edu
+mark smith, no email address
+shiangc@leland.stanford.edu
+jsham@leland.stanford.edu
+
+1)Given the following list of variables and constants: 
+variables:  x, y, z 
+object constants:  rover, fido, mousy, spots 
+function constants: grow, shrink 
+relational constants with an arity of one:  dog, cat, cow, ugly, pet 
+relational constants with an arity of two: plays, fights, eats, bigger, smaller, scared 
+determine whether each of the following is a syntactically legal sentence of relational logic.  A YES or NO is all that is needed.
+
+a)ugly(z) & eats(x, y) => smaller(y,mousy) ; YES
+
+(b)  bigger( rover, shrink(x) )   <=> ~smaller(rover, shrink(x)) ;YES
+
+(c)( cat(x) & dog(y) & cow(spots) ) => fights(x, y, spots) ;NO, the arity of fights is not correct.
+
+(d)cow(y) => ~eats(fido, y) & eats(z, y); YES        
+
+(e)  friendly(z) => plays(z, y) ; NO friendly is not a relation constant.
+
+(f)  (rover(y) & fido(z)) => plays(y,z)  ; NO, rover is not a relation constant
+
+(g) bigger(mousy, spots) => pet(x) & scared(z, mousy) ; YES
+
+(h) fights(dog(x), cat(y)) ; NO can't nest relation constants in place of object. Can only do this with object constants, variables, and function constants.
+
+2)English Translation (12 points)
+Translate each of the following English sentences into an equivalent sentence in relational logic. Use only the relation and object constants given in each part and you can introduce your own variables if necessary. You are also allowed to use Existential and Universal quantifiers. 
+
+a)All start-ups in Silicon Valley succeed. 
+object constants:  siliconValley 
+ relational constants with an arity of one:  startup, succeed 
+ relational constants with an arity of two: in(Object, Place)
+startup(x)=>in(x,siliconValley)=>succeed(x) ;
+Per the poisonous mushroom example in the notes, page 6-10 I believe this can also
+be written as (startup(x)&in(x,siliconValley))=>succeed(x) ;
+
+(b) There is no spoon. 
+relational constants with an arity of one:  spoon
+~spoon(x). 
+
+(c) Kings play chess on finely grained sand, if the weather is nice. 
+
+The phrase if the weather is nice is an implication. The relational constant with arity of 3 if modeled as playOn(x,y,z) is translated as x plays y on z. 
+careful, the translation for all kings playsOn some finely grained sand is:
+(king(x)&finelygrainedSand(y) => playOn(x,chess,y))
+nice(weather)=>king(x)&finelygrainedSand(y)  => playOn(x,chess,y)
+
+(d) Only the good die young. But not everyone good dies young. 
+
+dieYoung(X)=>good(X) for the first sentence
+(good(X)=>~dieYoung(X)) for the second sentence, the combination of the sentences is.
+
+NOTE: Since we are given 2 separate sentences, I answer the question with 2 separate sentences as above. The "ANDING " of the 2 sentences as: (dieYoung(X)=>good(X)) & EY.(good(Y)&~dieYoung(Y)) 
+
+
+(e) If I'm hungry I'll eat anything but prefer to eat candy. 
+
+If I'm hungry, I'll eat anything hungry(i)=>AX.(willEat(i,X)). 
+If I'm hungry, I prefer to eat candy: hungry(i) =>AY.(preferToEat(i,Y)&candy(Y))
+Putting the 2 sentences together in an order where the person, if hungry, will eat CANDY FIRST, then will eat something or anything if there is NO CANDY, yields the following:
+
+hungry(i) =>(preferToEat(i,Y)& candy(Y))=>(willEat(i,X))
+
+(f)You can fool some people all of the time, and you can fool all of the people sometime, but you can't fool all the people all of the time. 
+relational constants with an arity of two:  fool( person, time ) 
+You can fool some people all of the time: Ep.At.fool(p,t)
+You can fool all of the people sometime: Ap.Et.fool(p,t)
+You can't fool all of the people all of the time ~Ap.At.fool(p,t)
+
+Ex.Ay.fool(x,y)& Ax.Ey.fool(x,y)& ~Ax.Ay.fool(x,y)
+
+
+
+3)Blocks World
+Given the following syntax: 
+variables: x, y
+objext constants: a, b, c, d, e
+relational constants with an arity of one: clear, onTable
+relational constants with an arity of two: on, over
+clear(x) means block x is clear; there are no blocks on top of it.
+onTable(x) means block x is on the table.
+on(x,y) means block x is stacked directly on top of block y.
+over(x,y) means block x is above y on the same stack.
+
+Using the universe of discourse |i| = {!, @, %, *, +}, where each symbol represents the labeled blocks, give an interpretation that represents this state of the world.
+
+    +---+
+    | ! |
+    +---+
+    | @ |
+    +---+ +---+ +---+
+    | * | | + | | % |
+    +---+-+---+-+---+
+
+a^i =!
+b^i =@
+c^i =*
+d^i =+
+e^i =%
+
+ontable{<*>,<+>,<%>}
+on{<!,@>,<@,*>}
+over{<!,@>,<!,*>,<@,*>}
+clear{<+>,<%>,<!>}
+
+
+4) Distinguishing Models (16 points)
+Two interpretations are indistiguishable models if they cannot be distinguished by any set of sentences. That is, the two interpretations satisfy the exact same set of sentences. Thus, if there is a sentence that is satisfied by one interpretation but not another, the two are distinguishable. 
+For each of the following pairs of interpretations, say whether the pair is distinguishable or indistinguishable. If you answer "distinguishable," then supply a single relational logic sentence that distinguishes the two interpretations. 
+Note: Variables are allowed. 
+(a) 
+|i| = {!,%,+}                       |j| = {!,%,+}
+a^i = %                             a^j = % 
+b^i = !                             b^j = +
+c^i = +                             c^j = !
+p^i = {<%,%>, <%,!>, <%,+>}         p^j = {<!,!>,<%,+>,<%,!>}
+p^i  has <a,a>,<a,b>, <a,c>                                     p^j has <c,c>,<a,c>,<a,c>
+Distiguishable, where interpretation j entails p(c,c) and i does not. |=(i)p(c,c) |=#(j)p(c,c)
+
+(b) 
+|i| = {o,+,!}                       |j| = {o,+,!,@}
+a^i = +                             a^j = o
+b^i = !                             b^j = o
+c^i = o                             c^j = !
+p^i = {<o,!>, <o,+>}                p^j = {<!,o>, <@,+><+,@>}
+
+
+p^i is <c,b>,<c,a>                 p^j is <c,b>,<c,a>,<> 
+
+Indistinguishable
+
+(c) 
+|i| = {o,+,!}                       |j| = {o,+,!,@}
+a^i = !                             a^j = o
+b^i = +                             b^j = !
+c^i = o                             c^j = @
+d^i = +                             d^j = +
+p^i = {<!,+>, <+,+>, <o,!>}         p^j={<o,!>,<+,!>,<!,+>,<@,o>}
+
+p^i gives <a,b>,<a,d>,<d,d>,<b,b>,<d,b>,<b,d>,<c,a>
+p^j gives <a,b>,<d,b>,<b,d>,<c,a>
+
+Distinguishable, before accouting for variables, p(b,b) is in i but not j.
+
+(d) 
+|i| = {o,+}                         |j| = {o,+,!,@}
+a^i = +                             a^j = o
+b^i = +                             b^j = !
+c^i = o                             c^j = @
+p^i = {<o,o>}                       p^j = {<@,@>, <+,!>, <!,+>, <@,+>}
+
+
+p^i gives <c,c>, p^j gives <c,c> Distinguishable, p(b,X)=>p(X,a) is not true in j but good in i.
+
+5) Models, Entailment (10 points)
+In the following, assume "entails" to mean "relationally entails." We also use U and ^ to represent set union and intersection, respectively. 
+Let S and T be sets of sentences, and let phi and t be sentences in relational logic. State whether each of the following statements are true or false. 
+(a)If S entails phi and T entails psi, then S U T entails (phi & psi)
+TRUE
+
+(b) If S entails phi and T entails phi, then S ^ T entails phi : FALSE, if S|=phi, and T|=phi, we don't necessarily know if S^T entails phi, for example, S^T could be {} which entails nothing.
+
+(c) If S entails phi then S U T cannot entail ~phi.: FALSE, I can have S = p(a) and T be ~p(a) so the union of S ant T can entail everything.
+
+(d) If S U T is {}, then S U T does not entail any sentence phi.: FALSE, {} does not entail anything except itself or another empty set, you can not say if SUT does or does not entail a specific sentence phi.
+
+(e) If S logically entails phi and T logically entails (phi => psi), then S U T entails psi TRUE; we can replace phi=>psi with {~phi,psi}. We know the union of S and T would get {phi, ~phi, psi}, which has psi as part of the set.
+
+(f) If S logically entails phi and T logically entails (phi => psi), then S ^ T entails psi :FALSE, S^T can be {} which entails nothing.
+
+6) Models And Interpretations (12 points)
+Parts (a) and (b) refer to the following syntax: 
+variables :         x, y, z
+object constants :  a, b, c
+Unary Relational :  p
+Binary Relational : q
+In the following questions, use the universe of discourse |i| = {*,#,@}. 
+
+(a) For each of the following sentences of relational logic, give an interpretation that is a model for that sentence. 
+
+1. q(x,a) & q(a,y) => q(x,y)
+	i(a) = *
+	i(b) = ;doesn't matter what this is
+	i(c) = ; doesn't matter what this is
+	i(p) = {}; doesn't matter what this is
+	i(q) = {<#,#>}; setting a to be * limits the possibilities for q(x,a) to q(*,*),q(#,*),q(@,*). None of these should be in i(q) to keep this side false. We don't need to analyze the q(a,y) term, but the possibilities for this are q(*,*),q(*,#),q(*,@). 
+
+
+2. p(x) => p(b)
+	i(a) = ; this doesn't matter
+	i(b) = *;
+	i(c) = ; doesn't matter what this is
+i(p) = {<*>}; to make this sentence true, the symbol used for  i(b) must be in i(p) to keep the other side true.  
+	i(q) = ; doesn't matter
+
+
+3.( ~p(a) & ~q(b,c) ) <=> ~( p(x) | q(y,z) )
+
+ 	i(a) = *
+	i(b) = #
+	i(c) = @ 
+	i(q) = {}; doesn't matter what this is
+	i(p) = {<*>,<@>,<#>};
+	Setting p(a) to * or any symbol in i(q) keeps p(a) true. Setting p(a) true causes this entire side to be false because ~p(a) is false for all variable assignments. As x cycles through *,#,@; we need to have p(x) true on the other side to keep the or statement true so the negation is false matching the false on the other side. 
+
+
+
+
+(b) For each sentence in part (a), find an interpretation that satisfies the sentence but is not a model. Indicate this by providing: 
+(i) the interpretation, 
+(ii) a variable assignment for which the interpretation does satisfy the sentence, 	and 
+(iii)a variable assignment for which the interpretation does not satisfy the sentence. If such an interpretation is not possible, state "Not Possible" and briefly (in one or two sentences) explain why. 
+
+1. q(x,a) & q(a,y) => q(x,y)
+	
+The case for satisfy:
+	i(a) = @
+	i(b) = ;doesn't matter what this is
+	i(c) = ; doesn't matter what this is
+	i(p) = {}; doesn't matter what this is
+	i(q) = {<#,@>,<@,*>};
+	x^iv = # ; 
+	y^iv = @ ; 
+	We constrain the possibilities to q(@,*) & q(*,#) =>q(@,#); we want this to be true. We know q(*,#) is false, hence this sentence is satisfied.
+
+
+The case for won't satisfy:
+	i(a) = @
+	i(b) = ;doesn't matter what this is
+	i(c) = ; doesn't matter what this is
+	i(p) = {}; doesn't matter what this is
+	i(q) = {<#,@>,<@,*>};
+	x^iv = # ; 
+	y^iv = * ; 
+	We constrain the possibilities to the sentence q(#,@) & q(@,*) => q(#,*). We want this sentence to be false, so the first part is true, the part after the arrow is false. 
+
+
+2. p(x) => p(b)
+	i(a) = ; this doesn't matter
+	i(b) = *;
+	i(c) = ; doesn't matter what this is
+	i(p) = {<#>}; verify this was changed from the part above.  
+	i(q) = ; doesn't matter
+	x^iv = * ; 
+       For this case, p(*) =>p(*) is satisfied because p(*) is false.
+	
+This does not satisfy:
+	i(a) = ; this doesn't matter
+	i(b) = *;
+	i(c) = ; doesn't matter what this is
+	i(p) = {<#>}; verify this was changed from the part above.  
+	i(q) = ; doesn't matter
+
+	x^iv = #; p(#) is true, and p(*) is false, hense this is unsatisfiable
+	
+
+
+3.( ~p(a) & ~q(b,c) ) <=> ~( p(x) | q(y,z) )
+
+ 	i(a) = *
+	i(b) = *
+	i(c) = * 
+	i(p) = {<#>}; doesn't matter what this is
+	i(q) = {<*,*>}; 
+	x^iv = * ; 
+	y^iv = * ; 
+	z^iv = *;
+	~p(*) & ~q(*,*) = T&F=F; p(*)=F, q(*,*)=T, the OR is false, after the inversion this is true, but this side does not matter because the first part is false. So this is satisfied.
+
+
+this will not work:		
+	i(a) = *
+	i(b) = *
+	i(c) = * 
+	i(p) = {<#>}; doesn't matter what this is
+	i(q) = {<*,*>}; 
+	x^v = * ; 
+	y^v = # ; 
+	z^v = @;
+        ~p(*)=T, ~q(*,*)=F, ~p(*) & ~q(*,*)=F. p(*)=F, q(#,@)=F, ~( p(*) | q(#,@)) = ~(F) = T. F<=>T is not satisfied.
+
+7)Geometry (12 Points) 
+Consider the Plane as a collection of all it's points. Define an Object to be a set of such points. Assume an interpretation I whose Universe of Discourse is the set of all Objects, and which associates the following meanings to the following relational constants:
+
+p(x) means "x is a point"
+l(x) means "x is a line"
+c(x) means "x is a circumference"
+i(x,y) means "x intersects y", i.e. x and y have at least one point in common.
+
+(a) Consider the binary relational constant e. Let the interpretation of e(x,y) be "x is equal to y". Give a sentence which use only the four relational constants above, but not e, which has the same truth value as e(x,y) under every variable assignment.
+
+	[Hint: Two objects are equal iff they are made of the exactly the same points.]
+
+A case by case analysis, for all points, a point is equal to another point with the sentence: p(x)&p(y)&i(x,y)
+
+A line is equal to a line: l(x)&l(y)&Az.(p(z)&i(x,z)=>i(y,z))
+
+A circumference is equal to a circumference: c(x)&c(y)&Az(p(z)&i(x,z)=>i(y,z))
+
+
+The final sentence we have is e(x,y)<=> (p(x)&p(y)&i(x,y)) |( l(x)&l(y)&Az.(p(z)&i(x,z)=>i(y,z))) | c(x)&c(y)&Az(p(z)&i(x,z)=>i(y,z))
+
+
+(b) Consider the ternary relational constant t. Let the interpretation of t(x,y,z) be "x, y and z lie on one line" if x, y and z are points. The interpretation when one of them isn't a point doesn't matter. Assume t(x,y,z) to be true if two among  x, y and z are equal. Give a sentence using the four original relational constants, and e, which has the same truth value as t(x,y,z) under every variable assignment.
+
+	[Hint: Think about the two lines, one connecting x to y, the other connecting y to z.]
+
+This relation t(x,y,z) describes a 3 points on one line. To say this, we look at any 2 points, define a line, and make sure that the third point lies on the same line. I check for the case where 2 points lie on top of each other.
+
+The case where when given 3 points, and 2 lie on top of each other is given as: e(x,y)|e(y,z)|e(x,z).
+
+The case where a line intersects three points is given by: (Eu.Ev.Ew.Et(l(t)&p(u)&i(u,t)&i(u,x)&p(v)&i(v,t)&i(u,y)&p(w)&i(w,t)&i(w,z))
+
+t(x,y,z)<=>p(x)&p(y)&p(z)&(Eu.Ev.Ew.Eww(l(t)&p(u)&i(u,ww)&i(u,x)&p(v)&i(v,ww)&i(u,y)&p(w)&i(w,ww)&i(w,z))|(e(x,y)|e(y,z)|e(x,z))
+
+
+
+(c) Give a sentence using the original four relational constants, together with e and t, whose truth value is the same as: For each triple (x,y,z) of points that don't lie on a line,there is one and only one circumference passing through x, y and z.
+
+[Hint: separate the existence and uniqueness.]; from the poisonous mushroom example on page 6-11 we have a form which separates existence from uniqueness: Ex.mushroom(x)&(Az.z(ne)x=>~mushroom(z)).
+
+We extend this case for circumferences, where we want to say there is exactly one circumference that passes through x,y,z. 
+
+Eu.(c(u)&i(u,x)&i(u,y)&i(u,z))&Av.c(v)(~=)c(u)=>~(c(v)&i(v,x)&i(v,y)&i(v,z)))
+
+The other way to say this without using this notation from the book is to cite say there are 3 points, which are not collinear (using the t(x,y,z) relation), and which intersect a circumference, and which is not equal to a second circumference.
+
+I write this as:
+
+p(x)&p(y)&p(z)&~t(x,y,z)=>Eu.~Ev.((c(u)&i(x,u)&i(y,u)&i(z,u)& (c(v) &~e(u,v) &i(x,v)&i(y,v)&i(z,v)))
+
+8) Family (15 Points) 
+Assume an interpretation I whose Universe of Discourse is the set of all people.
+Introduce a Unary function constant father, where father(x) is the father of a person x. Introduce a binary relation constant parent, such that parent(x,y) means that y is a parent of x. Introduce one last binary relation same, such that same(x,y) means that x and y are the same person.
+
+(a) Introduce constants zoe and eitan. Write a sentence to express the fact that eitan's father is zoe's father's son.
+
+same(father(father(eitan)),father(zoe))
+
+(b) Write a sentence that captures the fact that a person's father is a parent.
+
+father(x) is a persons' father. parent(x,father(x))
+
+(c) Introduce a constant danny. Write a sentence to express the fact that danny has no siblings.
+
+parent(x,y) & parent(danny,y) => same(danny,x)
+
+
+(d) Introduce the binary relational constant ismother. Let the interpretation of ismother(x,y) be "y is the mother of x". Construct a sentence, using the above defined functional and relational constants, that has the same truth value as ismother(x,y) under any variable assignment (Assume everyone has exactly one mother and one father as parents).
+
+
+parent(x,y)&~same(y,father(x))
+
+
+
+(e) Introduce the binary relational constant cousin. Let the interpretation of cousin(x,y) be "x and y are first cousins" (Nobody is their own cousin). Construct a sentence, using the above defined functional and relational constants, that has the same truth value as cousin(x,y) under any variable assignment.  
+
+
+
+The diagram we are trying to represent are
+
+   		   GA                                      GB                                                                		/       \                               /      \                                                                                                           	     PA1      PA2                            PB1      PB2                       
+          /   \    /    \                        /      \  /     \                        
+         S1   S2  S3    S4                      S5    S6  S7     S8                  
+
+In this definition, S1 and S2 are siblings, S1 and S3 are first cousins. GA and GB are grandparents, and they are related siblings. S4 and S5 are second cousins. 
+
+What we want to say is x and y are cousins if they have the same grandparents but not the same parents.
+
+We are given the assumption that each sibling S1 to S8 in the diagram below each have a father and mother as parents. The parents for sibling S1 and S2 are MF1. 
+
+cousin(x,y) <=>Exp.Eyp.(parent(x,xp) & parent(y,yp) & same(father(xp),father(yp))&~same(father(x),father(y))
+
+this case does not cover the case of mother's cousins, but
+
+Ex.Ey.Ez.(parent(x,z)& parent(y,u)& parent(z,w) parent(u,w)&~same(x,y)&same(z,u)) cover the case of mother's cousin tree. 
+
+I am not sure what the scope of this problem is. 

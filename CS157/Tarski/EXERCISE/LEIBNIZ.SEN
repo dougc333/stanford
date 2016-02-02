@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+18
+@x (?y (x = y) $ (x = d))@x (?y Between(x, y, c) $ x = b)@x (~?y LeftOf(y, x) $ x = a)@x ((~?y LeftOf(y, x) & ~?y FrontOf(y, x)) $ x = a)@y @z @x ((Cube(y) & Cube(z) & Between(x, y, z)) $ x = b)@x @y @z ((Between(x, y, z) & x = b) $ (y = a | y = c))@x @y @z ((Between(x, y, z) & Tet(y) & Tet(z)) $ x = e)@x @y ((Cube(x) & Cube(y)) $ ?z Between(z, x, y))@x @y ((x # y & Cube(x) & Cube(y)) $ ?z Between(z, x, y))?y @x ((Tet(x) & Small(x)) % x = y)?y @x ((Tet(x) & Large(x)) % x = y)?y @x ((Tet(x) & Medium(x)) % x = y)@x @y ((LeftOf(x, y) | RightOf(x, y)) $ x # y)@x @y ((FrontOf(x, y) | BackOf(x, y)) $ x # y)@x @y (x # y $ (LeftOf(x, y) | RightOf(x, y)))@x @y (x # y $ (LeftOf(x, y) | RightOf(x, y) | BackOf(x, y)))@x @y (x # y $ (LeftOf(x, y) | RightOf(x, y) | FrontOf(x, y) | BackOf(x, y)))@x @y (x # y % (LeftOf(x, y) | RightOf(x, y) | FrontOf(x, y) | BackOf(x, y)))

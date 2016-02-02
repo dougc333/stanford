@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+8
+Between(c, a, d) & ~Tet(c)?x BackOf(x, a) & ?x FrontOf(x, c)FrontOf(a, c) & ~?x (BackOf(x, a) & FrontOf(x, c))?x LeftOf(x, d) % Large(b)?x ?y (~Tet(x) & ~Tet(y) & Between(b, x, y))FrontOf(d, b) & LeftOf(d, f)Dodec(e)~?x LeftOf(x, e) | Large(e)

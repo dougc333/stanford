@@ -1,0 +1,8 @@
+4.0 
+WNDS
+Sent
+10
+LeftOf(c, b) & (d = d)
+; We know this is true in Kleene's World since the first
+; conjunct can be seen to be true and the second must be 
+; true as long as the name 'd' is in use.BackOf(b, a) | BackOf(a, b)Dodec(c) & LeftOf(d, a)LeftOf(d, a) & Cube(c) Between(e, f, a) | Cube(c)  LeftOf(e, f) | RightOf(e, f)~(RightOf(e, a) & LeftOf(e, a))c = b | c # be = f | e # f~Large(a)

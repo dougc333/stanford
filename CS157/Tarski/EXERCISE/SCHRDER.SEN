@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+10
+Dodec(a) & Cube(b)FrontOf(b, a) & LeftOf(d, b) & BackOf(f, d) & RightOf(a, f)Tet(c) & Tet(e) & LeftOf(c, d) ~LeftOf(c, e) & ~LeftOf(e, c)Between(d, b, c) & ~Between(d, c, a) ~Cube(b) | (Cube(d) & BackOf(d, b))(Small(c) & FrontOf(c, b)) | Cube(d)Larger(f, a) & Larger(a, b) ~(Smaller(c, a) | Smaller(a, c))Larger(d, b) & Larger(f, d) & ~(Larger(e, d) | Larger(d, e))

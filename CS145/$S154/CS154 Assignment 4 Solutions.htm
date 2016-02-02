@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://www-db.stanford.edu/~ullman/hmu/hw4sols.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 4 Solutions</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #4 Solutions</H1>
+<OL>
+  <LI>(a) All strings of 0's and 1's are generated. In fact, the third 
+  production, <I>S -&gt; S0</I>, is not necessary. 
+  <P>(b) The string 0 has two leftmost derivations. They are 
+  <I>S=&gt;0S=&gt;0</I> and <I>S=&gt;S0=&gt;0</I>. 
+  <P>(c) <I>P=({q}, {0,1}, {S,0,1}, delta, q, S)</I> where delta is given by the 
+  following rules: 
+  <P><PRE>     delta(q,0,0) = {(q,epsilon)}
+     delta(q,1,1) = {(q,epsilon)}
+     delta(q,S) = {(q,0S), (q,1S), (q,S0), (q,epsilon)}
+</PRE>
+  <P>(d) <I>P=({p,q,r}, {0,1}, {Z,S,0,1}, delta, p, Z, {r})</I> where delta is 
+  given by the following rules: 
+  <P><PRE>     delta(p,epsilon,Z) = {(q,SZ)}
+     delta(q,0,0) = {(q,epsilon)}
+     delta(q,1,1) = {(q,epsilon)}
+     delta(q,S) = {(q,0S), (q,1S), (q,S0), (q,epsilon)}
+     delta(q,Z) = {(r,epsilon)}
+</PRE>
+  <P>Note that state <I>p</I> causes the PDA from (b) to operate, with <I>Z</I> 
+  as a bottom-of-stack marker. If <I>Z</I> is ever exposed after that first 
+  step, then this PDA accepts by going to state <I>r</I>. 
+  <P>Just remove the third production, leaving: 
+  <P><PRE>     S -&gt; 0S | 1S | epsilon
+</PRE>
+  <P></P>
+  <LI>(a) Our PDA will count on its stack whichever of 0 and 1 it has seen in 
+  excess so far. It could remember which it is counting in the state, but to 
+  avoid having more than one state <I>q</I>, it will instead use three stack 
+  symbols: <I>X</I> as a bottom-marker, <I>Z</I> to count 0's, and <I>U</I> 
+  (unit) to count 1's. The PDA is <I>P = ({q},{0,1}, {X,Z,U}, delta, q, X)</I>, 
+  where delta is given by: 
+  <P><PRE>     delta(q,epsilon,X) = {(q,epsilon)} /* we may empty the stack
+                                           if the difference is 0 */
+     delta(q,0,X) = {(q,ZX)} /* push Z on a 0 input */
+     delta(q,0,Z) = {(q,ZZ)}
+     delta(q,1,X) = {(q,UX)} /* push U on a 1 input */
+     delta(q,1,U) = {(q,UU)}
+     delta(q,0,U) = {(q,epsilon)} /* pop when the input is different
+     delta(q,1,Z) = {(q,epsilon)}    the symbol being counted */
+</PRE>
+  <P>(b) Having only one state makes life a lot easier than the general case. In 
+  particular, each delta rule becomes only one production, while if there were 
+  <I>s</I> states, a rule with a stack of length <I>k</I> would become 
+  <I>s^k</I> productions. The variables are <I>S, [qXq], [qZq]</I> and 
+  <I>[qUq]</I>. The productions are: 
+  <P><PRE>     S -&gt; [qXq]
+     [qXq] -&gt; epsilon
+     [qXq] -&gt; 0[qZq][qXq]
+     [qZq] -&gt; 0[qZq][qZq]
+     [qXq] -&gt; 1[qUq][qXq]
+     [qUq] -&gt; 1[qUq][qUq]
+     [qUq] -&gt; 0
+     [qZq] -&gt; 1
+</PRE>
+  <P></P>
+  <LI>First, there are no useless symbols. We find that <I>B</I> and <I>S</I> 
+  derive epsilon, then <I>A</I> derives a string with production body 
+  0<I>B</I>1. Also, <I>S</I> derives itself and <I>A</I>, while <I>A</I> derives 
+  a string with <I>B</I>. 
+  <P>To eliminate epsilon-productions, we note that <I>S</I> and <I>B</I> are 
+  nullable, while <I>A</I> is not. Since no body consists of only <I>S</I>'s and 
+  <I>B</I>'s, it is sufficient to eliminate each <I>S</I> and <I>B</I> 
+  optionally from the bodies, yielding a grammar without epsilon-productions: 
+  <P><PRE>     S -&gt; AAS | AA | A
+     A -&gt; 0A1 | 01 | 0B1
+     B -&gt; B1 | 1
+</PRE>
+  <P>The next step is to eliminate unit productions. There is only one: <I>S</I> 
+  -&gt; <I>A</I>. Thus, we replace this production by all the bodies of the 
+  <I>A</I>-productions: 
+  <P><PRE>     S -&gt; AAS | AA | 0A1 | 01 | 0B1
+     A -&gt; 0A1 | 01 | 0B1
+     B -&gt; B1 | 1
+</PRE>
+  <P>Now, we replace all terminals in bodies, unless that body is a single 
+  terminal. To do so, we introduce variables <I>C</I> for 0 and <I>D</I> for 1: 
+  <P><PRE>     S -&gt; AAS | AA | CAD | CD | CBD
+     A -&gt; CAD | CD | CBD
+     B -&gt; BD | 1
+     C -&gt; 0
+     D -&gt; 1
+</PRE>Lastly, we need to shorten the three bodies <I>AAS</I>, <I>CAD</I>, and 
+  <I>CBD</I> that are too long for CNF. We introduce variables <I>E</I> for 
+  <I>AS</I>, <I>F</I> for <I>AD</I>, and <I>G</I> for <I>BD</I>, yielding the 
+  following CNF grammar: 
+  <P><PRE>     S -&gt; AE | AA | CF | CD | CG
+     A -&gt; CF | CD | CG
+     B -&gt; BD | 1
+     C -&gt; 0
+     D -&gt; 1
+     E -&gt; AS
+     F -&gt; AD
+     G -&gt; BD
+</PRE>
+  <P>Note that the formal construction given in the reader didn't take advantage 
+  of the possibility that the same body appears several times. However, it is 
+  safe to do so, introducing only as many new variables as you need for one copy 
+  of the body. </P></LI></OL></BODY></HTML>

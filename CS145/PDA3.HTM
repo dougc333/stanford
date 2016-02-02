@@ -1,0 +1,145 @@
+<title> CS145 Project Part 3 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Personal Database Application: Part 3
+<br>Due Monday April 24</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<ul>
+  
+<li><b>Important: we need all students to change their Oracle passwords as
+soon as possible.  On Thursday morning April 20 we will deactivate all
+Oracle accounts for which the password has not been changed.</b>
+
+<p><li> Please see <a
+href="http://www-db.stanford.edu/~widom/cs145/or-intro.html#recording your session">Recording Your Session</a> from the <i>Getting Started With
+Oracle</i> handout for a guide to preparing output to be handed in for
+this and subsequent PDA assignments.
+
+<p><li> Note that Oracle is <i>not</i> backed up.  Anything you need
+long-term should be saved in the leland file system.
+
+</ul>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+In this part of the project, you will create a relational schema for
+your PDA in the Oracle database system, and you will populate the
+tables in your database with initial data sets.
+
+<ol>
+
+<li> Familiarize yourself with the Oracle relational DBMS by reading
+the handout <a
+href="http://www-db.stanford.edu/~widom/cs145/or-intro.html">Getting
+Started With Oracle</a>, logging into Oracle, <b>changing your
+password</b>, trying some of the examples in the handout, and
+experimenting with the <tt>help</tt> command.  You don't need to turn
+anything in for this part.
+
+<p><li> Create relations for your PDA based on your final relational
+schema from PDA Part 2.  In addition to creating the appropriate
+attributes and types, please declare keys for your relations; see <a
+href="http://www-db.stanford.edu/~widom/cs145/or-intro.html#creating with key">Creating a Table With a Primary Key</a> from <i>Getting Started With Oracle</i> (not included in the printed version, unfortunately).
+Many of the attribute types supported by Oracle are listed on page 286
+of the textbook.  If you have an attribute that represents a date and/or
+time, you may want to look at our help page on <a
+href="http://www-db.stanford.edu/~widom/cs145/or-time.html">Oracle
+Dates and Times</a>.
+
+<p> Turn in a script showing an Oracle session in which your relations
+are created successfully.  Also show, for each relation, the result of
+the <tt>sqlplus DESCRIBE</tt> command once the relation has been created:
+for a relation <tt>Foo</tt>, type "<tt>DESCRIBE Foo;</tt>".
+
+<p><li> For each relation in your PDA, create a file containing a few
+(approximately 5-10) records of "realistic" data.  Then use the
+Oracle bulk-loading facilities to insert those records as tuples into
+your relations.  Refer to the handout <a
+href="http://www-db.stanford.edu/~widom/cs145/or-load.html">Using the
+Oracle Bulk Loader</a> for file format and how to load records into
+Oracle.
+
+<p>Turn in a listing showing the contents of the files you created,
+the successful loading of the data into Oracle, and the execution of
+"SELECT *" commands to show the contents of each relation.  (Again,
+information is available in <a
+href="http://www-db.stanford.edu/~widom/cs145/or-intro.html">Getting
+Started With Oracle</a>.)
+
+<p><li> Write a program in any programming language you like that
+creates large files of records for each of your PDA relations.  If you
+have available real data for your PDA, then your program will need to
+transform the data into files of records conforming to your PDA schema
+and to Oracle's load format.  The rest of you will need to write a
+program to <i>fabricate</i> data: your program will generate either
+random or nonrandom (e.g., sequential) records conforming to your
+schema.  Note that it is both fine and expected for your data values -
+strings especially - to be meaningless gibberish.  The point of
+generating large amounts of data is so that you can experiment with a
+database of realistic size, rather than the small "toy" databases
+often used in classes.  The data you generate and load should be on
+the order of:
+
+<ul>
+<p><li> At least two relations with thousands of tuples
+<li> At least one relation with hundreds of tuples
+</ul>
+
+<p>If your application naturally includes relations that are expected to
+be relatively small (e.g., schools within a university), then it is
+fine to use some small relations, but please ensure that you have
+relations of the sizes prescribed above as well.  When writing a
+program to fabricate data, there are two important points to keep in
+mind:
+
+<ul>
+
+<p><b>(a)</b> You will need to make sure not to generate duplicate
+values for key attributes.
+
+<p><b>(b)</b> Your PDA almost certainly includes relations that are
+expected to join with each other.  For example, you may have a
+<tt>Student</tt> relation with attribute <tt>courseNum</tt> that's
+expected to join with attribute <tt>number</tt> in relation
+<tt>Course</tt>.  When generating data, be sure to generate values
+that actually do join - otherwise all of your interesting queries will
+have empty results!  There are a couple of ways to properly generate
+joining values.  One way is to generate records for multiple relations
+(e.g., <tt>Course</tt> and <tt>Student</tt>) at the same time.
+Another way is to generate the records for one relation first, and
+then use the joining values for the other relation.  For example, you
+could generate records for relation <tt>Course</tt> first, then
+use the <tt>Course.number</tt> values when creating values for
+<tt>Student.courseNum</tt>.
+
+</ul>
+
+<p>
+Turn in your program code for generating or transforming data, a small
+sample of the records generated for each relation (5 or so records per
+relation), and a script showing the successful loading of your data
+into Oracle.
+
+</ol>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Maintaining your databases</h4>
+
+You will be using both your small (part 3) and large (part 4)
+databases for the rest of the course.  The idea is to use the small
+database to experiment on meaningful-looking data, and the large one
+to experiment on data of more realistic size.  You can keep the
+two databases going in parallel either by reloading the data each time
+you use it, or by creating two sets of relations with slightly
+different names.  
+
+<p>In Oracle, to get rid of a table called <tt>Foo</tt>, issue the
+command "<tt>drop table Foo;</tt>". If you want to get rid of all
+tuples in <tt>Foo</tt> without deleting the table itself, issue the
+command: "<tt>delete from Foo;</tt>".
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

@@ -1,0 +1,712 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - SQL: QUERIES AND UPDATES
+=========================================================================
+
+SQL ("S.Q.L." or "sequel") - Structured Query Language
+
+- Query language of all commercial relational DBMS's
+
+<How the SQL standard evolves over time>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+We'll cover primarily SQL92 (SQL2), some features of SQL3 (recently
+renamed SQL:1999)
+
+Components of language:
+
+  - Schema definition
+  - Data retrieval
+  - Data modification
+  - Indexes
+  - Constraints
+  - Views
+  - Triggers
+  - Transactions
+  - Authorization
+  - etc.
+
+DDL = Data Definition Language
+DML = Data Manipulation Language
+
+
+"Interactive SQL" versus "Embedded SQL"
+
+- Assume interactive for most lectures
+
+
+Basic DDL commands
+------------------
+
+CREATE TABLE name (att1 type1, att2, type2, ..., attN typeN)
+
+DROP TABLE name
+
+-> See book for details of types
+
+
+DML commands
+------------
+
+SELECT, INSERT, DELETE, UPDATE
+
+Example schema:
+
+   Student(ID, name, address, GPA, SAT)        // ID is key
+   Campus(location, enrollment, rank)          // location is key
+   Apply(ID, location, date, major, decision)  // (ID,location) is key
+
+
+SELECT Statement
+----------------
+
+SELECT A1, A2, ..., An
+FROM   R1, R2, ..., Rm
+WHERE  condition
+
+equivalent to relational algebra query:
+
+PROJECT_{A1, A2, ..., An} (SELECT_{condition} (R1 X R2 X ... X Rm))
+
+-> Returns unnamed relation whose schema is (A1, A2, ..., An)
+
+
+<ex: names and addresses of all students with GPA > 3.7>
+
+
+
+
+
+
+
+
+
+
+<ex: names and application dates of all students applying to CS at Berkeley
+     with SAT > 1400>
+
+
+
+
+
+
+
+
+
+
+<ex: locations plus ranks of all campuses with applicants to "bioinformatics"
+     major>
+
+
+
+
+
+
+
+
+
+
+Duplicates
+----------
+
+Retained unless use keyword DISTINCT
+
+<modify last query to use DISTINCT>
+
+
+-> This is a significant difference between SQL and relational algebra
+
+
+ORDER BY
+--------
+
+Sorts result
+
+<ex: ID, name, GPA, and application date of students applying to
+     S.C. sorted by application date then descending GPA>
+
+
+
+
+
+
+
+
+
+
+LIKE
+----
+
+For string matching in the WHERE clause
+
+<ex: ID's for all applicants with a major that includes "bio">
+
+
+
+
+
+
+
+
+
+
+SELECT *
+--------
+
+Returns all attributes in cross-product
+
+<Change previous two queries to use SELECT *>
+
+
+SELECT with Arithmetic
+----------------------
+
+<ex: Student relation except combine GPA and SAT>
+
+
+
+
+
+
+
+
+
+
+Renaming Attributes
+-------------------
+
+<ex: previous query rename attributes>
+
+- AS keyword is optional
+
+
+Tuple Variables
+---------------
+
+<ex: student ID pairs who live at same address>
+
+
+
+
+
+
+
+
+
+
+- Can use tuple variables anytime for convenience and readability
+- AS keyword is optional
+
+
+Union
+-----
+
+<ex: list of all names and majors in the database>
+
+
+
+
+
+
+
+
+
+
+Union eliminates duplicates, use UNION ALL to retain duplicates
+
+INTERSECT [ALL] and EXCEPT [ALL] are similar
+
+
+<ex: ID's of students with GPA > 3.7 that did not apply to a campus with
+     rank > 3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+***Q: How does what we've covered so far compare in expressiveness to
+      relational algebra?
+
+
+
+
+
+
+
+
+
+
+Subqueries
+----------
+
+SELECT statements appearing in WHERE clause
+
+- Treated as value if returns a single tuple result
+
+- Otherwise treated as relation and compared to values using IN,
+  EXISTS, ALL, ANY
+
+
+<ex: ID's and names of students applying to "CS" major>
+
+
+
+
+
+
+
+
+
+
+Q: Can we write it without a subquery?
+
+
+
+
+
+
+
+
+
+
+Q: Is the result the same?
+
+
+
+
+
+<ex: ID's and names of students who did not apply to Berkeley>
+
+
+
+
+
+
+
+
+
+Note: Can use "A NOT IN ..." and "NOT (A IN ...)" interchangeably
+
+Q: Can we write it without a subquery?
+
+
+
+
+
+
+
+<ex: students such that some other student has same name and GPA,
+     using EXISTS>
+
+
+
+
+
+
+
+
+
+
+<ex: rewrite using multi-attribute IN>
+
+
+
+
+
+
+
+
+
+
+<ex: student(s) with the highest SAT, using NOT EXISTS>
+
+
+
+
+
+
+
+
+
+
+<ex: rewrite using >= ALL>
+
+
+
+
+
+
+
+
+
+
+Uses of ALL:
+
+SELECT ... WHERE ... att <  ALL (subquery)
+                         <= ALL
+                         >  ALL
+                         >= ALL
+                         =  ALL
+                         <> ALL
+
+Can also precede expression with NOT, e.g.:
+   SELECT ... WHERE ... NOT (att < ALL ...)
+
+Same table for ANY:
+
+SELECT ... WHERE ... att <  ANY (subquery)
+                         <= ANY
+                         >  ANY
+                         >= ANY
+                         =  ANY
+                         <> ANY
+
+Can also precede expression with NOT, e.g.:
+   SELECT ... WHERE ... NOT (att < ANY ...)
+
+
+<ex: Find all applications that are not earliest, using > ANY>
+
+
+
+
+
+
+
+
+
+
+Q: Are there any redundancies in the above tables including NOT?
+
+
+
+
+
+Subqueries in FROM
+------------------
+
+Not covered in book
+
+<ex: get ID and combined GPA/SAT when the combined GPA/SAT lies
+     outside of some range>
+
+
+
+
+
+
+
+
+
+
+Aggregates
+----------
+
+- Clearly goes beyond relational algebra in expressiveness
+
+
+<ex: average GPA of all Students>
+
+
+
+
+
+
+
+
+
+
+<ex: average GPA of students applying to "CS">
+
+
+
+
+
+
+
+
+
+
+Q: Is every student's GPA counted exactly one time?
+
+
+
+
+
+
+
+
+
+
+<ex: amount by which average "CS" applicant GPA exceeds overall average>
+
+
+
+
+
+
+
+
+
+
+<ex: number of applicants to Berkeley>
+
+
+
+
+
+
+
+
+
+
+SQL aggregate functions are: MIN, MAX, SUM, AVG, COUNT
+
+
+GROUP BY
+--------
+
+<ex: number of applicants to each campus>
+
+<show picture>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-> If there's a GROUP BY clause then only grouped attributes and
+   aggregates may appear in the SELECT clause
+
+<ex: maximum applicant SAT score for each major at each location>
+
+
+
+
+
+
+
+
+
+
+<ex: for each student - ID and number of campuses applied to>
+
+
+
+
+
+
+
+
+
+
+Q: What if students can apply to a campus multiple times?
+
+
+
+
+
+
+Q: What if also want to include students who have applied to 0
+   campuses?
+
+
+
+
+
+
+
+
+
+
+HAVING Clause
+-------------
+
+Conditions on aggregates
+
+<ex: all locations with > 500 applicants to "CS">
+
+
+
+
+
+
+
+
+
+
+-> WHERE clause performs filtering before the grouping, HAVING performs
+   filtering after the grouping.
+
+Q: Can we write the query above with a subquery instead of HAVING?
+
+
+
+
+
+
+
+
+
+
+Q: Are there HAVING queries that can't be rewritten?
+
+
+
+
+
+
+
+
+SQL Summary
+-----------
+
+SELECT    attributes, aggregates
+FROM      relations
+WHERE     condition
+GROUP BY  grouping attributes
+HAVING    conditions on aggregates
+ORDER BY  attributes, aggregates
+
+-> All optional except SELECT and FROM
+
+<show "flowchart" of clause evaluation>
+
+
+
+
+
+
+
+
+
+
+Null Values
+-----------
+
+- Every type implicitly includes NULL
+
+Ex: - No decision information yet
+    - Student with no SAT scores
+
+
+<ex: all students with SAT > 1400, then NOT SAT > 1400>
+
+
+
+
+
+
+
+
+
+
+<ex: add AND GPA > 3.7, change to OR GPA > 3.7>
+
+
+
+
+
+<ex: all students whose SAT score is NULL but GPA is not NULL>
+
+
+
+
+
+
+
+
+
+
+Data Modification: INSERT Statement
+-----------------------------------
+
+INSERT INTO R VALUES (A1, A2, ..., AN)
+
+  Ex: INSERT INTO Campus VALUES ("Irvine", 30,000, 8)
+
+Can omit attribute values, assigned to default or NULL
+
+
+INSERT INTO R subquery
+
+<ex: create relation Visit for students with GPA > 3.7 or SAT > 1400>
+
+
+
+
+
+
+
+
+
+
+DELETE Statement
+----------------
+
+DELETE FROM R WHERE condition
+
+-> Just like SELECT except over one relation
+
+<ex: delete all students who didn't apply anywhere>
+
+
+
+
+
+
+
+
+
+
+UPDATE Statement
+----------------
+
+UPDATE R
+SET    A1 = E1, A2 = E2, ..., An = En
+WHERE  condition
+
+<ex: accept everyone applying to Berkeley with GPA > 3.7 and SAT > 1400>
+
+
+
+
+
+
+
+
+
+
+<ex: ... and make them into CS majors>

@@ -1,0 +1,64 @@
+Hong: This is the file with all the rules in it:
+
+
+flex -v  -d scanner.l
+flex version 2.5.4 usage statistics:
+  scanner options: -dvI8 -Cem
+  279/2000 NFA states
+  140/1000 DFA states (642 words)
+  36 rules
+  Compressed tables always back-up
+  1/40 start conditions
+  125 epsilon states, 56 double epsilon states
+  11/100 character classes needed 201/500 words of storage, 4 reused
+  3623 state/nextstate pairs created
+  282/3341 unique/duplicate transitions
+  144/1000 base-def entries created
+  239/2000 (peak 248) nxt-chk entries created
+  24/2500 (peak 196) template nxt-chk entries created
+  0 empty table entries
+  4 protos created
+  4 templates created, 109 uses
+  49/256 equivalence classes created
+  6/256 meta-equivalence classes created
+  9 (1 saved) hash collisions, 145 DFAs equal
+  0 sets of reallocations needed
+  1071 total table entries needed
+g++ -g -Wall -Wno-unused -Wno-sign-compare   -c -o lex.yy.o lex.yy.c
+g++ -o dcc lex.yy.o  utility.o  main.o  hash.o -lc -lm -ll
+
+
+This is the file with none of the rules and everyting put in a strcmp case statement:
+
+myth4:~/pp1> make
+flex -v  -d scanner.l
+flex version 2.5.4 usage statistics:
+  scanner options: -dvI8 -Cem
+  81/2000 NFA states
+  33/1000 DFA states (147 words)
+  10 rules
+  Compressed tables always back-up
+  1/40 start conditions
+  47 epsilon states, 30 double epsilon states
+  11/100 character classes needed 201/500 words of storage, 4 reused
+  319 state/nextstate pairs created
+  63/256 unique/duplicate transitions
+  37/1000 base-def entries created
+  105/2000 (peak 143) nxt-chk entries created
+  24/2500 (peak 108) template nxt-chk entries created
+  0 empty table entries
+  5 protos created
+  4 templates created, 14 uses
+  27/256 equivalence classes created
+  6/256 meta-equivalence classes created
+  0 (0 saved) hash collisions, 33 DFAs equal
+  0 sets of reallocations needed
+  567 total table entries needed
+g++ -g -Wall -Wno-unused -Wno-sign-compare   -c -o lex.yy.o lex.yy.c
+g++ -o dcc lex.yy.o  utility.o  main.o  hash.o -lc -lm -ll
+
+
+
+
+
+

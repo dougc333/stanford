@@ -1,0 +1,6 @@
+4.0 
+WNDS
+Sent
+15
+Cube(d) $ Cube(f)Cube(d) $ Tet(f)Dodec(d) $ Tet(f)Dodec(d) $ Cube(f)(Tet(a) & Cube(c)) $ Dodec(d)LeftOf(a, b) $ RightOf(b, a)LeftOf(e, d) $ RightOf(d, e)(LeftOf(a, c) & LeftOf(c, b)) $ Between(c, a, b)Cube(c) $ (Large(c) $ (Cube(c) & Large(c))) ~(Tet(a) $ Large(a)) $ (Tet(a) & ~Large(a))Large(d) % Small(a)Dodec(d) % Large(b) ~(Large(a) % Small(b))(Small(c) & (Cube(a) | Cube(d))) % 
+   ((Small(c) & Cube(a)) | (Small(c) & Cube(d)))Cube(a) % (Cube(c) % Large(c))

@@ -1,0 +1,129 @@
+<TITLE>The undecidability of first order logic</TITLE>
+<H1>The Undecidability of First Order Logic</H1>
+
+A first order logic is given by a set of function symbols and a set of
+predicate symbols. Each function or predicate symbol comes with an
+arity, which is natural number. Function symbols of arity 0 are known
+as constant symbols. Now <I>terms</I> are recursively defined by
+<UL>
+<LI> variables are terms, and
+<LI> if t<SUB>i</SUB> are terms for i=1,...,n and f is an n-ary
+function symbol, then f(t<SUB>1</SUB>,...,t<SUB>n</SUB>) is a term.
+</UL>
+<I>Formulas</I> are recursively defined by
+<UL>
+<LI> if t<SUB>i</SUB> are terms for i=1,...,n and p is an n-ary
+predicate symbol, then p(t<SUB>1</SUB>,...,t<SUB>n</SUB>) is a
+formula.
+<LI> if P and Q are formulas, then <img src="not.gif" alt="~">P is a
+formula, P <img src="and.gif" alt="&"> Q is a formula,
+P <img src="or.gif" alt="or"> Q is a formula, P <img src="arrow.gif"
+alt="=>"> Q is a formula, and P <=> Q is a formula.
+<LI> if P is a formula and x a variable, then <img src="for-all.gif"
+alt="forall ">x: P and <img src="exists.gif" alt="there exists an ">
+x: P are formulas.
+</UL>
+
+The completeness theorem for first order logic says that a formula is
+provable from the laws of first order logic (not given here) if and
+only if it is true in under all possible interpretations,
+i.e. regardless of the meaning of the function and predicate symbols.
+
+<P>
+<B>Theorem:</B> It is undecidable whether a first order logic formula
+is provable (or true under all possible interpretations).
+<P>
+<B>Proof:</B> Suppose there is an algorithm B that, given a first
+order logic and a formula in that logic, decides whether that formula
+is valid (holds under all possible interpretations). I will use that
+to give a decision algorithm for the language {(M,w) | M is the
+description of a Turing machine that accepts the string w}.  As the
+latter problem is undecidable this will show that B cannot exists.
+<P>
+Given M and w, create a first order logic by declaring a constant
+<img src="empty-string.gif" alt="eps">, a unary function symbol <I>a</I> for every letter <I>a</I> in
+the alphabet, and a binary predicate f<SUB>q</SUB> for every state q
+of M.
+<P>
+Consider the following interpretation of this logic:
+Variables x range over strings over the given alphabet, <img src="empty-string.gif" alt="eps">
+denotes the empty string, <I>a</I>(w) denotes the string <I>a</I>w, and
+f<SUB>q</SUB>(x,y) indicates that M, when given input w, can reach a
+configuration with state q, in which xy is on the tape, with x in
+reverse order, and the head of M points at the first position of y.
+Under this interpretation f<SUB>q0</SUB>(<img src="empty-string.gif" alt="eps">,w) is certainly a
+true formula, as the initial configuration is surely reachable.  Here
+q0 is the initial state, and w is a representation of w made from the
+constant and function symbols of the logic.  Furthermore the formula
+<img src="exists.gif" alt="there exists ">x <img src="exists.gif"
+alt="there exists ">y: f<SUB>q-acc</SUB>(x,y) with q-acc the
+acceptance state, holds iff M accepts w.
+
+<P>
+Whenever M has a transition from state q to state r, reading a,
+writing b, and moving right, the formula
+<P align=center>
+<img src="for-all.gif" alt="for all ">x
+<img src="for-all.gif" alt="for all ">y:
+f<SUB>q</SUB>(x,ay) => f<SUB>r</SUB>(bx,y)
+</P>
+holds. Here x and y are variables. Likewise, if M has a transition
+from state q to state r, reading a, writing b, and moving left, the formulas
+<P align=center>
+<img src="for-all.gif" alt="for all ">x
+<img src="for-all.gif" alt="for all ">y:
+f<SUB>q</SUB>(cx,ay) => f<SUB>r</SUB>(x,cby)
+</P>
+hold for every choice of a letter c. In addition we have
+<P align=center>
+<img src="for-all.gif" alt="for all ">x
+<img src="for-all.gif" alt="for all ">y:
+f<SUB>q</SUB>(<img src="empty-string.gif" alt="eps">,ay) =>
+f<SUB>r</SUB>(<img src="empty-string.gif" alt="eps">,by),
+</P>
+covering the case that M cannot move left, because its head is already
+in the left-most position. Finally, there are variants of the formulas
+above for the case that a is the blank symbol and that square of the
+tape is visited for the first time:
+<P align=center>
+<img src="for-all.gif" alt="for all ">x
+<img src="for-all.gif" alt="for all ">y:
+f<SUB>q</SUB>(x,<img src="empty-string.gif" alt="eps">) =>
+f<SUB>r</SUB>(bx,<img src="empty-string.gif" alt="eps">)
+<BR>
+<img src="for-all.gif" alt="for all ">x
+<img src="for-all.gif" alt="for all ">y:
+f<SUB>q</SUB>(cx,<img src="empty-string.gif" alt="eps">) =>
+f<SUB>r</SUB>(x,cb<img src="empty-string.gif" alt="eps">)
+<BR>
+<img src="for-all.gif" alt="for all ">x
+<img src="for-all.gif" alt="for all ">y:
+f<SUB>q</SUB>(<img src="empty-string.gif" alt="eps">,<img src="empty-string.gif" alt="eps">) => f<SUB>r</SUB>(<img src="empty-string.gif" alt="eps">,b<img src="empty-string.gif" alt="eps">).
+</P>
+Let T be the conjunction of all implication formulas mentioned above.
+As M has finitely many transitions and the alphabet is finite, this
+conjunction is finite as well, and thus a formula of first order logic.
+Now consider the formula
+<P Align=center>
+f<SUB>q0</SUB>(<img src="empty-string.gif" alt="eps">,w) & T =>
+<img src="exists.gif" alt="there exists ">x
+<img src="exists.gif" alt="there exists ">y: 
+f<SUB>q-acc</SUB>(x,y).
+</P>
+In case M accepts w, there is a valid computation leading to an accept
+state. Each step therein corresponds with a substitution instance of
+one of the conjuncts in T, and using the laws of first order logic it
+is easy to check that the formula above is provable and thus true
+under all interpretations.  If, on the other hand, the formula above
+is true under all interpretations, it is surely true in the given
+interpretation, which implies that M has an accepting computation
+starting on w.
+<P>
+Thus, in order to decide whether or not M accepts w, it suffices to
+check whether or not the formula above is a theorem of first order logic.
+<HR>
+<TABLE border=0 width=100%><TR><TD>
+<A HREF=../..>Rob van Glabbeek</A>
+</TD><TD Align=right>
+<A HREF=mailto:rvg@cs.stanford.edu>rvg@cs.stanford.edu</A>
+</TD></TR></TABLE>

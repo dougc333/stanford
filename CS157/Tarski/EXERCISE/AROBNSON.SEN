@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+11
+Small(d) | ~Small(e) | BackOf(a, b)~BackOf(a, b) | Cube(d) | Cube(e)Small(d) | Small(e) | Cube(d)~Small(d) | Cube(d)~Cube(e)~Cube(d)Small(d) | ~Small(e) | Cube(d) | Cube(e)Small(d)  | Cube(d) | Cube(e)Cube(d) | Cube(e)Cube(e); Box

@@ -1,0 +1,45 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+               The 3C509B EtherLink 10 ISA NIC Family
+                 Windows Installation Information
+
+
+Windows 3.x or Windows for Workgroups (WFW)
+-------------------------------------------
+If NetWare is the network operating system, then the 3Com Intelligent Auto
+Install program (COMSLINK.EXE) on EtherDisk #2 can be used to install for
+DOS, DOS\WFW, or DOS\Windows3x.  The Intelligent Auto install program will
+install a DOS ODI client for Netware environments.
+
+For non-NetWare environments, install the client software as specified by
+your network operating system vendor. WFW has internal support for Microsoft
+workgroup networking environment.
+
+
+Windows 95/98
+-------------
+EtherDisk 6.1 contains a new GUI-based installer and post install helper.
+To use this new software, run PREINSTL.EXE on EtherDisk #2 PRIOR to
+installing the EtherLink 10 ISA NIC.  PREINSTL will prepare Windows 95/98
+to accept importing software from EtherDisk #1.  Follow the instructions
+given by PREINSTL when it completes.  Refer to the Windows 95/98 installation
+information on this EtherDisk for more detail.
+
+Windows NT
+----------
+Care must be taken when installing Windows NT because both Microsoft and
+3Com provide a driver and NT installation file for the EtherLink 10 ISA.
+Microsoft's driver ships with NT and 3Com's driver ships on the EtherDisk.
+However, 3Com's driver will provide faster, more reliable service.
+
+To install and use the 3Com Windows NT driver, refer to the Windows NT
+installation information on this EtherDisk.
+
+Windows 2000
+------------
+This version of the EtherDisk (v6.1) does not contain a driver for Windows
+2000.  A driver is provided with Windows 2000 that supports the 3C509B.
+
+
+        (%VER WINDOWS.TXT - Windows Installation Information V6.1a)
+

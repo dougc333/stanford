@@ -1,0 +1,178 @@
+<body BGCOLOR=FFFFFF>
+<title> CS145 Project Part 4 </title>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Personal Database Application: Part 4
+<br>Due Monday May 1</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<ul>
+
+<p><li> Please see the handout <a
+href="http://www-db.stanford.edu/~widom/cs145/or-nonsql2.html">Oracle
+8i SQL</a> for all kinds of useful information related to this
+assignment.
+
+</ul>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+In this part of the project, you will issue SQL queries and updates
+against your PDA database, and you will experiment with the use of
+indexes and transactions.  Since you will be modifying your data as
+part of this assignment, you may want to establish some kind of
+routine that includes reloading your database from the files you
+created for PDA Part 3 each time you want to get a "fresh" start.
+Remember to delete the contents of each relation (or destroy and
+recreate the relations) before reloading, as Oracle will happily load
+your data a second time, doubling the size of your database.
+
+<ol>
+
+<li> <b>(SQL)</b><br> Develop and test:
+
+<p><b>(a)</b> At least eight SQL data retrieval (<tt>select</tt>)
+commands.
+
+<p><b>(b)</b> At least two each of the four types of SQL data
+modification commands: <tt>insert</tt> a single tuple, <tt>insert</tt>
+a subquery, <tt>delete</tt>, <tt>update</tt>.
+
+<p>
+
+Please note:
+
+<ul>
+
+<p><li> For this assignment you will be invoking your SQL commands
+interactively through <tt>sqlplus</tt>, as described in the handout <a
+href="http://www-db.stanford.edu/~widom/cs145/or-intro.html">Getting
+Started With Oracle</a>.  Of course you should certainly build a
+script file, rather than typing in the queries each time you run them.
+
+<p><li> Please write "interesting" queries.  You should try to use
+most or all of the SQL constructs discussed in class and in the
+textbook (subqueries, aggregates, set operators, etc.).  You will not
+receive full credit if your queries and modifications are all extremely
+simple.
+
+<p><li> We suggest that you experiment with your SQL commands on your
+small hand-created database before running them on the large database
+for which you generated data.  Initial debugging is much easier when
+you're operating on small amounts of data.  Once you're confident that
+your commands are working, try them on your large database.
+
+<p><li> If you discover that most or all of your "interesting" queries
+return an empty answer on your large database, check whether you
+followed the instructions in PDA Part 3 for generating data values
+that join properly.  You may need to modify your data generator.
+
+<p><li> Turn in a copy of all of your SQL commands, along with a
+script illustrating their execution.  Your script should be sufficient
+to convince us that your commands run successfully.  Please do not,
+however, turn in query results that are hundreds of lines long!  There
+are some further instructions about scripts at the end of this
+handout.
+
+</ul>
+
+<p><li><b>(Indexes)</b><br> In Problem #1 you may have discovered that
+some queries run very slowly over your large database.  As discussed
+in class, an important technique for improving the performance of
+queries is to create <i>indexes</i>.  An index on an attribute
+<tt>A</tt> of relation <tt>R</tt> allows the database to quickly find
+all tuples in <tt>R</tt> with a given value for attribute <tt>A</tt>
+(which is useful when evaluating selection or join conditions
+involving attribute <tt>A</tt>).  An index can be created on any
+attribute of any relation, or on several attributes combined.  The
+syntax for creating indexes in Oracle is given in the handout <a
+href="http://www-db.stanford.edu/~widom/cs145/or-nonsql2.html">Oracle
+8i SQL</a>.  Please pay careful attention to the information about
+Stanford/Oracle-specific syntax.
+
+<p> Create at least three useful indexes for your PDA.  Run your
+queries from Problem #1 on your large database with the indexes and
+without the indexes.  Turn in a script showing your commands to create
+indexes, and showing the relative times of query execution with and
+without indexes.
+
+<p>Please note:
+
+<ul>
+
+<p> <li> As mentioned in the handout <a
+href="http://www-db.stanford.edu/~widom/cs145/or-nonsql2.html">Oracle
+8i SQL</a>, Oracle automatically creates indexes for attributes
+declared as keys.  Thus, when you created a relation in PDA Part 3 and
+declared a <tt>PRIMARY KEY</tt>, an index was created, and
+you need not attempt to create another index on your key attributes.
+
+<p><li> As described in the handout <a
+href="http://www-db.stanford.edu/~widom/cs145/or-nonsql2.html">Oracle
+8i SQL</a>, in order to set the system to show query execution times
+you must issue the command "<tt>set timing on;</tt>" at the
+<tt>sqlplus</tt> prompt.
+
+<p><li> Your timings will be affected by external factors such as
+system load.  However, for some of your queries, with appropriate
+indexes you should see a consistent dramatic difference between the
+execution times with indexes and the times without.  If others of your
+queries do not show performance improvement even when relevant indexes
+are created, please include a short note suggesting why this might be
+the case.  (If you are completely unable to find queries whose running
+times are improved by creating indexes, you could try temporarily
+removing your <tt>PRIMARY KEY</tt> declarations, so Oracle will
+not create any indexes automatically.)
+
+</ul>
+
+<p><li><b>(Transactions)</b><br> This is a trivial problem to exercise
+transaction support in Oracle.  Since it would be difficult for you to
+simulate multiple users operating on your database, you will simply
+experiment with the properties of transaction <tt>commit</tt> versus
+<tt>rollback</tt>.
+
+<p><b>(a)</b> Show a session in which you perform one or more data
+modification commands, then commit the transaction using
+"<tt>commit;</tt>".  Issue queries before and after executing the
+transaction to demonstrate that the modification has been made on the
+database.
+
+<p><b>(b)</b> Now show a session in which you perform one or more
+similar data modification commands, but then abort the transaction
+using "<tt>rollback;</tt>".  Issue queries before and after executing
+the transaction to demonstrate that the modification has <i>not</i>
+been made on the database.
+
+</ol>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Turning in Scripts</h4>
+
+A script must be turned in <i>on paper</i> (no email submissions)
+demonstrating that you've performed the assignment as specified above.
+It is an Honor Code violation to edit scripts before turning them in,
+and as usual we will pursue aggressively all suspected cases of Honor
+Code violations.
+
+<p>Additional notes:
+
+<ul>
+
+<li> Don't include syntax errors in your scripts.
+
+<li> Again, please do not show query results that are hundreds of lines long.
+ 
+<li> Make sure each query result is shown directly after the query
+that generated it.
+
+<li> Provide comments for your queries or operations unless they
+are crystal clear.
+
+<li> For your own sake: please read the assignment carefully.
+
+</ul>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

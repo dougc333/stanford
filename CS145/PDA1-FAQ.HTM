@@ -1,0 +1,63 @@
+<title> FAQ for Project Part 1 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>FAQ: Project Part 1</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<b>Question:</b> When you say the E/R diagram should have "in the
+range of five or so entity sets, and a similar number of relationship
+sets", what exactly do you mean?
+
+<p><b>Answer:</b> Shoot for somewhere between 3 and 10.  You'll sense if
+your design is too simple or too complex.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<b>Question:</b> What kind of data will I be loading into my database?
+
+<p><b>Answer:</b> You'll actually create two databases, a small one
+(10's of entities/relationships) and a large one (1000's or 10,000's
+of entities/relationships).  Many students find that it only makes
+sense for their small database to contain realistic data, while the
+large one is made up of synthetic (computer-generated fake) data.  If
+you have an application where you can get a large amount of real data,
+all the better, but it's not necessary.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<b>Question:</b> I'm completely at a loss to think of an application.
+Any suggestions?
+
+<p><b>Answer:</b> Take a look at any Web shopping site.  They all have a
+similar theme: products, customers, orders, shopping baskets, etc.
+They typically make for an interesting and appropriately sized
+application.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<b>Question:</b> Written assignment #1 asks me to create a schema for
+a Web site of my choosing.  I'm doing essentially the same thing for
+my PDA.  Can I turn in the same solution for both?
+
+<p><b>Answer:</b> Yes, no problem.  Be sure to follow the instructions in
+each assignment carefully though.
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<p><b>Question:</b>
+ I have an entity set that has multiple keys. (For
+ example, in entity set <tt>Student</tt>, it could be that
+ <tt>(name,address)</tt> is one key and <tt>SS#</tt> is another.)  What
+ should I do?
+
+<p><b>Answer:</b>
+ Multiple keys do occur in practice.  In an entity set in the E/R
+ model there is no
+ way to specify multiple keys: you can only underline one set of
+ attributes as the key.  If there are other keys that you would like to
+ mention, make a separate note.  When you get around to creating actual
+ relations in an actual DBMS, there is a way to specify more than one
+ key.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

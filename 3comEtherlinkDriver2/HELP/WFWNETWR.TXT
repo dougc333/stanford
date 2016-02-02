@@ -1,0 +1,72 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+     Installing a NIC for NetWare in Windows for Workgroups 3.11
+
+
+The following steps describe how to install your 3Com network NIC in a
+NetWare client running Windows for Workgroups 3.11.
+
+1.  Ensure the card has been configured properly in the computer by
+    reviewing the configuration and diagnostic tests.
+
+2.  In Windows for Workgroups, locate the Network section (the Network icon).
+
+    If you are using the Microsoft Windows Network in combination with
+    Novell NetWare, do the next step.  If not, skip to step 11.
+
+3.  Click the Network icon and set up the network for Microsoft and Novell
+    (3.x or 4.x).
+
+    a.  Click the Network button and select Install Microsoft Windows
+            Network and other network.
+
+    b.  Select Novell.
+
+4.  You will be prompted to choose the Novell NetWare drivers.
+    Select the recommended driver.
+
+5.  When the Network Setup window appears, select the Drivers button.
+    The Network Drivers window appears.
+
+6.  Choose Add Adapter and select Unlisted or Updated Network Adapter.
+
+7.  Click OK.  The Install Driver dialog box appears.
+
+8.  At the command line, insert EtherDisk #2 and type in the following
+    drive and path:
+
+    A:\WFW311
+
+    This will load the NDIS driver.
+
+9.  Follow the instructions when prompted.
+
+    NOTE: Install the proper support files from your WFW support disk or
+          Novell disk when prompted.
+
+10. Reboot the computer.
+
+11. If you are installing only NetWare shell support for Windows for
+    Workgroups, ensure that the DOS ODI drivers have been installed.
+    (To install the drivers, run the 3Com Intelligent Auto Install program 
+    from DOS, or see the section on DOS client install.)
+
+12. In Windows for Workgroups, locate the Network icon and click it.
+
+13. Set up the network by clicking the Network button and selecting Install
+    Windows support for the following network only, for example:
+    Novell NetWare (Workstation shell 3.x or 4.x).
+
+14. Click OK.
+
+15. Click OK again in the Network Setup window and follow the prompts.
+
+    NOTE: It may be necessary to use your Novell or Windows for Workgroups
+          network support diskettes during the installation.
+
+16. Reboot the computer when prompted.
+
+
+       (%VER WFWNETWR.TXT - Netware installation for WFW 3.11 V6.0a)
+

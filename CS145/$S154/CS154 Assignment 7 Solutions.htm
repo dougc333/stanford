@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://www-db.stanford.edu/~ullman/hmu/hw7sols.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 7 Solutions</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #7 Solutions</H1>
+<OL>
+  <LI>Take a graph <I>G</I> and integer <I>k</I> that is an instance of the IS 
+  problem. From these construct a graph <I>G'</I> formed from <I>G</I> by 
+  complementing the set of edges. That is, there is an edge <I>(x,y)</I> in 
+  <I>G'</I> if and only if there is <B>not</B> an edge <I>(x,y)</I> in <I>G</I>. 
+  The pair consisting of <I>G'</I> and the integer <I>k</I> is an instance of 
+  CLIQUE. 
+  <P>In proof, if <I>G</I> has an independent set of size <I>k</I>, then there 
+  are no edges among these nodes in <I>G</I>. Thus, all the edges among these 
+  nodes are in <I>G'</I>, where they form a clique of size <I>k</I>. 
+  <P>Conversely, if <I>G'</I> has a clique of size <I>k</I>, then in <I>G</I> 
+  there are no edges among these nodes, so they are an independent set in 
+  <I>G</I>. 
+  <P></P>
+  <LI>If <I>C</I> has a polynomial-time algorithm, then they all do. If <I>C</I> 
+  does not have a polynomial-time algorithm, then all combinations of 
+  <I>{A,B,C}</I> are possible, except that if <I>B</I> has a polynomial-time 
+  algorithm, then <I>A</I> does. Thus, the possible sets are <I>ABCD, ABD, AB, 
+  AD, D, A</I>, and the empty set. 
+  <P></P>
+  <LI>Rice's theorem says every nontrivial property of the RE languages is 
+  undecidable. If <I>P != NP</I>, then the property is nontrivial, hence 
+  undecidable. If <I>P = NP</I>, then there is an obvious decision algorithm: 
+  ``just say no.'' 
+  <P></P>
+  <LI>There are ``only'' 2^100 truth assignments to check, so we can test 
+  satisfiability in <I>O(n)</I> time for expressions of length <I>n</I>. Of 
+  course the big-oh hides a rather large constant! 
+  <P></P>
+  <LI>The key point is that if <I>P</I> reduces to <I>Q</I>, then the <I>-P</I> 
+  (we use - for ``complement of'') reduces to <I>-Q</I> by the same 
+  transformation. Suppose <I>Q</I> is an NP-complete problem that is in co-NP. 
+  Then every problem <I>P</I> in NP is in co-NP; just transform <I>-P</I> to 
+  <I>-Q</I> in polynomial time and then use the nondeterministic polynomial-time 
+  algorithm for <I>-Q</I> to solve <I>-P</I> in nondeterministic polynomial 
+  time. Thus, <I>P</I> is in co-NP. That shows NP is contained in co-NP. 
+  <P>For the other half of the equality NP = co-NP, suppose <I>P</I> is in 
+  co-NP. That is, <I>-P</I> has a nondeterministic polynomial-time algorithm. 
+  Since <I>Q</I> is NP-complete, there is a polynomial-time reduction of 
+  <I>-P</I> to <I>Q</I>, and thus, such a reduction from <I>P</I> to <I>-Q</I>. 
+  Since <I>Q</I> is in co-NP, <I>-Q</I> is in NP, and thus so is <I>-P</I>. That 
+  shows co-NP is contained in NP, and we now have NP = co-NP. 
+</P></LI></OL></BODY></HTML>

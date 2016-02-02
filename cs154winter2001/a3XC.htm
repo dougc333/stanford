@@ -1,0 +1,107 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>ASSIGNMENT 3</title>
+</head>
+
+<body>
+
+<p class="MsoNormal" style="tab-stops:95.25pt"><b>ASSIGNMENT 3-XC.</b></p>
+<p class="MsoNormal" style="tab-stops:95.25pt"><i>Solution by&nbsp; </i><b>Steven
+Ngai. <o:p>
+</o:p>
+</b></p>
+<p class="MsoNormal" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<p class="MsoNormal" style="tab-stops:95.25pt">We will endeavor to prove that
+the language of all strings not of the form ww is context-free by providing a
+CFG for them.</p>
+<p class="MsoNormal" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<p class="MsoNormal" style="tab-stops:95.25pt">There are two reasons why a
+string may not be composed of two identical strings: the string may have an odd
+length, or the string may be even length but have subparts that differ.</p>
+<p class="MsoNormal" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<p class="MsoNormal" style="tab-stops:95.25pt">We assume here that the strings
+are over the alphabet {a,b} like many of our other problems, but as long as we
+have a finite alphabet, no matter how large, we can enumerate <i>ad nauseam</i>
+the alphabet in the productions, and this proof will still hold.</p>
+<p class="MsoNormal" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<p class="MsoNormal" style="tab-stops:95.25pt"><i>If the string has odd length:<o:p>
+</o:p>
+</i></p>
+<p class="MsoNormal" style="tab-stops:95.25pt">Let the production E generate
+even-length strings. We can write E thus:</p>
+<p class="MsoNormal" style="tab-stops:95.25pt"><b>E <span style="mso-char-type: symbol; mso-symbol-font-family: Wingdings; font-family: Wingdings; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman">à</span>
+aaE | abE | baE | bbE | <span style="font-family:Symbol">e</span>.</b> (i.e all
+pairwise combinations of letters from the alphabet before E, if you’re working
+with a different alphabet)</p>
+<p class="MsoNormal" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<p class="MsoHeader" style="tab-stops:95.25pt">Then odd length strings are just
+even-length strings plus a letter in front:</p>
+<p class="MsoHeader" style="tab-stops:95.25pt"><b>S <span style="mso-char-type: symbol; mso-symbol-font-family: Wingdings; font-family: Wingdings; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman">à</span>
+aE | bE</b> (i.e. all letters before E, if you’re working with a different
+alphabet.)</p>
+<p class="MsoHeader" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<p class="MsoHeader" style="tab-stops:95.25pt"><i>If the string is even-length,
+but has two parts that have at least one character different:<o:p>
+</o:p>
+</i></p>
+<p class="MsoHeader" style="tab-stops:95.25pt">Then this means that the string
+is of the form WaX YbZ, where a and b are at the same relative position in the
+two halves of the string. (This is to say |W| = |Y| = a number i and |X| = |Z| =
+a number j.)</p>
+<p class="MsoHeader" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<p class="MsoHeader" style="tab-stops:95.25pt">Then this string is accepted by
+the language <span style="font-family:Symbol">S</span><sup>i</sup>a<span style="font-family:Symbol">S</span><sup>j
+</sup><span style="font-family:Symbol">S</span><sup>i</sup>b<span style="font-family:Symbol">S</span><sup>j</sup>.
+This is not CFG-friendly. But we notice we can rearrange the letters in the
+middle between the two halves to make <span style="font-family:Symbol">S</span><sup>i</sup>a<span style="font-family:Symbol">S</span><sup>i
+</sup><span style="font-family:Symbol">S</span><sup>j</sup>b<span style="font-family:Symbol">S</span><sup>j</sup>.
+With that in mind, we construct the following grammar:</p>
+<p class="MsoHeader" style="tab-stops:95.25pt"><b>S<span style="mso-char-type: symbol; mso-symbol-font-family: Wingdings; font-family: Wingdings; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman">à</span>QR
+| RQ<o:p>
+</o:p>
+</b></p>
+<p class="MsoHeader" style="tab-stops:95.25pt"><b>Q<span style="mso-char-type: symbol; mso-symbol-font-family: Wingdings; font-family: Wingdings; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman">à</span>a
+| aQa | aQb | bQa | bQb</b> (produces the first portion of the string, with a at
+middle)</p>
+<p class="MsoHeader" style="tab-stops:95.25pt"><b>R<span style="mso-char-type: symbol; mso-symbol-font-family: Wingdings; font-family: Wingdings; mso-ascii-font-family: Times New Roman; mso-hansi-font-family: Times New Roman">à</span>b
+| aRa | aRb | bRa | bRb</b> (produces the second portion of the string, with b
+at middle)</p>
+<p class="MsoHeader" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<p class="MsoHeader" style="tab-stops:95.25pt">The construction of these
+productions can be extended if you have a more complex alphabet.</p>
+<p class="MsoHeader" style="tab-stops:95.25pt">&nbsp;<o:p>
+</o:p>
+</p>
+<span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-ansi-language:EN-US;mso-fareast-language:EN-US;
+mso-bidi-language:AR-SA">Thus since we have provided a CFG that accepts the
+language of strings that are not composed of two equal parts, the language is
+context-free.</span>
+
+<hr>
+<p> I will put up the names of others who provided equally impressive solutions soon. </p>
+
+</body>
+
+</html>
+

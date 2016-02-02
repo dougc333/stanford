@@ -1,0 +1,482 @@
+
+CS157 Computational Logic HW #3
+Worked with
+Joseph Smarr
+Paul Hartke
+Shiang Cheng
+Jeffrey Sham
+
+1.Herbrand Model Properties (10 points)
+Several subsets of relational logic are discussed in chapter 7: 
+(a) Basic logic; or propositional logic. 
+(b) Universal logic
+(c) Existential logic
+(d) Functional logic 
+Which of the following are true in each type of logic? Where we are assuming basic logic is propositional logic and the truth tables are all the interpretations.
+1.If a set of sentences in a language has a model, then it has a Herbrand model.  This is true form the basic Herbrand Thm., the Universal Herbrand Thm., and the Functional Herbrand Theorem. A,B,D; 
+2.If an interpretation satisfies a set of sentences in a language, then the corresponding Herbrand interpretation also satisfies those sentences. 
+A,B; not D because checking the Herbrand interpretations for FL is infinite.
+3.The size of the Herbrand universe for a language with a finite number of object constants is infinite. 
+D only.
+4.It is always possible to use the Herbrand method to determine logical entailment for a set of sentences in a language in a finite amount of time.
+A,B; prop. Logic is finite, universal logic is finite.
+5.Consider an interpretation i, and its corresponding Herbrand interpretation h. If h satisfies a set of sentences in a language, then i also satisfies that set of sentences.. 
+B: Yes from the Herbrand thm.C ; the Herbrand thm holds also for functional logic.
+2.Herbrand Method (15 points)
+For this problem only, we are dealing with Universal Logic 
+For the given language: 
+<variable> ::= X | Y
+<objconst> ::= bill | ted
+<relconst 1> ::= excellent | bogus
+    
+(a) Write down the Herbrand universe for the language, and then provide a (single) Herbrand model for the following premises: 
+bogus(X) | excellent(X)
+excellent(bill)
+bogus(Y) => ~excellent(Y)
+    
+there are 2 object constants, bill, and ted. Thus the Herbrand universe looks like:{ted,bill}. To find the Herbrand model , we find an interpretation then derive an HM from the interpretation. We can list any Herbrand interpretation, any one is sufficient to denote a HM.
+A.h = {ted,bill}
+ted^h = ted
+bill^h = bill
+r^h = {<bill>,<ted>}
+(b) Give a chart that shows the possible Herbrand interpretations for excellent and bogus. In other words, fill in the chart: 
+      excellent | bogus
+     -----------+-------
+       <bill>   |<bill>
+       <bill>   |<ted>
+       <ted>    |<ted>
+       <ted>    |<bill>
+Do we need to include the empty set also here? This satisfies both of them.
+
+(c)Give a chart that shows the Herbrand interpretations that satisfy the premises from part a.
+All the combinations of unary relations with the universe {bill,ted} are:
+
+{}
+{bill}
+{ted}
+{bill, ted}
+
+
+                e  b  e(bill)  e(x)|b(x)  b(y)=>~e(y)
+--------------------------------------------------------
+{}           T  T    T           T       T 
+{bill}
+{ted}
+{bill, ted}
+
+
+
+
+
+
+(d) Give a chart that shows the Herbrand interpretations that satisfy the following sentence: 
+~excellent(ted)
+    
+
+
+
+
+
+
+
+
+(e) Is the sentence in (d) relationally entailed by the premises in (a)? Why or why not? 
+
+
+
+
+3.Free/Bound Variables (6 points)
+Say which variable occurences are free and which are bound in the following sentence: 
+Ax. [ (p(x,y) ^ Ey.q(y)) -> (Ex.Ey.Ez.Ax.p(z,x) v Au.q(x)) ]
+
+
+x-b  , y-F  , y-B , z-B ,x-B,x-B   
+
+4.Unification (8 points)
+Consider the two expressions (q is a 5-ary relation):       
+q(x,y,f(x),z,u)  
+q(a,x,z,f(x),h(v,z))
+    
+State whether or not each of the following substitutions unify the above expressions. A simple "Yes" or "No" for each substitution is all we want. Substitutions are applied in a single stage.
+a){ x <- a, y <- x, z <- f(x), u <- h(v,z) }
+
+g(x,y,f(x),z,u) becomes 
+g(a,y,f(a),z,u) ; x<-a
+g(a,y,f(a),z,u); x<-a
+g(a,x,f(a),z,u); y<-x
+g(a,x,f(a),f(x),u) ; z<-f(x)
+g(a,y,f(a),f(x),h(v,z)) ; u<-h(v,z)
+
+q(a,x,z,f(x),h(v,z)) becomes
+q(a,a,z,f(a),h(v,z)); x<-a
+q(a,a,z,f(a),h(v,z)); y<-x
+q(a,a,f(x),f(a),h(v,f(a))); z<-f(x)
+
+NO.
+
+b){ x <- a, y <- a, z <- f(a), u <- h(v,f(a)) }
+q(x,y,f(x),z,u)
+q(a,y,f(a),z,u); x<-a
+q(x,a,f(x),z,u);y<-a
+q(x,y,f(x),f(a),u);z<-f(a)
+q(x,y,f(x),z, h(v,f(a)));u<-h(v,f(a))
+
+
+q(a,x,z,f(x),h(v,z))
+q(a,a,z,f(a),h(v,z));x<-a
+q(a,x,z,f(x),h(v,z));y<-a
+q(a,x,f(a),f(x),h(v,f(a)));z<-f(a)
+q(a,x,z,f(x),h(v,z));u<-h(v,f(a))
+
+
+NO
+
+c){ x <- a, y <- a, z <- f(a), u <- h(f(a),f(a)), v <- z }
+
+q(x,y,f(x),z,u)
+q(a,y,f(a),z,u); x<-a
+q(a,a,f(a),z,u); y<-a
+q(a,a,f(a),f(a),u); z<-f(a)
+q(a,a,f(a),f(a),h(f(a),f(a)));u<-h(f(a),f(a))
+q(a,a,f(a),f(a),h(f(a),f(a)));v<-z
+
+
+q(a,x,z,f(x),h(v,z))
+q(a,a,z,f(a),h(v,z)); x<-a
+q(a,a,z,f(a),h(v,z)) ; y<-a
+q(a,a,f(a),f(a),h(v,f(a))); z<-f(a)
+q(a,a,f(a),f(a),h(v,f(a))) ;u<-h(f(a),f(a))
+q(a,a,f(a),f(a),h(z,f(a))) ;v<-z
+
+
+NO
+d)  { x <- a, y <- x, z <- f(a), u <- h(b,f(a)), v <- b }
+
+q(x,y,f(x),z,u)
+q(a,y,f(a),z,u);x<-a
+q(a,x,f(a),z,u); y<-x
+q(a,x,f(a),f(a),u);z<-f(a)
+q(a,x,f(a),f(a),h(b,f(a)));u<-h(b,f(a)
+q(a,x,f(a),f(a),h(b,f(a)));v<-b
+
+
+q(a,x,z,f(x),h(v,z))
+q(a,a,z,f(a),h(v,z)); x<-a
+q(a,a,z,f(a),h(v,z)); y<-x
+q(a,x,f(a),f(a),h(v,f(a))); z<-f(a)
+q(a,x,f(a),f(a),h(v,f(a))); u<-h(b,f(a)
+q(a,x,f(a),f(a),h(b,f(a))); v<-b
+
+
+
+Yes
+    
+5.More Unification (8 points)
+Are these pairs of terms unifiable? State 'Yes' or 'No'. 
+(a) b and f(x); Yes using the substitution x<-b
+(b) x and f(b); no, b<-x is not a valid sugstitution
+
+(c) x and f(y); yes, y<-x  where a valid substitution is from variable<-term, variables are terms also.
+
+(d) x and f(x); no, x<-x is not a valid substitution
+
+(e) x and g(a,y); g(x,y) is not valid using the substitution, but g(a,x) is valid using x<-y
+
+(f) f(y) and g(b); No these expressions are different regardless?? How about y<-g(b)? Yes to produce f(g(b)). Is this a subexpression, or just a term? A term is b. A function contstant applied to a term is still a term cause it becomes a term. 
+
+(g) f(x) and f(h(x)); no, x<-h(x) is not a valid substitution. h(x) is a subexpression of f(h(x))
+
+(h) g(x,x) and g(a,b); no x<-a, x<-b is not a valid substitution.
+    
+
+6.Most General Unifier (12 points)
+Consider the two expressions: 
+d: p(f(x,f(a,z)),x)   and
+e: p(f(y,f(a,u)),f(u,z))
+    
+a) Of the following, which are most general unifiers of d and e? 
+i)  { x<-f(b,b) , y<-f(b,b) , z<-u }
+ii) { x<-f(u,u) , y<-f(u,u) , z<-u }
+iii){ x<-f(u,u) , y<-f(u,u) , z<-u }o{ u<-x }
+
+
+d: p(f(x,f(a,z)),x) with i)
+p(f(f(b,b),f(a,z)),f(b,b)); x<-f(b,b)
+d: p(f(f(b,b),f(a,z)),f(b,b)); y<-f(b,b)
+d: p(f(f(b,b),f(a,u)),f(b,b)); z<-u
+
+e: p(f(y,f(a,u)),f(u,z)) with i)
+e: p(f(y,f(a,u)),f(u,z)); x<-f(b,b)
+e: p(f(f(b,b),f(a,u)),f(u,z)); y<-f(b,b)
+e: p(f(f(b,b),f(a,u)),f(u,u)); z<-u
+
+
+d: p(f(x,f(a,z)),x) with ii)
+d: p(f(f(u,u),f(a,z)),f(u,u)); x<-f(u,u)
+d: p(f(f(u,u),f(a,z)),f(u,u)); y<-f(u,u)
+d: p(f(f(u,u),f(a,u)),f(u,u)); z<-u
+
+
+e: p(f(y,f(a,u)),f(u,z)) with ii)
+e: p(f(y,f(a,u)),f(u,z)); x<-f(u,u)
+e: p(f(f(u,u),f(a,u)),f(u,z)); y<-f(u,u)
+e: p(f(f(u,u),f(a,u)),f(u,u)); z<-u
+
+
+
+
+d: p(f(x,f(a,z)),x) with iii)
+d: p(f(f(u,u),f(a,z)),f(u,u)); x<-f(u,u)
+d: p(f(f(u,u),f(a,z)),f(u,u)); y<-f(u,u)
+d: p(f(f(u,u),f(a,u)),f(u,u)); z<-u
+Adding the composition substitution:
+d: p(f(f(x,x),f(a,x)),f(x,x)); u<-x
+
+
+e: p(f(y,f(a,u)),f(u,z)) with iii)
+e: p(f(y,f(a,u)),f(u,z)); x<-f(u,u)
+e: p(f(f(u,u),f(a,u)),f(u,z)); y<-f(u,u)
+e: p(f(f(u,u),f(a,u)),f(u,u)); z<-u
+Adding the composition substitution:
+e: p(f(f(x,x),f(a,x)),f(x,x)); u<-x
+
+ii and iii are MGU
+
+b) State which of the unifiers from part (a) is a more general unifier of d and e. If they are equally general just write "equal". 
+1.i and ii from part (a) 
+2.i and iii from part (a) 
+So if (ii) from part (a) is a more general unifier of d and e than (i), but (i) and (iii) are equally general for d and e, your answer should be: 
+6b. ii, equal, which is true because the smaller substitution is the MGU
+     
+The following expressions are to be used in parts c and d: 
+d1: r(u, f(a) ,x)   and
+e1: r(z, f(v), g(w,y))
+     
+c) Which of the following are the most general unifiers of expressions d1 and e1? 
+i) { v<-a , x<-g(w,y) , z<-u }
+ii) { v<-a , x<-g(w,y) , z<-u }o{ u<-w }
+iii) { v<-a , x<-g(w,y) , z<-u }
+o{ u<-w , v<-x , z<-y, y<-u, w<-z, x<-v }
+     
+
+
+d1: r(u, f(a) ,x) for i)
+d1: r(u, f(a) ,x); v<-a
+d1: r(u, f(a) ,g(w,y)); x<-g(w,y)
+d1: r(u, f(a) ,g(w,y)); z<-u
+
+e1: r(z, f(v), g(w,y)) for i)
+e1: r(z, f(a), g(w,y)); v<-a
+e1: r(z, f(a), g(w,y)); x<-g(w,y)
+e1: r(u, f(a), g(w,y)); z<-u
+
+
+d1: r(u, f(a) ,x) for ii)
+d1: r(u, f(a) ,x); v<-a
+d1: r(u, f(a) ,g(w,y)); x<-g(w,y)
+d1: r(w, f(a) ,g(w,y)); z<-u 
+Adding the composition:
+d1: r(w, f(a) ,g(w,y)); u<-w 
+
+e1: r(z, f(v), g(w,y)) for ii)
+e1: r(z, f(a), g(w,y)); v<-a
+e1: r(z, f(a), g(w,y)); u<-w
+(w,y)
+e1: r(u, f(a), g(w,y)); z<-u
+Adding the composition:
+e1: r(w, f(a), g(w,y)); u<-w
+
+
+
+d1: r(u, f(a) ,x) for iii)
+d1: r(u, f(a) ,x); v<-a
+d1: r(u, f(a) ,g(w,y)); x<-g(w,y)
+d1: r(u, f(a) ,g(w,y)); z<-u
+Adding the composition, we start from left to right:
+d1: r(w, f(a) ,g(w,y)); u<-w
+d1: r(w, f(a) ,g(w,y)); v<-x
+d1: r(w, f(a) ,g(w,y)); z<-y
+d1: r(w, f(a) ,g(w,u)); y<-u
+d1: r(z, f(a) ,g(z,u)); w<-z
+d1: r(z, f(a) ,g(z,u)); x<-v
+
+
+
+
+e1: r(z, f(v), g(w,y)) for iii)
+e1: r(z, f(a), g(w,y)); v<-a
+e1: r(z, f(a), g(w,y)); x<-g(w,y)
+e1: r(u, f(a), g(w,y)); z<-u
+Adding the composition:
+e1: r(w, f(a), g(w,y)); u<-w
+e1: r(w, f(a), g(w,y)); v<-x
+e1: r(w, f(a), g(w,y)); z<-y
+e1: r(w, f(a), g(w,y)); y<-u
+e1: r(z, f(a), g(z,u)); w<-z
+e1: r(z, f(a), g(z,u)); x<-v
+
+i) is the most general cause it's the smallest followed by ii) and iii). ii) is more general than iii) cause it can be composed of ii) and the other substitutions.
+
+d) For the following state which is a more general unifier for expressions d1 and e1. If they are equally general just write "equal". 
+1.i and ii from part (c) 
+i
+
+2.ii and iii from part (c) 
+ii
+
+
+
+7.Simple relational proof (15 points)
+For the given language: 
+<variable> ::= x | y
+<objconst> ::= max | ross
+<relconst1> ::= awesome | impressed | texan
+<relconst2> ::= cooler
+    
+use the following premises: 
+texan(ross)
+Ax.Ey.(cooler(y,x))
+Ax.Ay.(cooler(x,y) & texan(y) => awesome(x))
+Ax.Ay.(awesome(x) => impressed(y))
+    
+to prove impressed(max) using only the rules of inference mentioned in class and in Chapter 8. The format of your proof should be like that on page 8-5 of the text; in particular, be sure to label each step of the proof with the inference rule used, along with the premises the rule was applied to. 
+1.texan(ross)
+2.Ax.Ey.(cooler(y,x))
+3.Ax.Ay.(cooler(x,y) & texan(y) => awesome(x))
+4.Ax.Ay.(awesome(x) => impressed(y))
+5.Ax.cooler(ross,x)   EI 2
+6.cooler(ross,max)    UI 5 
+7.cooler(max,ross) & texan(ross) AI 1,6
+8.awesome(ross)       MP 3,7
+9.awesome(ross)=>impressed(max) UI 4
+10.impressed(max)   MP 8,9
+        
+
+8.Clausal Form (12 points)
+Convert the following into clausal form. Use the algorithm discussed in class and report only the final clauses. 
+(a)~Ey.(Ax.p(x) | Ez.(q(z,y) & r(z)))
+
+
+
+I: ~Ey.(Ax.p(x) | Ez.(q(z,y) & r(z)))
+N:  Ay.(~Ax.p(x) & ~Ez.(q(z,y) & r(z)))
+   Ay.(Ex.~p(x) & Az.~(q(z,y) & r(z)))
+   Ay.(Ex.~p(x) & Az.(~q(z,y) | ~r(z)))
+
+S: 
+
+E: Ay.(~p(f(X)) & Az.(~q(z,y) | ~r(z)))
+
+
+A: ~p(f(X)) & (~q(z,y) | ~r(z))
+
+
+D: 
+O:{ ~p(f(X))}
+  {~q(z,y), ~r(z))}
+R:
+
+
+
+
+(b) Ay.( Ax.Ey.(p(y) & q(x,y)) => r(y,f(y)))
+
+I: Ay.(~(Ax.Ey.(p(y) & q(x,y))) | r(y,f(y)))
+N: Ay.(~(Ax.Ey.(p(y) & q(x,y))) | r(y,f(y)))
+   Ay.(Ex.Ay.~(p(y) & q(x,y))) & ~r(y,f(y)))
+   Ay.(Ex.Ay.(~p(y) | ~q(x,y))) & ~r(y,f(y)))
+
+S:Replace the Ex with a skolem constant sk(X) or f(X) 
+E: Ay.(Ay.(~p(y) | ~q(f(X),y))) & ~r(y,f(y)))
+A: ~p(y) | ~q(f(X),y) & ~r(y,f(y))
+D: 
+O:{ ~p(y),~q(f(X),y)}
+  {~r(y,f(y))} 
+R:
+
+
+(c) Ax.Ay.Az (Ey.p(x,y) <-> Ez.q(x,z))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+I: Ax.Ay.Az ((Ey.p(x,y) => Ez.q(x,z))&(Ey.p(x,y)<= Ez.q(x,z)))
+
+Ax.Ay.Az ((~Ey.p(x,y) | Ez.q(x,z))&(Ey.p(x,y)| ~Ez.q(x,z)))
+
+N: Ax.Ay.Az ((Ay.~p(x,y) | Ez.q(x,z))&(Ey.p(x,y)| Az.~q(x,z)))
+
+Ax.Ay.Az ((Ay.~p(x,y) | Ez.q(x,z))&(Ey.p(x,y)| Az.~q(x,z)))
+
+S: standardize y,z to v,w inside the parenthesis. The next set of y,z goes to s,t
+   
+Ax.Ay.Az ((As.~p(x,s) | Et.q(x,t))&(Ev.p(x,v)| Aw.~q(x,w)))
+
+E: Ax.Ay.Az ((As.~p(x,s) | q(x,sk(X)))&(p(x,sk(X))| Aw.~q(x,w)))
+
+A: (~p(x,s) | q(x,sk(X)))&(p(x,sk(X))| ~q(x,w)))
+
+D: 
+O:{~p(x,s),q(x,sk(X))}
+  {p(x,sk(X)),~q(x,w)}
+R:
+
+
+9.Relational Resolution (14 points)
+Students are in one of three years: sophomore, junior, or senior. The predicate "above" indicates that the student of the first argument is in a class above the student of the second argument. [Don't forget the issues involved with renaming variables for resolution.] 
+
+Given the following clauses: 
+1.  {~above(x,y),~senior(y)} 
+2.  {~above(x,y), ~soph(x)} 
+3.  {senior(x), soph(x), junior(x)} 
+4.  {~above(x,y),~above(y,z), above(x,z)} 
+5.  {~above(x,y),~junior(x), ~junior(y)}
+6.  {above(Jane,Jill)} 
+7.  {above(Jill,Mary)}
+    
+a) Use resolution refutation to prove that these clauses logically entail "Jane is not a Junior". Your proof should be less than 16 steps including the seven premises above, which you can assume (i.e. start your proof from step 8). For each step, indicate the two deriving clauses (previous steps used to derive the current line) and the mgu applied, if any. 
+1.  {~above(x,y),~senior(y)}                 Premise 
+2.  {~above(x,y), ~soph(x)}                  Premise
+3.  {senior(x), soph(x), junior(x)}          Premise
+4.  {~above(x,y),~above(y,z), above(x,z)}    Premise 
+5.  {~above(x,y),~junior(x), ~junior(y)}     Premise
+6.  {above(Jane,Jill)}                       Premise
+7.  {above(Jill,Mary)}                       Premise
+8.  {junior(Jane)}                           Goal
+9.  {~junior(Jane),~junior(Jill)}            5,6 x<-Jane, y<-Jill 
+10. {~senior(Jill)}                          1,6,x<-Jane, y<-Jill
+11. {~soph(Jill)}                            2,7,x<-Jill, y<-Mary
+12. {soph(Jill),junior(Jill)}                3,10, x<-Jill
+13. {junior(Jill)}                           11,12
+14. {~junior(Jane)}                          13,9
+15. {}                                       14,8    
+
+
+b) Use resolution to answer the question "Who is a junior?" Your proof should be less than 14 steps including the seven premises above, which you can assume (i.e. start from step 8). For each step, indicate the two deriving clauses (previous steps used to derive the current line) and the mgu applied, if any. 
+This is a fill in the blanks question. (~junior(x), goal(x))
+
+1.{~above(x,y),~senior(y)} 
+2.{~above(x,y),~soph(x)} 
+3.{senior(x),soph(x),junior(x)} 
+4.{~above(x,y),~above(y,z),above(x,z)} 
+5.{~above(x,y),~junior(x),~junior(y)}
+6.{above(Jane,Jill)} 
+7.{above(Jill,Mary)}
+8.{~junior(x), goal(x)}
+9.{~soph(Jill)}           2,7
+10.{~senior(Jill)}        1,6
+11.{soph(Jill), junior(Jill)}  3,10
+12.{junior(Jill)}          9,11
+13.goal(Jill)              8,12
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

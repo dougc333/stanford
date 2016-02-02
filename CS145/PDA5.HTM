@@ -1,0 +1,154 @@
+<body BGCOLOR=FFFFFF>
+<title> CS145 Project Part 5 </title>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Personal Database Application: Part 5
+<br>Due Monday May 8</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+There are three handouts relevant to this assignment:
+<ul>
+<li> <a
+href="http://www-db.stanford.edu/~widom/cs145/or-plsql.html">Using
+Oracle PL/SQL</a>
+<li><a href="http://www-db.stanford.edu/~widom/cs145/or-proc.html">Introduction to Pro*C</a>
+<li><a href="http://www-db.stanford.edu/~widom/cs145/or-jdbc.html">Introduction to JDBC</a>
+</ul>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+This week you will experiment with Oracle's proprietary programming
+language PL/SQL, and you will use either Pro*C embedded SQL or JDBC
+dynamic SQL to interact with your PDA database from an external
+program.
+
+<ol>
+
+<li> Write two PL/SQL programs (see <a
+href="http://www-db.stanford.edu/~widom/cs145/or-plsql.html">Using
+Oracle PL/SQL</a>) to perform operations on your PDA database.  Each
+program should be complicated enough to involve at least one local
+variable, more than one SQL statement, and some data modification.  In
+addition, at least one should involve a cursor, and you should
+demonstrate use of loops and branching.  We encourage you to be
+imaginative.  However, here are some things you might try if you can't
+think of something more interesting:
+
+<ul>
+
+<p><li> Compute some aggregate value from a relation and use that value
+to modify values in that or another relation.
+
+<li> Create a new relation and load it with values computed from one
+or more existing relations.
+
+<li> Enforce a semantic constraint on your data by searching your
+database for violations and fixing them in some way.
+
+</ul>
+
+<p>Turn in a listing of your programs, along with scripts showing them
+working.  You should demonstrate that the programs had their intended
+effect by querying (before and after) some relation of your PDA that
+was changed by the program.  These queries may be included in the file
+that holds your PL/SQL programs for convenience.
+
+<p><li> Write two PL/SQL stored procedures or functions (see <a
+href="http://www-db.stanford.edu/~widom/cs145/or-plsql.html#procedures">Using
+Oracle PL/SQL: Procedures</a>).  They should perform some data
+modifications, and at least one should involve more than one SQL
+statement, but otherwise the procedure bodies can be simple.  However,
+each one should use one or more parameters in a significant way.  Turn
+in listings of your code and scripts showing the procedure called at
+least once each.  Also, show in your script the results of queries
+that demonstrate that the procedures had their intended effect.
+
+<p><li> Build a user-friendly interactive application program front
+end to your PDA using the C, C++, or Java programming language.  Your
+program should consist of a continuous loop in which:
+
+<ol>
+
+<p><li> A list of at least five alternative options is offered to
+the user.  (An additional alternative should be <tt>quit</tt>.)
+
+<li> The user selects an alternative.
+
+<li> The system prompts the user for appropriate input values.
+
+<li> The system accesses the database to perform the appropriate
+queries and/or modifications.
+
+<li> Data or an appropriate acknowledgment is returned to the
+user.
+
+</ol>
+
+<p>You should include both queries and modifications among your
+options.  For example, a UC campus applicant database interface might
+include in its menu:
+
+<ol>
+
+<p><li> A number of useful queries on the database, with both input and
+output in a format more convenient and pleasing than raw interactive
+SQL.
+
+<li> Insert a new student record.
+
+<li> Insert a new application record.
+
+<li> Update a student's address, GPA, or SAT.
+
+<li> Update an application's decision field.
+
+<li> Quit.
+
+</ol>
+
+<p>Your application code should interact with the database using Pro*C
+embedded SQL for C or C++ programs, or using the JDBC call-level
+interface for Java programs.  Please refer to the appropriate
+handout:<a
+href="http://www-db.stanford.edu/~widom/cs145/or-proc.html">Introduction
+to Pro*C</a> or <a
+href="http://www-db.stanford.edu/~widom/cs145/or-jdbc.html">Introduction
+to JDBC</a>.  We are not expecting anything particularly fancy in
+terms of the interface itself.  (In fact, ultimately this interface
+will be replaced by the Web interface you will create in the final
+part of the project.)  For example, in C a menu printed via
+<tt>printf</tt> is fine.  Also, handling of SQL errors can be quite
+simple.  You can write a routine that just prints the error message
+from Oracle, or model your error handler after one of our sample
+programs.
+
+<p>Please turn in your C, C++, or Java code along with a script
+showing an interaction with your program.  Each one of your options should be exercised at least once in your script.
+
+</ol>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Submission</h4>
+
+<p>The scripts you turn in for this assignment may show your programs
+running over your small or your large database.  However:
+
+<ul>
+
+<li>If you use your small database, be sure to test your programs on
+your large database as well to make sure they are correct and
+reasonably efficient.
+
+<li>If you use your large database, do not submit listings showing
+hundreds of lines of query results.
+
+</ul>
+
+As always, your assignment must be turned in on paper, you should
+provide comments for your queries or operations unless they are
+crystal clear, and it is an Honor Code violation to edit scripts
+before turning them in.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

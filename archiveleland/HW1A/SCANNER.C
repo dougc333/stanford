@@ -1,0 +1,107 @@
+/**********************************/
+/* doug chang                     */
+/* hw1a                           */
+/**********************************/
+
+
+#include "scanner.h"  
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+struct ScannerImplementation{
+  FILE * fileHandle;
+  char * delimiterString;
+  
+};
+
+
+/* NewScannerFromFilename()
+ * ------------------------
+ * Implementation:
+ *
+ *
+ *
+ */
+Scanner NewScannerFromFilename(const char *filename, const char *delimiters,
+						     bool discardDelimiters) 
+{
+  FILE* fileHandle;
+  Scanner newScanner;
+  int i;
+
+  printf("filename is:%s\n",filename);
+  printf("delimiters is:%s\n",delimiters);
+  
+
+  
+  if(filename == '\0'){
+    return NULL;
+  }
+
+  fileHandle = fopen("NoName","r");
+  
+  if (fileHandle==NULL){
+    printf("error, fileName does not exist\n");
+    return NULL;
+  }
+  /*
+  newScanner = malloc(sizeof(newScanner));
+  if(newScanner==NULL){
+   
+    printf("error allocating memory for scanner\n");
+  }
+
+ 
+  printf("the delimiter string is:%d\n",strlen(delimiters));
+  for (i=0;i<strlen(delimiters);i++){
+    newScanner->delimiterString[i]=*(delimiters+i);
+  }
+  
+  return newScanner;*/
+
+  return NULL;
+
+}
+
+
+ 
+/* NewScannerFromFile()
+ * ------------------------------------
+ * Implementation:
+ *
+ */
+Scanner NewScannerFromFile(FILE *fp, const char *delimiters,
+				     bool discardDelimiters) 
+{
+    return NULL; // this is here so the client won't crash
+}
+
+
+
+void FreeScanner(Scanner s)
+{
+}
+
+
+
+bool ReadNextToken(Scanner s, char buffer[], int bufLen) 
+{
+  return false;
+}
+
+
+
+int SkipOver(Scanner s, const char *skipSet) 
+{
+  return EOF;  // here so compile of stub file is warning-free
+}
+
+int SkipUntil(Scanner s, const char *untilSet) 
+{
+  return EOF;  // here so compile of stub file is warning-free
+}
+
+
+

@@ -1,0 +1,165 @@
+<title> CS145 Written Assignment 3 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Written Assignment #3
+<br>Due Wednesday April 26</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<b>Warning:</b> This is a fairly long assignment, but by the end of it
+you should have fully mastered relational algebra and SQL.  Feel free
+to leave out portions if you believe you have already mastered the
+material.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Problem 1</h4>
+
+Do parts (a)-(g) of Exercise 4.1.1 in the textbook (pages 187-190).
+<ul>
+
+<li> Give the relational algebra expressions only.
+
+<li>You do not need to show the results on the sample data.
+
+<li>Please do not define intermediate relations as suggested in the
+book - each of your answers should consist of one expression of
+relational algebra.
+
+<li>If you're feeling ambitious you can try parts (h)-(k) also.
+
+</ul>
+
+
+<h4>Problem 2</h4>
+
+Consider the following SQL query over relation <tt>R(A,B)</tt>:
+
+<p><tt>
+SELECT MAX(A)
+FROM R
+WHERE B > 5
+</tt>
+</quote>
+
+<p><b>(a)</b> Can you write this query in relational algebra?  If so, show it.
+
+<p>
+Now consider the following SQL query over the same relation:
+
+<p><tt>
+SELECT COUNT(*)
+FROM R
+WHERE B > 5
+</tt>
+
+<p><b>(b)</b> Can you write this query in relational algebra?  If so, show it.
+
+<h4>Problem 3</h4>
+
+<p><b>(a)</b> Do Exercise 4.1.8 in the textbook (page 194), except you
+only need to give one equivalent expression, not three.
+
+<p><b>(b)</b> There is another operator called the "antisemijoin,"
+which is similar to the semijoin except it returns the set of all tuples
+in <tt>R</tt> that <i>don't agree with any tuple in</i> <tt>S</tt> on
+their shared attributes.  Write a relational algebra expression
+equivalent to <tt>R antisemijoin S</tt>.
+
+<h4>Problem 4</h4>
+
+Do Exercise 4.6.2 in the textbook (page 237).
+
+<h4>Problem 5</h4>
+
+Do parts (a), (c), (d), and (e) of Exercise 5.2.2 in the textbook (page 262).
+
+<h4>Problem 6</h4>
+
+Do parts (b) and (c) of Exercise 5.3.1 in the textbook (page 269).
+
+<ul>
+
+<li> Write each query in two significantly different ways.
+
+<li> You are not required to use subqueries.
+
+</ul>
+
+Then for your answers to (b) and (c), continue with Exercise 5.4.3 in
+the textbook (page 273).
+
+<h4>Problem 7</h4>
+
+Do parts (e) and (g) of Exercise 5.5.1 in the textbook (pages 277-278).
+
+<h4>Problem 8</h4>
+
+Do parts (d) and (g) of Exercise 5.6.1 in the textbook (pages 284-285).
+
+<h4>Problem 9</h4>
+
+Consider a relation <tt>Flight(from,to,cost,airline)</tt>
+containing nonstop flights from one city to another.  Note that the
+flights from city <tt>A</tt> to city <tt>B</tt> are independent of the
+flights from
+<tt>B</tt> to <tt>A</tt>.  For example:
+
+<p>
+<TABLE BORDER=1>
+<tr><th>from<th>to<th>cost<th>airline
+<tr>
+<td><tt>SF</tt><td><tt>Denver</tt><td><tt>300</tt><td><tt>Frontier</tt><tr>
+<td><tt>SF</tt><td><tt>Denver</tt><td><tt>350</tt><td><tt>United</tt><tr>
+<td><tt>Denver</tt><td><tt>SF</tt><td><tt>250</tt><td><tt>United</tt><tr>
+<td><tt>Denver</tt><td><tt>SF</tt><td><tt>250</tt><td><tt>Frontier</tt><tr>
+<td><tt>Denver</tt><td><tt>Chicago</tt><td><tt>250</tt><td><tt>American</tt><tr>
+<td><tt>Chicago</tt><td><tt>NY</tt><td><tt>250</tt><td><tt>Delta</tt><tr>
+<td><tt>Denver</tt><td><tt>NY</tt><td><tt>500</tt><td><tt>American</tt><tr>
+<td><tt>Denver</tt><td><tt>NY</tt><td><tt>400</tt><td><tt>TWA</tt><tr>
+<td><tt>SF</tt><td><tt>NY</tt><td><tt>750</tt><td><tt>United</tt><tr>
+</table>
+
+<p><b>(a)</b> Give a single SQL query that returns the cost of the cheapest
+nonstop flight between each pair of cities.  For example, the result
+over the above relation instance should be:
+
+
+<p>
+<TABLE BORDER=1>
+<tr><th>from<th>to<th>cost
+<tr>
+<td><tt>SF</tt><td><tt>Denver</tt><td><tt>300</tt><tr>
+<td><tt>Denver</tt><td><tt>SF</tt><td><tt>250</tt><tr>
+<td><tt>Denver</tt><td><tt>Chicago</tt><td><tt>250</tt><tr>
+<td><tt>Chicago</tt><td><tt>NY</tt><td><tt>250</tt><tr>
+<td><tt>Denver</tt><td><tt>NY</tt><td><tt>400</tt><tr>
+<td><tt>SF</tt><td><tt>NY</tt><td><tt>750</tt><tr>
+</table>
+
+<p><b>(b)</b> Give a single SQL query that returns the cheapest cost
+of flying between each pair of cities assuming we are willing to stop
+up to two times en-route.  For example, by stopping once (in Denver),
+we can get from SF to NY for 700 instead of 750.  With this example
+data, we could stop twice (in Denver and Chicago), but that would be
+more expensive ($300+$250+$250 = $800).
+
+<p><b>(c)</b> Is it possible to write a single SQL query that returns the
+cheapest cost of flying between each pair of cities regardless of the
+number of stops?  If so, give the query.  If not, briefly explain why.
+
+<h4>Problem 10</h4>
+
+Do Exercise 5.9.5 in the textbook (page 312) except give two
+equivalent queries with only a single condition in the <tt>WHERE</tt>
+clause, not just one equivalent query.
+
+<h4>Problem 11: OPTIONAL</h4>
+
+Can you write a query in SQL that <i>requires</i> a <tt>HAVING</tt>
+clause?  That is, can you find a query that uses a <tt>HAVING</tt>
+clause, and for which there is no equivalent SQL query that does not
+use a <tt>HAVING</tt> clause?
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

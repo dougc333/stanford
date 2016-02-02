@@ -1,0 +1,251 @@
+<title> CS145 Written Assignment 7 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Written Assignment #7
+<br>Due Wednesday May 31</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<b>Warning:</b> This assignment covers a lot of ground!  Fortunately
+your project is complete and this is your last written assignment in the
+course.  It will prepare you well for the final exam.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Problem 1</h4>
+
+<p><i>Observe the similarity between this problem, Problem 4 on <a
+href="http://www-db.stanford.edu/~widom/cs145/wa1.html">Written
+Assignment #1</a>, and Problem 1 on <a
+href="http://www-db.stanford.edu/~widom/cs145/wa6.html">Written
+Assignment #6</a>.  You may or may not find it advantageous to use
+your solutions or the sample solutions to those problems as a guide
+when solving this one - it's up to you.</i>
+
+<p>You are to design an object-relational database for an insurance
+company using Oracle 8 syntax.  The data will include information
+about customers (name, address, and phone number), information about
+insured cars (make, model, year, vehicle-ID#, license#, and insurance
+rate), information about insured homes (address, insured value, and
+insurance rate), and information about claims made on insured cars and
+homes (date of claim, date of settlement, and amount of settlement).
+You may assume that all insured cars and homes are owned by a single
+customer, but you should allow a customer to own several cars and
+homes.  As an added feature for this version of the problem, you
+should assume that all addresses consist of three distinct components:
+street, city, and zip code.  Please state any additional assumptions
+you make about the real world in your design.
+
+<p><b>(a)</b> Specify (on paper) an object-relational schema for your
+database.  You should use the Oracle 8 syntax for object types and
+object-relational tables as presented in class.  You should exploit
+object-relational features where it makes sense in the design, e.g.,
+if it makes the design more intuitive or compact.  You need not go
+crazy with object-relational features just to demonstrate their use.
+Also, you may find as you work on later parts of this problem that
+you'll want to come back and adjust your schema.
+
+<p><b>(b)</b> Based on your schema, write an Oracle 8 SQL command to
+insert a new customer into the database.  You may choose any data
+(name, address, etc.) for the customer that you like.
+
+<p><b>(c)</b> Based on your schema, write an Oracle 8 SQL command to
+insert a new claim into the database.  You may assume that the
+database already includes the insured car or home on which the claim
+is made.
+
+<p><b>(d)</b> Based on your schema, write an Oracle 8 SQL query to
+find the average insurance rate of all homes in Palo Alto.
+
+<p><b>(e)</b> Based on your schema, write an Oracle 8 SQL query to
+return the object that corresponds to the owner of the car with
+license# 123.
+
+<p><b>(f)</b> Add a method to your schema that computes, for a given
+insured car, the number of claims involving that car during a given
+year.  The year should be an input parameter to the method.  First
+declare the method within your schema.  Then specify an implementation
+of the method that uses an Oracle 8 query as the main body of the
+method.  Don't worry too much about syntax, although you may base your
+syntax on the Oracle 8 examples given in class.
+
+<p><b>(g)</b> Based on your schema after part (f), write an Oracle 8
+SQL update statement to double the insurance rate for any car that has
+more than four claims in the year 1999.
+
+<p><b>(h)</b> Add an <i>order method</i> to your schema that allows
+claims to be compared and aggregated.  Specifically, claim C1 should
+be "larger" than claim C2 if: (i) C1 is for a larger amount, or, if
+the amounts are the same: (ii) C1 has a more recent settlement date,
+or, if the settlement dates are the same: (iii) C1 has a more recent
+claim date.  If none of (i), (ii), or (iii) hold then the claims
+should be equal.  You may assume that comparisons for dates are built
+in.  Don't worry too much about syntax, although you may base your
+syntax on the Oracle 8 examples given in class.
+
+<p><b>(i)</b> Based on your schema after part (h), write an Oracle 8
+SQL query to find the settlement date and amount of the "biggest" home
+claim in the database.
+
+<p><b>(j)</b> Specify one of the relational schemas you gave for
+Problem 4 on <a
+href="http://www-db.stanford.edu/~widom/cs145/wa1.html">Written
+Assignment #1</a>, whichever one you prefer.  Based on your new
+object-relational schema developed in this problem, write a set of
+Oracle 8 SQL statements that will populate your new database by
+querying the old one.  If there are cases where it is not possible to
+port the data over to the new schema by simply using SQL statements,
+state so and explain why.
+
+<h4>Problem 2</h4>
+
+Consider the following Oracle 8 schema that uses doubly nested table
+types to create a table called <i>Dorm</i>.  <i>Dorm</i> contains data
+about students who live in dormitories and the books that they own.
+
+<p><tt>
+CREATE TYPE BookType AS OBJECT (title STRING, year INTEGER);<br>
+CREATE TYPE BookList AS TABLE OF BookType;<br>
+CREATE TYPE ResidentType AS OBJECT (name STRING, books BookList);<br>
+CREATE TYPE ResidentList AS TABLE OF ResidentType;<br>
+CREATE TYPE DormType AS OBJECT (address STRING, residents ResidentList);<br>
+CREATE TABLE Dorm OF TYPE DormType;
+</tt>
+
+<p><b>(a)</b> Create a "flat" (non-object-) relational schema to store
+the same information.  Then write a set of Oracle 8 SQL statements
+that will populate your flat database by querying the <i>Dorm</i>
+relation.
+
+<p><b>(b)</b> Now write a set of Oracle 8 SQL statements to go the
+other way: populate the <i>Dorm</i> table by querying your flat
+relations.
+
+<h4>Problem 3</h4>
+
+Consider the following relation that records sales information at a
+retail store:
+
+<p><tt>
+Sales(sID,date,itemID,color,size,qty,unitPrice) // sID is a key
+</tt>
+
+<p>Consider the following two queries over the <tt>Sales</tt> relation:
+
+<p><tt>
+// Total revenue grouped by date and item:<br>
+SELECT date, itemID, SUM(qty*unitPrice)<br>
+FROM Sales<br>
+GROUP BY date, itemID
+</tt>
+
+<p><tt>
+// Total revenue grouped by itemID and color<br>
+SELECT itemID, color, SUM(qty*unitPrice)<br>
+FROM Sales<br>
+GROUP BY itemID, color
+</tt>
+
+<p>Specify a view <tt>V</tt> over the <tt>Sales</tt> relation.  You
+should choose <tt>V</tt> so that if <tt>V</tt> is stored as a
+<i>materialized view</i>, then <tt>V</tt> can be used to substantially
+speed up the execution of both of the above queries, assuming that the
+<tt>Sales</tt> relation is very large.  In addition to specifying
+<tt>V</tt>, show how each of the two queries above can be rewritten
+into an equivalent query that uses <tt>V</tt> instead of
+<tt>Sales</tt>.
+
+<h4>Problem 4</h4>
+
+Consider the following market basket data:
+
+<p>
+<TABLE BORDER=1>
+<tr><th>saleID<th>item
+<tr>
+<td>1<td>milk<tr>
+<td>1<td>cheese<tr>
+<td>1<td>diapers<tr>
+<td>2<td>chips<tr>
+<td>2<td>eggs<tr>
+<td>2<td>diapers<tr>
+<td>2<td>beer<tr>
+<td>3<td>chips<tr>
+<td>3<td>beer<tr>
+<td>4<td>milk<tr>
+<td>4<td>diapers<tr>
+<td>4<td>beer<tr>
+<td>5<td>cheese<tr>
+<td>5<td>beer
+</TABLE>
+
+<P>Specify all of the association rules that can be deduced from this
+table with <i>Support</i> > 0.3 and <i>Confidence</i> > 0.5.  To
+limit your search, you need only consider association rules that have
+exactly one item on the left-hand side and one item on the right-hand
+side.
+
+<h4>Problem 5</h4>
+
+Consider the following relation that uses a temporal
+<tt>TIMESTAMP</tt> attribute as described in class.  This relation
+captures the on-and-off dating habits of couples (sorry for the
+heterosexual bias).
+
+<p><tt>
+CREATE TABLE Dating (boy STRING, girl STRING, time TIMESTAMP)
+</tt>
+
+<p>Recall that <tt>TIMESTAMP</tt> values are sets of disjoint
+intervals, and that <tt>NOW</tt> may be used as an interval endpoint.
+You may assume that names are unique (i.e., the same name indicates
+the same person), and that <tt>(boy,girl)</tt> is a key for this
+relation.  Write the following queries using the temporal relational
+algebra introduced in class.  You may call built-in functions and test
+conditions on time values using any syntax similar to that used in
+class.
+
+<p><b>(a)</b> Find all boy-girl pairs who are dating each other now.
+
+<p><b>(b)</b> Find all boy-girl pairs who are dating each other now
+and have dated each other for a total of at least 6 months.
+
+<p><b>(c)</b> Find all boys who have dated more than one girl at the
+same time.
+
+<p><b>(d)</b> Find all girls who have been dating someone (not
+necessarily the same person) for a total of at least 2 years.
+
+
+<h4>Problem 6</h4>
+
+Suppose your friend asks you to send him information about the courses
+you are taking this quarter.  Being a savvy e-commerce type of person,
+your friend would like to receive the information as an XML document
+accompanied by a DTD, so he can parse it automatically and put the
+information into his proprietary database.  Without going overboard,
+specify an XML encoding of your course information, and include a DTD
+that describes the structure of the data.  Only the basics are
+necessary: course number, department, instructor, time, location, and
+expected grade.  Your encoding should use at least two levels of
+nesting and should include at least one attribute of type <tt>ID</tt>
+and at least one attribute of type <tt>IDREF</tt> or <tt>IDREFS</tt>.
+If you are an SITN student taking only one course this quarter,
+include at least two additional courses that you've taken in the past
+or intend to take in the future.
+
+<h4>Problem 7</h4>
+
+Your task is to create a generic schema for storing XML in a
+relational database system.  You may consider "basic" XML only:
+elements, attributes, and text.  You don't need to consider DTDs or ID
+and IDREF(S) attributes.  You may assume that all data to be loaded is
+in a single XML document, and you may assume that the relational DBMS
+can generate unique ID's for you as needed.  Specify the schema of
+your relations, and briefly explain how data is translated from an XML
+document into the relations.  (<i>This is a relatively open-ended
+question, though not as open-ended as some on previous
+assignments.</i>)
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

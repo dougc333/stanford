@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0048)http://www-db.stanford.edu/~ullman/hmu/msol.html -->
+<HTML><HEAD><TITLE>CS154 Midterm Solutions</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Midterm Solutions</H1><B>Question #1</B>: 
+<P>a) 0*11*222* 
+<P>b) <PRE>
+        0          1                     2
+       /-\        /-\                   /-\
+      |   |      |   |                 |   |
+       \ /        \ /                   \ /
+       +-+   1    +-+   2    +-+   2    +-+
+-----&gt; | | -----&gt; | | -----&gt; | | -----&gt; |0|
+       +-+        +-+        +-+        +-+
+        |          |          |          |
+        |          | 0        |          |
+        | 2        |__        | 0,1      |
+        |             |       |          | 0,1
+        |             V       |          |
+        |            +-+      |          |
+        +----------&gt; | | &lt;----+          |
+                     +-+ &lt;---------------+
+                     / \
+                    |   | 0, 1, 2
+                     \_/
+</PRE>
+<P>c) There were many acceptable grammars. One is the following (e = epsilon) 
+<P><PRE>   S -&gt; A B C
+
+   A -&gt; 0A | e
+
+   B -&gt; 1B | 1
+
+   C -&gt; 2C | 22
+</PRE>
+<P>Common errors with a included being careless with the regular expression 
+(forgetting a 1, for example, and just having 01*222*). (1 or 2 points) The most 
+common error for part b was not including the "dead" state at the bottom of the 
+diagram. (2 points). 
+<P><B>Question 2</B>: Assume that the statement holds for <I>n-1</I>, and let 
+<I>w</I> be of length <I>n</I>. There are two cases: <I>w=xa</I> or <I>w=xb</I>, 
+where <I>x</I> represents the first <I>n-1</I> positions of <I>w</I>. Consider 
+first the case, that <I>w=xa</I>. If <I>w</I> has an even number of <I>a</I>'s 
+then <I>x</I> has an odd number of <I>a</I>'s because (A) Thus, 
+<I>delta-hat(p,x)=q</I> because (C). Therefore <I>delta-hat(p,w)=p</I> because 
+(B). Now suppose <I>w</I> has an odd number of <I>a</I>'s. Then <I>x</I> has an 
+even number of <I>a</I>'s, because (A). <I>delta-hat(p,x)=p</I> because (C). 
+<I>delta-hat(p,w)=q</I> because (B). These statements complete the proof of the 
+case <I>w=xa</I>. 
+<P>Now consider the case <I>w=xb</I>. If <I>w</I> has an even number of 
+<I>a</I>'s then <I>x</I> has an even number of <I>a</I>'s because (A) Thus, 
+<I>delta-hat(p,x)=p</I> because (C). Therefore <I>delta-hat(p,w)=p</I> because 
+(B). Now suppose <I>w</I> has an odd number of <I>a</I>'s. Then <I>x</I> has an 
+odd number of <I>a</I>'s, because (A). <I>delta-hat(p,x)=q</I> because (C). 
+<I>delta-hat(p,w)=q</I> because (B). These statements complete the proof of the 
+case <I>w=xb</I>, and we are done with the inductive step. 
+<P><B>Question 3</B>: First, I should admit that the construction I had you go 
+through is not the simplest one to prove that <I>a\L</I> is regular when 
+<I>L</I> is. All you have to do is change the start state to 
+<I>delta(q_A,a)</I>. However, the requirements of the problem did force you to 
+think about constructions, epsilon-transitions, and how automata work in 
+general. I was pleased that so many people got the idea and essentially or 
+completely got it right. However, there were a good number of people who failed 
+to read carefully what the definition of <I>a\L</I> is, and interpreted it as 
+something else, usually <I>aL</I>, i.e., as if <I>L(B)</I> were <I>{aw | w is in 
+L(A)}</I>, rather than vice-versa. 
+<P>(a) <I>delta_B(q_B,epsilon)</I> should be <I>{delta_A(q_A,a)}</I>; there are 
+no other transitions out of <I>q_B</I>. 
+<P>(b) <I>delta_B(q,a) = {delta_A(q,a)}</I> for all states <I>q</I> and input 
+symbols <I>a</I>. 
+<P>(c) <I>F_B=F_A</I>. 
+<P>(d) Suppose <I>ax</I> is in <I>L(A)</I>. Then <I>B</I> goes to 
+<I>delta_A(q_A,a)</I> on epsilon and from there to whatever state 
+<I>delta-hat_A(q_A,ax)</I> is on input <I>x</I>. That is, 
+<I>delta-hat_B(q_B,x)=delta-hat_A(q_A,ax)</I>. Thus, if <I>A</I> accepts 
+<I>ax</I>, then <I>B</I> accepts <I>x</I>. Conversly, suppose <I>B</I> accepts 
+<I>x</I>. Then it must be that <I>B</I> goes to <I>q_A</I> on epsilon, and from 
+there to <I>delta-hat_A(q_A,ax)</I>, which must be an accepting state. Thus, 
+<I>A</I> accepts <I>ax</I>. 
+<P><B>Question #4</B>: 
+<P>a) epsilon + b 
+<P>b) epsilon + b + ab*a 
+<P>c) b*ab*(ab*ab*)* 
+<P>Grading Notes: The most common mistakes were forgetting that if you go around 
+a self loop more than once, you're passing through the state numbered as high as 
+that state. Another common mistake was forgetting epsilon when you're not 
+changing states. 
+<P><B>Question #5</B>: An easy solution: 
+<P>a) Choose w = 1^n 0^(n+1) 
+<P>b) Choose i = 3 
+<P>c) |xy| &lt;= n, so it must consist of only 1s. Since y != e, it must contain 
+at least one 1. <I>xyyz</I> thus contains at least one more 1s than <I>xyz</I>, 
+and no more 0s; thus it has at least <I>n</I>+1 1s and <I>n</I>+1 0s, so it's 
+not in <I>L</I>. 
+<P>Any reasonable <I>w</I>, <I>i</I>, and explanation was accepted. Points were 
+automatically taken off if one chose <I>i</I> = 1 - in this case the string is 
+<I>xyz</I>, which we chose to be in <I>L</I>, so we can't show the same string 
+is not in <I>L</I>. 
+<P><B>Question #6</B>: 
+<P>a) S -&gt; 0A -&gt; 00AA -&gt; 001SA -&gt; 001A -&gt; 0011S -&gt; 0011 
+<P>b) S -&gt; 0A -&gt; 00AA -&gt; 00A0AA -&gt; 00A0A1S -&gt; 00A0A1 -&gt; 
+00A01S1 -&gt; 00A011 -&gt; 001S011 -&gt; 001011 
+<P>c) 
+<P><PRE>          S
+         / \
+        1   B
+           / \
+          0   S
+             / \
+            0   A
+               / \
+              1   S
+                  |
+               epsilon
+</PRE></BODY></HTML>

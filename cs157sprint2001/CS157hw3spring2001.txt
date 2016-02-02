@@ -1,0 +1,603 @@
+homework #3
+1. Unification (10 points)
+Give a most general unifier, if one exists, for each pair of expressions. 
+
+(a) (3 points) f(x,b) and f(f(y,y),y)
+Yes
+x->f(b,b)
+y->b
+f(f(b,b),b)
+f(f(b,b),b)
+
+(b) (3 points) h(x,f(y,a),g(g(u))) and h(z,f(z,u),y)
+Yes
+y->g(g(a))
+z->g(g(a))
+x->g(g(a))
+
+(c) (4 points) h(x,f(y,a),g(g(x))) and h(z,f(z,u),y) 
+No
+x->a; this not valid in a mgu, have to use a variable substitution.
+2 choices here, x->z or z->x
+if x->z, then y->g(g(z))
+h(z,f(g(g(z)),a),g(g(z)))
+h(z,f(z,u),g(g(z))
+if z->x then y->x
+h(x,f(x,a),g(g(x))) and 
+h(x,f(x,u),x); neither of these work because x, g(g(x) and z, g(g(z) are not unifable.
+
+
+2. Clausal Form (10 points)
+Convert each sentence into clausal form. 
+Each subproblem is worth 5 points. 
+(a) Ex.Az.(Ax.Ey.Az.(p(x,y,z) => q(a,x))) 
+Applying INSEADOR:
+Ex.Az.(Ax.Ey.Az.(p(x,y,z) => q(a,x)))
+I: Ex.Az.(Ax.Ey.Az.(~p(x,y,z) | q(a,x)))
+N: 
+S: Ex.Az.(Ax1.Ey1.Az1.(~p(x1,y1,z1) | q(a,x1)))
+E: Az.(Ax1.Az1.(~p(x1,f(x1),z1) | q(a,x1)))
+A: ~p(x1,f(x1),z1) | q(a,x1)
+D: 
+O: {~p(x1,f(x1),z1), q(a,x1)}
+R:
+
+{~p(x1,f(x1),z1), q(a,x1)}
+
+(b) Ez.Ay.p(z,y) => Ez.Ay.p(y,z) 
+Applying INSEADOR:
+Ez.Ay.p(z,y) => Ez.Ay.p(y,z)
+I: ~Ez.Ay.p(z,y) | Ez.Ay.p(y,z) 
+N:  ~Ez.Ay.p(z,y) | Eu.Av.p(v,u); y->v, z->u in rhs.
+     Az.~Ay.p(z,y) | Eu.Av.p(v,u); 
+     Az.Ey.~p(z,y) | Eu.Av.p(v,u); 
+S: (I did this earlier to make it more clear)
+E: Az.~p(z,f(z)) | Av.p(v,a);
+D:
+O: {~p(z,f(z)), p(v,a)}
+
+3. Resolution (10 points)
+Use the Resolution Principle to show that the following sentences are valid. 
+Each subproblem is worth 5 points. 
+
+(a) Ey.Ax.q(x,y) => Ax.Ey.q(x,y) 
+To show this is valid, we need to prove   |= Ey.Ax.q(x,y) => Ax.Ey.q(x,y)
+we negate the conclusion, covert to clausal form, and resolve the empty clause
+
+~(Ey.Ax.q(x,y) => Ax.Ey.q(x,y))
+I: ~(~Ey.Ax.q(x,y) | Ax.Ey.q(x,y))
+N: (~~Ey.Ax.q(x,y) & ~Ax.Ey.q(x,y))
+(Ey.Ax.q(x,y) & Ex.~Ey.q(x,y))
+(Ey.Ax.q(x,y) & Ex.Ay.~q(x,y))
+S: (Ey1.Ax1.q(x1,y1) & Ex.Ay.~q(x,y))
+E:  Ax1.q(x1,a) & Ay.~q(b,y)
+A:  q(x1,a) & ~q(b,y)
+D:
+O: {q(x1,a)} 
+   {~q(b,y)}
+
+Performing resolution:
+1. {q(x1,a)} 
+2. {~q(b,y)}
+3. {} x1->b, y->a
+
+
+(b) (Ax.p(x) | Ax.r(x)) => Ax.(p(x) | r(x))
+
+~(Ax.p(x) | Ax.r(x)) => Ax.(p(x) | r(x))      Negated goal
+I: ~(~(Ax.p(x) | Ax.r(x)) | Ax.(p(x) | r(x)))
+N: (Ax.p(x) | Ax.r(x)) & ~Ax.(p(x) | r(x))
+(Ax.p(x) | Ax.r(x)) & Ex.~(p(x) | r(x))
+(Ax.p(x) | Ax.r(x)) & Ex.(~p(x) & ~r(x))
+S: (Ax1.p(x1) | Ax2.r(x2)) & Ex3.(~p(x3) & ~r(x3))
+E: (Ax1.p(x1) | Ax2.r(x2)) & (~p(a) & ~r(a))
+A: (p(x1) | r(x2)) & (~p(a) & ~r(a))
+D: 
+O: { p(x1),r(x2) }
+   {~p(a)}
+   {~r(a)}
+Resolution:
+1.   { p(x1),r(x2) } {x1->a, x2->a}
+2.   {~p(a)}
+3.   {~r(a)}
+4.   {r(a)}   1,2
+5.  {}     3,4
+
+
+
+4. 
+Converting the 2 last premises to clausal form:
+
+color(x,red) & child(y,x) => color(y,black)
+I: ~(color(x,red) & child(y,x))| color(y,black)
+N: (~color(x,red) | ~child(y,x))| color(y,black)
+S:
+E:
+A:
+D:
+O: {~color(x,red),~child(y,x),color(y,black)}
+R:
+
+child(y,x) & color(y,red) => color(x,black)
+I: ~(child(y,x) & color(y,red)) | color(x,black)
+N: (~child(y,x) | ~color(y,red)) | color(x,black)
+S:
+E:
+A:
+D:
+O: {~child(y,x),~color(y,red),color(x,black)}
+R:
+
+The goal, find all black nodes with children is encoded as:
+color(z,black) & child(y,z) => goal(z)
+
+Converting to CNF:
+color(z,black) & child(y,z) => goal(z)
+
+I: ~(color(z,black) & child(y,z)) | goal(z)
+N: (~color(z,black) | ~child(y,z)) | goal(z)
+S: 
+E:
+A:
+D:
+O: {~color(z,black),~child(y,z),goal(z)}
+R:
+
+
+1. child(b,a) 
+2. child(d,b)
+3. child(e,b)
+4. child(g,e)
+5. child(j,h)
+6. child(h,c)
+7. color(b,red)
+8. color(g,red)
+9. color(h,red)
+10.~color(x,red),~child(y,x),color(y,black)
+11.~child(y,x),~color(y,red),color(x,black)
+12.~color(v,black),~child(w,v),goal(v)
+13. Working backwards, we combine 10,12
+{v->y}{~color(y,black),~child(w,y),goal(y)} resolved with 
+      {~color(x,red),~child(y,x),color(y,black)}
+is: {~child(w,y),goal(y), ~color(x,red),~child(y,x)}
+14. Combine 11,12
+{v->x}{~color(x,black),~child(w,x),goal(x)} resolved with 
+{~child(y,x),~color(y,red),color(x,black)}
+is: {~child(w,x),goal(x), ~child(y,x),~color(y,red)}
+15: Now eliminate the ~color(x,red) from 13. There are 3 possibilities which can cancel this term out, lines 7,8,9. We list all of them.
+x->b 7,13; {color(b,red)} resolves with {~child(w,y),goal(y), ~color(x,red),~child(y,b)} to give
+{~child(w,y),goal(y), ~child(y,b)}
+16: x->g 8,13; {color(g,red)} resolves with {~child(w,y),goal(y), ~color(g,red),~child(y,g)} to give:
+{~child(w,y),goal(y), ~child(y,g)}
+17: x->h 9,13; {color(h,red)} resolves with
+{~child(w,y),goal(y), ~color(h,red),~child(y,h)}
+to give:
+{~child(w,y),goal(y),~child(y,h)}
+18: Now eliminate the ~color(y,red) from 14. There are 3 possibilities to combine with lines 7,8,9. We list all of them.
+y->b 7,14; {color(b,red)} resolves with {~child(w,x),goal(x), ~child(b,x),~color(b,red)} to give:
+{~child(w,x),goal(x), ~child(b,x)}
+19: y->g 8,14; {color(g,red)} resolves with 
+{~child(w,x),goal(x), ~child(g,x),~color(g,red)} to give:
+{~child(w,x),goal(x), ~child(g,x)}
+20:y->h 9,14; {color(h,red)} resolves with 
+{~child(w,x),goal(x), ~child(h,x),~color(h,red)} to give
+{~child(w,x),goal(x), ~child(h,x)}
+21: Now we eliminate from 15,16,17 the ~child(y, constant term) by combining 
+2,15 y->d ;{~child(w,d),goal(d), ~child(d,b)} resolves with 
+child(d,b) to give:
+{~child(w,d),goal(d)}
+22: 3,15 y->e; {~child(w,e),goal(e), ~child(e,b)} resolves with 
+child(e,b) to give:
+{~child(w,e),goal(e)}
+23: 5,17 y->j {~child(w,j),goal(j)}
+24: 1,18 x->a {~child(w,a),goal(a)}
+25: 4,19 x->e {~child(w,e),goal(e)}
+26: 6,20 x->c {~child(w,c),goal(c)}
+27: 4,22 w->g {goal(e)}
+28: 1,24 w->b {goal(a)}
+29: 6,26 w->h {goal(c)}
+
+
+The nodes are {e,a,c}.
+
+5. Residue (10 points)
+(a) solve the problem using just the data and rules above; 
+Converting to CNF:
+  
+    f(x) => j(x)
+   {~f(x),j(x)}
+
+   c(x) => j(x)
+   {~c(x), j(x)}
+
+   e(x,a) | e(x,b) => f(x)
+   ~(e(x,a) | e(x,b)) | f(x)  
+   (~e(x,a) & ~e(x,b)) | f(x)  
+  (~e(x,a) | f(x))& (~e(x,b) | f(x)) 
+  {~e(x,a),f(x)}
+  {~e(x,b), f(x)} 
+  
+   e(x,c) & e(x,d)  => c(x)
+  ~(e(x,c) & e(x,d)) | c(x)
+  ~e(x,c) | ~e(x,d) | c(x)
+  {~e(x,c), ~e(x,d), c(x)}
+
+
+1.   {~f(x),j(x)}
+2.   {~c(x), j(x)}
+3.   {~e(x,a),f(x)}
+4.   {~e(x,b), f(x)} 
+5.   {~e(x,c), ~e(x,d), c(x)}
+6.   {~j(g)}
+7.   ~f(g)     1,6
+8.   ~c(g)     2,6
+9.   ~e(g,a)  3,7 *
+10. ~e(g,b)  4,7 *
+11. ~e(g,c), ~e(g,d) 5,8 *
+
+
+negating the 3 residues we get
+
+e(g,a) =>j(g)
+e(g,b) =>j(g)
+~(~e(g,c) |  ~e(g,d)) =>j(g) or  (e(g,c) &  e(g,d)) =>j(g)
+
+(b) solve the problem using all the data and rules from (a) and the following additional data:
+   h(g)
+   h(x) => ~e(x,d)
+
+1.   {~f(x),j(x)}
+2.   {~c(x), j(x)}
+3.   {~e(x,a),f(x)}
+4.   {~e(x,b), f(x)} 
+5.   {~e(x,c), ~e(x,d), c(x)}
+6.   {~h(x),~e(x,d)}
+7.   {h(g)}
+8.   {~j(g)}
+9.   ~f(g)  1,8   
+10. ~c(g)  2,8
+11. ~e(g,a) 3,9 *
+12. ~e(g,b) 4,9 *
+13. {~e(g,c), ~e(g,d)} 10,5 *
+14. ~e(g,d)   6,7  *
+
+Add e(g,d) =>j(g) to the sentences in the case above; but this conflicts with the set of premises, so it is not a residue.
+
+
+6. Strategies (10 points)
+"clauses" is a linked list of the following clauses:
+1) { r(x,y), q(z) }
+2) { ~q(b) }
+3) { ~r(b,c), q(a) }
+4) { q(w), ~q(u) }
+5) { r(c,a) }
+
+(a) at the end of one iteration of the loop, for which of these strategies is clauseLength() the smallest? Your answer should NOT include any strategies which, if dropped, would not change the length of the clause. In other words, you should list the minimal strategies necessary to achieve the shortest list possible. 
+
+For one iteration consider the clauses that are compared. 
+
+1) { r(x,y), q(z) }
+2) { ~q(b) }
+3) { ~r(b,c), q(a) }
+4) { q(w), ~q(u) }
+5) { r(c,a) }
+
+With no strategy applied, we would do the following steps:
+6) 1,2: r(x,y), z<-b
+7) 1,3: q(a), x<-b, y<-c, z<-a
+1,4: r(x,y),q(w) z<-u this is not entered into the list because it is the same as clause 1)
+1,5: no resolvents. nothing entered into the list
+
+With no strategies, clauselength() returns 7.
+
+
+Pure Literal Elimination:
+The literal r(c,a) is eliminated. This would decrease the list length by 1.
+
+Tautlogical Elimination:
+There are no tautologies in this set of sentences.
+
+Subsumption Elimination:
+1) is subsumed after 6) is generated.
+
+Unit Resolution:
+For the first interation the step that was not computed was 1,3, and 1,4 because both the clauses are not unit clauses. 1,3 generates a resolvent, 1,4 does not. UR would save 1 step.
+
+
+Input Resolution:
+for the first interation, nothing was done. All the clauses in the first itneration are from the parent clauses. This strategy doesnt make a difference for the first iteration.
+
+
+Pure literal elimination, subsumption, unit resolution, make a difference in reducing the size of the list.
+
+
+(b) for which of these strategies is clauseLength() the smallest when the algorithm terminates? Again, give a minimal list of strategies. 
+
+Do the resolution with none of the strategies enabled as a reference point.
+
+1) { r(x,y), q(z) }
+2) { ~q(b) }
+3) { ~r(b,c), q(a) }
+4) { q(w), ~q(u) }
+5) { r(c,a) }
+6) 1,2: r(x,y), z<-b
+7) 1,3: q(a), x<-b, y<-c, z<-a
+8) 1,4: r(x,y),q(w) z<-u this is not entered into the list because it is the same as clause 1)
+9) 1,5: no resolvents. nothing entered into the list
+10) 1,6: no resolvents
+11) 1,7: no resolvents;
+13) 2,3: no resolvents; 
+14) 2,4: w<-b; ~q(u);  
+15) 2,5: no resolvents
+16) 2,6: no resolvents
+17) 2,7: no resolvents
+19) 2,14; no resolvents
+20) 3,4: u<-a; ~r(b,c),q(w) ; this is a factor of 1 and is not entered because it is the same as 1). 
+21)3,5: no resolvents
+22) 3,6: no resolvents, same as 7)
+23) 3,7: no resolvents
+25) 3,14: ~r(b,c)
+26) 4,5: no resolvents
+27) 4,6: no resolvents
+28) 4,7: q(w) 
+30) 4,14: same as 28, not entered into the list
+31) 4,25: no resolvents
+32) 4,28: same
+33) 5,6: no resolvents
+34) 5,7: no resolvents
+35) 5,14: no resolvents
+36) 5,25: no resolvents
+37) 5,28: no resolvents
+38) 6,7: no resolvents
+39) 6,14: no resolvents
+40) 6,25 {}
+
+There are a total of 12 steps.
+
+Here is a flow with all the refutation complete strategies enabled. This is presented as a time series list of the program functioning. I leave off unit resolution since I need to check to make sure this makes the resolution shorter. Input resolution and unit resolution produce the same answer. We know input resolution wont make a difference since the non strategy enabled case obtains the solution always having one statement in the input database.
+
+
+* 1) { r(x,y), q(z) } subsumed at t=6
+2) { ~q(b) }
+*3) { ~r(b,c), q(a) }; subsumed at t=22
+4) { q(w), ~q(u) }
+* 5) { r(c,a) }; t=5 PLE. 
+6) 1,2: r(x,y), z<-b; subsume 1)
+*7) 1,3: q(a), x<-b, y<-c, z<-a; no calculation
+*8) 1,4: r(x,y),q(w) z<-u this is not entered into the list because it is the same as clause 1), no calculation
+*9) 1,5: no resolvents. nothing entered into the list; no calculation
+*10) 1,6: no resolvents no calculation 
+*11) 1,7: no resolvents; no calculation 
+*13) 2,3: no resolvents; 
+14) 2,4: w<-b; ~q(u);  
+*15) 2,5: no resolvents; no calculation 
+*16) 2,6: no resolvents;
+*17) 2,7: no resolvents; no calculation 
+*19) 2,14; no resolvents;
+*20) 3,4: u<-a; ~r(b,c),q(w) ; this is a factor of 1 and is not entered because it is the same as 1). 
+*21)3,5: no resolvents; no calculation 
+22) 3,6: q(a); subsume 3)
+*23) 3,7: no resolvents; no calculation 
+*25) 3,14: ~r(b,c); no calculation 
+*26) 4,5: no resolvents; no calculation 
+*27) 4,6: no resolvents;  
+*28) 4,7: q(w); no calculation 
+*30) 4,14: same as 14)
+30a) 4,22: q(w)
+*31) 4,25: no resolvents; no calculation 
+*32) 4,28: same 
+*38) 6,14: no resolvent
+*39) 6,22 no resolvent
+*40) 6,30a no resolvent
+39) 14,22 {}
+
+With all the strategies except unit resolution we get clauselength()=7
+
+Check if unit resolution makes the list shorter: this is a time sequence with everything. It does not; it is the same length.
+
+
+
+Pure Literal Elimination:
+This would reduce the length of the list by one, removing entry 5.
+
+Tautlogical Elimination:
+There are no tautologies in this set of sentences. The clauselength would be unchanged.
+
+Subsumption Elimination:
+It removes clauses 1,3,4,6,7,etc... as seen in the program flow above.
+
+Unit Resolution:
+This would cause a problem in our resolution if it was implemented. Dont use this. It loses conclusions.
+
+Input Resolution:
+no difference.
+
+To reduce the size of the list, we can use pure literal elimination, and subsumption.
+
+
+7. Electronic Circuits: Simulation (10 points)
+
+
+
+Put into clausal form, our general and particular sentences look like:
+    1. { ~And(x), ~On(Input1(x)), ~On(Input2(x)), On(Output1(x)) }
+    2. { ~And(x), On(Input1(x)), ~On(Output1(x)) }
+    3. { ~And(x), On(Input2(x)), ~On(Output1(x)) }
+    4. { ~Or(x), ~On(Input1(x)), On(Output1(x)) }
+    5. { ~Or(x), ~On(Input2(x)), On(Output1(x)) }
+    6. { ~Or(x), On(Input1(x)), On(Input2(x)), ~On(Output1(x)) }
+    7. { ~Not(x), ~On(Input1(x)), ~On(Output1(x)) }
+    8. { ~Not(x), On(Input1(x)), On(Output1(x)) }
+    9. { ~Connected(x,y), ~On(x), On(y) }
+   10. { ~Connected(x, y), On(x), ~On(y) }
+   11. { HalfAdder (c) }
+   12. { Not (g1) }
+   13. { Not (g2) }
+   14. { And (g3) }
+   15. { And (g4) }
+   16. { And (g5) }
+   17. { Or (g6) }
+   18. { Connected (Input1 (c), Input1 (g1)) }
+   19. { Connected (Input1 (c), Input1 (g4)) }
+   20. { Connected (Input1 (c), Input1 (g5)) }
+   21. { Connected (Input2 (c), Input2 (g3)) }
+   22. { Connected (Input2 (c), Input1 (g2)) }
+   23. { Connected (Input2 (c), Input2 (g5)) }
+   24. { Connected (Output1 (g1), Input1 (g3)) }
+   25. { Connected (Output1 (g2), Input2 (g4)) }
+   26. { Connected (Output1 (g3), Input1 (g6)) }
+   27. { Connected (Output1 (g4), Input2 (g6)) }
+   28. { Connected (Output1 (g6), Output1 (c)) }
+   29. { Connected (Output1 (g5), Output2 (c)) }
+   30. { On(Input1(c)) }
+   31. { ~On(Input2(c)) }
+
+32. { ~Connected(Input1(c),y), On(y) }                          9,30
+33. { ~Connected(Input2(c),y), ~On(y) }                         9,31
+34. { ~On(Input1(g2)) }                                         22,33
+35. { On(Input1(g2)), On(Output1(g2)) }                         8,13
+36. { On(Output1(g2)) }                                         34,35
+37. { On(Input1(g4)) }                                          19,32
+38. { ~Connected(Output1(g2),y), On(y) }                        9,36
+39. { On(Input2(g4)) }                                          25,38
+40. { ~On(Input1(g4)), ~On(Input2(g4)), On(Output1(g4)) }       1, 15
+41. { ~On(Input2(g4)), On(Output1(g4)) }                        37,40
+42. { On(Output1(g4)) }                                         39,41
+43. { ~Connected(Output1(g4),y), On(y) }                        9,42
+44. { On(Input1(g6)) }                                          27,43
+45. { ~On(Input1(g6)), On(Output1(g6)) }                        4,17
+46. { On(Output1(g6)) }                                         44,45
+47. { ~Connected(Output1(g6),y), On(y) }                        9,46
+48. { On(Output1(c)) }                                          46,47 
+
+Hence, output1 is active or on when either of the inputs is on, when one is on and one is off.
+
+
+8. Electronic Circuits: Verification (10 points)
+In this problem, we continue to investigate our circuit representation. Another use for such representations is verification. We wish to prove that the circuit behaves as we intend. In this problem, we will just prove a portion of the functionality. Using the clauses (1)-(29), provide a formal resolution proof to show that 
+On(Input1(c)) & ~On(Input2(c)) => On(Output1(c))
+
+Converting to CNF, negate the goal and derive the empty clause.
+
+I: ~( ~((On(Input1(c)) & ~On(Input2(c))) | On(Output1(c)))
+N:  On(Input1(c)) & ~On(Input2(c)) & ~On(Output1(c))
+S:  
+E:
+A:
+D: 
+O: {On(Input1(c))}
+   {~On(Input2(c))}
+   {~On(Output1(c)}
+R:    
+
+49. { ~On(Output1(c) }                  Premise
+50. {}                                  48,49       
+
+
+
+9. Electronic Circuits: Diagnosis (10 points)
+A third way to use a circuit representation is called diagnosis. In diagnosis, we attempt to discover why a circuit is malfunctioning. 
+Suppose that the circuit discussed in the previous two problems is not producing the output it should. Therefore, a part of the circuit is malfunctioning. We wish to reason about what the problem might be. A common assumption to make is that exactly one of the components has failed. 
+In this problem, we will assume that one of the gates is not functioning correctly. We wish to discover which gate. We approach this problem by assuming that all gates in the circuit are as indicated in clauses (12)-(17) in the previous two problems, except for one. What can we replace clauses (12)-(17) with to encode this new assumption? Please convert your solution to clausal form. 
+
+
+{fault(g1), Not (g1) }
+{fault(g2), Not (g2) }
+{fault(g3), And (g3) }
+{fault(g4), And (g4) }
+{fault(g5), And (g5) }
+{fault(g6), Or (g6) }
+to encode at most one is bad, 
+fault(g1)=>(~fault(g2)&~fault(g3)&~fault(g4)&~fault(g5)&~fault(g6))
+fault(g2)=>(~fault(g1)&~fault(g3)&~fault(g4)&~fault(g5)&~fault(g6))
+fault(g3)=>(~fault(g2)&~fault(g1)&~fault(g4)&~fault(g5)&~fault(g6))
+fault(g4)=>(~fault(g2)&~fault(g3)&~fault(g1)&~fault(g5)&~fault(g6))
+fault(g5)=>(~fault(g2)&~fault(g3)&~fault(g4)&~fault(g1)&~fault(g6))
+fault(g6)=>(~fault(g2)&~fault(g3)&~fault(g4)&~fault(g5)&~fault(g1))
+
+converting to CNF:
+fault(g1)=>(~fault(g2)&~fault(g3)&~fault(g4)&~fault(g5)&~fault(g6))
+
+I: (~fault(g1) | (~fault(g2)&~fault(g3)&~fault(g4)&~fault(g5)&~fault(g6)))
+N: 
+S:
+E: 
+A:
+D: (~fault(g1) | (~fault(g2)&~fault(g3)&~fault(g4)&~fault(g5)&~fault(g6)))
+(~fault(g1) | (~fault(g2)&~fault(g3)&~fault(g4)&~fault(g5)&~fault(g6)))
+O: 
+{~fault(g1),~fault(g2)}
+{~fault(g1),~fault(g3)}
+{~fault(g1),~fault(g4)}
+{~fault(g1),~fault(g5)}
+{~fault(g1),~fault(g6)}
+R:
+
+{~fault(g2),~fault(g1)}; this is redundant
+{~fault(g2),~fault(g3)}
+{~fault(g2),~fault(g4)}
+{~fault(g2),~fault(g5)}
+{~fault(g2),~fault(g6)}
+
+{~fault(g3),~fault(g1)}; this is redundant
+{~fault(g3),~fault(g2)}; this is redundant
+{~fault(g3),~fault(g4)}
+{~fault(g3),~fault(g5)}
+{~fault(g3),~fault(g6)}
+
+{~fault(g4),~fault(g1)}; this is redundant
+{~fault(g4),~fault(g2)}; this is redundant
+{~fault(g4),~fault(g3)}; this is redundant
+{~fault(g4),~fault(g5)}
+{~fault(g4),~fault(g6)}
+
+{~fault(g5),~fault(g1)}; this is redundant
+{~fault(g5),~fault(g2)}; this is redundant
+{~fault(g5),~fault(g3)}; this is redundant
+{~fault(g5),~fault(g4)}; this is redundant
+{~fault(g5),~fault(g6)}
+
+{~fault(g6),~fault(g1)}; this is redundant
+{~fault(g6),~fault(g2)}; this is redundant
+{~fault(g6),~fault(g3)}; this is redundant
+{~fault(g6),~fault(g5)}; this is redundant
+{~fault(g6),~fault(g4)}; this is redundant 
+
+
+The final list is:
+{~fault(g1),~fault(g2)}
+{~fault(g1),~fault(g3)}
+{~fault(g1),~fault(g4)}
+{~fault(g1),~fault(g5)}
+{~fault(g1),~fault(g6)}
+{~fault(g2),~fault(g3)}
+{~fault(g2),~fault(g4)}
+{~fault(g2),~fault(g5)}
+{~fault(g2),~fault(g6)}
+{~fault(g3),~fault(g4)}
+{~fault(g3),~fault(g5)}
+{~fault(g3),~fault(g6)}
+{~fault(g4),~fault(g5)}
+{~fault(g4),~fault(g6)}
+{~fault(g5),~fault(g6)}
+
+
+
+10. True or False (10 points)
+Say whether each statement is true or false. 
+Each subproblem is worth 5 points. 
+(a) if only AND, OR, and the universal quantifier can be used to write logical sentences, then resolution is decidable 
+
+False; we need negation to make Universal logic decidable.
+
+(b) every unsatisfiable set of clauses must contain a clause where all literals are negative (i.e., each relational sentence is negated). This is true because for the clause to be false all the literals have to be false, property of the or operator.
+True
+
+
+
+
+
+
+
+
+

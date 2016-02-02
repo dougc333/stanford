@@ -1,0 +1,290 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+                        IBM LAN Products
+
+
+
+
+IBM LAN Server v4.0 for OS/2
+----------------------------
+
+This procedure describes how to install the NDIS driver for LAN Server 4.0.
+OS/2 must be already installed on your computer.  To install the NDIS driver
+for the 3Com EtherLink 10 ISA NIC, follow these steps:
+
+ 1. Open an OS/2 prompt.
+
+ 2. Insert the LAN Server MPTS (Multi-Protocol Transport
+    Services) disk 1 in your floppy drive.
+
+ 3. Make that drive your current drive.  Type:
+       A: [Enter]
+
+ 4. Type:
+    Install [Enter]
+
+ 5. Select OK.
+
+ 6. Select Install.
+
+ 7. Select a target drive and then choose OK.
+
+    The default drive is C.
+
+ 8. Insert disk 2 when prompted and select OK.
+
+ 9. Select OK when the MPTS installation is complete.
+
+10. Select Configure.
+
+11. Select LAN Adapters and Protocols
+    and then choose Configure.
+
+12. Select Other Adapters and then choose OK.
+
+13. Insert the 3Com EtherDisk diskette #2 in the
+    floppy drive and enter the drive letter and path to
+    the 3Com NDIS drivers.  For example, type:
+
+      A:\NDIS\OS2
+
+14. Select OK.
+
+15. Select 3Com EtherLink 10 ISA family adapter for
+    OS/2 and then choose Add.
+
+16. Under Current Configuration, select 3Com
+    EtherLink 10 ISA adapter for OS/2 and then choose
+    Edit.
+
+17. Enter the 12-digit address of your EtherLink
+    10 ISA Family adapter and then choose OK.
+
+      The address is found on the 3Com EtherLink 10 ISA adapter
+      following the characters EA=.
+
+18. Select the protocol(s) you will be using with
+    your network and then choose Add.
+
+19. Select your protocol(s) under Current
+    Configuration and then choose Edit.
+
+20. Enter the 12-digit address of your
+    EtherLink 10 ISA Family adapter and then choose OK.
+
+21. Select  OK.
+
+22. Select  Close.
+
+23. Select  Exit.
+
+24. Select Update CONFIG.SYS and choose Exit.
+
+25. Select OK.
+
+26. Select Exit.
+
+27. Quit OS/2 and reboot for the changes to take effect.
+
+28. Follow the IBM instructions on installing
+    LAN Server to complete the installation.
+
+
+IBM LAN Server v4.0 for DOS
+---------------------------
+IBM DOS LAN Services Install v4.0
+
+
+1.  Insert the disk labeled DOS LAN Services Disk 1 into your disk drive.
+
+2.  Change to that drive and type:
+
+    INSTALL
+
+3.  Choose the directory where you want the software installed.
+    The default is C:\NET.
+
+4.  A menu appears that provides a list of network cards.
+    Choose "Network card not shown in the list below..."
+
+5.  Type:
+
+    A:\NDIS2\DOS
+
+    Remove the DOS LAN Services Disk 1 diskette and insert the EtherDisk
+    diskette #2.
+
+6.  The next menu should display 3Com EtherLink 10 ISA Family.
+
+7.  Additional menus will appear.
+    Choose the appropriate options for your network environment. Refer
+    to the IBM manual if there are questions regarding these menus.
+
+8.  After completing the installation, you must copy ELNK3.DOS to C:\NET
+    before rebooting.
+
+IBM LAN Support Program for DOS
+-------------------------------
+
+
+The following depict examples of using the IBM LAN Support program with the
+3Com EtherLink 10 ISA adapter.  To acquire the latest version of LAN Support,
+downloads are available from IBM's FTP site at:
+
+www.raleigh.ibm.com/pub/products/lanprods/lantran/lsp138.exe.
+
+Version1.38 is the latest version available at the time of this readme file.
+For installation instructions and assistance, please refer to IBM for more
+information.
+
+(Note:  The example files below shows the minimum lines necessary for LAN
+Support.  Your configuration files may be different than the ones below.)
+
+
+Example 1:
+LAN Support Program and IPX to communicate simultaneously with his Netware
+and AS/400 servers, using the 3c509B adapter and the NDIS driver.
+
+
+CONFIG.SYS
+-----------
+DEVICE=C:\TEST\PROTMAN.DOS /I:C:\TEST
+DEVICE=C:\TEST\ELNK3.DOS
+DEVICE=C:\TEST\DXMA0MOD.SYS 001
+DEVICE=C:\TEST\DXME0MOD.SYS
+LASTDRIVE=Z
+
+AUTOEXEC.BAT
+-------------
+@ECHO OFF
+PROMPT $P$G
+CD\TEST
+NETBIND
+LSL
+LANSUP
+IPXODI
+VLM
+
+NET.CFG
+--------
+LINK SUPPORT
+    BUFFERS 8 1500
+    MEMPOOL 4096
+
+LINK DRIVER LANSUP
+    FRAME TOKEN-RING LSB (LSB stands for Least Significant Bit, the default
+                            is MSB (Most Significant Bit)
+
+PROTOCOL.INI
+-------------
+[PROTMAN]
+  DRIVERNAME = PROTMAN$
+
+[LAN SUPPORT]
+  DRIVERNAME = DXME0$
+  BINDINGS = ELNK3_NIF
+
+[ELNK3_NIF]
+  DRIVERNAME = ELNK3$
+
+
+
+
+Example 2:
+LAN Support Program and IPX to communicate simultaneously with his Netware
+and AS/400 servers, using the 3c509B adapter and the ODI driver.
+
+
+CONFIG.SYS
+-------------
+device=c:\test\protman.dos /i:c:\test
+device=c:\test\dxma0mod.sys 001
+device=c:\test\dxme0mod.sys
+
+AUTOEXEC.BAT
+---------------
+lsl.com
+3c5x9.com
+odinsup.com
+netbind.exe
+ipxodi.com
+vlm.exe  (or netx.exe)
+f:login
+
+
+NET.CFG
+-----------
+Protocol ODINSUP
+     bind 3C5x9
+     buffered
+
+Link Driver 3C5x9
+     frame ethernet_802.3
+     frame ethernet_802.2
+     frame ethernet_ii
+     frame ethernet_snap
+
+     protocol ipx 0 ethernet_802.3 (Optional: For use with Ethernet 802.3
+                                              frame type)
+
+PROTOCOL.INI
+--------------
+[Protocol Manager]
+ drivername=protman$
+
+[Lan Support]
+ drivername=DXME0$
+ bindings=X3C5x9
+
+
+
+
+Example 3:
+This is the generic LAN Support configuration for the 3C5x9 adapter.
+
+CONFIG.SYS
+-----------
+DEVICE=C:\TEST\PROTMAN.DOS /I:C:\TEST
+DEVICE=C:\TEST\ELNK3.DOS
+DEVICE=C:\TEST\DXMA0MOD.SYS 001
+DEVICE=C:\TEST\DXME0MOD.SYS
+LASTDRIVE=Z
+
+AUTOEXEC.BAT
+-------------
+
+@ECHO OFF
+PROMPT $P$G
+CD\TEST
+NETBIND
+
+
+PROTOCOL.INI:
+--------------
+
+[PROTMAN_MOD]
+ DriverName = PROTMAN$
+
+[DXMAIDXCFG]
+ DXME0_NIF = DXME0.NIF
+ DXMJ0MOD_NIF = DXMJ0MOD.NIF
+ ELNK3_NIF = ELNK3.NIF
+ SMCDOSJP_NIF = SMCDOSJP.NIF
+ SMCDOSJP2_NIF = SMCDOSJP.NIF
+ SMCDOSAT_NIF = SMCDOSAT.NIF
+ SMCDOSAT2_NIF = SMCDOSAT.NIF
+ SMCDOSMC_NIF = SMCDOSMC.NIF
+ SMCDOSMC2_NIF = SMCDOSMC.NIF
+
+[DXME0_NIF]
+ DriverName = DXME0$
+ Bindings = ELNK3_NIF
+
+[ELNK3_NIF]
+ DriverName = ELNK3$
+ MAXTRANSMITS = 8
+
+
+           (%VER LANSRV.TXT - IBM LAN Products v6.1a)
+

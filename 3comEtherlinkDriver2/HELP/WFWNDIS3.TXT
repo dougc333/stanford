@@ -1,0 +1,74 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                  The EtherLink 10 ISA NIC Family
+          NDIS 3.0 Drivers and Windows for Workgroups 3.11
+
+
+Microsoft Windows for Workgroups 3.11
+-------------------------------------
+The following describes the procedure for installing the protected-mode
+NDIS3 (ELNK3.386) driver under Windows for Workgroups.
+
+NOTE: It is assumed that Windows for Workgroups has already been installed.
+
+1.  Start Windows.
+
+2.  Open the Network group and double-click Network Setup.
+
+3.  To install the network driver, click Drivers...
+
+4.  In the Network Drivers window, click Add Adapter...
+
+5.  From the list of network adapters, select Unlisted or Updated Network
+    Adapter.
+
+6.  Network setup now requires a vendor-provided network driver diskette.
+    Insert the EtherDisk #2 diskette in drive A:, and type the following
+    path for the location of the NDIS driver:
+
+    A:\WFW311
+
+    Click OK.
+
+7.  From the Unlisted or Updated Network Adapter screen, select 3Com
+    EtherLink 10 ISA Adapter (3C509b) and click OK.
+    The Network Setup screen now lists the NIC, along with the
+    default protocol stacks:
+
+    3Com EtherLink 10 ISA (3C509b) (NDIS2/NDIS3)
+
+8.  The Windows Setup program asks if you want to replace the Enhanced
+    Mode Protocol Manager with the version you are installing now.
+    Click Yes to All.
+
+9.  The Windows Setup program asks for the NDIS.386 file.  Insert
+    Microsoft Windows for Workgroups 3.11 Disk 7 and click OK.
+
+10. When prompted for the ELNK3.386 driver, insert the 3Com EtherDisk
+    #2 diskette in the A:\ drive.
+
+11. Type the following path to load the NDIS3 driver:
+
+    A:\WFW311
+
+    Click OK.
+
+12. When prompted for the ELNK3.DOS driver, insert the 3Com EtherDisk
+    #2 diskette in the A:\ drive.
+
+13. Type the following path to load the NDIS2 driver:
+
+    A:\NDIS2\DOS
+
+    Click OK.
+
+14. The PROTOCOL.INI and SYSTEM.INI files have now been modified.  WFW
+    saves the old versions with the extension .001, where the number is
+    incremented every time a new PROTOCOL.INI or SYSTEM.INI is generated.
+    Click OK.
+
+16. When prompted, restart the computer.
+
+
+  (%VER WFWNDIS3.TXT - 3.0 Drivers and Windows for Workgroups 3.11 v6.1a)
+

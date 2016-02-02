@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+10
+@x (Tet(x) $(Small(x)))@x (Cube(x) $ Small(x))@x (Dodec(x) $ (Large(x) | Medium(x) | Small(x)))?x (Dodec(x) & Large(x))?x (Dodec(x) & ~ Large(x))?x (Dodec(x) & Small(x))?x (Dodec(x) & ~Small(x))?x (Dodec(x) & ~(Small(x) | Large(x)))@x (Tet(x) $ ~Large(x))@x (Cube(x) $ ~Large(x))

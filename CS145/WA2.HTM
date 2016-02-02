@@ -1,0 +1,200 @@
+<title> CS145 Written Assignment 2 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Written Assignment #2
+<br>Due Wednesday April 19</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+The procedure for turning in this assignment is the same as for prior
+assignments, and please remember the strictly enforced <a
+href="http://www-db.stanford.edu/~widom/cs145/info.html#late">late
+policy</a>.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Problem 1</h4>
+
+Consider a database for a university that may include information
+about students, courses, professors, etc.
+
+<p><b>(a)</b> Within this general domain, specify the schema for an
+example relation and a set of functional dependencies (FD's) over the
+relation such that the relation is not in Boyce-Codd Normal Form
+(BCNF).  Your relation need not be extensive (i.e., it need not
+include many attributes and it may represent only a very small part of
+the complete university information), but the schema and the FD's
+should be realistic in their modeling of the real world.  You should
+make no assumptions besides those captured by the schema and the FD's.
+
+<p><b>(b)</b> Decompose your relation from part (a) so that the new
+schema is in BCNF.
+
+<p><b>(c)</b> Now specify the schema for an example relation and a set
+of FD's and multivalued dependencies (MVD's) over the relation such
+that the relation is in BCNF but is not in Fourth Normal Form (4NF).
+Again, your relation need not be extensive but the schema and the
+dependencies should be realistic in their modeling of the real world,
+and you should make no assumptions besides those captured by the
+schema and the dependencies.  The relation you give for this part of
+the problem can capture similar or different information from that
+captured in part (a).
+
+<p><b>(d)</b> Decompose your relation from part (c) so that the new
+schema is in 4NF.
+
+<p><b>(d)</b> Read the textbook to learn about Third Normal Form
+(3NF).  Specify the schema for an example relation and a set of FD's
+over the relation such that the relation is in 3NF but is not in BCNF.
+Of course you could use the same example for this part of the problem
+and for part (a), but we would prefer that you use a different one:
+non-BCNF schemas are rarely in 3NF in practice, so an example you
+would come up with naturally for part (a) in isolation is not likely
+to be in 3NF.
+
+<h4>Problem 2</h4>
+
+A database designer has as his first assignment to design the schema
+for a company database.  Each employee has an ID (unique across
+employees), Name, Address, Office, and Salary.  The designer decides
+to create the following four relations:
+
+<p>
+<tt>
+EmpName(ID, Name)<br>
+EmpAddress(ID, Address)<br>
+EmpOffice(ID, Office)<br>
+EmpSalary(ID, Salary)<br>
+</tt>
+
+<p><b>(a)</b> State the completely nontrivial functional dependencies
+for each relation.
+
+<p><b>(b)</b>Are all four relations in Boyce-Codd Normal Form (BCNF)?
+
+<p><b>(c)</b>Is this a good database design?  Why or why not?
+
+<h4>Problem 3</h4>
+
+Consider a relation <tt>R(A,B,C,D,E)</tt>.  Suppose that the following
+five functional dependencies hold on <tt>R</tt>:
+
+<p>
+<tt>
+A -> D<br>
+AB -> C<br>
+B -> E<br>
+D -> C<br>
+E -> A<br>
+</tt>
+
+<p>Now suppose that we decompose relation <tt>R</tt> so that one of
+the new relations is <tt>R1(A,B,C)</tt>.  Given the complete set of
+FD's above, specify all keys for <tt>R1</tt>.  Don't forget that a key
+must be <i>minimal</tt>, i.e., no strict subset of the attributes in a
+key can also form a key.
+
+<h4>Problem 4</h4>
+
+Two sets of functional dependencies (FD's) <tt>F</tt> and <tt>F'</tt> are
+<i>equivalent</i> if all FD's in <tt>F'</tt> follow from the ones in
+<tt>F</tt>, and all FD's in <tt>F</tt> follow from the ones in <tt>F'</tt>.
+Consider the following three sets of functional dependencies:
+
+<tt>
+<p> F1 = { A -> B, B -> C }
+<br> F2 = { A -> B, A -> C }
+<br> F3 = { A -> B, AB -> C }
+</tt>
+
+<p><b>(a)</b> Are <tt>F1</tt> and <tt>F3</tt> equivalent?  If so, prove
+that all FD's in <tt>F3</tt> follow from the ones in <tt>F1</tt>, and
+vice-versa.  If not, give a counterexample: show an instance (set of
+tuples) of a relation with schema <tt>(A,B,C)</tt> such that the
+dependencies in one of the sets all hold, while some dependency in the
+other set does not hold.
+
+<p><b>(b)</b> Are <tt>F2</tt> and <tt>F3</tt> equivalent?  If so, prove
+that all FD's in <tt>F3</tt> follow from the ones in <tt>F2</tt>, and
+vice-versa.  If not, give a counterexample: show an instance of a
+relation with schema <tt>(A,B,C)</tt> such that the dependencies in one
+of the sets all hold, while some dependency in the other set does not
+hold.
+
+<h4>Problem 5</h4>
+
+There is a rule (page 160 of the textbook) that states "every
+functional dependency is a multivalued dependency."  Prove that the
+converse is not true: it is not true that every MVD is an FD.  Prove
+it by providing a counterexample: Give a relation schema, an MVD:
+
+<p><tt>A1,A2,...,An ->> B1,B2,...,Bm</tt>
+
+<p>and a relation instance (set of tuples) for which the MVD holds but
+the corresponding functional dependency:
+
+<p><tt>A1,A2,...,An -> B1,B2,...,Bm</tt>
+
+<p>does not hold.  As an additional requirement, the MVD in your
+counterexample should be a nontrivial one, but otherwise please give
+the simplest counterexample you can come up with.
+
+<h4>Problem 6</h4>
+
+Recall the algorithm for performing BCNF decomposition given in class.
+(Please note that a somewhat less detailed algorithm is given in the
+textbook, so please base your answer on the algorithm from class.)
+Give an example where the final decomposition of relations will be
+different depending on which order violating functional dependencies
+(FD's) are selected during the iterative process.  Give an initial
+schema for a relation and a set of functional dependencies over that
+relation.  Show step-by-step how the algorithm decomposes the
+relations differently depending on which violating FD is chosen in
+each iteration.
+
+<h4>Problem 7</h4>
+
+Continuing with the algorithm for performing BCNF decomposition given
+in class: What happens if we skip the first step of the algorithm?
+That is, what happens if we begin the step (2) loop with the original
+user-supplied FD's, instead of applying the closure first to "extend"
+the FD's as much as possible?
+
+<ul>
+
+<p><b>(a)</b> Could we get a different result?  If so, is it better
+or worse, and why?
+
+<p><b>(b)</b> Could we get an incorrect result, e.g., a
+decomposition that is missing information, or from which we cannot
+reconstruct the original relation?
+
+<p><b>(c)</b>   Could we get a result that is not
+in BCNF?
+
+</ul>
+
+If your answer to any of these three questions is <i>yes</i>, support your
+claim with at least one concrete example.
+
+<H4>Problem 8</h4>
+
+<i>Warning: this one is a bit open-ended.  Don't worry if you don't
+come up with a good answer.</i>
+
+<p> Now consider the algorithm for performing 4NF decomposition given
+in class.  (Again, a somewhat less detailed algorithm is given in the
+textbook, so please base your answer on the algorithm from class.)
+
+<ul>
+
+<p><b>(a)</b> We did not specify how to perform the "closure" of the
+initial FD's and MVD's in step (1).  Any ideas?
+
+<p><b>(b)</b> We also did not specify how to assign new FD's and MVD's
+after splitting a relation into two smaller relations.  Any ideas?
+
+</ul>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

@@ -1,0 +1,346 @@
+4 3 1 3 3 2 2 2 3 
+
+cs157 spring 2001 hw#2
+dougc@leland.stanford.edu
+
+worked with: jared brubaker, hong lam, evan greenberg, Qi Sun.
+
+1. Syntax (10 points)
+Given the following vocabulary: 
+object constants: art, betty, cathy, 1, 2, ...
+function constants: age1, father1, mother1, plus2, times2
+relation constants: happy1, loves2, lt2, parent2, person1, reflexive1 
+determine whether each of the following is a syntactically legal sentence of relational logic. A YES or NO is all that is needed. 
+Each subproblem is worth 2 points. 
+
+(a) lt(father(art),mother(betty)) 
+Yes
+(b) plus(father(art),betty) 
+No, terms are not sentences.
+(c) happy(person(cathy)) 
+no, relational constants do not return a term
+(d) loves(x,y) => loves(y,x) 
+yea
+(e) reflexive(y) => y(x,x) 
+No, variables do not have an arity
+
+2. Models, validity (10 points)
+Given the following vocabulary: 
+variables: x
+relation constant: p1 
+and the universe of discourse |i| = { *, # }, consider the sentence
+~(Ax.p(x)) <=> Ax.~p(x); we can rewrite this equation with a variable substitution, ~(Ax.p(x)) <=> Ay.~p(y)
+Each subproblem is worth 5 points. 
+
+(a) give an interpretation for p that is a model of this sentence 
+
+A^i ={*,#}
+p^i = {}
+
+For each possible variable assignment, where x^i = * or x^i = #, check the satisfaction of the sentence. On the left hand side of the relational equivalence statement, for any variable assignment, p(x) is false. The complement of this is T. For the right hand side of the equivalence statement, for every variable assignment, p(x) is false, inverting this makes it T over the scope of the quantifier.
+
+
+(b) is this sentence valid? NO
+Valid means is this sentence true for all interpretations? , not jsut interpretations that are models of sentences. 
+
+There are 4 interpretations for the unary relation p:
+p^i = {}, {<*>} , {<#>},{<*>,<#>}. We can find an interpretation that does not make the sentence valid.
+
+Consider the sentence we are given, ~(Ax.p(x)) <=> Ay.~p(y) after the variable substitution (we can do this because it is bound). In the following interpretation:
+
+A^i = (*,#)
+x^i = *
+y^i = #
+p^i={<*> }
+
+The LHS side of the equivalence is F in the interpretation above, and the RHS is T.
+
+
+3. Herbrand (20 points)
+For each subproblem, write the Herbrand table indicating the rows that satisfy the premises and the conclusion. 
+Each subproblem is worth 10 points. 
+
+(a) premises: { r(c,x) => r(d,x), r(d,x) => r(x,c) }
+conclusion: (r(x,y) <=> r(d,y)) | ~r(c,d) 
+
+Variable ::= x,y
+objconstant ::= c,d
+relconst2 ::= r
+
+We skolemize the variables bound by the universal quantifier to x->a, and y->b to get:
+premises: { r(c,a) => r(d,a), r(d,a) => r(a,c) }
+conclusion: (r(a,b) <=> r(d,b)) | ~r(c,d) 
+
+The Herbrand universe is:
+
+A^H = {a,b,c,d}
+a^h = a
+b^h = b
+c^h=c
+d^h=d
+r^h = {computer prints this out, too many to list here}
+
+m=1, n=4, k=2
+There are  (2^(2^4))^1 = 2^16 = 256^2 different HHHerbrand interpretations of r
+
+Insert the program here???
+
+
+(b) premises: Ex.Ay.r(x,y) => r(y,x)
+conclusion: Ex.Ey.r(x,y) => r(y,x) 
+
+This is existential logic. To construct a herbrand table with rows that satisfy the premises and the conclusion, we consider the following herbrand universe:
+
+A^h={a}
+a^h = a
+r^h = {},  {<a,a>}
+
+r^h                                         Premise  Conclusion         
+------------------------------------------------------------------------------------------------------------
+{}                                                T             T       
+{<a,a>}                                       T             T       
+
+
+
+
+4. Total order (10 points)
+A total order r is a binary relation with the following properties: 
+(i) r is a partial order, i.e., r is both asymmetric and transitive, and
+(ii) r holds for any pair of objects. 
+Each subproblem is worth 5 points. 
+
+(a) write the axioms of total order ; the objective is to use r(x,y) to describe transitivity, assymmerty, and r holds for any pair of objects.
+1)  transitivity :: r(x,z) & r(z,y) => r(x,y)
+2)  asymmetry  :: r(x,y)=>~r(y,x)
+3)  r holds for any pair of objects :: r(x,y) | r(y,x) | (y=x) ; we develop equality below.
+4) ~r(x,x)
+
+(b) write the axioms for a total order with a minimal element but without a maximal element 
+
+From the notion of ordering, we can develop the notion of equality.  
+x=y iff r(x,y)& r(y,x).
+
+r(x,y) | r(y,x) gives us the objects x and y in total order. For example for a universe of discourse with 2 objects, a and,b it would allow us to say either a is less than b or b is less than a. We use this notion of comparability to develop a sentence for a minimal object in the universe of discourse.
+
+There are several issues with this problem:
+1) I am assuming the problem is asking for a minimal element only because the universe of discourse is an infinite set, where the maximal element cannot be returned. If the universe of discourse was a finite set, we would return a maximum and minimal element.
+2) We can only define less than or greater than or less than and greater than. This is the limit of the granularity of our ability to specify. I think this problem is supposed to make us see how difficult it is to use relations to act as functions; one of the classic logic problems in intro logic classes.
+3) I am going to specify a maximum and minimum with my expression and assume in an infinite set, the maximum won't return the maximal element because it is not possible to get the maximal element of an infinite set. 
+
+EuAv(r(u,v)) & EvAu(r(v,u))
+
+
+5. Relational databases (10 points)
+A university maintains a database with the relations: course(x) that is true if x is a course, ta(y, x) that holds of all TAs y together with the courses x they are TAing in the current quarter, enroll(z, x) that holds of all students z enrolled in courses x in the current quarter, hasTaken(u, x) that is true for students u that have taken course x in the past, and prereq(x, v) that is true for courses x and v such that v is a prerequisite of x. 
+We can write queries on the database. For example, we might want to ask, "What are all courses that have prerequisites and TAs in the current quarter", which we can express as the following logical sentence:
+query(x) <= prereq(y,x) & ta(y, x) 
+
+A. Define the following queries: 
+(A.i) (1 point) all courses that are being taken by their TAs 
+This is the intersection of 2 sets, the students and TAs enrolled in classes and the set of all TAs.
+
+query(x)<=(ta(y,x) & enroll(y,x))
+
+(A.ii) (1 point) all students at the university 
+this consists of the students enrolled in courses, and the set of TAs.
+
+query(x)<=(ta(x,y) | enroll(x,z))
+
+
+B. Express the following integrity constraints: 
+(B.i) (1 point) if somebody TAs a course then (s)he cannot be enrolled in the course 
+
+ta(x,y) =>~enroll(x,y)
+
+(B.ii) (1 point) if a student has not taken all of a course's prerequisites then (s)he cannot enroll in the course 
+(prereq(x,y) & ~hastaken(z,y)) =>(~enroll(z,x))
+
+C (2 points). Among the given relations, are there any functions?  NO
+
+I am assuming the definition of a function is it takes all the objects in the universe of discourse. This is not true in these relations if these were functions.
+
+
+D. For each pair of queries below, determine whether the set of answers to the first query is always (i.e., for any data in the database) a subset of the set of answers to the second query. In other words, you need to determine whether each answer to the first query is always guaranteed to be an answer to the second query. Similarly, determine whether the set of answers to the second query is always a subset of the set of answers to the first. 
+Give just YES or NO answers; for example, if the set of answers to the first query in a pair is a subset of the set of answers to the second query but not vice versa, then your answer should be "yes; no". 
+
+(D.i) (1 point):
+query11(x) <= enroll(y, x) & ta(z, x)
+query12(x) <= enroll(y, x) | ta(z, x),
+
+Yes,No
+
+(D.ii) (1 point):
+query21(x, y) <= enroll(x, y) 
+query22(x, y) <= enroll(x, y) & course(y);
+
+No,yes
+
+
+(D.iii) (2 points):
+query31(x, y) <= enroll(x, y) 
+query32(x, y) <= enroll(x, y) & course(y)
+under the assumption that 
+hasTaken(u, y) | enroll(v, y) | prereq(y, w) | prereq(x, y) | ta(z, y) => course(y)
+
+Yes,yes
+
+6. Electronic circuits (10 points)
+In problem set 1, we discussed how to verify the correct operation of a circuit using propositional logic. To do the proof, we represented certain facts about the circuit in propositional logical sentences. In fact, relational logic gives us a much more elegant way to describe the circuit world. In this problem, we describe a half adder circuit using relational logic. To refresh your memory, following are the kinds of gates with which we will deal in this problem:
+
+
+Following is the circuit, called a half adder, with which we will deal:
+
+
+We denote the circuit as a whole with the constant c. The circuit contains gates, which we denote with constants as shown in the diagram. In addition to the circuit and its gates, we are also interested in ports. The circuit and the gates have input ports and output ports. Rather than defining a constant for each input port, we instead define two functions, called Input1 and Input2, which given a component and an integer, return the corresponding input port. For example, Input1 (g1) returns the input port of gate g1. Input2 (g3) returns the bottom (when a gate or circuit has two input ports, 1 is for the top and 2 is for the bottom port) port of gate g3. Similarly, we define two functions, Output1 and Output2, for output ports. 
+Each subproblem is worth 2 points. 
+
+a) Write all objects of interest in our universe of discourse. 
+object constants: 
+circuit, denoted by symbol c
+gates, denoted by symbols g1, g2,g3,g4,g5,g6
+Ports, denoted by functions listed below:
+Input1(c)
+Input2(c)
+Input1(g1)
+Input1(g2)
+Input1(g3)
+Input1(g4)
+Input1(g5)
+Input1(g6)
+Input2(g3)
+Input2(g4)
+Input2(g5)
+Input2(g6)
+Output1(c)
+Output2(c)
+Output1(g1)
+Output1(g2)
+Output1(g3)
+Output1(g4)
+Output1(g5)
+Output1(g6)
+
+NOTE: I do not include the cases where the dummy variable is supposed to be used. I know the functions are supposed to cycle through all the objects in the UD. I don't think it is constructive for me to list all the "dummy" objects in the UD.
+
+
+b) We now define some relations. Let:
+HalfAdder (x) mean that x is a half adder.
+Not (x) mean that x is a not gate
+And (x) mean that x is an and gate
+Or (x) mean that x is an or gate
+We can now associate a type with some of the objects in our universe of discourse. For example, we can assert that g1 is a Not gate by writing "Not (g1)". Assert the types of as many objects as possible, using only the four relations defined above. Be sure to include the assertion about g1, even though we gave it to you. Do not worry about asserting that a certain object is not of a certain type. In other words, don't write sentences like "~And (g1)". 
+
+HalfAdder(c)
+Not(g1), Not(g2)
+And(g3), And(g4), And(g5)
+Or(g6)
+
+c) We now wish to define the notion of a port being "connected" to another port. Let Connected be a relation which contains pairs of ports that are connected. For example, Connected (Output1 (g1), Input1 (g3)) should be true, while Connected (Output1 (g3), Input1 (g3)) should be false. List below sentences that capture all of the true connections among the ports. Be sure to include the true example given above. For each pair of connected ports, define only one sentence. Then, write a sentence that states that the Connected relation is symmetric. 
+
+The connected relations are:
+1) Connected(Input1(c),Input1(g1))
+2) Connected(Input1(g1), Input1(g4))
+3) Connected(Input1(g4), Input1(g5)) 
+4) Connected(Input1(g4),Input1(g5))
+5) Connected(Input2(g3), Input2(g2))
+6) Connected(Output1(g2),Input2(g4))
+7) Connected(Input2(c), Input1(g2))
+8) Connected(Output1(g1),Input1(g3))
+9) Connected (Input1(g2),Input2(g5))
+10) Connected(Output1(g3),Input1(g6))
+11) Connected(Output1(g4), Input2(g6))
+12) Connected(Output1(g5,Output2(c))
+13) Connected(Output1(g6,Output1(c)))
+
+The definition of a symmetric relation is r(x,y) => r(y,x)
+
+Connected(x,y) => Connected(y,x) or
+
+Connected(x,y) <=> ( (Connected(Input1(g1), Input1(g4)) | Connected(Input1(g4),Input1(g1))) & (Connected(Input1(g4),Input1(g5)) | Connected(,Input1(g5),Input1(g4))) & (Connected(Input2(g3), Input2(g2)) | Connected( Input2(g2),Input2(g3)) )
+
+
+d) Let On be a relation which has arity one, which is true if and only if the object it is given is a port and the port's value is true. Given this relation, we now wish to define the operation of each type of gate. For example, we can define the operation of an and gate as follows: Ax (And (x) & On (Input1 (x)) & On (Input2 (x)) <=> On (Output1 (x))). Define the operation of the other two types of gates below. 
+
+Or gate:
+Ax (Or (x) & (On (Input1 (x)) | On (Input2 (x))) <=> On (Output1 (x)))
+
+Not gate:
+Ax (Not (x) & ~On (Input1 (x)) ) <=> On (Output1 (x)))
+
+
+NOTE: this problem is defined incorrectly. The & should be an => in "And(x) &." Since this was not brought up, I ignored this.
+
+e) Write a sentence that asserts that if two ports are connected, they must have the same truth value. 
+
+Connected(Input(x),Input(y))=> (On(Input(x)) | ~On(Input(y))) & (~On(Input(x)) | On(Input(y)))
+
+this can also be written as: 
+Connected(Input(x),Input(y))=> ( On(Input(x)) <=>On(Input(y)) )
+
+
+7. Formal proof (10 points) - credit to jared for this one
+Translate the following sentences into relational logic and then prove the goal using rules of inference. Submit only your proof, with the first two lines of the proof being the translation of the two premises. You can assume all objects in your domain are people. (Hint: Our proof is five lines, including premises, and involves two binary relations (afraid and equality) and two object constants.) 
+Premises:
+(1) Everyone is afraid of Dracula.
+(2) Dracula is afraid of only me. 
+Goal: I am Dracula. 
+
+object constants: dracula, me
+variables: x
+
+
+1. Ax.afraid(x, dracula)
+2. Ax.(afraid(dracula,x) => me=x)
+3. afraid(dracula, dracula)                     		UI, 1
+4. afraid(dracula, dracula) => me=dracula       	UI, 2
+5. me=dracula                                        		MP, 3,4
+
+8. Closures (10 points)
+The universal closure of a sentence is when all free variables in the sentence are universally quantified outside the entire sentence. For example, if F is the sentence Ez.p(x,y,z) => Aw.q(x,w) then the universal closure of F is Ax.Ay.(Ez.p(x,y,z) => Aw.q(x,w)) 
+
+The existential closure of a sentence is the existential quantification, outside the entire sentence, of all free variables in the sentence. 
+In the following two questions, F and G are arbitrary relational logic sentences. 
+Each subproblem is worth 5 points. 
+
+(a) true or false: if the existential closure of F is not valid then the universal closure of F is not valid 
+T
+
+(b) true or false: if F <=> G, then the existential closure of F is valid if and only if the existential closure of G is valid 
+T
+
+
+9. Geometry (10 points)
+Consider the Plane as a collection of all its points. Define an Object to be a set of such points. Assume an interpretation I whose universe of discourse is the set of all Objects, and which associates the following meanings to the following relation constants: 
+p(x) means "x is a point"
+l(x) means "x is a line"
+i(x,y) means "x intersects y", i.e., x and y have at least one point in common. 
+
+
+(a) (3 points) consider the binary relation constant e. Let the interpretation of e(x, y) be "x is equal to y". Give a sentence which only uses the relational constants above, but not e, such that the sentence has the same truth value as e(x, y). (Hint: Two objects are equal iff they are made of exactly the same points.) 
+
+If we assume the universe of discourse is not limited to points and lines as listed on the last years solns., then 
+
+e(x,y) <=>Az.(i(x,z)<=>i(y,z))
+
+
+(b) (3 points) consider the binary relation constant t. Let the interpretation of t(x,y) be "x and y are points and x and y lie on one line". Give a sentence which only uses the three original relation constants, such that the sentence has the same truth value as t(x,y). 
+
+t(x,y)<=>(p(x)&p(y) => Ez.(l(z) & i(x,z) & i(y,z)))
+ 
+(c) (4 points) give a sentence using the original three relation constants, together with e, whose truth value is the same as: For each pair (x,y) of points, there is one and only one line passing through x and y. (Hint: separate the existence and uniqueness.) 
+
+
+
+Ax.Ay.( p(x)&p(y)&~e(x,y) =>(Ez.l(z)&i(x,z)&i(y,z)&Awl(w)&i(x,w)&i(y,w)=>e(w,z)) )
+
+From the poisonous mushroom example on page 6-11 of the notes, we have a form which separates existence from uniqueness. 
+This is: Ex.(mushroom(x) & Az.(z(ne)x=>~mushroom(z)))
+My other form following this example is derived from this form, I state a similar form the the beloved mushroom example as there is a line that passes through 2 points. We note this is not really a valid sentence because of the definition of ne in the notes, but I like this separation of uniqueness and existence better. This requires the existence of an equal operator. I use this example to point out the inconsistency between this problem definition and the notes. Maybe this problem should be reworded to allow the use of equality to be consistent with the lecture notes/book.
+
+Eu.(l(u)&i(u,x)&i(u,y))&Av.l(v)(~=)l(u)=>~(l(v)&i(v,x)&i(v,y)))
+
+
+
+
+
+

@@ -1,0 +1,461 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - OBJECT-ORIENTED DATABASE DESIGN
+=========================================================================
+
+Object-Oriented Database Design !=
+Database Design for Object-Oriented Databases
+
+
+Recall steps in building a database for an application:
+
+1. Understand real-world domain being captured
+
+2. Specify it using a database design model (E/R or OO)
+
+3. Translate specification to model of DBMS (relational or OO)
+
+4. Create schema using DBMS commands
+
+5. Load data
+
+
+OO design data model: ODL = "Object Definition Language"
+
+ODMG (Object Database Management Group) specified ODL + OQL
+OQL = "Object Query Language"
+De facto standards for object-oriented database systems (OODBMS's)
+
+
+Defining a database schema in ODL
+---------------------------------
+
+Similar to classes in C++ or Smalltalk but without methods (for now).
+Classes define types of objects (schema), data is objects of class.
+
+Class defined by:
+- Name
+- Attributes: values
+- Relationships: to objects in other classes
+- Keys (optional)
+
+
+interface Student {
+  attribute string name;
+  attribute string address;
+  attribute integer age; }
+
+Sample data: ("John", "123 Maple", 18)
+             ("Jane", "456 Pine", 17)
+
+
+interface Campus {
+  attribute string location;
+  attribute integer enrollment; }
+
+Sample data: ("Santa Cruz", 15,000)
+             ("Berkeley", 30,000)
+
+
+* Suppose each student applies to exactly one campus
+
+Relational style:
+
+interface Student {
+  attribute string name;
+  attribute string address;
+  attribute integer age; 
+  attribute string location; }
+
+Sample data: ("John", "123 Maple", 18, "Berkeley")
+
+
+In ODL it's better to use a RELATIONSHIP:
+
+interface Student {
+  attribute string name;
+  attribute string address;
+  attribute integer age; 
+  relationship Campus apply; }
+
+Sample data: ("John", "123 Maple", 18, &1)
+
+             &1: ("Berkeley", 30,000)
+
+
+-> Relationships not necessarily implemented by pointers.  Design is
+   logical, not physical.
+
+
+* Suppose students can apply to multiple campuses
+
+interface Student {
+  attribute string name;
+  attribute string address;
+  attribute integer age; 
+  relationship Set<Campus> apply; }
+
+Sample data: ("John", "123 Maple", 18, {&1,&3,&4})
+
+             &1: ("Berkeley", 30,000)
+             &3: ("Santa Cruz", 15,000)
+             &4: ("LA", 35,000)
+
+
+* Could have sets of addresses too (more on types below)
+
+interface Student {
+  attribute string name;
+  attribute Set<string> addresses;
+  attribute integer age; 
+  relationship Set<Campus> apply; }
+
+Sample data: ("John", {"123 Maple", "456 Pine"}, 18, {&1,&3,&4})
+
+
+* Suppose also want to know applicants for each campus
+
+interface Campus {
+  attribute string location;
+  attribute integer enrollment;
+  relationship Set<Student> applicants; }
+
+
+In a "correct" database, apply and applicants are inverses.
+
+interface Student {
+  attribute string name;
+  attribute string address;
+  attribute integer age; 
+  relationship Set<Campus> apply
+    inverse Campus::applicants; }
+
+interface Campus {
+  attribute string location;
+  attribute integer enrollment;
+  relationship Set<Student> applicants
+     inverse Student apply; }
+
+-> ODL requires inverses, most OO database systems do not
+
+
+Like in E/R, ODL relationships (pairs) have MULTIPLICITY, established
+implicitly by whether the relationship is specified as Class-Name or
+Set<Class-Name>.
+
+(1) MANY-MANY: one object in class C is related to 0 or more objects
+               in class D and vice-versa.
+
+Q: Singletons or sets in C and D?
+
+
+
+
+
+
+
+(2) MANY-ONE: one object in class C is related to one in D, but D is
+              related to 0 or more in C.
+    (Also corresponding ONE-MANY)
+
+Q: Singletons or sets in C and D?
+
+
+
+
+
+
+
+(3) ONE-ONE: each object in class C/D related to one in other
+
+Q: Singletons or sets in C and D?
+
+
+
+
+
+
+
+Relationships may be between a class and itself
+
+<example>
+
+
+
+
+
+
+
+
+Allowable types in ODL (Section 2.1.7)
+
+Attributes: (1) integer, string, float, etc. + enumeration
+                <single-campus, add outcome attribute>
+
+
+
+            (2) Struct built from (1)
+                <change address to struct>
+
+
+
+            (3) Set, Bag, List, or Array of (1), (2)
+
+
+Relationships: (1) interface type
+
+               (2) Set, Bag, List, or Array of (1)
+                   <multi-campus, change apply to List<Campus>>
+
+
+
+
+
+Subclasses
+----------
+
+Similar to C++ or Smalltalk
+
+
+interface OutofStateStudent: Student {
+  attribute string state; }
+
+interface InStateStudent: Student {
+  attribute string county; }
+
+interface APStudent: Student {
+  relationship Set<APCourse> APcourses; }
+
+
+Multiple inheritance
+
+interface InStateAPStudent: InStateStudent, APStudent {}
+
+
+Q: What's the big issue with multiple inheritance?
+
+
+
+
+
+Keys
+----
+
+Syntax:
+
+"(key(s) <list of keys>)" at top of interface definition
+
+or "unique attribute ..."
+
+
+
+
+
+
+-> ODL does not require keys for classes.  Different objects with same
+   value are identified by their object-ID.  But keys can still be useful.
+
+
+Last example: Students can apply to multiple campuses with outcome for
+each one.
+
+<solution>
+
+
+
+
+
+
+
+
+
+
+
+
+Translating an ODL Design to Relations
+--------------------------------------
+
+- Assume each class has a specified key
+
+- Translation can be fully automated except determining keys for generated
+  relations in certain cases (similar to E/R)
+
+
+1. Class with atomic attributes and no relationships: translates
+   directly to relation
+
+interface Student (key ID) {
+  attribute integer ID;
+  attribute string name;
+  attribute integer age; }
+
+becomes Student(ID, name, age)  // ID is key
+
+
+2. Struct attributes: "flatten" them
+
+interface Student (key ID) {
+  attribute integer ID;
+  attribute string name;
+  attribute Struct<string street, string city> address;
+  attribute integer age; }
+
+becomes Student(ID, name, street, city, age)  // ID is key
+
+Resolve name conflicts by prepending, e.g., address.city
+
+
+3. Sets
+
+interface Student (key ID) {
+  attribute integer ID;
+  attribute string name;
+  attribute string address;
+  attribute integer age;
+  attribute Set<string> clubs; }
+
+Two possible translations:
+
+(a) Student(ID, name, address, age, club)
+    One tuple for each club per student
+
+Q: What's wrong with this approach?
+
+
+
+
+Same example but with two sets:
+
+interface Student (key ID) {
+  attribute integer ID;
+  attribute string name;
+  attribute Set<string> addresses;
+  attribute integer age;
+  attribute Set<string> clubs; }
+
+Student(ID, name, address, age, club)
+One tuple for each address/club pair
+
+Q: What's wrong with this approach?
+
+
+
+
+(b) Separate relations to represent sets
+
+    Student(ID, name, age)          // ID is key
+    Address(ID, addr)               // (ID,addr) is key
+    Clubs(ID, club)                 // (ID,club) is key
+
+Equivalent to performing BCNF/4NF decomposition
+
+
+4. Bags: Like Sets but add "count" attribute
+   Lists: Like Sets but add "position" attribute
+   Arrays: Like Lists or one attribute per array element
+
+interface Student (key ID) {
+  attribute integer ID;
+  attribute Array<float,3> yearGPA;
+  attribute List<string> majors;
+  attribute Bag<string> clubs; }
+
+Student(ID, yearGPA1, yearGPA2, yearGPA3)  // ID is key
+Majors(ID, major, position)                // ID, major is key
+Clubs(ID, club, count)                     // ID, club is key
+
+
+5. Relationships: two possible translations
+
+(a) Convert each relationship pair to separate relation, similar to E/R
+
+interface Student (key ID) {
+  attribute integer ID;
+  attribute string name;
+  relationship Campus apply
+    inverse Campus::applicants; }
+
+interface Campus (key location) {
+  attribute string location;
+  attribute integer enrollment;
+  relationship Set<Student> applicants
+     inverse Student apply; }
+
+translates to
+
+Student(ID, name)
+Campus(location, enrollment)
+Apply(ID, location)
+
+
+(b) Translation in book: add key for related class to each relation
+    (or to just one relation)
+
+Student(ID, name, location)
+Campus(location, enrollment, ID)
+
+Q: What's wrong with this approach?
+
+
+
+
+
+6. Subclasses
+
+One relation for each class, include all inherited attributes
+
+interface Student (key ID) {
+  attribute integer ID;
+  attribute string name;
+  attribute integer age; }
+
+interface OutofStateStudent: Student (key ID) {
+  attribute string state; }
+
+translates to
+
+Student(ID, name, age)
+OutofStateStudent(ID, name, age, state)
+
+Q: What would the E/R mapping do in a similar situation?
+
+
+
+
+
+
+-> Advantages and disadvantages to each approach
+   (not related to E/R versus OO)
+
+
+Final example:
+
+interface Student (key ID) {
+  attribute integer ID;
+  attribute string name;
+  relationship OldStudent mentor
+    inverse OldStudent::underlings }
+
+interface OldStudent (key ID): Student {
+  attribute integer year;
+  relationship Set<Student> underlings
+    inverse Student::mentor }
+
+<inheritance + relationship figure>
+
+
+
+
+
+
+
+
+Q: Possible relational translations?
+
+
+
+
+
+
+
+

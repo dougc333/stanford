@@ -1,0 +1,65 @@
+<TITLE>Complexity classes</TITLE>
+<H1>Complexity classes</H1>
+
+For any integer function f let TIME(f(n)) denote the class of all
+languages that can be accepted by a (deterministic) Turing machine
+that halts within cf(n)+k steps on every input of length n. Here c and
+k are constants that depend on the machine, but not on the input
+string. Their role is just to say that in measuring time complexity
+classes we don't care for a constant factor and constant number of
+steps. Likewise NTIME(f(n)) denotes the class of all languages that
+can be accepted by a nondeterministic Turing machine that, for certain
+constants c and k, halts within cf(n)+k steps on every input of length n.
+<P>
+SPACE(f(n)) is the class of languages hat can be accepted by a
+(deterministic) Turing machine with a read-only input tape and a work
+tape, that visits never more than f(n) cells of its work tape.
+NSPACE(f(n)) is defined likewise, using nondeterministic machines.
+<P>
+<B>Theorem:</B> SPACE(cf(n)+k) = SPACE(f(n)) and NSPACE(cf(n)+k) = NSPACE(f(n))
+for any constants c > 0 and k > 0.
+<P>
+Thus also in the space complexities constant factors and constant
+numbers of tape cells do not matter.<BR>
+In the definition of space complexity, the distinction between the
+input tape and the work tape is only relevant for complexities f(n) < n.
+<P>
+Some relations between the complexity classes are:
+<UL>
+<LI>    TIME(f(n)) <img src="subset.gif" alt="<">
+        SPACE(f(n)) <img src="subset.gif" alt="<"> NSPACE(f(n)) and 
+	TIME(f(n))  <img src="subset.gif" alt="<">
+	NTIME(f(n)) <img src="subset.gif" alt="<"> NSPACE(f(n)).
+<LI>    If L is in NTIME(f(n)), then there is a constant d such that L
+	in TIME(d<SUP>f(n)</SUP>).
+<LI>	If f(n) <img src="ge.gif" alt=">"> log(n) then
+	NSPACE(f(n)) <img src="subset.gif" alt="<"> SPACE(f(n)<SUP>2</SUP>).
+<LI>    If L is in SPACE(f(n)) with f(n) <img src="ge.gif" alt=">"> log(n),
+	then there is a constant d such that L is in TIME(d<SUP>f(n)</SUP>).
+</UL>
+P is the union of the complexity classes TIME(n<SUP>k</SUP>) for k a constant.
+<BR>
+NP is the union of the complexity classes NTIME(n<SUP>k</SUP>) for k a
+constant. <BR>
+EXPTIME is the union of the complexity classes
+TIME(2<SUP>n<SUP>k</SUP></SUP>) for k a constant.
+<BR>
+PSPACE is the union of the complexity classes SPACE(n<SUP>k</SUP>) for
+k a constant. <BR>
+NPSPACE is the union of the complexity classes NSPACE(n<SUP>k</SUP>)
+for k a constant. <BR>
+L is SPACE(log(n)). <BR>
+NL is NSPACE(log(n)). <BR>
+<P>
+We have L <img src="subset.gif" alt="<">
+NL <img src="subset.gif" alt="<">
+P <img src="subset.gif" alt="<">
+NP <img src="subset.gif" alt="<">
+PSPACE = NPSPACE <img src="subset.gif" alt="<">
+EXPTIME.
+<HR>
+<TABLE border=0 width=100%><TR><TD>
+<A HREF=../..>Rob van Glabbeek</A>
+</TD><TD Align=right>
+<A HREF=mailto:rvg@cs.stanford.edu>rvg@cs.stanford.edu</A>
+</TD></TR></TABLE>

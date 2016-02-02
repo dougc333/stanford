@@ -1,0 +1,409 @@
+
+P2 design tradeoffs:
+
+
+q) HOW TO ALLOCATE A PID AND A SCHEDULER? I assume the ASID is the same as a PID. Do we need to instantiate a scheuler? How does the process transfer priorities to the threads? 
+
+Implementing multiprogramming and NOT multithreading. Multiprogramming is the implementation of running different user programs at the same time. The nachos code needs to support the running of multiple processes. Currently there is a linear translation from virtual address to a physical space in addrspace.cc. This needs to be changed to accomodate a memory allocation scheme where each program is allowed to access the entire virtual address space. 
+
+From Silbersatz, the process object needs the following data structures:
+
+Process State:New, running, waiting, Ready, and Terminated
+Program Counter:
+CPU Registers: accumulators, index registers, stack pointer, and GP registers. These are defined in machine.h
+CPU scheduling informatio: We user the thread scheduler for this.
+Memory Management information: value of base and bounds registers, page tables, and software TLB.
+Accounting information: I don't know where this is.
+I/O Status information: This includes the console input/output, and maybe the file system.
+
+The scheduler for the process can be the same one as we use for threads. We are allocating objects for threads to turn them into processes. We can derive from threads for the process object, or we can add to the thread class; which is what we are doing.
+
+
+
+ process needs a list of child threads and of open files. It also needs the data structures listed above.
+
+
+CHECK TO SEE THE FILESYS AND USERPROG SWITCHES ARE SET. IN MAKEFILE UNDER USERPROG, THE SWITCHES ARE SET FOR THREADS, USER_PROGRAM, FILESYS_NEEDED, AND FILESYS_STUB. 
+
+
+CURRENT DATA STRUCTURES:
+
+kernel->currentThread->space
+// we need a defn. for space, it is non-NULL for user space programs Assume NULL for kernel. 
+
+kernel->fileSystem
+kernel->fileSystem->Openfile* directoryFile
+kernel->fileSystem->Openfile* freeMapfile
+
+kernel->stats
+kernel->interrupt
+kernel->scheduler
+kernel->alarm
+kernel->currentThread->machine->mainMemory
+kernel->currentThread->machine->pageTable
+kernel->currentThread->machine->pageTablesize
+kernel->currentThread->machine->registers[NumTotalRegs]
+kernel->currentThread->machine->mainMemory->MemorySize. This is set by constants to be 256k in machine.h. 
+kernel->currentThread->machine->TranslationEntry->tlb
+kernel->currrentThread->machine->TranslationEntry->pageTable
+kernel->currentThread->stackTop
+kernel->currentThread->stack
+kernel->currentThread->ThreadStatus->status (ready, blocked, running)
+kernel->currentThread->AddrSpace->space
+kernel->currentThread->userRegisters[NumTotalRegisters]
+kernel->currentThread->machine->registers[NumTotalRegisters]
+kernel->interrupt->MachineStatus->status (IdleMode, SystemMode, UserMode) this enum is in interrupt.h system mode is the same as kernelmode.
+
+
+******************
+kernel->currentThread->space->asid
+******************
+
+
+CURRENT MEMBER FUNCTIONS
+
+kernel->currentThread->SaveUserState()
+kernel->currentThread->RestoreUserState()
+ how is this the same or different than
+kernel->currentThread->addrSpace->SaveUserState()
+kernel->currentThread->AddrSpace->RestoreUserState()
+
+kernel->fileSystem->Open
+kernel->fileSystem->Create
+kernel->fileSystem->Remove
+kernel->fielSystem->List
+kernel->fileSystem->Print
+
+
+
+REGISTERS
+
+There are 40 registers, some are defined in registers.h. Registers 31-40 are in registers.h. Registers 0-31 are in *regstrings or R(i) in d.c. What is the difference between R() and Reg()????
+
+
+TRANSLATION ENTRY CLASS:
+
+int virtualPage
+int physicalPage
+bool valid
+bool readOnly
+bool use
+bool dirty
+
+
+
+
+
+NOFF DATA STRUCTURE:
+
+in noff.h, there are 2 structs, one called segment and noffHeader.
+
+struct segment {
+ int virtualAddr;
+ int inFileAddr;
+ int size;
+}
+
+
+struct noffHeader {
+int noffMagic
+Segment code;
+Segment initData;
+Segment uninitData;
+
+}
+
+the noff object is composed of 3 segments and an int magic number, 0xbadfad. The segment is composed of a base address, a fileaddress and a size. There are 3 segments, code, initData and uninitData
+
+
+I assume we read these to load into virtual address space like this:
+1) I am unclear where to load the damned segments in memory????????
+
+What does execute.c look for in executing the nachos program?  
+	
+
+
+
+DEBUG USER PROG NOTE: debugUserProg=False set in userkernel.c. modify this for debug. This bool flag is used in machine.cc to single step through user programs throug the variable singleStep in machine.cc.
+
+
+
+CONTEXT SWTICH SEMANTICS:
+
+Machine::raise exception switches from kernel space to user space by kernel->interrupt->setStatus(SystemMode) to setStatus(UserMode). q)where is UserMode defined, is this the same global as in MachineStatus??? Yes, the options are SystemMode, UserMode, and IdleMode. 
+
+
+
+MEMORY MAP DEFINITION:
+
+WHERE ARE THE INTERRUPT VECTORS??
+
+WHAT IS ASID FOR? WHY DOES THE TLB NEED A ASID and nextAsid as mentioned in addrspace.h??? 
+
+
+
+IMPLEMENTATION:
+
+addrspace.cc mmodifications:
+
+addrspace() constructor add fileTable=new FileTable(maxnumberoffiles);
+                            childThreadQueue=new List<Thread *>;
+
+
+
+
+
+//
+// File routines need a test routine, make filetest.cc, 7.18.99
+//
+
+The file routines, the kernel->fileSys object for the file names is in the kernel space.
+
+The openfile object is in the user space.
+
+SC_Halt; already done.
+Process halt
+
+
+SC_Exit
+Process Exit: The objects asscociated with the process are destroyed, including deallocating the virtual address space, freeing of the pyhsical memory spaces, freeing of the machine registers, and clean up of child threads. This can only be done after the child threads are finished, or are they forced to finish when this is called?
+
+
+SC_Exec:
+Process Execute: The name of the executabel file name is used to create a new process. The virtual address space is created, code is loaded from the file to physical memory (translation from virtual to physical address), and a thread is forked to run the process. 
+
+q) how do we test this, with simple programs using exceptions, file IO, device IO and calculations involving memory accesses.
+
+SC_Join
+
+
+
+
+SC_Create
+
+Make sure the filename length is greater than 0:
+
+if strlen(...) > 0
+
+
+ALlocate memory for the file name in the kernel space:
+
+char *filename = new filename(strlen(...));
+
+The fileSys Create command returns a bool type indicating if the file was succesuccessfully created or not. The fileSys->Create mf creates an int fileDescriptor that is assigned to OpenForReadWrite(name, FALSE).
+
+
+
+
+
+SC_Open
+
+Make sure the file name exists first:
+if (strlen(kernel->currentThread->machine->ReadRegister(4))==0)
+{
+ set an error flag
+ 
+}
+
+Use a new to allocate memory for the kernel file name. Use a strlen operation to determine how many bytes to allocate.
+char * filename = new filename(strlen(...));
+
+This should set the fileid.
+
+
+Use the kernel->fileSys->Open method. this call automatically checks to see if this is in the unix file strusture. if not, it will return  NULL in *openfile.
+
+If successfull it returns a pointer to a Class OpenFile object. This has read and write operations defined on it. 
+
+
+SC_Read
+
+This reads the file, make sure file is open first. This can be read by another thread or process, but not written to. We can simplify this to allowing only one owner to read to a file. 
+
+Use OpenFile->Read
+
+
+SC_Write
+
+This writes to a file, make sure it is open, and no other thread or process  is accessing this.
+
+Use OpenFile->Write
+
+
+SC_Close
+
+This closes a file, make sure it is open first, and the person closing the file owns the open to the file.
+
+Use the ~OpenFile() to close the file. This destroys the handle to the filename string we assigned in FileSys Create. 
+
+
+
+MODIFICATIONS AND ADDITIONS TO BULLETPROOF THE OS:
+
+
+Bulletproof the user program errors:
+scenario 1: when the stack segment grows beyond a page, generate a page fault exception and grow the stack. 
+
+scenario 2: when the heap segment grows bwyond a page, generate a fault. there is no memory allocator in this os.
+
+scenario 3: when the user tries to r/w a protected section generate a fault 
+
+scenario 4: when too many programs are launched??? We can run out of descriptors and memory tables??? Windows had this problem, but I don't know if not accepting any more executables is a failure mode or a reasonable prevention of an unreasonalbly slow system.
+
+scenario 5: running out of memory. There is no swap file to disk allowing us to grow the memory space??? Do we generate an exception when the memory is ...
+
+scenario 6: user program attempts to access file or memory outside of allowed range.
+
+scenario 7: program memory requirements keep growing. this will kill the machine. how to detect this and stop this? eg keep on generating a malloc till machine runs out of memory. Generate a swap file where we can keep the process in memory. use the file commands we just implemented.
+
+
+scenario 8: 
+when a program is accessing memory across a page boundary, a fault caused by a page fault will cause a reexectution of the current instruction, or will the next instruction be executed. It looks like the next instruction is executed. How do real microprocessors work? 
+
+
+
+
+Problem 2) Implement multiprogramming. Currently there is a linear page translation from virtual address space to physical address space in addrspace.cc constructor. This needs to be commented out with a mapping scheme that allows multiple programs to see their own virtual address space. This is done by creating a paging scheme where each program sees a page of address space, when the program or process goes past this "page" a page fault is generated causing a reload to another physical page. We need to keep track of how many physical pages each program is using, as each program reads and writes to its virtual address spacem, the memory manager tracks how many physical pages the process uses.
+
+
+Design Tradeoffs:
+
+Multiprogramming issues:
+1) scheduling policy, which process to schedule next? We let the processes fork off a thread, with the thread scheduling taking care of the scheduling. 
+2) context switch decisions, when to do this, on a fault or exception, or on a timer tick? 
+3) what to save as a context switch state? Use the functions SaveUserState and Restore UserState in the threads and AddrSpace classes to do this. Remember to add TLB flushing as part of a context switch. 
+4) do processes have different priorities? yes, how do we assign the priorities and schedule them? We are ignoring this for this section of the assignment. Ideally, we should have process priorities with kernel processes having a priroirt and user processes with lower priorities. The scheduler should look at these prirorities and schedule user processes with kernel processes. 
+
+q) verify this with Steve....
+
+
+4.5) The book describes a dispatcher with functionality to handle switching context, switching to user mode, and jumping to the proper location in the user program to start the program. The 
+
+
+5) A thread switch can occur out of order, a process switch can not without violating fairness. How is this managed?
+6) where to save the state for security? 
+7) how to enforce user to user protection, and user to kernel protection?
+8) how big to make the pages, and what bits to declare?
+9) what policy to enforce for deleting entries in the TLB?
+
+
+
+
+
+q) is a pointer to the page table stored in one of the MIPS registers?
+q) where is the tlb address?
+q) do we need an inverted page table or a shared page table?
+
+
+
+2.1) Come up with a way of allocating physical memory frames so that multiple programs can be loaded into memory at once. 
+
+Add a virtual address translation to the kernel object. How do threads comform to this?
+
+
+
+
+q) what does noff format look like, and what are the expectations for where to put hte sections for code. How do we communicate with this to get data for segment addresses, etc.. there must be a struct somewhere for each program.
+	
+Use bitmap.h/bitmap.cc to keep track of the free physical memory. A virtual address is mapped to a page table lookup, then to a physical page. The mapping is done through a first empty search of the bitmap. This fills up the empty holes first, and reduces fragmentation.
+
+The virtual address/physical address translation does a security check, a valid check and a bounds check.
+
+
+Paging Architecture:
+Physical memory is divided into frames. Virtual memory is divided into pages. When a process is loaded, 1 page is loaded. As the requirements for the program grow, the paging table allocates additional pages by looking for free bits in the bitmap table. The allocation is necessary for the stack. We assume the uninitialized data and code space stay constant, we know how many pages to allocate when the programs are loaded. Carefull to test the crossing of page boundaries here, it looks like the programs we have are small enough to have unitinitalized and code sections fit in one page.
+
+We now divide the address into 2 parts, an address for a page table, and an offset. We page table contains the base addrsss of each page, and the offset the size of the page. This seems kind of stupid given each page will be the same maximim size. We can allocate this max size to always be 4k for example or compact this to dynamically adjust the page table offset to get better utilization. This too hard to manage. The offset is used to calculate where in the page we need to access. 
+
+The frame table stores the addresses of all the pages in mainMemory. We take the total main memory size and divide it by the page size, then store the base address of each of the pages in the frame table. Each frametable entry has associated with it a valid bit, a dirty bit, a r/w bit and an address for main memory. This address is a fill 32 bit address, but we only use the upper bits.
+
+The MIPS R4000 page size in the int const definitions are 4kb, so we use 12 bits for the page offset, or the upper 20 bits for the page address. This would give us a table of 2^20 page table entries.
+
+There are 64 pages, so we allocate a table of 64 entries to store 64 base page addresses of 20 bits. 
+
+
+
+PAGE TABLE IMPLEMENTATION:	
+
+On a page hit, we have a virtual address mapped to a physiacal address. On a page table miss, a new page entry needs to be assigned from the bitmap table representing physical memory. Design tradeoff, we can create a table of all the possible page lookups for each process. Each process has a virtual address range of 2^32. The page size is 4kb. Each process has a total of 2^20 pages. In program load time, we allocate a set number of pages for the code, uninit and 1 page for the stack. On a context switch, the initial value of the stack may not fit in one page. We need to test for this.
+
+Instead of creating a table of 2^20 entries for each process, we allocate a list of page table base addresses. This list of page table addresses is static for the code and uninit segments, but can grow for the stack segment.
+
+In the 2^20 entries of page table entries, a valid bit indicates the page table is already mapped, an invalid bit indicates the page is not referenced by the current process. q) when does the memory manager change the status of a bit? On allocation to a new address ,this is declared valid. On a malloc, this is declared valid. On a process exit, the bits are declared invalid, allowing the physical pages to be released. 
+
+
+On a page hit, the virtual address to page table address is in this table. On a miss, the address is not there, and a new page must be allocated and stored in the page table list.
+
+
+On a page fault, when the PCReg or NextPCReg reaches the end of a page, a new page is allocated. How is this implemented???
+
+
+
+The TLB stores frequently used addresses of pagetable base addresses. When a virtual address is accesses, the TLB is searched for a physical address mapping for the virtual address table. If it is a hit, the address is fetched and used. A miss requires an access to the 64 entry page table, comapares to generate the correct page table entry ,and a lookup for the physical address.
+
+TLB Implementation:
+
+Add a table with a VA-PA lookup and translation. Do this in page sizes.
+
+
+implement a TLB with a page table translation. Look into the TLB to see if the entry is already there, if it is not, generate an exception and load the TLB or do a trap and generate the mapping. I am not clear on this yet.
+
+
+TLB hit:
+
+
+TLB miss:
+
+
+The TLB is flushed on a context switch since there is no dirty bit.
+
+
+
+
+
+
+2.2) Provide a way to copy data to/from the kernel and the user's virtual address space.
+
+
+
+this requires adding 2 functions to read and write between the kernel address apace and the user program memory space. The kernel address space is not mapped into a virtual address, create 2 functions which write to and read from a virtual address space and a kernel buffer. 
+
+
+q) where are the reserved kernel address spaces? Do we need to reserve bits in the memory map for this??? 
+
+This requires byte swapping per the faq for problem 3.
+
+
+This requires the addition of an inverted page table, where we can not only go from virtual address to phisical addresses, but from physical addresses to virtual addresses. 
+
+
+
+
+2.3) add syncronization to the routines that create and init the address spaces
+
+I assume this means using semaphores for creating and initing an address space. This refers to the virtual address space. Only one thread can access a virtual address space at a time.
+
+Problem says there is a change to scheudler.cc where it saves and restores machine state on context switches. 
+
+
+if (oldThread->space !=NULL)
+	{
+  	oldThread->SaveUserState();
+	oldThread->space->SaveState();
+}
+
+They introduced the space data member in thread, it is NULL for a user program. I assume space is a value for a kernel, and null for a user program. I can't find the references to space.
+
+q) what is ASID for, address space ID? it is an int in addrspace.h how is it set? 
+
+
+2.4) this is included already
+
+
+
+
+
+
+Problem 3)
+
+Implement argument passing the the newly created address space. Push the arguments onto the stack. Note the byte swapping between user memory and the NACHOS sun byte aligment.

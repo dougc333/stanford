@@ -1,0 +1,268 @@
+<title> CS145 Written Assignment 5 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Written Assignment #5
+<br>Due Wednesday May 17</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Problem 1 (recursion)</h4>
+
+Recall from Problem 9 in <a
+href="http://www-db.stanford.edu/~widom/cs145/wa3.html">Written
+Assignment #3</a> and Problem 1 in <a
+href="http://www-db.stanford.edu/~widom/cs145/wa4.html">Written
+Assignment #4</a> the relation <tt>Flight(from,to,cost,airline)</tt>,
+containing nonstop flights from one city to another.  In those
+problems we were interested in finding the cheapest cost of flying
+between each pair of cities, regardless of the number of stops.  In
+Assignment #3 we learned that it is not possible to write this query
+using a single statement of SQL2, and in Assignment #4 we learned that we
+can compute the answer using SQL2 embedded in a programming language.
+
+<p><b>(a)</b> Write the query in one statement of SQL3, using the
+recursive <tt>WITH</tt> construct.
+
+<p><b>(b)</b> Can your query for part (a) return tuples where
+<tt>from</tt> and <tt>to</tt> are the same city?  If so, what is the
+cheapest cost of traveling from a city to itself?  Modify your solution
+to part (a) so that no such tuples appear in the query result.
+
+<h4>Problem 2 (more recursion)</h4>
+
+Consider the relation <tt>ParentOf(parent,child)</tt> discussed in
+class, and consider the following <tt>WITH</tt> statement to compute
+the <tt>Ancestor</tt> relation recursively (also discussed in class):
+
+<p>
+<tt>
+WITH RECURSIVE Ancestor(anc,desc) AS<br>
+((SELECT parent as anc, child as desc FROM ParentOf)<br>
+UNION<br>
+(SELECT Ancestor.anc, ParentOf.child as desc<br>
+FROM Ancestor, ParentOf<br>
+WHERE Ancestor.desc = ParentOf.parent))<br>
+...</tt>
+
+<p><b>(a)</b> Suppose that when we view the tuples in relation
+<tt>ParentOf(parent,child)</tt> as a graph (as shown in class), the
+longest path in that graph has 8 edges.  How many times does the query
+processor need to evaluate a <tt>SELECT</tt> statement within the
+<tt>UNION</tt> before a fixed-point is reached, i.e., before neither
+of the <tt>SELECT</tt> statements adds any new tuples to
+<tt>Ancestor</tt>?
+
+<p><b>(b)</b> Now consider the following slightly altered <tt>WITH</tt>
+statement that also computes the <tt>Ancestor</tt> relation
+recursively:
+
+<p>
+<tt>
+WITH RECURSIVE Ancestor(anc,desc) AS<br>
+((SELECT parent as anc, child as desc FROM ParentOf)<br>
+UNION<br>
+(SELECT A1.anc, A2.desc<br>
+FROM Ancestor A1, Ancestor A2<br>
+WHERE A1.desc = A2.anc))<br>
+...</tt>
+
+<p>Again suppose that when we view the tuples in relation
+<tt>ParentOf(parent,child)</tt> as a graph, the longest path in that
+graph has 8 edges.  Now how many times does the query processor need
+to evaluate a <tt>SELECT</tt> statement within the <tt>UNION</tt>
+before a fixed-point is reached?
+
+<h4>Problem 3 (referential integrity)</h4>
+
+Give an example of two simple relation schemas <tt>R1</tt> and
+<tt>R2</tt> where the <tt>PRIMARY KEY</tt> of <tt>R1</tt> is also a
+<tt>FOREIGN KEY</tt> referencing the <tt>PRIMARY KEY</tt> of
+<tt>R2</tt>, and the <tt>PRIMARY KEY</tt> of <tt>R2</tt> is also a
+<tt>FOREIGN KEY</tt> referencing the <tt>PRIMARY KEY</tt> of
+<tt>R1</tt>.  You may choose any application domain you like, but the
+relations you choose and the pair of referential integrity constraints
+should make sense as representations of the real world.  Write your
+table declarations using SQL2 syntax, and include any informal
+comments needed for us to understand your example.
+
+<h4>Problem 4 (constraints)</h4>
+
+In class we discussed six types of integrity constraints:
+
+<p><ol>
+<li> Non-null constraints
+<li> Key constraints
+<li> Referential integrity constraints
+<li> Attribute-based constraints
+<li> Tuple-based constraints
+<li> General assertions
+</ol>
+
+<p> Consider the following very simple SQL relation declarations:
+
+<p><tt>
+create table R (A integer, B integer)<br>
+create table S (C integer)</tt>
+
+<p>Consider each of the following problem parts separately; that is,
+start "fresh" with the above relation definitions for each one.  Use
+the SQL2 syntax for constraints described in class and in the textbook.
+You must ensure in each case that the constraint will hold regardless
+of what modifications are made to the database.
+
+<p><b>(a)</b> Specify that attribute <tt>R.A</tt> may not take on the
+value <tt>NULL</tt>, in each of the following ways:
+<ul>
+<li> as a non-null constraint
+<li> as one or more attribute-based constraints
+<li> as one or more general assertions
+</ul>
+
+<p><b>(b)</b> Specify that attribute <tt>A</tt> is a key for relation
+<tt>R</tt>, in each of the following ways:
+<ul>
+<li> as a key constraint
+<li> as one or more attribute-based constraints
+<li> as one or more general assertions
+</ul>
+
+<p><b>(c)</b> Specify that there is a referential integrity constraint
+from attribute <tt>S.C</tt> (the foreign key) to attribute
+<tt>R.A</tt> (the primary key), in each of the following ways:
+<ul>
+<li> as a referential integrity constraint
+<li> as one or more attribute-based constraints
+<li> as one or more general assertions
+</ul>
+
+<p><b>(d)</b> Specify that the value of attribute <tt>R.A</tt> must be
+at least 10 and no greater than 20, in each of the following ways:
+<ul>
+<li> as one or more attribute-based constraints
+<li> as one or more general assertions
+</ul>
+
+<p><b>(e)</b> Specify that for each tuple in <tt>R</tt> the value of
+attribute <tt>R.A</tt> must be at least twice the value of attribute
+<tt>R.B</tt>, in each of the following ways:
+<ul>
+<li> as one or more attribute-based constraints
+<li> as one or more tuple-based constraints
+<li> as one or more general assertions
+</ul>
+
+<p><b>(f)</b> Specify that for each tuple in <tt>R</tt> the value of
+attribute <tt>R.A</tt> must be smaller than the average of all of the
+<tt>S.C</tt> values, in each of the following ways:
+<ul>
+<li> as one or more attribute-based constraints
+<li> as one or more general assertions
+</ul>
+
+<h4>Problem 5 (more constraints)</h4>
+
+<b>(a)</b> Consider the relation <tt>R(A,B)</tt> and the functional
+dependency <tt>A -> B</tt>.  Encode the functional dependency as a
+constraint expressed in SQL2.  You may use any type of constraint
+that you like (attribute-based, tuple-based, etc.).
+
+<p><b>(b)</b> Consider the relation <tt>R(A,B,C)</tt> and the
+multivalued dependency <tt>A ->> B</tt>.  Encode the multivalued
+dependency as a constraint expressed in SQL2.  You may use any type
+of constraint that you like (attribute-based, tuple-based, etc.).
+
+<h4>Problem 6 (triggers)</h4>
+
+Consider a relation <tt>Student(ID,major,GPA)</tt> and assume that
+<tt>ID</tt> is a key.
+
+<p><b>(a)</b> Consider the following trigger, specified using the
+<tt>FOR EACH ROW</tt> option:
+
+<p><tt>
+CREATE TRIGGER Secret<br>
+AFTER UPDATE OF Student ON major<br>
+REFERENCING OLD AS O, NEW AS N<br>
+WHEN (N.major = 'CS' AND O.major <> 'CS')<br>
+UPDATE Student<br>
+SET GPA = 1.1 * GPA<br>
+WHERE ID = N.ID<br>
+FOR EACH ROW</tt>
+
+<p>First describe in English what this trigger does.  Then write an
+equivalent trigger that does not use the <tt>FOR EACH ROW</tt> option.
+
+<p><b>(b)</b> (<i>Warning - this one does take some thought</i>)
+Specify another trigger on the <tt>Student</tt> relation that does not
+use the <tt>FOR EACH ROW</tt> option such that an equivalent trigger
+<i>cannot</i> be written using the <tt>FOR EACH ROW</tt> option.
+(Assume that the equivalent trigger is not allowed to introduce
+temporary variables or tables.)  In addition to specifying the trigger
+in SQL, describe in English what your trigger does.
+
+<h4>Problem 7 (views and triggers)</h4>
+
+Views in SQL are <i>virtual</i>, meaning that they are not stored in
+the database but rather their definitions are used to translate
+queries referencing views into queries over base relations.  One
+disadvantage of this approach is that views may effectively be
+computed over and over again if many queries reference the same view.
+An alternative approach is to <i>materialize</i> views: the contents
+of a view are computed and the result is stored in a database table,
+so that a reference to the view in a query can simply access the
+stored table.  However, when contents of a base relation referenced in
+the view change, then the contents of the materialized view must be
+modified accordingly.  For example, consider a base relation
+<tt>R(A,B)</tt>, where <tt>A</tt> and <tt>B</tt> are of type
+<tt>integer</tt> and <tt>A</tt> is a key for <tt>R</tt>.  A
+materialized view <tt>V</tt> that contains those tuples of <tt>R</tt>
+satisfying <tt>R.A > 5</tt> can be created as follows:
+
+<p><tt>
+CREATE TABLE V (A int, B int)
+</tt>
+
+<p> Initially, <tt>V</tt> is populated using the following SQL
+statement:
+
+<p><tt>
+INSERT INTO V<br>
+SELECT * FROM R WHERE A > 5
+</tt>
+
+<p>Now when we refer to view/table <tt>V</tt> in queries we obtain the
+desired result.
+
+<p>If an <tt>INSERT</tt> statement is executed on <tt>R</tt>, then
+<tt>V</tt> must be modified accordingly.  This behavior can be
+implemented using a trigger:
+
+<p><tt>
+CREATE TRIGGER VinsR<br>
+AFTER INSERT ON R<br>
+REFERENCING NEW_TABLE AS NT<br>
+INSERT INTO V<br>
+SELECT * FROM NT WHERE A > 5
+</tt>
+
+<p><b>(a)</b> Write another trigger <tt>VdelR</tt> to modify
+<tt>V</tt> after tuples are deleted from <tt>R</tt>.
+
+<p><b>(b)</b> Write another trigger <tt>VupdR</tt> to modify <tt>V</tt>
+after tuples in <tt>R</tt> are updated.
+
+<p><b>(c)</b> Write SQL statements and triggers to create, populate,
+and maintain a materialized view <tt>V</tt> that projects columns
+<tt>A</tt> and <tt>B</tt> from a base relation <tt>R(A,B,C)</tt>.  You
+may assume that all three attributes are of type <tt>integer</tt> and
+that <tt>A</tt> is a key for <tt>R</tt>.
+
+<p><b>(d)</b> (<i>Optional - answer is long</i>) Write SQL statements
+and triggers to create, populate, and maintain a materialized view
+<tt>V</tt> that is the natural join of base relations <tt>R(A,B)</tt>
+and <tt>S(B,C)</tt>.  You may assume that all four attributes are of
+type <tt>integer</tt> and that <tt>R.A</tt> and <tt>S.C</tt> are keys
+for <tt>R</tt> and <tt>S</tt> respectively.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

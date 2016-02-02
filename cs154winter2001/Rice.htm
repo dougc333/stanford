@@ -1,0 +1,50 @@
+<B>Rice's theorem:</B> Any nontrivial property about the language
+recognized by a Turing machine is undecidable. 
+<P>
+A property about Turing machines can be represented as the language
+of all Turing machines, encoded as strings, that satisfy that property.
+The property P is <I>about the language recognized by Turing machines</I>
+if whenever L(M)=L(N) then P contains (the encoding of) M iff it
+contains (the encoding of) N.
+The property is non-trivial if there is at least one Turing machine
+that has the property, and at least one that hasn't.
+<P>
+<B>Proof:</B>
+Without limitation of generality we may assume that a Turing machine
+that recognizes the empty language does not have the property P.
+For if it does, just take the complement of P. The undecidability of
+that complement would immediately imply the undecidability of P.
+<P>
+In order to arrive at a contradiction, suppose P is decidable,
+i.e. there is a halting Turning machine B that recognizes the
+descriptions of Turing machines that satisfy P. Using B we can
+construct a Turning machine A that accepts the language
+{(M,w)| M is the description of a Turing machine that accepts the string w}.
+As the  latter problem is undecidable this will show that B cannot
+exists and P must be undecidable as well.
+<P>
+Let MP be a Turing machine that satisfies P (as P is non-trivial there
+must be one). Now A operates as follows:
+<OL>
+<LI> On input (M,w), create a (description of a) Turing machine C(M,w)
+     as follows:
+<OL>
+<LI> On input x, let the Turing machine M run on the string w
+     until it accepts (so if it doesn't accept C(M,w) will run forever).
+<LI> Next run MP on x. Accept iff MP does.
+</OL>
+Note that C(M,w) accepts the same language as MP if M accepts w;
+C(M,w) accepts the empty language if M does not accept w.
+<BR>
+Thus if M accepts w the Turing machine C(M,w) has the property P, and
+otherwise it doesn't.
+<LI> Feed the description of C(M,w) to B.
+     If B accepts, accept the input (M,w); if B rejects, reject.
+</OL>
+<HR>
+<TABLE border=0 width=100%><TR><TD>
+<A HREF=../..>Rob van Glabbeek</A>
+</TD><TD Align=right>
+<A HREF=mailto:rvg@cs.stanford.edu>rvg@cs.stanford.edu</A>
+</TD></TR></TABLE>
+

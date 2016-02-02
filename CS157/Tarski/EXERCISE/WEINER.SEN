@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+10
+(Tet(a) & Small(a)) | (Cube(b) & ~Cube(b))Cube(a) & (~Cube(a) | ~Small(a)) & Small(a)Larger(a, b) & (Larger(a, a) | ~Larger(a, b))a # b & ~LeftOf(a, b) & ~RightOf(a, b) & ~FrontOf(a, b) & ~BackOf(a, b) LeftOf(a, b) & LeftOf(b, c) & LeftOf(c, d)Larger(a, b) & Larger(b, c) & Larger(c, d)Between(a, b, c) & LeftOf(a, b) & LeftOf(b, c)~[(Cube(a) | ~Small(a)) & (Cube(a) | ~Medium(a))] & Cube(a)~[Dodec(b) & Larger(b, c)] & [Medium(b) | Tet(b)]~[FrontOf(a, b) | ~LeftOf(b, c)] & Between(b, c, a)

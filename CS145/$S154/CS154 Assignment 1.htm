@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www-db.stanford.edu/~ullman/hmu/hw1.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 1</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #1</H1>
+<H3 align=center>Due Monday, January 17, 2000, 3:15PM</H3>
+<H3 align=center>Deadline Extended to Noon 1/18 Because of MLK Holiday</H3>
+<OL>
+  <LI>(<I>25 pts.</I>) In the book and the notes, we defined <I>delta-hat</I> by 
+  a recursion on the last symbol, as <I>delta-hat(q,wa) = 
+  delta(delta-hat(q,w),a)</I>. We could just as well have defined 
+  <I>delta-hat</I> by recursion on the first symbol, i.e., <I>delta-hat(q,bx) = 
+  delta-hat(delta(q,b),x)</I>. The basis rule is <I>delta-hat(q,epsilon) = q</I> 
+  for both definitions. We expect that these definitions give the same answers, 
+  and the intuitive argument is that both definitions describe the path from 
+  state <I>q</I> with a given string as the label. However, we need a formal 
+  proof, and it is a good exercise to construct one carefully. 
+  <P>To be precise, define <I>delta-hat</I> by: 
+  <P>
+  <OL>
+    <LI><I>delta-hat(q,epsilon) = q</I>. 
+    <LI><I>delta-hat(q,wa) = delta(delta-hat(q,w),a)</I>. </LI></OL>
+  <P>Define a new function <I>f</I> by: 
+  <P>
+  <OL>
+    <LI><I>f(q,epsilon) = q</I>. 
+    <LI><I>f(q,bx) = f(delta(q,b),x)</I>. </LI></OL>
+  <P>Your task is to prove, by induction on the length of <I>y</I> (and no other 
+  way --- we really want to see an induction), that <I>delta-hat(q,y) = 
+  f(q,y)</I>. 
+  <P></P>
+  <LI>(<I>25 pts.</I>) Design a deterministic finite automaton to accept the set 
+  of binary strings that, when interpreted as an integer, is divisible by 5. 
+  Note that the most significant digit is the first to be read. Give the 
+  five-tuple notation for your automaton, with the transition function expressed 
+  as a table. Then, draw the transition diagram for your FA. <I>Hint</I>: Think 
+  of each state as representing a particular remainder when the number seen so 
+  far is divided by 5. To simplify, you may make the reasonable assumption that 
+  the empty string represents integer 0, and thus is one of the accepted 
+  strings. 
+  <P></P>
+  <LI>(<I>25 pts.</I>) Below is the transition table of an NFA with start state 
+  <I>p</I> and accepting states <I>q</I> and <I>s</I>. 
+  <P>
+  <TABLE border=5>
+    <TBODY>
+    <TR>
+      <TH></TH>
+      <TH>0</TH>
+      <TH>1</TH></TR>
+    <TR>
+      <TD><I>p</I></TD>
+      <TD>{<I>q,s</I>}</TD>
+      <TD>{<I>q</I>}</TD></TR>
+    <TR>
+      <TD><I>q</I></TD>
+      <TD>{<I>r</I>}</TD>
+      <TD>{<I>q,r</I>}</TD></TR>
+    <TR>
+      <TD><I>r</I></TD>
+      <TD>{<I>s</I>}</TD>
+      <TD>{<I>p</I>}</TD></TR>
+    <TR>
+      <TD><I>s</I></TD>
+      <TD>{<I></I>}</TD>
+      <TD>{<I>p</I>}</TD></TR></TBODY></TABLE>
+  <P>Use the subset construction to find an equivalent DFA. 
+  <P></P>
+  <LI>(<I>25 pts.</I>) Design an NFA to accept the set of strings of 0's and 1's 
+  that either: 
+  <P>
+  <OL>
+    <LI>End in 010 and have 011 somewhere preceding, or 
+    <LI>End in 101 and have 100 somewhere preceding. </LI></OL>
+  <P>In order to make sure that you use nondeterminism, your NFA should have no 
+  more than 13 states and 15 arcs. You may represent your NFA by a transition 
+  diagram. </P></LI></OL></BODY></HTML>

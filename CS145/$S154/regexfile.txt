@@ -1,0 +1,16 @@
+(Nathan|Nate|Nathaniel){s}(Keith|K(\.)?{s})?(Folkert)
+
+\_.*\_{s}by{s}(Noam{s}Chomsky)
+
+for\(i{s}*={s}*(1|0){s}*to{s}*[1-9][0-9]*\)\{{n}
+{t}x{s}*={s}*x{s}*\+{s}*1\;{n}
+\}
+
+[^0-9]+[0-9][0-9][0-9]+[^a-z][a-z][^A-Z0-9\^\]]
+
+Compilers$*by$*
+((Prof(essor)?{s}*Jeff(rey)?{s}*(D.{s}*)?Ullman) |
+(Prof(essor)?{s}*Ravi{s}*Sethi) |
+(Prof(essor)?{s}*Alfred{s}*(V.{s}*)?Aho))
+
+$*

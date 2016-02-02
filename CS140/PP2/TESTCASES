@@ -1,0 +1,618 @@
+Testfile for Problem 2
+
+
+CS140
+dougc@leland.stanford.edu
+gresse@leland.stanford.edu
+dagher@leland.stanford.edu
+
+
+
+
+1. The implementation of the system calls were tested with the following test programs written to test illegal conditions for files, joins and executes: FUNCTIONAL
+
+2. Multiprogramming was tested with the shell running and a varitey of programs were loaded and the code was debugged extensively to make the OS robust and not fail. Page sizes were changed. FUNCTIONAL
+
+3. The stack parameters were also tested with programs cat and copy. FUNCTIONAL
+
+
+
+ I. Details on testing system Calls
+    4 programs were written named filetest.c, filetest1.c, f1.c, and fileation.c. The intent of the test files were to test the conditions listed below. The specific test and test output are listed below. Additional work was added by Elias to add print functionality to the test routines allowing for display of test conditions. 
+
+SC_Create Test:
+
+	-Test Create with an empty file name:
+
+	Code from filetest1.c:
+
+	// Testing Create
+   	// Creating a file with an empty name
+	prints("\nCreating a file with an empty name.\n");
+   	Create ("");
+
+  	-Test Buffer Overflow
+	
+	Code from filetest1.c:
+
+	// The shell only take 60 characters, so we use 120
+	prints("\nCreating a file with a name of 120 characters.\n");
+   	Create ("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	prints("\nWe try too create a file with a 120 character name, the name 		is truncated to 60.\n");
+
+	-Test normal functionality 
+	
+	Code from filetest.c
+	
+	 filename = "fasdfa";
+   	filename1="dddd";
+  
+   	Create(filename);
+   	Create(filename1);
+
+	-Test nonexistent file name
+
+	Code from filetest.c
+
+	char *filename2;
+	Create(filename2);
+
+	-Test Opening a wrong and empty file name
+
+ 	Code from filetest1.c
+
+	// Testing Open
+   	// Opening a wrong file name
+   	// Empty name
+	prints("\nOpening a file with an empty name.\n");
+   	dougf = Open("");
+
+	-Testing a Uncreated file
+
+	Code from filetest1.c
+
+	// Uncreated file
+	prints("\nOpening a file that does not exit.\n");
+   	dougf = Open("Nodoug");
+
+	-Testing a large file name
+
+	Code from filetest1.c
+
+	// The shell only take 60 characters, so we use 120
+	prints("\nOpening a file with a name of 120 characters.\n");
+   	dougf = Open("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+SC_Open Test:
+
+	Test Opening a file with a NULL filename
+	Code from f1.c
+
+	char * filename;
+	filename = '\0';
+	Open(filename);
+	
+	Test opening a file with an invalid file name
+	Code from f1.c
+
+ 	Open(nonexistent);	
+
+	Normal usage test
+
+	Code from filetest.c and filtest1.c
+
+	// Normal usage
+   	dougf = Open("doug");
+   	eliasf = Open("elias");
+   	lionelf = Open("lionel");
+   	
+   	char* filename;
+   	char* filename1;
+   
+	Create(filename);
+   	Create(filename1);
+	file = Open(filename);
+   	file1 =Open(filename1);
+
+
+	-Testing Close on a NULL filename
+
+	Code from filetest1.c
+	// Testing Close
+   	// Closing a wrong file name
+   	// Empty ID
+   	//Close(NULL);
+
+	-Testing Close on a negative file ID
+
+	Code from filetest1.c
+   	// Negative ID
+	prints("\nClosing fileID -1.\n");
+   	Close(-2);
+
+	-Testing Close on a standard input and output device
+
+	Code from filetest1.c
+	
+   	// Standard Input
+	prints("\nClosing standard input.\n");
+   	Close(0);
+   	// Standard Output
+	prints("\nClosing standard output.\n");
+   	Close(1);
+   	
+
+	-Testing buffer overflow or filename overflow
+	
+	Code from filetest1.c
+
+	// Buffer overflow
+	prints("\nClosing 99999999999999999999999999999999.\n");
+   	Close(99999999999999999999999999999999);
+   	// Unopened File
+   	Close(25);
+
+	-Normal Case
+
+	Code from filetest1.c
+	
+   	// Normal usage
+   	Close(dougf);
+   	Close(eliasf);
+   	Close(lionelf);
+
+   	doug = "Doug est content!"; 	
+
+SC_Write Test:
+
+	- Testing Write on an unopened file
+	
+	Code from filetest1.c
+
+	// Testing Write
+	// Unopened file
+	prints("\nWriting an Unopened File.\n");
+   	Write(doug, 18, dougf);
+   	dougf = Open("doug");
+
+
+	- Testing Write on an uninitialsed file, size and buffer
+
+	Code from filetest1.c
+
+
+   	// Uninitialised buffer
+	prints("\nWriting an Uninitialised buffer.\n");
+   	Write(lionel, 4, dougf);
+   	
+
+	// Uninitialised size
+	prints("\nWriting an Uninitialised size.\n");
+   	Write(doug, eliass, dougf);
+
+	
+   	// Uninitialised FileID
+	prints("\nWriting an Uninit FileID.\n");
+   	Write(doug, 18, testf);
+   	
+	-Testing Write on a Negative File ID
+
+	Code from filetest1.c
+
+	// Negative file ID
+	prints("\nWriting an negative FileID.\n");
+   	Write(doug, 18, -1);
+
+
+	-Test Write on stdio
+
+	Code from filetest1.c
+
+   	// Standard input
+	prints("\nWriting to 0.\n");
+   	Write(doug, 18, 0);
+
+   	// Standard output
+	prints("\nWriting to 1.\n");
+  	Write(doug, 18, 1);
+
+
+	-Testing Write on unmatched buffer sizes
+
+	Code from filetest1.c
+
+   	// buffer size < size
+	prints("\nWriting to buffer size < size.\n");
+   	Write(doug, 35, dougf);
+	prints(doug);
+
+
+  	 // buffer size > size
+	prints("\nWriting to buffer size > size.\n");
+   	Write(doug, 4, dougf);
+	
+	-Testing Write on page fault generation
+
+	Code from filetest1.c
+	
+   	// buffer size > main memory
+   	//Write(buf, 400000, dougf);
+	
+	-Testing Write on 0 buffer size
+	
+	Code from filetest1.c
+   	// buffer size = 0
+   	Write(doug, 0, dougf);
+   	
+	Testing Write on normal usage
+	
+	Code from filetest1.c:
+
+	// normal usage
+	prints("\nnormal writes\n");
+   	elias = "Elias est content!";
+   	lionel = "Lionel est content";
+   	Write(doug, 18, dougf);
+   	Write(elias, 19, eliasf);
+   	Write(lionel, 20, lionelf);
+   
+
+
+SC_Read Test Cases:
+
+
+	The Read test cases are described as follows:
+
+
+	-test reading on an unopened file
+	Code from filetest1.c
+
+   	// Testing Read
+   	// Unopened file
+   	Write("Unopened\0", 9, dougf); 
+   	Close(dougf);
+	prints("\nReading an unopened file.\n");
+  	 Read(doug, 18, dougf);
+	prints(doug);
+   	dougf = Open("doug");
+
+	-test reading an uninitialized file, buffer, and size
+
+	Code from filetest1.c
+   	// Uninitialised buffer
+	prints("\nReading an uninitialised buffer.\n");
+   	Read(test, 4, dougf);
+   	// Uninitialised size
+	prints("\nReading an uninitialised size.\n");
+   	Read(doug, tests, dougf);
+   	doug = "Doug est content!\0"; 
+   	// Uninitialised FileID
+	prints("\nReading an uninitialised FileID.\n");
+	printd(&testf);
+	prints("\nContent of Doug\n");
+	prints(doug);
+	//
+   	Read(doug, 18, testf);
+   	doug = "Doug est content!"; 
+   	
+	-testing a negative file ID
+	Code from filetest1.c
+	
+	// Negative file ID
+	prints("\nReading a negative file ID.\n");
+   	Read(doug, 18, -1);
+   	doug = "Doug est content!";
+	
+	-testing reading from stdio
+	Code from filetest1.c
+ 
+   	// Standard input
+   	//prints("\nReading on the standard input\n");
+   	//Read(doug, 18, 0);
+   	doug = "Doug est content!"; 
+   	// Standard output
+   	//prints("\nReading on the standard output\n");
+   	//Read(doug, 18, 1);
+   	doug = "Doug est content!"; 
+
+
+	-testing unmatched buffers
+	Code from filetest1.c
+
+	
+   	// buffer size < size
+	prints("\nReading a buffer size < size.\n");
+   	Read(doug, 35, dougf);
+   	doug = "Doug est content!"; 
+   	// buffer size > size
+	prints("\nReading a buffer size > size.\n");
+   	Read(doug, 4, dougf);
+   	doug = "Doug est content!"; 
+   	// buffer size > main memory
+   	//Read(buf, 400000, dougf);
+   	doug = "Doug est content!"; 
+   	// buffer size = 0
+	prints("\nReading a buffer size = 0.\n");
+   	Read(doug, 0, dougf);
+   	doug = "Doug est content!"; 
+   	
+
+	-testing normal usage
+	Code from filetest1.c
+
+	// normal usage
+	prints("\nReading normally.\n");
+   	Read(doug, 18, dougf);
+   	Read(elias, 19, eliasf);
+   	Read(lionel, 20, lionelf);
+   	Exit(0);
+	}
+
+
+SC_Join, SC_Exec, and  SC_Exit Tests:
+
+There are 3 programs which are used to test Exec to start a process. There are 3 processes started and joined. testjoin A calls testjoinB calling testjoinC  for a recursive join test. This recursive test tests the join, exec and exit commands as shown below in the code and the accoompanying test file.
+
+
+testjoinA:
+
+int main(int argc, char *argv[])
+{
+  int ExitCode, ProcessID;
+  prints("\nA is starting B.\n");
+  ProcessID = Exec("../test/SUN/testjoinB");
+  prints("\nA is joining B.\n");
+  ExitCode = Join(ProcessID + 10);
+  prints("\nB has exited with exit code:\n");
+  printd(ExitCode);
+}
+
+testjoin B:
+int main(int argc, char *argv[])
+{
+  int ExitCode, ProcessID;
+  prints("\nB is starting C.\n");
+  ProcessID = Exec("../test/SUN/testjoinC");
+  prints("\nB is joining C.\n");
+  ExitCode = Join(ProcessID);
+  prints("\nC has exited with exit code:\n");
+  printd(ExitCode);
+  Exit(2);
+}
+
+testjoinC:
+
+int main(int argc, char *argv[])
+{
+  int ExitCode, ProcessID;
+  prints("\nC is starting.\n");
+  prints("\nC is running.\n");
+  prints("\nC is exiting.\n");
+  Exit(0);
+}
+
+
+
+
+
+
+
+The following is a listing of the program described above:
+
+
+	A is starting B.
+
+A
+B is starting C.
+ is 
+B is joining C.
+
+joining B.
+C is starting.
+
+B has exited with exit code:
+
+C is running.
+-1
+C is exiting.
+--
+C has exited with exit code:
+0
+
+
+	
+
+	The following is a listing of the output for filetest1. It can be seen the command prompt returns after the error cases are executed.
+
+
+Creating a file with an empty name.
+Error Creating File: No file name.
+
+Creating a file with a name of 120 characters.
+
+We try too create a file with a 120 character name, the name is truncated to 60.
+
+Creating three empty files.
+
+Opening a file with an empty name.
+
+Opening a file that does not exit.
+
+Opening a file with a name of 120 characters.
+
+Closing fileID -1.
+Error: Cannot close standard input/output device.
+
+Closing standard input.
+NULL fileid, file not opened
+
+Closing standard output.
+Error: Cannot close standard input/output device.
+
+Closing 99999999999999999999999999999999.
+Error: Cannot close standard input/output device.
+
+Writing an Unopened File.
+Writing an Uninitialised buffer.
+
+Writing an Uninitialised size.
+
+Writing an Uninit FileID.
+
+Writing an negative FileID.
+
+Writing to 0.
+
+Writing to 1.
+Doug est content!
+Writing to buffer size < size.
+Doug est content!
+Writing to buffer size > size.
+
+normal writes
+
+Reading an unopened file.
+
+Reading an uninitialised buffer.
+
+Reading an uninitialised size.
+
+Reading an uninitialised FileID.
+8088
+Content of Doug
+Doug est content!
+Reading a negative file ID.
+
+Reading a buffer size < size.
+
+Reading a buffer size > size.
+
+Reading a buffer size = 0.
+
+Reading normally.
+--Unable to open file fasdfasdfasdfasdfasdfasdfasdf
+--
+
+
+II. Testing Multiprogramming and Argument Passing. File routines cat and cp were implemented to show argument passing and multiprogramming were functional together.
+
+
+The cp test program copies a the contents from one file to the other till EOF is reached. 
+
+int main(int argc, char *argv[])
+{
+  OpenFileId source, dest;
+  char buf[BUFSIZE];
+  int   n;
+
+  if (argc!=3) {
+    prints("Usage: cp SOURCE DESTINATION\n");
+    return -1;
+  }
+
+  if((source=Open(argv[1]))==-1) {
+    prints("cp: Error opening source file\n");
+    return -1;
+  }
+  Create(argv[2]);
+  if((dest=Open(argv[2]))==-1) {
+    prints("cp: Error creating destination file\n");
+    return -1;
+  }
+   
+  while ((n=Read(buf, BUFSIZE, source)) > 0 ) {
+    Write(buf, n, dest);
+  }
+
+  Close(source);
+  Close(dest);
+  return 0;
+}
+
+
+Output of cp program:
+The output below shows a cp followed by a cat to show the contents of dddd were successfully transferred to test. The numbers 10 and 4 are features of EOS usefull for debugging.
+
+
+
+--../test/SUN/cp dddd test
+--../test/SUN/cat test
+
+10
+dummy text
+4
+dddd--
+
+
+
+
+The cat.c program copys the contents of a file to the standard console definition 1 in Write(buf,n,1). The program is listed below:
+
+
+int main(int argc, char *argv[])
+{
+  OpenFileId source, dest;
+  char buf[BUFSIZE];
+  int   n,i;
+
+  if (argc!=2) {
+    prints("Usage: cat SOURCE\n");
+    return -1;
+  }
+
+  if((source=Open(argv[1]))==-1) {
+    prints("cat: Error opening source file\n");
+    return -1;
+  }
+  i=0;
+  while ((i<20)&&((n=Read(buf, BUFSIZE, source)) > 0 )) {
+    prints("\n");
+    printd(n);
+    prints("\n");
+    Write(buf, n, 1);
+    i++;
+  }
+
+  Close(source);
+  return 0;
+}
+
+
+Output of cat program, where the 10 and 4 are debug test statements, a feature of EOS used for debugging. 
+
+--../test/SUN/cat dddd
+
+10
+dummy text
+4
+dddd--
+
+
+
+
+echo test program: The echo test program takes echos the string back to the console as shown below:
+
+main(int argc, char *argv[])
+{
+  int i;
+
+  for (i = 1; i < argc; i++) {
+    Write(argv[i], strlen(argv[i]),1);
+    if ((i+1) != argc)
+      Write(" ", 1, 1);
+    else Write("\n", 1, 1);
+  }
+}
+
+
+Listing of output:
+
+
+--../test/SUN/echo this is an echo
+this is an echo
+--
+
+
+
+
+

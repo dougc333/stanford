@@ -1,0 +1,151 @@
+<html>
+	<head>
+	</head>
+	
+	<body>
+	
+		<h1>Homework 5, Problem 2</h1>
+		<p>
+		Tunlin Ou
+		<p>
+		<b>Give an implementation level description of a Turing machine recognizing the language {0^n 1^n 2^n | n >= 0}.</b>
+		
+		<p>
+		
+		<ol>
+			<li>
+				<i>Check for an empty input.</i>
+				<br>
+				Check if the current symbol on the tape is _ (the empty space character). If so, accept. 
+				This handles the case where n = 0.
+			</li>
+			
+			<p>
+			
+			<li>
+				<i>Ensure that the 0's, 1's, and 2's appear in the proper order.</i>
+				<br>
+				At this point, we should expect that at least one of each number (0, 1, or 2) exists in the input. If the symbol
+				at the start of the tape is not 0, reject. If it is, write _ on the tape as a lefthand marker and enter Stage 1.
+				
+				<p>
+				<b>Stage 1</b>
+				<br>
+				If the input reads 0, move to the right without altering the tape. Remain in Stage 1.
+				<br>
+				If the input reads 1, enter Stage 2.
+				<br>
+				If the input reads 2, reject.
+				<br>
+				If the input reads _, reject.
+				
+				<p>
+				<b>Stage 2</b>
+				<br>
+				If the input reads 0, reject.
+				<br>
+				If the input reads 1, move to the right without altering the tape. Remain in Stage 2.
+				<br>
+				If the input reads 2, enter Stage 3.
+				<br>
+				If the input reads _, reject.
+				
+				<p>
+				<b>Stage 3</b>
+				<br>
+				If the input reads 0, reject.
+				<br>
+				If the input reads 1, reject.
+				<br>
+				If the input reads 2, move to the right without altering the tape. Remain in Stage 3.
+				<br>
+				If the input reads _, continue to the next phase.
+				
+			</li>
+			
+			<p>
+			
+			<li>	
+				<i>Rewind back to the start of the tape.</i>
+				<br>
+				On all numerical inputs, move the head to the left on the tape. Stop on _. Move to the next step.
+				
+			</li>
+			
+			<p>
+			
+			<li>
+				<i>Match all 0's in the string.</i>
+				<br>Begin by entering Stage 4.
+
+				<p>
+				<b>Stage 4</b>
+				<br>
+				Upon entering Stage 4, if the tape is not at the left end, mark the current position of the head with an X. Do
+				nothing if the head is at the left end. Next, move the head to the right.
+				<br>
+				If the input reads 0, move to the right without altering the tape. Remain in Stage 4 (no additional marking).
+				<br>
+				If the input reads 1, enter Stage 5.
+				<br>
+				If the input reads 2, reject.
+				<br>
+				If the input reads _, reject.
+
+				<p>
+				<b>Stage 5</b>
+				<br>
+				Upon entering Stage 5, mark the current position of the head with an X, then move the head right. 
+				<br>
+				If the input reads 0, reject.
+				<br>
+				If the input reads 1, move to the right without altering the tape. Remain in Stage 5 (no additional marking).
+				<br>
+				If the input reads 2, enter Stage 6.
+				<br>
+				If the input reads _, reject.
+
+				<p>
+				<b>Stage 6</b>
+				<br>
+				Upon entering Stage 6, mark the current position of the head with an X, then move the head right. 
+				<br>
+				If the input reads 0, reject.
+				<br>
+				If the input reads 1, reject.
+				<br>
+				If the input reads 2, move to the right without altering the tape. Remain in Stage 6 (no additional marking).
+				<br>
+				If the input reads _, go to the next step.
+
+			</li>
+		
+			<p>
+			
+			<li>
+				<i>Return to the next unmatched 0, if one exists.</i>
+				<br>
+				Return to the left end of the tape following the process in Step 3 and move right past the left end marker.
+				<br>
+				If the input is X, move the head to the right.
+				<br>
+				If the input is 0, repeat the last step.
+				<br>
+				If the input is 1 or 2, reject.
+				<br>
+				If the input is _, go to the next step.
+			</li>
+			
+			<p>
+			
+			<li>
+				<i>Verify that all numbers have been matched.</i>
+				<br>
+				At this point, all 0's have been matched; but there may be additional 1's or 2's remaining.
+				On all numerical inputs, reject. If the input is X, move the head to the left. If the input is _, accept.
+			</li>
+			
+		</ol>	
+	
+	</body>
+</html>

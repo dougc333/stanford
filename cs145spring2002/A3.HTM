@@ -1,0 +1,420 @@
+<HTML>
+
+<BODY BGCOLOR="white">
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>CS145 Assignment #3 &nbsp -- &nbsp Due Wednesday May 1</b></center>
+</font></td></tr>
+</table>
+
+<ul>
+
+<li> The procedure for turning in this assignment, the late policy, and the
+grading (and non-grading) of exercises and challenge problems, is
+exactly the same as for <i><a href="a1.html">Assignment #1</a></i>.
+
+<p><li> Details on electronic submission are <a
+href="http://www.stanford.edu/class/cs145/submit-README.txt">now
+available</a>.
+
+<p><li><b> Suggestion:</b> You may want to do the written problems first,
+since the relational design material covered in the written work is
+directly applicable to the project work.</a>
+
+</ul>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Exercises</b></center>
+</font></td></tr>
+</table>
+
+<ol>
+
+<li> Consider a relation <tt>R(A,B,C)</tt>.  Suppose <tt>R</tt>
+contains the following four tuples:
+
+<pre>
+   A  B  C
+   -------
+   1  2  3
+   1  2  4
+   5  2  3
+   5  2  6
+</pre>
+
+<p><b>(a)</b> List all completely nontrivial functional dependencies
+that hold on this instance of <tt>R</tt>.
+
+<p><b>(b)</b> List all nontrivial multivalued dependencies that hold
+on this instance of <tt>R</tt>.
+
+<p><li> Do Exercise 3.6.4 in the textbook (page 117).
+
+<p><li> Consider a database for a university that may include information
+about students, courses, professors, etc.
+
+<p><b>(a)</b> Within this general domain, specify the schema for an
+example relation and a set of functional dependencies (FD's) over the
+relation such that the relation is not in Boyce-Codd Normal Form
+(BCNF).  Your relation need not be extensive (i.e., it need not
+include many attributes and it may represent only a very small part of
+the complete university information), but the schema and the FD's
+should be realistic in their modeling of the real world.  You should
+make no assumptions besides those captured by the schema and the FD's.
+
+<p><b>(b)</b> Decompose your relation from part (a) so that the new
+schema is in BCNF.
+
+<p><b>(c)</b> Now specify the schema for an example relation and a set
+of FD's and multivalued dependencies (MVD's) over the relation such
+that the relation is in BCNF but is not in Fourth Normal Form (4NF).
+Again, your relation need not be extensive but the schema and the
+dependencies should be realistic in their modeling of the real world,
+and you should make no assumptions besides those captured by the
+schema and the dependencies.  The relation you give for this part of
+the problem can capture similar or different information from that
+captured in part (a).
+
+<p><b>(d)</b> Decompose your relation from part (c) so that the new
+schema is in 4NF.
+
+<p><li> Do part (c) of Exercise 3.5.4 in the textbook
+(page 101).
+
+<p><li> Do part (b) of Exercise 3.7.8 in the textbook (page 127).
+
+<p><li> Consider the following rule for functional dependencies:
+
+<pre>
+   IF A -> BB, CC -> D, and CC is a subset of BB
+   THEN A -> D
+</pre>
+
+where A and D are single attributes and BB and CC are sets of
+attributes.  For simplicity you may assume that A and D are not in BB
+or CC.  Prove the correctness of this rule.  Your proof should not be
+based on closure or on other rules for functional dependencies, but
+rather it should be based on the formal definition of functional
+dependencies:
+
+<pre>
+   AA -> BB =
+   for all tuples t and u, if t[AA]=u[AA] then t[BB]=u[BB]
+</pre>
+
+where AA and BB are sets of attributes.
+
+<p>Your proof might have roughly the following form: <i>Suppose A ->
+BB holds, CC -> D holds, and CC is a subset of BB. Then for all tuples
+t and u, ... [fill in] ... To prove that A -> D holds, we need to prove
+that for all tuples t and u, ... [fill in].  Therefore A -> D holds.</i>
+
+<p><li> Another way to prove the rule in Exercise 6 is to use
+<i>closure of attributes</i>.  Given the facts:
+
+<pre>
+   A -> BB, CC -> D, CC is a subset of BB
+</pre>
+
+compute the closure <tt>{A}+</tt> of the attribute set <tt>{A}</tt>.
+Does <tt>{A}+</tt> contain attribute <tt>D</tt>?  If so, you have
+proven the rule, i.e., you have shown <tt>A -> D</tt>.  (As an example
+of this type of proof, see the justification of the Transitive Rule
+on page 96 of the textbook.)
+
+<p><li> A third way to prove the rule in Exercise 6 is to use other
+rules for functional dependencies that already have been proven.
+By applying the <i>splitting</i>, <i>combining</i>, and
+<i>transitive</i> rules it is possible to infer <tt>A -> D</tt> from
+the three facts:
+
+<pre>
+   A -> BB, CC -> D, CC is a subset of BB
+</pre>
+
+Show the steps in the inference.
+
+</ol>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Challenge Problems</b></center>
+</font></td></tr>
+</table>
+
+<ol>
+
+<p><li> (This one is relatively straightforward for a challenge
+problem, but more time-consuming than a typical exercise.)<br>Consider
+the following rule for multivalued dependencies:
+
+<pre>
+  IF AA ->> BB and AA ->> CC
+  THEN AA ->> (BB minus CC)
+</pre>
+
+where AA, BB, and CC are sets of attributes, and <tt>minus</tt>
+performs set difference.  For simplicity you may assume that AA does
+not intersect BB or CC, and that there are no attributes in the
+relation besides those in AA, BB, and CC.  As in Exercise 6, your
+proof should be based on the formal definition of (in this case)
+multivalued dependencies, and not on other rules for multivalued
+dependencies.
+
+<p>Your proof might have roughly the following form: <i>Suppose AA ->>
+BB and AA ->> CC hold. Then for all tuples t and u there exists a
+tuple v such that ... [fill in] ... Let DD = BB minus CC.  To prove
+that AA ->> DD holds, we need to prove that for all tuples t and u
+there exists a tuple v such that ... [fill in].  Therefore AA ->> DD
+holds.</i>
+
+<p><li> Consider a relation <tt>R(A1, A2, ..., An)</tt> where <tt>n</tt>
+> 1. Give a general algorithm for constructing a relation instance
+that satisfies the functional dependencies:
+
+<pre>
+   A1 -> A2
+   A2 -> A3
+   A3 -> A4
+     ...
+   A(n-1) -> An
+</pre>
+
+and all functional dependencies that follow from these, but does not
+satisfy any other functional dependencies.  Even better, give an
+algorithm that finds a minimal such instance.
+
+<p><li> Consider the Boyce-Codd Normal Form (BCNF) decomposition
+algorithm specified in class and discussed in the textbook.  We start
+with a relation <tt>R</tt> and a set <tt>F</tt> of functional
+dependencies (FDs) for <tt>R</tt>.  We decompose <tt>R</tt> into
+<tt>R1</tt> and <tt>R2</tt> based on a dependency in <tt>F</tt> that
+violates BCNF, and then we compute the sets of FDs <tt>F1</tt> for
+<tt>R1</tt> and <tt>F2</tt> for <tt>R2</tt> so we can continue with
+the algorithm.  Suppose that when we compute the FDs for <tt>R1</tt>
+and <tt>R2</tt>, instead of finding all FDs that follow from our
+original set <tt>F</tt> and that apply to <tt>R1</tt> and <tt>R2</tt>
+(i.e., that include only attributes from <tt>R1</tt> or <tt>R2</tt>),
+we simply use the original set <tt>F</tt> of FDs specified for
+<tt>R</tt> and take those that apply to <tt>R1</tt> and <tt>R2</tt>.
+Can we get a decomposition that is not in BCNF?  If not, argue why the
+algorithms still works.  If so, illustrate the problem: give a
+relation schema <tt>R</tt> and a set of FDs for <tt>R</tt>, and trace
+how the BCNF decomposition algorithm produces a final set of relations
+that is not in BCNF.
+
+
+</ol>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Project Part 3</b></center>
+</font></td></tr>
+</table>
+
+Now that you're familiar with the basics of Oracle and interacting
+with Oracle from a Web interface, it's time to delve into the real
+project: <a href="project.html">AuctionBase</a>.  We're providing you
+with a significant amount of actual auction data encoded in XML files
+(downloaded from <a target="_blank"
+href="http://www.ebay.com">eBay</a> courtesy of the <a
+target="_blank", href="http://www.cs.wisc.edu/~dbgroup">University of
+Wisconsin Databae Group</a>).  You will examine the data and design a
+relational schema for it.  You will then use an XML parser (if you
+wish) as the basis for a program that transforms the data from its XML
+form into Oracle's load file format, conforming to your relational
+schema.  Finally, you will create your schema in Oracle and load the
+data.
+
+<h3>Part A: Examine the XML data files</h3>
+
+We are providing an XML-encoded auction data set for you to use in
+your project.  The data files are located in directory
+<tt>/usr/class/cs145/ebay_data/</tt> (symbolically linked for your convenience as <a
+href="http://www.stanford.edu/class/cs145/ebay_data/">http://www.stanford.edu/class/cs145/ebay_data/</a>).
+
+<ol>
+
+<p><li> As a <i>small data set</i> for initial experimentation and
+debugging we suggest you use just one file:
+<tt>/usr/class/cs145/ebay_data/items-0.xml</tt> (also <a
+href="http://www.stanford.edu/class/cs145/ebay_data/items-0.xml">http://www.stanford.edu/class/cs145/ebay_data/items-0.xml</a>).
+It contains 500 auctions, comprising about 900K bytes of ASCII data.
+
+<p><p><li> Your AuctionBase system also must work on the <i>large data
+set</i>, which consists of all 10 files:
+<tt>/usr/class/cs145/ebay_data/items-?.xml</tt>, for <tt>?</tt> = 0..9.
+There are a total of 5000 auctions, comprising about 9 megabytes of
+ASCII data.
+
+</ol>
+
+Each XML data file is valid with respect to the XML DTD specified in
+file <tt>/usr/class/cs145/ebay_data/items.dtd</tt> (also <a
+href="http://www.stanford.edu/class/cs145/ebay_data/items.dtd">http://www.stanford.edu/class/cs145/ebay_data/items.dtd</a>).
+
+<p>Your first task is to examine the DTD and the XML files to
+completely understand the data you will be starting with.  You will
+translate this data into relations and load it into your AuctionBase
+system.  Please read the auction data help file in
+<tt>/usr/class/cs145/ebay_data/items.txt</tt> (also <a
+href="http://www.stanford.edu/class/cs145/ebay_data/items.txt">http://www.stanford.edu/class/cs145/ebay_data/items.txt</a>).
+One of the most important things to understand about the data you're
+starting with is that it represents a single point in time.  (Very
+specifically, it represents the point in time December 20th, 2001, one
+second after midnight.)  It contains items that have been auctioned
+off in the past and items that are "currently" up for auction.  Once
+your AuctionBase system is online, you will provide the capability to
+enter bids on items, to "move forward" in time so that auctions close,
+and to add new users and auctions.
+
+<p>Note that some of the <tt>Description</tt> elements in the XML data
+are quite long.  We suggest that you use the Oracle attribute type
+<tt>VARCHAR2(4000)</tt> (which is the maximum length) to store
+descriptions, and simply truncate any that are too long to fit.  If
+you really want to store the full descriptions you can try using the
+Oracle datatypes <tt>LONG</tt> or <tt>CLOB</tt>, but they have a
+number of restrictions and most likely will cause you grief.  See <a
+target="_blank"
+href="http://www.arsdigita.com/books/sql/limits.html">Limits</a> from
+<a target="_blank" href="http://www.arsdigita.com/books/sql/">SQL for
+Web Nerds</a> for a discussion of the problems associated with storing
+long strings in Oracle.
+
+</ul>
+
+<h3>Part B: Design your relational schema</h3>
+
+Now that you understand the data you'll be working with, design a
+good relational schema for it.
+
+<ol>
+
+<p><li> List your relations.  Please specify all keys that hold on
+each relation.  You need not specify attribute types at this stage.
+
+<p><li> List all nontrivial functional dependencies that hold on each
+relation, excluding those that effectively specify keys.
+
+<p><li> Are all of your relations in Boyce-Codd Normal Form (BCNF)?  If
+not, either redesign them and start over, or explain why you feel it
+is advantageous to use non-BCNF relations.
+
+<p><li> List all nontrivial multivalued dependencies that hold on each
+relation, excluding those that are also functional dependencies.
+
+<p><li> Are all of your relations in Fourth Normal Form (4NF)?  If not,
+either redesign them and start over, or explain why you feel it is
+advantageous to use non-4NF relations.
+
+</ol>
+
+<h3>Part C: Write a data transformation program</h3>
+
+Now write a program that transforms the XML data into Oracle load
+files that are consistent with the relational schema you settled on in
+Part B.  <i>This coding will most likely represent the bulk of your
+work for this project part.</i> You may use absolutely any language
+you like to code your data tranformation program.  However, you will
+probably find that your job is much easier if you make use of an XML
+parser.  We are providing two parser skeletons, one for C++ users and
+one for Java users.  If you use these skeleton programs, all of the
+"parsing" is done for you: the Java version invokes JDK 1.4's built-in
+XML parser, and the C++ version uses the Xerces C++ parser (<a
+target="_blank"
+href="http://xml.apache.org/xerces-c/">http://xml.apache.org/xerces-c/</a>).
+You need to fill in code that processes the internal representation of
+the XML tree and produces Oracle files according to the relational
+schema you designed in Part B.  Detailed information is provided as
+comments in the respective skeletons:
+
+<ul>
+
+<li> The C++ skeleton program is in files
+<tt>/usr/class/cs145/hw3/MyParserSkeleton.cc</tt> and
+<tt>/usr/class/cs145/hw3/MyParserSkeleton.h</tt>.
+
+<p><li> The Java skeleton program is in file
+<tt>/usr/class/cs145/hw3/MyParserSkeleton.java</tt>.
+
+</ul>
+
+You may also find the <a target="_blank"
+href="http://www.stanford.edu/class/cs145/hw3/parsing_notes.txt">notes
+from the XML Parsing Help Session</a> useful.
+
+<p>Naturally we suggest that you fully debug your program on the small
+data set before unleashing it on the large one.
+
+<h3>Part D: Load your data into Oracle</h3>
+
+The final step is to create and populate your AuctionBase database.
+Using the <tt>sqlplus</tt> interface to Oracle, issue <tt>CREATE
+TABLE</tt> commands for all of the relations in your schema.  Two
+suggestions:
+
+<ul>
+
+<li> For efficiency we suggest that you specify a <tt>PRIMARY KEY</tt>
+for each table that has at least one key.  (See the document <i><a
+target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-intro.html">Getting
+Started with Oracle</a></i>, available through the course Web site
+Project page, for details of specifying primary keys in table
+declarations.)
+
+<p><li> For attributes representing dates/times, we suggest that you use
+Oracle's built-in <tt>DATE</tt> type.  Information is available in the
+document <i><a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-time.html">Oracle
+Dates and Times</a></i> (available through the course Web site Project
+page), and in a chapter called <i><a target="_blank"
+href="http://www.arsdigita.com/books/sql/dates.html">Dates</a></i> from <i><a
+target="_blank" href="http://www.arsdigita.com/books/sql/">SQL for Web
+Nerds</a></i>, also linked from the course Web site Project page.
+
+</ul>
+
+<p>Once the tables are created, load your data through
+<tt>sqlplus</tt> in the same way that you loaded tables <tt>Courses</tt>
+and <tt>Grades</tt> in parts 1 and 2 of the project.
+
+<p>At this point you may want to revisit the <b>Note on maintaining
+your databases</b> included in <i><a href="a2.html">Assignment
+#2</a></i>.
+
+<h3>What to submit</h3>
+
+<i>For details please see the online <a
+href="http://www.stanford.edu/class/cs145/submit-README.txt">submission
+instructions</a>.</i>
+
+<p>Roughly, all students or teams will submit:
+
+<ol>
+
+<li> Your relational database design including keys, functional
+dependencies, and multivalued dependencies as specified in Part B.
+
+<li> The code for your data transformation program.
+
+<li> A sample few lines from each of the Oracle load files produced by
+your transformation program, suitably labeled so we can match them
+against your relational schema.  <i>Do not submit the entire load
+files, particularly for the large data set!</i>
+
+<li> A script showing your table creation commands in Oracle and the
+successful loading of your complete database on the large data set.
+
+</ol>
+<pre>
+
+
+</pre>
+</BODY>

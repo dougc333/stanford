@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www-db.stanford.edu/~ullman/hmu/hw6.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 5</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #6 and CS154N Asssignment #2</H1>
+<H3 align=center>Due Monday, March 6, 2000, 3:15PM</H3>
+<OL>
+  <P>
+  <LI>(<I>20pts.</I>) Some people define a Turing machine to have a tape that is 
+  infinite in both directions, with the cells to the left of the initial head 
+  position all blank initially. Show that this extension does not add more power 
+  to the TM model; i.e., for every TM <I>M_2</I> with a two-way infinite tape, 
+  there is another TM with a one-way infinite tape, <I>M_1</I>, that accepts the 
+  same language. Give a detailed construction of the delta function of 
+  <I>M_1</I> from that of <I>M_2</I>. A <A 
+  href="http://www-db.stanford.edu/~ullman/hmu/hint61.html">Hint</A> is 
+  available. 
+  <P></P>
+  <LI>(<I>20pts.</I>) Informally, but clearly, describe how a 3-counter machine 
+  could recognize <I>{0^n1^n2^n | n &gt;= 1}</I>, that is the set of strings 
+  with some number of 0's followed by equal numbers of 1's and then 2's. 
+  Remember that a counter machine, like a PDA, can read its input only once, 
+  from left to right. You could, for instance, count the number of 0's on one 
+  counter, but then you would have to match that count against both the 1's and 
+  the 2's, without going back on the input to recount the 0's. Thus, you'll have 
+  to find a better strategy than that. 
+  <P></P>
+  <LI>(<I>20pts.</I>) Consider the property <I>P</I> of languages: ``has at most 
+  100 strings.'' 
+  <P>
+  <DL compact>
+    <DT>(a)
+    <DD>Is <I>P</I> a decidable property of Turing machines (i.e., is the set of 
+    codes for TM's whose language has property <I>P</I> decidable)? Prove your 
+    answer. <I>Note</I>: there is a very simple answer and justification for 
+    this part. 
+    <P></P>
+    <DT>(b)
+    <DD>Is <I>P</I> recursively enumerable? Prove your answer. This part is 
+    difficult. A <A 
+    href="http://www-db.stanford.edu/~ullman/hmu/hint63.html">Hint</A> is 
+    available, but we'd like you to try it on your own, first. </DD></DL>
+  <P></P>
+  <LI>(<I>20pts.</I>) Do the following instances of PCP have a solution. Justify 
+  your answers in each case. 
+  <P>
+  <DL compact>
+    <DT>(a)
+    <DD>
+    <CENTER>
+    <TABLE border=1>
+      <TBODY>
+      <TR>
+        <TH>Index
+        <TH><I>w_i</I>
+        <TH><I>x_i</I></TR> 
+      <TR>
+        <TD>1
+        <TD>1
+        <TD>11</TD>
+      <TR>
+        <TD>2
+        <TD>11
+        <TD>10</TD>
+      <TR>
+        <TD>3
+        <TD>011
+        <TD>1</TD></TR></TBODY></TABLE></CENTER>
+    <P></P>
+    <DT>(b)
+    <DD>
+    <CENTER>
+    <TABLE border=1>
+      <TBODY>
+      <TR>
+        <TH>Index
+        <TH><I>w_i</I>
+        <TH><I>x_i</I></TR> 
+      <TR>
+        <TD>1
+        <TD>1
+        <TD>11</TD>
+      <TR>
+        <TD>2
+        <TD>11
+        <TD>100</TD>
+      <TR>
+        <TD>3
+        <TD>011
+        <TD>1</TD></TR></TBODY></TABLE></CENTER></DD></DL>
+  <P></P>
+  <LI>(<I>20pts.</I>) Call a CFG <I>superambiguous</I> if it generates at least 
+  one string that has at least 100 different leftmost derivations. Prove that it 
+  is undecidable whether a CFG is superambiguous. <I>Hint</I>: Show how to 
+  perform a reduction from the problem of ambiguity to the problem of 
+  superambiguity. That is, given a CFG <I>G</I>, turn it into another CFG 
+  <I>H</I> such that <I>H</I> is superambiguous if and only if <I>G</I> is 
+  ambiguous. </LI></OL></BODY></HTML>

@@ -1,0 +1,12 @@
+Homework 9. Problem #1. PRIME-TEST
+
+PRIME-TEST is NOT a polynomial time algorithm. The magnitude of the
+number, represented in binary or in any other base N notation where
+N >= 2 is exponential in the length of that representation. Thus, the
+algorithm has to search through an exponential number of potential
+divisors in relation to the input causing the PRIME-TEST to be an
+exponential time algorithm.
+
+P.S. The algorithm would be polynomial if the input was represented in
+unary. This however, is a grossly inefficient way of number
+representation, and should not be considered a meaningful possibility.

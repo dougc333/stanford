@@ -1,0 +1,29 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+                    NDIS 2 Driver and Windows 95
+
+
+The only reason choose the NDIS 2 driver over the NDIS3/NDIS4 drivers is
+because you must use some network component that requires a DOS-based
+NDIS 2 interface.
+
+On a new install on a computer running Windows 95, follow the directions
+given to install the NDIS3/NDIS4 drivers in Windows 95 (W95NDIS3.TXT).
+Then follow the steps below to change from the NDIS3/NDIS4 driver to the
+NDIS2 driver.
+
+1.  In Windows 95, click Start, Settings, and then Control Panel.
+
+2.  Select the Network icon, then select the NIC in the configuration box,
+    and click Properties.
+
+3.  In the Driver Type tab, change the "Protect mode (32 bit) NDIS Driver"
+    to "Real Mode (16 bit) NDIS Driver".  Press "OK", then press "OK" again
+    to close the network configuration window.
+
+4.  Windows 95 will than prompt for a reboot.  Pick "Yes".  When the
+    Windows 95 boots, it will be using the NDIS 2 driver.
+
+
+             (%VER W95NDIS2.TXT - NDIS 2 in Windows 95 v6.1a)

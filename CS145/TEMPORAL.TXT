@@ -1,0 +1,206 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - Temporal Databases
+=========================================================================
+
+Storing and querying inherently temporal data in a conventional
+relational DBMS can be painful and inefficient.
+
+  - Oracle's DATE type is not enough.
+
+  - There is an active field of research called "temporal databases"
+    to address the problems.
+
+
+Ex: Database of prescription information: patient, drug, start date,
+    end date.
+
+CREATE TABLE P (patient string, drug string, start DATE, end DATE)
+
+Q: What is key for table?
+
+
+
+
+
+Ex query: Who was taking "Ceclor" on 5/15/00?
+
+
+
+
+
+
+
+
+
+
+
+
+Ex query: Has anyone ever taken "Ceclor" and "Bactrim" at the same
+          time?
+
+
+
+
+
+
+
+
+
+
+
+
+Ex query: For how long altogether has "Mary" taken "Ceclor"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ex query: Who has taken "Ceclor" for the longest time?
+
+
+
+
+
+
+
+
+
+
+
+
+Ex query: Who is taking "Ceclor" now?
+
+
+
+
+
+
+
+
+
+
+
+
+Ex query: Who will have taken "Ceclor" the longest a week from now,
+assuming the currently active prescriptions remain active?
+
+
+
+
+
+A Temporal Relational Model
+===========================
+
+New attribute type called TIMESTAMP.
+
+A TIMESTAMP is a set of disjoint INTERVALS.
+
+An INTERVAL is a start and end TIME.
+
+A TIME is either a fixed point in time, the special symbol "NOW", or a
+"NOW-relative" time (e.g., NOW + 7days).
+
+Special operations on TIMESTAMPS:
+
+Overlaps(T1, T2), Contains(T1, T2), Start(T), Length(T), etc.
+
+
+New version of prescriptions table:
+
+CREATE TABLE P (patient string, drug string, time TIMESTAMP)
+
+Example tuple: ("Sue", "Ceclor", {[5/1/00-5/4/00],[5/12/00-NOW]})
+
+Q: What is key for table?
+
+
+
+
+
+
+
+
+
+Temporal Relational Algebra
+===========================
+
+* Can use special operators as above in SELECT conditions and PROJECT
+  lists.
+
+* Special interpretation for PROJECT: coalesce timestamps.
+
+Ex: PROJECT[drug, time](P)
+
+
+
+
+
+
+
+
+
+
+* Special interpretation for JOIN: implicit TIMESTAMP intersection
+  (see example below)
+
+Ex query: Who was taking "Ceclor" on 5/15/00?
+
+
+
+
+
+
+
+
+Ex query: Has anyone ever taken "Ceclor" and "Bactrim" at the same
+          time?
+
+
+
+
+
+
+
+
+Ex query: For how long altogether has "Mary" taken "Ceclor"
+
+
+
+
+
+
+
+
+Ex query: Who is taking "Ceclor" now?
+
+
+
+
+
+
+
+
+There is a proposed standard called TSQL2 that incorporates these
+kinds of temporal operations (and many many others) into SQL.
+
+Ex: Moving-window aggregate
+
+
+
+
+
+
+
+
+
+

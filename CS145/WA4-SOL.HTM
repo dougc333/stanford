@@ -1,0 +1,324 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>CS145 - Sample Solution for Written Assignment 4</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p>CS145 Spring &#146;00 Professor Widom<br>
+Sample Solution for Written Assignment 4</p>
+
+<p><strong>Question 1</strong><br>
+The following solution is written in Oracle's PL/SQL. It turns
+out that both <em>from</em> and <em>to</em> are invalid column
+names in Oracle, so they've been renamed to <em>frm</em> and <em>too</em>,
+respectively.</p>
+
+<pre>					-- cheapest holds the answer
+create table cheapest
+	(frm  varchar(50),
+	 too  varchar(50),
+	 cost float);
+					-- temporary table used by the procedure
+create table tmp
+	(frm  varchar(50),
+	 too  varchar(50),
+	 cost float);
+
+create procedure compute_cheapest as
+	changed int;
+begin
+					-- initialze the answer table
+	delete from cheapest;
+	insert into cheapest
+		select   frm, too, min(cost)
+		from     Flights
+		group by frm, too;
+					-- compute the fixpoint
+	loop
+					-- find new, cheaper routes
+		delete from tmp;
+		insert into tmp
+			select   c1.frm, c2.too, min(c1.cost + c2.cost) as cost
+			from     cheapest c1, cheapest c2
+			where    c1.too = c2.frm
+			and      c1.frm &lt;= c2.too
+			and      not exists
+			         (select *
+			          from   cheapest c3
+			          where  c3.frm = c1.frm
+			          and    c3.too = c2.too
+			          and    c3.cost &lt;= c1.cost + c2.cost)
+			group by c1.frm, c2.too;
+					-- if nothing found, fixpoint reached
+		select count(*) into changed from tmp;
+		exit when changed = 0;
+					-- update the answer table
+		delete from cheapest
+			where (frm, too) in (select frm, too from tmp);
+		insert into cheapest
+			select * from tmp;
+	end loop;
+end;
+.
+run;</pre>
+
+<p>To run the procedure:</p>
+
+<pre>begin
+compute_cheapest;
+end;
+.
+run;</pre>
+
+<p><strong>Question 2a</strong><br>
+Suppose <em>(c)</em> and <em>(a)</em> are
+running at the same time in isolation level <em>READ UNCOMMITTED</em>.
+Suppose <em>(c)</em>'s changes are not committed, but are rolled
+back. It is possible for <em>(a)</em> to incorrectly see a lower
+price. This is not possible if the transactions are run as <em>SERIALIZABLE</em>.</p>
+
+<p><strong>Question 2b</strong><br>
+Suppose <em>(b)</em> tried to delete model 125
+from <em>PC</em> and <em>Product</em>, and suppose model 125 did
+not exist in <em>PC</em> or <em>Product</em>. Suppose <em>(d)</em>
+tried to enter model 125 into <em>PC</em> and <em>Product</em>.
+If they run in isolation level <em>READ UNCOMMITTED</em>, then
+this scenario is possible: <em>(b)</em> attempts to delete model
+125 from <em>PC</em>. <em>(d)</em> inserts model 125 into <em>PC</em>
+and <em>Product</em>. <em>(b)</em> attempts to delete model 125
+from <em>Product</em>. The end result is that model 125 only
+exists in <em>PC</em>, and not in <em>Product</em>, and the
+database is inconsistent. If the transactions are run as <em>SERIALIZABLE</em>,
+model 125 will exist in both relations or neither of them.</p>
+
+<p><strong>Question 2c</strong><br>
+Same answer as Question 2a, although, of course it is
+possible to come up with a different one.</p>
+
+<p><strong>Question 2d</strong><br>
+Same answer as Question 2b.</p>
+
+<p><strong>Question 3a</strong><br>
+Assume the initial state of the tables shown in Figures 4.9 and
+4.10 on pages 188 and 189.</p>
+
+<table border="0">
+    <tr>
+        <td>T1 (serializable)</td>
+        <td>T2 (read uncommitted)</td>
+    </tr>
+    <tr>
+        <td>UPDATE Product<br>
+        SET maker = 'J'<br>
+        WHERE model = 1001;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>UPDATE Product<br>
+        SET type = 'laptop'<br>
+        WHERE maker = 'A';</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>COMMIT;</td>
+    </tr>
+    <tr>
+        <td>UPDATE Product<br>
+        SET maker = 'J'<br>
+        WHERE model = 1002;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>COMMIT;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+
+<p>After this series of actions, the first two tuples of the <em>Product</em>
+table will be <em>('J', 1001, 'pc')</em> and <em>('J', 1002,
+'laptop')</em>. On the other hand, if <em>T2</em> uses the <em>READ-COMMITTED
+</em>isolation level, <em>T2</em> will either update both <em>1001</em>
+and <em>1002</em> to be <em>'laptop'</em> (if <em>T2</em> reads
+before <em>T1</em> commits), or leave both <em>1001</em> and <em>1002</em>
+as <em>'pc'</em> (if <em>T2</em> reads after <em>T1</em>
+commits).</p>
+
+<p><strong>Question 3b</strong><br>
+Assume the initial state of the tables shown in Figures 4.9 and
+4.10 on pages 188 and 189.</p>
+
+<table border="0">
+    <tr>
+        <td>T1 (serializable)</td>
+        <td>T2 (read committed)</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>UPDATE Product<br>
+        SET maker = 'J'<br>
+        WHERE model = 1001;</td>
+    </tr>
+    <tr>
+        <td>UPDATE Product<br>
+        SET model = 1000<br>
+        WHERE model = 1001;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>COMMIT;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>UPDATE Product<br>
+        SET type = 'laptop'<br>
+        WHERE model = 1001;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>COMMIT;</td>
+    </tr>
+</table>
+
+<p>After this series of actions, the first tuple of the <em>Product</em>
+table will be <em>('J', 1000, 'pc')</em>. On the other hand, if
+T2 uses the <em>REPEATABLE-READ</em> isolation level, <em>T2</em>
+will either update both <em>maker</em> and <em>type</em> of this
+tuple (if <em>T2</em> starts to read before <em>T1</em> commits),
+or leave both columns unmodified (if <em>T2</em> starts to read
+after <em>T1</em> commits).</p>
+
+<p><strong>Question 3c</strong><br>
+Assume the initial state of the tables shown in Figures 4.9 and
+4.10 on pages 188 and 189.</p>
+
+<table border="0">
+    <tr>
+        <td>T1 (serializable)</td>
+        <td>T2 (repeatable read)</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>UPDATE Product<br>
+        SET type = 'laptop'<br>
+        WHERE maker = 'A';</td>
+    </tr>
+    <tr>
+        <td>INSERT INTO Product<br>
+        VALUES ('A', 1000, 'pc');</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>COMMIT;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>UPDATE Product<br>
+        SET model = model - 1000<br>
+        WHERE maker = 'A';</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>COMMIT;</td>
+    </tr>
+</table>
+
+<p>This is a legal schedule because repeatable reads can still
+read phantom tuples. After this sequence of actions, the <em>Product</em>
+table will contain the tuple <em>('A', 0, 'pc')</em>. On the
+other hand, if <em>T2</em> uses serializable isolation level,
+then the <em>Product</em> table should contain either the tuple <em>('A',
+0, 'laptop')</em> (if <em>T1</em> commits after <em>T2</em>), or
+the tuple <em>('A', 1000, 'pc')</em> (if <em>T1</em> commits
+before <em>T2</em>).</p>
+
+<p><strong>Question 4<br>
+</strong>Let the initial state be:</p>
+
+<table border="0">
+    <tr>
+        <td>model</td>
+        <td>color</td>
+        <td>type</td>
+        <td>price</td>
+    </tr>
+    <tr>
+        <td>3001</td>
+        <td>true</td>
+        <td>ink-jet</td>
+        <td>275</td>
+    </tr>
+    <tr>
+        <td>3002</td>
+        <td>true</td>
+        <td>ink-jet</td>
+        <td>269</td>
+    </tr>
+    <tr>
+        <td>3003</td>
+        <td>false</td>
+        <td>laser</td>
+        <td>829</td>
+    </tr>
+</table>
+
+<p>With these two transactions, both run as <em>SERIALIZABLE:</em></p>
+
+<table border="0">
+    <tr>
+        <td>T1</td>
+        <td>T2</td>
+    </tr>
+    <tr>
+        <td>UPDATE Printer<br>
+        SET model = model + 5;</td>
+        <td>UPDATE Printer<br>
+        SET model = model * 2;</td>
+    </tr>
+    <tr>
+        <td>COMMIT;</td>
+        <td>COMMIT;</td>
+    </tr>
+</table>
+
+<p>The order matters because, as in algebra, (x+5)*2 never equals
+(x*2)+5.</p>
+
+<p><strong>Question 5a</strong><br>
+<img src="http://www-db.stanford.edu/~widom/cs145/wa4sol-image1.gif" width="314" height="142"></p>
+
+<p><strong>Question 5b</strong><br>
+Same as Question 5a</p>
+
+<p><strong>Question 5c</strong><br>
+<img src="http://www-db.stanford.edu/~widom/cs145/wa4sol-image2.gif" width="314" height="142"></p>
+
+<p><strong>Question 6</strong></p>
+
+<ol>
+    <li><tt>SELECT SUM(gpa)<br>
+        FROM Student<br>
+        WHERE id = 1 or id = 2 or id = 3 or id = 4 or id = 5;</tt></li>
+    <li><tt>SELECT SUM(gpa)<br>
+        FROM Student<br>
+        WHERE id = 6 or id = 7 or id = 8 or id = 9;</tt></li>
+    <li><tt>SELECT SUM(gpa)<br>
+        FROM Student<br>
+        WHERE id = 4 or id = 5 or id = 6 or id = 7;</tt></li>
+    <li><tt>SELECT SUM(gpa)<br>
+        FROM Student<br>
+        WHERE id = 2 or id = 3 or id = 8 or id = 9;</tt></li>
+</ol>
+
+<p>Let return values of the 4 queries be <em>Q1</em>, <em>Q2</em>,
+<em>Q3</em>, and <em>Q4</em>. Then <em>gpa</em> of the student
+with <em>id = 1</em> is <em>Q1 + Q2 - Q3 - Q4</em>.</p>
+</body>
+</html>

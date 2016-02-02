@@ -1,0 +1,16 @@
+#define A bbb
+#define A ccc
+#define A hello
+#A
+
+#define D EEE
+#define EEE fff
+#D
+
+#define G GG
+#G
+
+#define R
+#define r test
+#define
+#define    S world

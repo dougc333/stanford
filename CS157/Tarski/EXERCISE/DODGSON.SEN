@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+5
+@x (Tet(x) $ Large(x))@x (Tet(x) $ Medium(x))@x (Tet(x) $ Small(x))@x (Tet(x) $ (Small(x) & Large(x)))@x (Tet(x) $ Cube(x))

@@ -1,0 +1,77 @@
+<TITLE>Definability</TITLE>
+<H2>Definability</H2>
+
+<B>Definition:</B> A language is called <I>definable</I> if there
+exists a description that determines whether a given word
+belongs to that language or not. Such a description is called a
+<I>definition</I>.
+<P>
+<B>Proposition:</B> The definable languages are closed under
+complementation, union and intersection.
+<P>
+<B>Proof:</B> A language can simply be <I>defined</I> as the intersection of
+two given languages. The same argument applies to union and complementation.
+<P>
+<B>Proposition:</B> Recognizable languages (and thus also decidable
+languages) are definable.
+<P>
+<B>Proof:</B> An algorithm recognizing a language constitutes one of
+the ways in which that language can be defined.
+<P>
+<B>Temporary assumption:</B> Definability is well defined above.
+<P>
+I will show that this assumption is incorrect.
+<P>
+Take as alphabet all symbols used for communication, and consider the
+definitions of languages over that alphabet. Such a definition can be
+given as a string over that very alphabet, and such a string may or
+may not belong to the language defined by that very string. Thus one
+distinguishes those definitions (represented as strings) that define a
+language that contains that definition itself, from those that don't.
+<P>
+<B>Definition:</B>
+Let L be the set of those definitions - represented as strings - of
+languages that do not contain that definition.
+<P>
+<B>Paradox:</B>
+Let d be the definition of L displayed above.  Suppose that L contains
+d. Then, by definition d, d does not belong to L, which is a
+contradiction.  Now suppose that L does not contain d. Then, by
+definition d, d is in L, which is a contradiction as well.  
+<P>
+As both possibilities concerning d being in L lead to a contradiction,
+L is not well-defined, and d cannot be a correct definition.
+The reason is that d says, in essence, that L contains d exactly when
+it does not contain d. Surely that's a bad way to define L.
+<P>
+It is of importance to rule out bad definitions, such as d above.
+Let us for the moment assume that we have done this, and that there is
+perfect clarity on what exactly counts as a valid definition, and
+consequently what is a definable language.  Note that this is the
+temporary assumption mentioned above.
+Now the description d of the language L given above becomes totally
+unambiguous: surely for every correct definition c of a language it is
+determined whether that language contains c or not. Thus we find:
+<P>
+<B>Theorem:</B> There exists an undefinable language.	
+<P>
+<B>Proof:</B> The language L is undefinable. Namely its definition d
+is flawed, as we established before, and if the language L would have
+any other definition that wasn't flawed, the same paradox would arise.
+<P>
+Still, L has an unambiguous description that determines exactly
+whether a given word belongs to that language or not. This description
+therefore satisfies our definition of a definition.
+
+Thus, with every formal concept of a definable language, we can find a
+language that does not satisfy that concept of definability, but
+still has what could be regarded as a valid definition.
+The conclusion is that the concept of definability is not
+well-defined.
+
+<HR>
+<TABLE border=0 width=100%><TR><TD>
+<A HREF=../..>Rob van Glabbeek</A>
+</TD><TD Align=right>
+<A HREF=mailto:rvg@cs.stanford.edu>rvg@cs.stanford.edu</A>
+</TD></TR></TABLE>

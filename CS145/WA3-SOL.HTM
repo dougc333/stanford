@@ -1,0 +1,288 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Sample Solution for Written Assignment 3</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p>CS145 Spring &#146;00 Professor Widom<br>
+Sample Solution for Written Assignment 3</p>
+
+<p>Relational algebra operators
+are written in text, braces represent
+subscripts.</p>
+
+<p><strong>Question 1a<br>
+</strong>PROJECT <font size="2">{ model }</font> (SELECT <font
+size="2">{ speed &gt;= 150 }</font> PC)</p>
+
+<p><strong>Question 1b<br>
+</strong>PROJECT <font size="2">{ maker }</font> (SELECT <font
+size="2">{ hd &gt;= 1.00 }</font> (Laptop) JOIN Product)</p>
+
+<p><strong>Question 1c<br>
+</strong>PROJECT <font size="2">{ model, price }</font> (SELECT <font
+size="2">{ maker = B }</font> (Product JOIN<br>
+(PROJECT <font size="2">{ model, price }</font> (PC) UNION
+PROJECT <font size="2">{ model, price }</font> (Laptop) UNION
+PROJECT <font size="2">{ model, price }</font> (Printer))<br>
+))</p>
+
+<p><strong>Question 1d<br>
+</strong>PROJECT <font size="2">{ model }</font> (SELECT <font
+size="2">{ color = true AND type = laser }</font> (Printer))</p>
+
+<p><strong>Question 1e<br>
+</strong>PROJECT <font size="2">{ maker }</font> (Product JOIN
+Laptop) - PROJECT <font size="2">{ maker }</font> (Product JOIN
+PC)</p>
+
+<p><strong>Question 1f<br>
+</strong>PROJECT <font size="2">{ A.hd }</font> (SELECT <font
+size="2">{ A.model &lt; B.model AND A.hd = B.hd }</font> (RENAME <font
+size="2">{ A }</font> (PC) X RENAME <font size="2">{ B }</font>
+(PC)))</p>
+
+<p><strong>Question 1g<br>
+</strong>PROJECT <font size="2">{ A.model, B.model }</font><br>
+(SELECT <font size="2">{ A.model &lt; B.model AND A.speed = B.speed AND
+A.ram = B.ram }</font><br>
+(RENAME <font size="2">{ A }</font> (PC) X RENAME <font size="2">{
+B }</font> (PC))<br>
+)</p>
+
+<p><strong>Question 2a<br>
+</strong>PROJECT <font size="2">{ a }</font> (SELECT <font
+size="2">{ b &gt; 5 }</font> (R))<br>
+-<br>
+PROJECT <font size="2">{ X.a }</font> (SELECT <font size="2">{
+X.a &lt; Y.a AND X.b &gt; 5 AND Y.b &gt; 5}</font> (<br>
+RENAME <font size="2">{ X }</font> (R) X RENAME <font size="2">{
+Y }</font> (R)<br>
+))</p>
+
+<p><strong>Question 2b<br>
+</strong>Cannot write it.</p>
+
+<p><strong>Question 3a<br>
+</strong>PROJECT <font size="2">{ attributes of R }</font> (R
+JOIN S)</p>
+
+<p><strong>Question 3b<br>
+</strong>R - <em>answer to Question 3a</em></p>
+
+<p><strong>Question 4</strong></p>
+
+<blockquote>
+    <table border="0">
+        <tr>
+            <td><strong>PROJ </strong><font size="2"><strong>{ hd
+            }</strong></font><strong> (PC) as a set</strong></td>
+            <td><strong>PROJ </strong><font size="2"><strong>{ hd
+            }</strong></font><strong>(PC) as a bag</strong></td>
+        </tr>
+        <tr>
+            <td>1.6</td>
+            <td>1.6</td>
+        </tr>
+        <tr>
+            <td>2.5</td>
+            <td>1.6</td>
+        </tr>
+        <tr>
+            <td>2.0</td>
+            <td>2.5</td>
+        </tr>
+        <tr>
+            <td>3.1</td>
+            <td>2.5</td>
+        </tr>
+        <tr>
+            <td>3.2</td>
+            <td>2.0</td>
+        </tr>
+        <tr>
+            <td>2.5</td>
+            <td>3.1</td>
+        </tr>
+        <tr>
+            <td>1.2</td>
+            <td>3.2</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>2.0</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>2.5</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>1.2</td>
+        </tr>
+    </table>
+</blockquote>
+
+<p>Average of set expression = 2.27<br>
+Average of bag expression = 2.22</p>
+
+<p><strong>Question 5a<br>
+</strong>SELECT maker, speed<br>
+FROM Product A, Laptop B<br>
+WHERE A.model = B.model AND hd &gt;= 1.00;</p>
+
+<p><strong>Question 5c<br>
+</strong>
+(SELECT maker<br>
+FROM Product<br>
+WHERE type = 'laptop')<br>
+EXCEPT<br>
+(SELECT maker<br>
+FROM Product<br>
+WHERE type = 'PC');</p>
+
+<p><strong>Question 5d<br>
+</strong>SELECT DISTINCT A.hd<br>
+FROM PC A, PC B<br>
+WHERE A.model &lt; B.model AND A.hd = B.hd;</p>
+
+<p><strong>Question 5e<br>
+</strong>SELECT A.model, B.model<br>
+FROM PC A, PC B<br>
+WHERE A.model &lt; B.model AND A.speed = B.speed AND A.ram =
+B.ram;</p>
+
+<p><strong>Question 6<br>
+</strong>There are many possible answers to each of these
+questions. Part (c) was ambiguous due to the use of the
+English word &quot;any.&quot; Most students understood
+&quot;any&quot; to mean &quot;all,&quot; and that is the answer
+given here.</p>
+
+<p><strong>Question 6b-1</strong><br>
+SELECT model<br>
+FROM Printers<br>
+WHERE price &gt;= ALL (SELECT price FROM Printers));</p>
+
+<p>The key of Printers is &quot;model,&quot; so there can be no
+duplicates.</p>
+
+<p><strong>Question 6b-2</strong><br>
+(SELECT model<br>
+FROM Printers)<br>
+EXCEPT<br>
+(SELECT A.model<br>
+FROM Printers A, Printers B<br>
+WHERE A.price &lt; B.price);</p>
+
+<p>We cannot get duplicates: EXCEPT eliminates duplicates, but
+the first subquery can't
+return duplicates anyway.</p>
+
+The following incorrect answer was given by several students.
+Note that aggregates are not allowed in WHERE clauses.</p>
+
+<p>SELECT model<br>
+FROM Printers<br>
+WHERE price = MAX (price);</p>
+
+<p><strong>Question 6c-1<br>
+</strong>SELECT model<br>
+FROM Laptop<br>
+WHERE speed &lt; (SELECT MIN(speed) FROM PC);</p>
+
+<p>No duplicates, same reasoning as 6b-1.</p>
+
+<p><strong>Question 6c-2</strong><br>
+(SELECT model<br>
+FROM Laptop)<br>
+EXCEPT<br>
+(SELECT A.model<br>
+FROM Laptop A, PC B<br>
+WHERE A.speed &gt;= B.speed);</p>
+
+<p>No duplicates, same reasoning as 6b-2.</p>
+
+<p><strong>Question 7e<br>
+</strong>SELECT speed, AVG(price)<br>
+FROM PC<br>
+GROUP BY speed</p>
+
+<p><strong>Question 7g</strong><br>
+SELECT maker<br>
+FROM Product<br>
+WHERE type = 'pc'<br>
+HAVING COUNT(*) &gt;= 3;</p>
+
+<p><strong>Question 8d</strong><br>
+DELETE FROM Laptop WHERE model IN<br>
+(SELECT model FROM Product WHERE maker NOT IN<br>
+(SELECT maker FROM Product WHERE type = 'printer')<br>
+)</p>
+
+<p><strong>Question 8g</strong><br>
+UPDATE Laptop SET screen = screen + 1, price = price - 100<br>
+WHERE model IN<br>
+(SELECT model FROM Product WHERE maker = 'E');</p>
+
+<p><strong>Question 9<br>
+</strong>If you tried to run your queries for this problem in Oracle,
+you probably discovered that &quot;from&quot; is not a valid attribute
+name because it is a SQL keyword.</p>
+
+<p><strong>Question 9a</strong><br>
+SELECT from, to, MIN(cost) AS cost<br>
+FROM Flights<br>
+GROUP BY from, to;</p>
+
+<p><strong>Question 9b</strong><br>
+SELECT from, to MIN(cost) AS cost<br>
+FROM (</p>
+
+<p>(SELECT from, to, cost<br>
+FROM Flights)</p>
+
+<p>UNION<br>
+(SELECT F.from, G.to, (F.cost + G.cost) AS cost<br>
+FROM Flights F, Flights G<br>
+WHERE F.to = G.from<br>
+AND F.from &lt;&gt; G.to);</p>
+
+<p>UNION<br>
+(SELECT F.from, H.to, (F.cost + G.cost + H.cost) AS cost<br>
+FROM Flights F, Flights G, Flights H<br>
+WHERE F.to = G.from AND G.to = H.from<br>
+AND F.from &lt;&gt; H.to));</p>
+
+<p>GROUP BY from, to;</p>
+
+<p><strong>Question 9c</strong><br>
+As a handful of forward-looking students pointed out, you can write the query
+in SQL3 using recursion. But you can't write it in SQL2 since neither iteration nor
+recursion are supported within a single SQL2 query.</p>
+
+<p><strong>Question 10<br>
+</strong>Queries that
+required additional assumptions, such as &quot;length &gt;=
+0,&quot; are not equivalent.</p>
+
+<p>SELECT * FROM Movie WHERE length = length;</p>
+
+<p>SELECT * FROM Movie WHERE length IS NOT NULL;</p>
+
+<p>SELECT * FROM Movie WHERE 0 * length = 0;</p>
+
+<p><strong>Question 11</strong><br>
+We believe the answer is &quot;no,&quot; and noone provided us
+with a counterexample.  A query with a HAVING
+clause can generally be reformulated using a subquery in the FROM clause,
+moving the HAVING test to the outer WHERE clause. It may be necessary to
+use computed attributes in the SELECT clause of the nested query
+so the outer WHERE clause can do the test.</p>
+</body>
+</html>

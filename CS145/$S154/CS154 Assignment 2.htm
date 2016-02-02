@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www-db.stanford.edu/~ullman/hmu/hw2.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 2</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #2</H1>
+<H3 align=center>Due Monday, January 24, 2000, 3:15PM</H3>
+<OL>
+  <LI>(<I>10 pts.</I>) Use the construction outlined in class and the course 
+  reader to convert the regular expression (<B>01</B>*<B>0</B>)* to an 
+  epsilon-NFA. 
+  <P></P>
+  <LI>(<I>15 pts.</I>) Remove epsilon-transitions from your answer to (1). 
+  <P></P>
+  <LI>(<I>15 pts.</I>) Here is a DFA: 
+  <P>
+  <CENTER>
+  <TABLE border=5>
+    <TBODY>
+    <TR>
+      <TH></TH>
+      <TH>0</TH>
+      <TH>1</TH></TR>
+    <TR>
+      <TD>-&gt;A</TD>
+      <TD>B</TD>
+      <TD>A</TD></TR>
+    <TR>
+      <TD>B</TD>
+      <TD>C</TD>
+      <TD>D</TD></TR>
+    <TR>
+      <TD>*C</TD>
+      <TD>F</TD>
+      <TD>E</TD></TR>
+    <TR>
+      <TD>D</TD>
+      <TD>E</TD>
+      <TD>A</TD></TR>
+    <TR>
+      <TD>E</TD>
+      <TD>F</TD>
+      <TD>D</TD></TR>
+    <TR>
+      <TD>*F</TD>
+      <TD>F</TD>
+      <TD>B</TD></TR></TBODY></TABLE></CENTER>
+  <P>Find a minimal equivalent DFA. Show your work, i.e., the results of the 
+  rounds in which you discover new, distinguishable pairs of states. 
+  <P></P>
+  <LI>(<I>15 pts.</I>) A <I>palindrome</I> is a string that equals its own 
+  reverse, such as 0110 or 1011101. Use the pumping lemma to show that the set 
+  of palindromes is not a regular language. Be sure to indicate clearly the 
+  steps of the ``adversarial'' argument, following the models of proofs in the 
+  reader. 
+  <P></P>
+  <LI>(<I>15 pts.</I>) The <I>symmetric difference</I> of two languages <I>L</I> 
+  and <I>M</I> is the set of strings that are in exactly one of <I>L</I> and 
+  <I>M</I>. Prove that if <I>L</I> and <I>M</I> are regular, so is the symmetric 
+  difference of <I>L</I> and <I>M</I>. 
+  <P><I>Requirements</I>: You should read the construction for intersection in 
+  the course reader. The construction for symmetric difference is similar. You 
+  should modify this construction, rather than, say, expressing symmetric 
+  difference in terms of other operations that we know preserve regularity. 
+  Also, remember that you need not only to give a construction, but to prove 
+  that your construction is correct. Your proof should begin with the omitted 
+  induction on the length of <I>w</I> that is mentioned at the bottom of p. 117 
+  of the course reader, showing that the product automaton really does simulate 
+  the automata for <I>L</I> and <I>M</I>. The ideas of the proof are not hard, 
+  but remember to state the important points, including arguments in both 
+  directions for the if-and-only-if. You also need to provide the clincher, that 
+  the accepting states of the product automaton have been correctly selected by 
+  you. 
+  <P></P>
+  <LI>(<I>15 pts.</I>) OK; now for something a little harder. If <I>L</I> is a 
+  language and <I>a</I> a symbol, then <I>L/a</I> is the set of strings <I>w</I> 
+  such that <I>wa</I> is in <I>L</I>. For instance, if <I>L</I> is the language 
+  of RE (<B>01</B>)*, then <I>L</I>/1 has RE (<B>01</B>)*<B>0</B>, and 
+  <I>L</I>/0 is empty. Prove that if <I>L</I> is regular, then so is <I>L/a</I>. 
+  <I>Hint</I>: Try a construction based on a DFA for <I>L</I>. 
+  <P></P>
+  <LI>(<I>15 pts.</I>) And harder still... If <I>L</I> is a language, define 
+  Half(<I>L</I>) to be the set of strings <I>w</I> of length <I>n</I> such that 
+  for some string <I>x</I> of length <I>n</I>, <I>wx</I> is in <I>L</I>. For 
+  instance, if <I>L</I> = {0110, 000011, 111}, then Half(<I>L</I>) = {01, 000}. 
+  Prove that if <I>L</I> is regular, so is Half(<I>L</I>). <I>Hint</I>: To 
+  start, use a DFA <I>A</I> for <I>L</I>. Design a new DFA that, after reading 
+  <I>w</I>, knows what <I>A</I> would do on any string whose length is equal to 
+  that of <I>w</I>. If that is not enough help, you will find another hint on 
+  the class Web page. You are free to consult it, but I would like people to 
+  think about this construction first, at least for a while. 
+</LI></OL></BODY></HTML>

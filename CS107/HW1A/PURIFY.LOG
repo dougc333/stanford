@@ -1,0 +1,298 @@
+****  Purify instrumented analyze.purify (pid 9326 at Thu Dec 14 21:15:57 2000)
+  * Purify 5.2 Solaris 2 (32-bit), Copyright (C) 1992-2000 Rational Software Corp. All rights reserved. 
+  * For contact information type: "purify -help"
+  * Command-line: analyze.purify 
+  * Options settings: -purify -log-file=purify.log -cache-dir=/tmp/dougc \
+    -purify-home=/usr/pubsw/apps/rational-15/releases/purify-5.2-solaris2 
+  * License successfully checked out.
+  * Command-line: analyze.purify dougc 
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABW: Array bounds write:
+  * This is occurring while in:
+	NewScannerFromFilename [scanner.c:36]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Writing 4 bytes to 0x915ec in the heap.
+  * Address 0x915ec is 1 byte past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	malloc         [rtlib.o]
+	NewScannerFromFilename [scanner.c:35]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABW: Array bounds write:
+  * This is occurring while in:
+	NewScannerFromFilename [scanner.c:37]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Writing 4 bytes to 0x915f8 in the heap.
+  * Address 0x915f8 is 13 bytes past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	malloc         [rtlib.o]
+	NewScannerFromFilename [scanner.c:35]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABW: Array bounds write:
+  * This is occurring while in:
+	NewScannerFromFilename [scanner.c:38]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Writing 4 bytes to 0x915f4 in the heap.
+  * Address 0x915f4 is 9 bytes past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	malloc         [rtlib.o]
+	NewScannerFromFilename [scanner.c:35]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABR: Array bounds read:
+  * This is occurring while in:
+	NewScannerFromFilename [scanner.c:40]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 4 bytes from 0x915ec in the heap.
+  * Address 0x915ec is 1 byte past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	malloc         [rtlib.o]
+	*unknown func* [pc=0x1]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABW: Array bounds write:
+  * This is occurring while in:
+	NewScannerFromFilename [scanner.c:45]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Writing 4 bytes to 0x915f0 in the heap.
+  * Address 0x915f0 is 5 bytes past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	malloc         [rtlib.o]
+	*unknown func* [pc=0x1]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABR: Array bounds read:
+  * This is occurring while in:
+	NewScannerFromFilename [scanner.c:47]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 4 bytes from 0x915f0 in the heap.
+  * Address 0x915f0 is 5 bytes past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	*unknown func* [pc=0x91490]
+	*unknown func* [pc=0x1]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABR: Array bounds read:
+  * This is occurring while in:
+	ReadNextToken  [scanner.c:130]
+	ExtractWordsIntoList [analyze.c:168]
+	AnalyzeUserPage [analyze.c:142]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 4 bytes from 0x915f0 in the heap.
+  * Address 0x915f0 is 5 bytes past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	*unknown func* [pc=0x91490]
+	*unknown func* [pc=0x1]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+UMR: Uninitialized memory read:
+  * This is occurring while in:
+	ExtractWordsIntoList [analyze.c:169]
+	AnalyzeUserPage [analyze.c:142]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 1 byte from 0xffbe56f0 on the stack.
+  * Address 0xffbe56f0 is local variable "word" in function ExtractWordsIntoList.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+UMR: Uninitialized memory read:
+  * This is occurring while in:
+	strlen         [rtlib.o]
+	ExtractWordsIntoList [analyze.c:171]
+	AnalyzeUserPage [analyze.c:142]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 13 bytes from 0xffbe56f0 on the stack.
+  * Address 0xffbe56f0 is local variable "word" in function ExtractWordsIntoList.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+UMR: Uninitialized memory read:
+  * This is occurring while in:
+	ContainsOnlyAscii [analyze.c:261]
+	ExtractWordsIntoList [analyze.c:171]
+	AnalyzeUserPage [analyze.c:142]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 1 byte from 0xffbe56f0 on the stack.
+  * Address 0xffbe56f0 is local variable "word" in function ExtractWordsIntoList.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+UMR: Uninitialized memory read:
+  * This is occurring while in:
+	ContainsOnlyAscii [analyze.c:262]
+	ExtractWordsIntoList [analyze.c:171]
+	AnalyzeUserPage [analyze.c:142]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 1 byte from 0xffbe56f0 on the stack.
+  * Address 0xffbe56f0 is local variable "word" in function ExtractWordsIntoList.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+UMR: Uninitialized memory read:
+  * This is occurring while in:
+	ReadNextToken  [scanner.c:131]
+	ExtractWordsIntoList [analyze.c:168]
+	AnalyzeUserPage [analyze.c:142]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 1 byte from 0xffbe567f on the stack.
+  * Address 0xffbe567f is local variable "string" in function ReadNextToken.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+UMR: Uninitialized memory read:
+  * This is occurring while in:
+	ReadNextToken  [scanner.c:133]
+	ExtractWordsIntoList [analyze.c:168]
+	AnalyzeUserPage [analyze.c:142]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 1 byte from 0xffbe567f on the stack.
+  * Address 0xffbe567f is local variable "string" in function ReadNextToken.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+UMR: Uninitialized memory read:
+  * This is occurring while in:
+	ReadNextToken  [scanner.c:133]
+	ExtractWordsIntoList [analyze.c:168]
+	AnalyzeUserPage [analyze.c:142]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 1 byte from 0xffbe567f on the stack.
+  * Address 0xffbe567f is local variable "string" in function ReadNextToken.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+FNH: Freeing non heap memory:
+  * This is occurring while in:
+	free           [rtlib.o]
+	FreeScanner    [scanner.c:110]
+	AnalyzeUserPage [analyze.c:145]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Attempting to free block at 0x6add8 in the text section.
+  * Address 0x6add8 is      632 bytes past start of global variable "_lib_version".
+    This is defined in analyze.purify.
+  * Note: Some 'free's permit freeing such memory, but this is not portable.
+    To suppress this error, add 'suppress fnh *' to your .purify file.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABR: Array bounds read:
+  * This is occurring while in:
+	FreeScanner    [scanner.c:111]
+	AnalyzeUserPage [analyze.c:145]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 4 bytes from 0x915f4 in the heap.
+  * Address 0x915f4 is 9 bytes past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	*unknown func* [pc=0x91490]
+	*unknown func* [pc=0x1]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+ABR: Array bounds read:
+  * This is occurring while in:
+	FreeScanner    [scanner.c:112]
+	AnalyzeUserPage [analyze.c:145]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Reading 4 bytes from 0x915f0 in the heap.
+  * Address 0x915f0 is 5 bytes past end of a malloc'd block at 0x915e8 of 4 bytes.
+  * This block was allocated from:
+	*unknown func* [pc=0x91490]
+	*unknown func* [pc=0x1]
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+FNH: Freeing non heap memory:
+  * This is occurring while in:
+	free           [rtlib.o]
+	FreeScanner    [scanner.c:112]
+	AnalyzeUserPage [analyze.c:145]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+  * Attempting to free block at 0x91490 in the zero'd data, bss section.
+  * Address 0x91490 is       48 bytes past start of global variable "_iob".
+    This is defined in analyze.purify.
+  * Note: Some 'free's permit freeing such memory, but this is not portable.
+    To suppress this error, add 'suppress fnh *' to your .purify file.
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+Current file descriptors in use: 6
+FIU: file descriptor 0: <stdin>
+FIU: file descriptor 1: <stdout>
+FIU: file descriptor 2: <stderr>
+FIU: file descriptor 3: "/afs/ir.stanford.edu/users/d/o/dougc/WWW/index.html", O_RDONLY
+   * File info: -rw-------  1 dougc    <unknown>      8647 Dec 14 12:24
+   * File position: 8647
+   * This file descriptor was allocated from:
+	__open         [libc.so.1]
+	_open          [libc.so.1]
+	_endopen       [libc.so.1]
+	fopen          [libc.so.1]
+	NewScannerFromFilename [scanner.c:45]
+	AnalyzeUserPage [analyze.c:132]
+FIU: file descriptor 26: <reserved for Purify internal use>
+FIU: file descriptor 27: <reserved for Purify internal use>
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+Purify: Searching for all memory leaks...
+
+Memory leaked: 36 bytes (0.437%); potentially leaked: 0 bytes (0%)
+
+MLK: 36 bytes leaked at 0x91640
+  * This memory was allocated from:
+	malloc         [rtlib.o]
+	NewScannerFromFilename [scanner.c:42]
+	AnalyzeUserPage [analyze.c:132]
+	main           [analyze.c:92]
+	_start         [crt1.o]
+
+Purify Heap Analysis (combining suppressed and unsuppressed blocks)
+                         Blocks        Bytes
+              Leaked          1           36
+  Potentially Leaked          1         8200
+              In-Use          0            0
+  ----------------------------------------
+     Total Allocated          2         8236
+
+****  Purify instrumented analyze.purify (pid 9326)  ****
+  * Program exited with status code 0.
+  * 18 access errors, 43249 total occurrences.
+  * 36 bytes leaked.
+  * 0 bytes potentially leaked.
+  * Basic memory usage (including Purify overhead):
+    373948 code
+    90356 data/bss
+    16384 heap (peak use)
+    1744 stack
+  * Shared library memory usage (including Purify overhead):
+    1456 libpure_solaris2_init.so.1 (shared code)
+    252 libpure_solaris2_init.so.1 (private data)
+    1051896 libc.so.1_pure_p3_c0_520_57_32_1115532 (shared code)
+    108024 libc.so.1_pure_p3_c0_520_57_32_1115532 (private data)
+    2360 libdl.so.1_pure_p3_c0_520_57_32_4600 (shared code)
+    4 libdl.so.1_pure_p3_c0_520_57_32_4600 (private data)
+    13528 libinternal_stubs.so.1 (shared code)
+    916 libinternal_stubs.so.1 (private data)
+    14284 libc_psr.so.1_pure_p3_c0_520_57_32 (shared code)
+    0 libc_psr.so.1_pure_p3_c0_520_57_32 (private data)
+

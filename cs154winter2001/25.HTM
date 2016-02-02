@@ -1,0 +1,28 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Solutions to problem 5</title>
+</head>
+
+<body>
+
+<p>Solutions to problem 5 . Assignment 2.</p>
+<p>&nbsp; Let L be a non-empty regular language and M be the DFA with minimum
+number of states accepting L. Let M contain n states.</p>
+<p>Since L is non-empty L has at least one string. Let us for sake of
+contradiction assume that all strings accepted by M had length &gt;=n. Therefore
+if w is the minimum length string in L, |w| &gt;=n. Also note that n happens to
+be the same as &quot;p&quot; for the pumping lemma, i.e., it is the number s.t.
+for any string whose length is greater than it, the string can be pumped. So w
+can be pumped. We pump w down once to get a string w' of length less than w
+which is in the language. Thus we conclude that w cannot be pumped. In other
+words the minimum length string must have length &lt; p or n.</p>
+<p>Q.E.D.</p>
+
+</body>
+
+</html>

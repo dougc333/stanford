@@ -1,0 +1,75 @@
+tcpdump: listening on eth0
+there are 5 open sockets
+device is:(null)
+device is:eth0
+
+20:59:49.901707 epaphus.SLAC.Stanford.EDU.744 > NIS3.SLAC.Stanford.EDU.728:  udp 112 (DF)
+20:59:49.902097 NIS3.SLAC.Stanford.EDU.728 > epaphus.SLAC.Stanford.EDU.744:  udp 32 (DF)
+20:59:49.906621 epaphus.SLAC.Stanford.EDU.746 > NIS3.SLAC.Stanford.EDU.sunrpc:  udp 56 (DF)
+20:59:49.907155 NIS3.SLAC.Stanford.EDU.sunrpc > epaphus.SLAC.Stanford.EDU.746:  udp 28 (DF)
+20:59:49.907274 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: S 357089057:357089057(0) win 5840 <mss 1460,sackOK,timestamp 173514107[|tcp]> (DF)
+20:59:49.907519 NIS3.SLAC.Stanford.EDU.32771 > epaphus.SLAC.Stanford.EDU.747: S 1734964950:1734964950(0) ack 357089058 win 10136 <nop,nop,timestamp 1836636891 173514107,nop,[|tcp]> (DF)
+20:59:49.907565 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: . ack 1 win 182 <nop,nop,timestamp 173514107 1836636891> (DF)
+20:59:49.907686 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: P 1:93(92) ack 1 win 182 <nop,nop,timestamp 173514107 1836636891> (DF)
+20:59:49.907844 NIS3.SLAC.Stanford.EDU.32771 > epaphus.SLAC.Stanford.EDU.747: . ack 93 win 10044 <nop,nop,timestamp 1836636891 173514107> (DF)
+20:59:49.915564 NIS3.SLAC.Stanford.EDU.32771 > epaphus.SLAC.Stanford.EDU.747: . 1:1449(1448) ack 93 win 10136 <nop,nop,timestamp 1836636892 173514107> (DF)
+20:59:49.915603 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: . ack 1449 win 271 <nop,nop,timestamp 173514108 1836636892> (DF)
+20:59:49.915685 NIS3.SLAC.Stanford.EDU.32771 > epaphus.SLAC.Stanford.EDU.747: P 1449:2897(1448) ack 93 win 10136 <nop,nop,timestamp 1836636892 173514107> (DF)
+20:59:49.915731 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: . ack 2897 win 362 <nop,nop,timestamp 173514108 1836636892> (DF)
+20:59:49.916137 NIS3.SLAC.Stanford.EDU.32771 > epaphus.SLAC.Stanford.EDU.747: . 2897:4345(1448) ack 93 win 10136 <nop,nop,timestamp 1836636892 173514108> (DF)
+20:59:49.916178 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: . ack 4345 win 452 <nop,nop,timestamp 173514108 1836636892> (DF)
+20:59:49.916154 NIS3.SLAC.Stanford.EDU.32771 > epaphus.SLAC.Stanford.EDU.747: P 4345:4613(268) ack 93 win 10136 <nop,nop,timestamp 1836636892 173514108> (DF)
+20:59:49.916210 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: . ack 4613 win 452 <nop,nop,timestamp 173514108 1836636892> (DF)
+20:59:49.916445 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: F 93:93(0) ack 4613 win 452 <nop,nop,timestamp 173514108 1836636892> (DF)
+20:59:49.916583 NIS3.SLAC.Stanford.EDU.32771 > epaphus.SLAC.Stanford.EDU.747: . ack 94 win 10136 <nop,nop,timestamp 1836636892 173514108> (DF)
+20:59:49.918278 epaphus.SLAC.Stanford.EDU.1843 > NS1.SLAC.Stanford.EDU.domain:  27864+[|domain] (DF)
+20:59:49.918519 NIS3.SLAC.Stanford.EDU.32771 > epaphus.SLAC.Stanford.EDU.747: F 4613:4613(0) ack 94 win 10136 <nop,nop,timestamp 1836636892 173514108> (DF)
+20:59:49.918552 epaphus.SLAC.Stanford.EDU.747 > NIS3.SLAC.Stanford.EDU.32771: . ack 4614 win 452 <nop,nop,timestamp 173514108 1836636892> (DF)
+20:59:49.918683 NS1.SLAC.Stanford.EDU.domain > epaphus.SLAC.Stanford.EDU.1843:  27864*[|domain] (DF)
+20:59:49.919386 epaphus.SLAC.Stanford.EDU.1843 > NS1.SLAC.Stanford.EDU.domain:  12016+[|domain] (DF)
+20:59:49.919748 NS1.SLAC.Stanford.EDU.domain > epaphus.SLAC.Stanford.EDU.1843:  12016* 1/3/3 (191) (DF)
+20:59:49.920947 epaphus.SLAC.Stanford.EDU.1843 > NS1.SLAC.Stanford.EDU.domain:  51503+[|domain] (DF)
+20:59:49.921330 NS1.SLAC.Stanford.EDU.domain > epaphus.SLAC.Stanford.EDU.1843:  51503*[|domain] (DF)
+20:59:50.015916 transfer1.stanford.edu.43936 > epaphus.SLAC.Stanford.EDU.auth: S 582178919:582178919(0) win 8760 <mss 1460> (DF)
+20:59:50.015942 epaphus.SLAC.Stanford.EDU.auth > transfer1.stanford.edu.43936: R 0:0(0) ack 582178920 win 0 (DF)
+20:59:50.017885 transfer1.stanford.edu.ftp > epaphus.SLAC.Stanford.EDU.1275: P 582141718:582141813(95) ack 352163703 win 10136 <nop,nop,timestamp 469096113 173514106> (DF) [tos 0x10] 
+20:59:50.017957 epaphus.SLAC.Stanford.EDU.1275 > transfer1.stanford.edu.ftp: . ack 95 win 182 <nop,nop,timestamp 173514118 469096113> (DF) [tos 0x10] 
+20:59:50.185392 802.1d config c000.00:50:50:85:10:8b.8292 root 0064.00:d0:c0:52:68:8b pathcost 3004 age 1 max 20 hello 2 fdelay 15 
+20:59:50.310398 RTR-CORE1A.SLAC.Stanford.EDU.hsrp > ALL-ROUTERS.MCAST.NET.hsrp:  udp 20 [tos 0xc0] 
+20:59:50.310721 epaphus.SLAC.Stanford.EDU.1843 > NS1.SLAC.Stanford.EDU.domain:  64257+[|domain] (DF)
+20:59:50.311108 NS1.SLAC.Stanford.EDU.domain > epaphus.SLAC.Stanford.EDU.1843:  64257[|domain] (DF)
+20:59:50.311486 epaphus.SLAC.Stanford.EDU.1843 > NS1.SLAC.Stanford.EDU.domain:  27865+[|domain] (DF)
+20:59:50.311879 NS1.SLAC.Stanford.EDU.domain > epaphus.SLAC.Stanford.EDU.1843:  27865* 1/3/3 (197) (DF)
+20:59:51.206110 CDP v2, ttl=180s
+	 DevID '069047640(swh-cgb4)'
+	 Addr (1): IPv4 134.79.199.57   [!cdp]
+20:59:52.185279 802.1d config c000.00:50:50:85:10:8b.8292 root 0064.00:d0:c0:52:68:8b pathcost 3004 age 1 max 20 hello 2 fdelay 15 
+20:59:52.356390 RTR-CORE1B.SLAC.Stanford.EDU.hsrp > ALL-ROUTERS.MCAST.NET.hsrp:  udp 20 [tos 0xc0] 
+20:59:52.356728 epaphus.SLAC.Stanford.EDU.1843 > NS1.SLAC.Stanford.EDU.domain:  41925+[|domain] (DF)
+20:59:52.357119 NS1.SLAC.Stanford.EDU.domain > epaphus.SLAC.Stanford.EDU.1843:  41925* 1/3/3 (197) (DF)
+20:59:53.222433 RTR-CORE1A.SLAC.Stanford.EDU.hsrp > ALL-ROUTERS.MCAST.NET.hsrp:  udp 20 [tos 0xc0] 
+20:59:53.530159 epaphus.SLAC.Stanford.EDU.1275 > transfer1.stanford.edu.ftp: P 1:13(12) ack 95 win 182 <nop,nop,timestamp 173514469 469096113> (DF) [tos 0x10] 
+20:59:53.530858 transfer1.stanford.edu.ftp > epaphus.SLAC.Stanford.EDU.1275: . ack 13 win 10136 <nop,nop,timestamp 469096464 173514469> (DF) [tos 0x10] 
+20:59:53.556782 transfer1.stanford.edu.ftp > epaphus.SLAC.Stanford.EDU.1275: P 95:129(34) ack 13 win 10136 <nop,nop,timestamp 469096466 173514469> (DF) [tos 0x10] 
+20:59:53.556818 epaphus.SLAC.Stanford.EDU.1275 > transfer1.stanford.edu.ftp: . ack 129 win 182 <nop,nop,timestamp 173514472 469096466> (DF) [tos 0x10] 
+20:59:53.672858 epaphus.SLAC.Stanford.EDU.605 > NIS3.SLAC.Stanford.EDU.728:  udp 68 (DF)
+20:59:53.673107 NIS3.SLAC.Stanford.EDU.728 > epaphus.SLAC.Stanford.EDU.605:  udp 28 (DF)
+20:59:54.185398 802.1d config c000.00:50:50:85:10:8b.8292 root 0064.00:d0:c0:52:68:8b pathcost 3004 age 1 max 20 hello 2 fdelay 15 
+20:59:55.088421 RTR-CORE1B.SLAC.Stanford.EDU.hsrp > ALL-ROUTERS.MCAST.NET.hsrp:  udp 20 [tos 0xc0] 
+20:59:55.530181 epaphus.SLAC.Stanford.EDU.1275 > transfer1.stanford.edu.ftp: P 13:28(15) ack 129 win 182 <nop,nop,timestamp 173514669 469096466> (DF) [tos 0x10] 
+20:59:55.627356 transfer1.stanford.edu.ftp > epaphus.SLAC.Stanford.EDU.1275: . ack 28 win 10136 <nop,nop,timestamp 469096674 173514669> (DF) [tos 0x10] 
+20:59:55.926493 RTR-CORE1A.SLAC.Stanford.EDU.hsrp > ALL-ROUTERS.MCAST.NET.hsrp:  udp 20 [tos 0xc0] 
+20:59:56.185863 802.1d config c000.00:50:50:85:10:8b.8292 root 0064.00:d0:c0:52:68:8b pathcost 3004 age 1 max 20 hello 2 fdelay 15 
+20:59:56.755060 transfer1.stanford.edu.ftp > epaphus.SLAC.Stanford.EDU.1275: P 129:207(78) ack 28 win 10136 <nop,nop,timestamp 469096786 173514669> (DF) [tos 0x10] 
+20:59:56.755118 epaphus.SLAC.Stanford.EDU.1275 > transfer1.stanford.edu.ftp: . ack 207 win 182 <nop,nop,timestamp 173514792 469096786> (DF) [tos 0x10] 
+20:59:56.757903 transfer1.stanford.edu.ftp > epaphus.SLAC.Stanford.EDU.1275: P 207:502(295) ack 28 win 10136 <nop,nop,timestamp 469096787 173514792> (DF) [tos 0x10] 
+20:59:56.757944 epaphus.SLAC.Stanford.EDU.1275 > transfer1.stanford.edu.ftp: . ack 502 win 201 <nop,nop,timestamp 173514792 469096787> (DF) [tos 0x10] 
+20:59:56.772379 epaphus.SLAC.Stanford.EDU.1275 > transfer1.stanford.edu.ftp: P 28:34(6) ack 502 win 201 <nop,nop,timestamp 173514793 469096787> (DF) [tos 0x10] 
+20:59:56.773895 transfer1.stanford.edu.ftp > epaphus.SLAC.Stanford.EDU.1275: P 502:521(19) ack 34 win 10136 <nop,nop,timestamp 469096788 173514793> (DF) [tos 0x10] 
+20:59:56.773941 epaphus.SLAC.Stanford.EDU.1275 > transfer1.stanford.edu.ftp: . ack 521 win 201 <nop,nop,timestamp 173514794 469096788> (DF) [tos 0x10] 
+20:59:57.652452 RTR-CORE1B.SLAC.Stanford.EDU.hsrp > ALL-ROUTERS.MCAST.NET.hsrp:  udp 20 [tos 0xc0] 
+20:59:58.185632 802.1d config c000.00:50:50:85:10:8b.8292 root 0064.00:d0:c0:52:68:8b pathcost 3004 age 1 max 20 hello 2 fdelay 15 
+20:59:58.754530 RTR-CORE1A.SLAC.Stanford.EDU.hsrp > ALL-ROUTERS.MCAST.NET.hsrp:  udp 20 [tos 0xc0] 
+
+67 packets received by filter
+0 packets dropped by kernel

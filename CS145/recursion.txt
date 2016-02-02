@@ -1,0 +1,258 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - Recursion in SQL3
+=========================================================================
+
+** Section 5.10 in the textbook covers SQL3 recursion but assumes
+knowledge of "Datalog", which we have not covered.  Everything you
+need to know about SQL3 recursion is covered in this lecture.
+
+
+Ex: Ancestors
+
+    Relation: ParentOf(parent,child)
+
+    Query: Find all of Mary's ancestors
+
+Q: Can we write the query in SQL2?
+
+
+
+
+Ex: Company hierarchy
+
+    Relations: Employee(ID, salary)
+               Manager(mgrID, empID)
+               Project(name, mgrID)
+
+    Query: What's the total salary cost of project "X"
+
+Q: Can we write the query in SQL2?
+
+
+
+
+Ex: Cheapest flight routes from homework
+
+Q: Can we write the query in SQL2?
+
+
+
+
+SQL3 WITH statement
+-------------------
+
+WITH R1 AS (query),
+     R2 AS (query),
+     ...,
+     Rn AS (query)
+<query involving R1, R2, ..., Rn and other relations>
+
+
+Idea: (1) Compute R1, R2, ..., Rn into temporary relations
+      (2) Evaluate the query involving R1, ...., Rn and other relations
+      (3) Destroy R1, R2, ..., Rn
+
+
+- Can also specify schema for Ri's:
+
+WITH R1(A1, A2, ..., Am) AS (query), ...
+
+
+Ex:  WITH Berk AS (SELECT ID, date FROM Apply WHERE location = "Berkeley"),
+          SC AS (SELECT ID, date FROM Apply WHERE location = "SC")
+     SELECT ID, Berk.date AS Bdate, SC.date AS SCdate
+     FROM   Berk, SC
+     WHERE  Berk.ID = SC.ID
+
+
+
+- WITH statement looks like "temporary view definitions" for syntactic
+  convenience.
+
+-> BUT: The Ri's can be recursive or mutually recursive
+
+- Must tag with keyword RECURSIVE
+
+- Recursion usually achieved through UNION of base case + recursion
+
+
+Ex: Find Mary's ancestors from ParentOf(parent,child)
+
+   WITH RECURSIVE Ancestor(anc,desc) AS
+          ( (SELECT parent as anc, child as desc FROM ParentOf)
+            UNION
+            (SELECT Ancestor.anc, ParentOf.child as desc
+             FROM Ancestor, ParentOf
+             WHERE Ancestor.desc = ParentOf.parent) )
+   SELECT anc FROM Ancestor WHERE desc = "Mary"
+
+<show procedural evaluation with fixpoint>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ex: Total salary cost of Project "X"
+
+   WITH RECURSIVE AllMgrs AS
+          ( (SELECT * from Manager)
+            UNION
+            (SELECT M1.mgrID, M2.empID
+             FROM AllMgrs M1, AllMgrs M2
+             WHERE M1.empID = M2.mgrID) )
+   SELECT sum(Employee.salary)
+   FROM Project, AllMgrs, Employee
+   WHERE Project.name = "X"
+   AND Project.mgrID = AllMgrs.mgrID
+   AND (Employee.ID = AllMgrs.empID OR
+        Employee.ID = AllMgrs.mgrID)
+
+<show example data and computation>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Alternative formulation:
+
+   WITH RECURSIVE Xemps(ID) AS
+          ( (SELECT mgrID as ID
+             FROM Manager
+             WHERE mgrID IN
+               (SELECT mgrID FROM Project WHERE name = "X"))
+            UNION
+            (SELECT empID AS ID
+             FROM Manager
+             WHERE mgrID IN (Select ID FROM Xemps)) )
+   SELECT sum(salary)
+   FROM   Employee
+   WHERE  ID IN (SELECT ID FROM Xemps)
+
+<show computation>
+
+
+
+
+
+
+
+
+
+
+
+
+Some restrictions and features
+------------------------------
+
+- SQL3 only requires support of "linear" recursion: each FROM has at
+  most one reference to a recursively-defined relation.
+
+Q: Are our three examples linear?
+
+
+
+Q: Can our three examples be made linear?
+
+
+
+
+
+
+
+
+- WITH relations can be declared as VIEWS
+
+
+Ex:  WITH VIEW Berk AS (SELECT ID, date FROM Apply WHERE location = "Berkeley"),
+          VIEW SC AS (SELECT ID, date FROM Apply WHERE location = "SC")
+     SELECT ID, Berk.date AS Bdate, SC.date AS SCdate
+     FROM Berk, SC
+     WHERE Berk.ID = SC.ID
+
+
+Difference: don't calculate Berk and SC first, fold into query instead
+
+-> For recursively defined relations can sometimes but not always fold in
+
+
+Mutual recursion
+----------------
+
+Contrived example:
+
+
+Sales(ID,amt)
+
+- Employees who sold > 10,000 and don't get a bonus go to the banquet
+- Employees who sold > 20,000 and don't go to the banquet get a bonus
+
+
+WITH RECURSIVE Banquet(ID) AS
+       (SELECT ID
+        FROM Sales
+        WHERE amt > 10,000
+        AND ID NOT IN (SELECT ID FROM Bonus)),
+     RECURSIVE Bonus(ID) AS
+       (SELECT ID
+        FROM Sales
+        WHERE amt > 20,000
+        AND ID NOT IN (SELECT ID FROM Banquet)),
+<any query>
+
+
+Q: What's wrong?
+
+
+
+
+
+
+
+
+Problem: "Bad mix" of recursion and negation (NOT IN).
+
+Solution: SQL3 does not allow mutual recursion if one relation depends
+"negatively" on another (i.e., insertions into one can cause deletions
+from the other other)
+
+
+- Other tricky cases of mutual recursion also disallowed.
+
+
+Ex: Given Q(x)
+
+    P(x) = Q(x) UNION R(x)
+    R(x) = P(x) UNION sum(P(x))
+
+Q: What happens?
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+5
+?x (Tet(b) & Smaller(b, e))~?x (Cube(x) & Medium(x))~?x FrontOf(b, b)?x (FrontOf(x, e) | BackOf(x, e))~@x(Between(x, a, c))

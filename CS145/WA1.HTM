@@ -1,0 +1,200 @@
+<title> CS145 Written Assignment 1 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Written Assignment #1
+<br>Due Wednesday April 12</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>Turn-in procedure and late policy reminder</h4>
+
+<ul>
+
+<li> <b>Assignments must be turned in on paper.</b> On your assignment
+please include your name and your preferred email address.
+
+<p> <li> <b>On-campus students:</b> Your assignment must be turned in
+by 5:00 PM on Wednesday April 12.  You may turn the assignment in during
+class on Wednesday, or you may turn it in at the course administrator's
+office: Marianne Siroker, Gates 436.  Assignments less than 24 hours
+late will be penalized 10%.  Assignments more than 24 but less than 48
+hours late will be penalized 30%.  No assignments will be accepted
+after 5:00 PM on Friday April 14.
+
+<p><li> <b>SITN students:</b> Your assignment must be timestamped by
+the courier on Thursday April 13.  Late assignments timestamped by the
+courier on Friday April 14 will be penalized 20%.  Assignments
+timestamped later than April 14 will not be accepted.  Assignments not
+sent by SITN courier are subject to the late policy for on-campus
+students specified above.  No late assignments are permitted for
+remote SITN students.
+
+<p><li> <b>For emergencies:</b> Since emergencies do arise, each
+student is allocated four "chits".  Each chit may be used to turn in a
+single assignment up to 24 hours late with no penalty, or two chits
+for up to 48 hours late.  For SITN students, two chits are required to
+turn in an assignment one courier-day late.  As with penalized late
+work, no assignments will be accepted more than 48 hours (or one
+courier-day) late.  We'll keep track of your chits automatically.
+
+</ul>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<h4>The assignment</h4>
+
+<h4>Problem 1</h4>
+
+In the E/R model, consider a relationship set <i>R</i> between two
+entity sets <i>E1</i> and <i>E2</i>.  Does it ever make sense for the
+same pair of entities <i>e1</i> (from <i>E1</i>) and <i>e2</i> (from
+<i>E2</i>) to participate in the relationship set more than once?
+That is, might we ever want to have two (or more) instances of
+(<i>e1</i>, <i>e2</i>) in <i>R</i>?  If not, explain why not.  If so,
+give a real-world example: give details of two entity sets and a
+relationship set that model a real-world domain where we might have a
+pair of entities related more than once.
+
+<h4>Problem 2</h4>
+
+<i>Hints: There is some interplay between Problem 1 and at least
+one part of this problem, and not every part of this problem
+necessarily has a single correct answer.</i>
+
+<ul>
+
+<li><b>Part (a)</b> Consider a relationship set <i>R</i> between two
+entity sets <i>E1</i> and <i>E2</i>.  Let <i>K1</i> and <i>K2</i> be
+the key attributes for <i>E1</i> and <i>E2</i>, respectively.  Assume
+for now that <i>R</i> has no attributes.  Thus, if we translate
+<i>R</i> to the relational model, the schema for <i>R</i>'s relation
+will be (<i>K1</i>,<i>K2</i>).  If <i>R</i> is a one-one relationship
+set, what is a key for the corresponding relation
+(<i>K1</i>,<i>K2</i>)?
+
+<p><li><b>Part (b)</b> Continuing, if <i>R</i> is a one-many
+relationship set from <i>E1</i> to <i>E2</i>, what is a key for the
+corresponding relation (<i>K1</i>,<i>K2</i>)?
+
+<p><li><b>Part (c)</b> Continuing, if <i>R</i> is a many-many
+relationship set, what is a key for the corresponding relation
+(<i>K1</i>,<i>K2</i>)?
+
+<p><li><b>Part (d)</b> Now suppose <i>R</i> is a many-many relationship
+set and has an attribute <i>A</i>, so the schema for the corresponding
+relation is (<i>K1</i>,<i>K2</i>,<i>A</i>).  What is a key for
+(<i>K1</i>,<i>K2</i>,<i>A</i>)?
+
+<p><li><b>Part (e)</b> Now suppose <i>R</i> is a multiway relationship
+set between three entity sets <i>E1</i>, <i>E2</i>, and <i>E3</i>.
+Let <i>K1</i>, <i>K2</i>, and <i>K3</i> be the key attributes for
+<i>E1</i>, <i>E2</i>, and <i>E3</i>, respectively.  Assume <i>R</i>
+has no attributes.  Thus, if we translate <i>R</i> to the relational
+model, the schema for <i>R</i>'s relation will be
+(<i>K1</i>,<i>K2</i>,<i>K3</i>).  If in the E/R diagram there is one
+arrowhead pointing to entity set <i>E1</i> and no other arrowheads,
+what is the key for (<i>K1</i>,<i>K2</i>,<i>K3</i>)?
+
+<p><li><b>Part (f)</b> Continuing, if in the E/R diagram there is one
+arrowhead pointing to entity set <i>E1</i>, one arrowhead pointing to
+<i>E2</i>, and no other arrowheads, what is the key for
+(<i>K1</i>,<i>K2</i>,<i>K3</i>)?
+
+<p><li><b>Part (g)</b> Continuing, if in the E/R diagram there is one
+arrowhead pointing to each entity set, what is the key for
+(<i>K1</i>,<i>K2</i>,<i>K3</i>)?
+
+<p><li><b>Part (h)</b> Continuing, if in the E/R diagram there are no
+arrowheads at all, what is the key for
+(<i>K1</i>,<i>K2</i>,<i>K3</i>)?
+
+</ul>
+
+<h4>Problem 3</h4>
+
+Find a site on the Web for which you're quite sure there is a database
+management system operating behind the scenes.  If the site you select
+has a wide variety of data and a very powerful interface, try to
+isolate a smaller portion of the site (or choose a simpler site).
+
+<ul>
+
+<li><b>Part (a)</b> What is the URL for the site you selected?
+
+<p><li><b>Part (b)</b> Briefly describe, in English, the data managed
+by the site (or portion of the site) and the queries available to the
+user.
+
+<p><li><b>Part (c)</b> Specify a possible E/R design for the data
+managed by the site.  Don't forget to underline key attributes for
+entity sets and include arrowheads indicating the multiplicity of
+relationship sets.  If there are weak entity sets or "is-a"
+relationships, make sure to notate them appropriately.
+
+<p><li><b>Part (d)</b> Using the method for translating an E/R diagram
+to relations, produce a set of relations from your E/R design.
+Specify (underline) keys for all relations.
+
+<p><li><b>Part (e)</b> Give a different relational schema from the one
+you got in part (d) that still captures the same information.  Specify
+(underline) keys for all relations.
+
+</ul>
+
+<h4>Problem 4</h4>
+
+You are to design a database for an insurance company.  The data will
+include information about customers (name, address, and phone number),
+information about insured cars (make, model, year, vehicle-ID#,
+license#, and insurance rate), information about insured homes
+(address, insured value, and insurance rate), and information about
+claims made on insured cars and homes (date of claim, date of
+settlement, and amount of settlement).  You may assume that all
+insured cars and homes are owned by a single customer, but you should
+allow a customer to own several cars and homes.  Please state any
+additional assumptions you make about the real world in your design.
+
+<ul>
+
+<p><li><b>Part (a)</b> Specify an E/R design for your database.
+Don't forget to underline key attributes for entity sets and include
+arrowheads indicating the multiplicity of relationship sets.  If there
+are weak entity sets or "is-a" relationships, make sure to notate them
+appropriately.
+
+<p><li><b>Part (b)</b> Using the method for translating an E/R diagram
+to relations, produce a set of relations from your E/R design.
+Specify (underline) keys for all relations.
+
+<p><li><b>Part (c)</b> Give a different relational schema from the one
+you got in part (b) that still captures the same information.  Specify
+(underline) keys for all relations.
+
+</ul>
+
+<i>Note: There is no single right answer to this question by any
+means, although some answers may be better than others.</i>
+
+<h4>Problem 5</h4>
+
+Consider the four relations on pages 188-189 of the Ullman/Widom
+textbook.  These relations contain a database for describing PC's,
+laptops, and printers.
+
+<ul>
+
+<p><li><b>Part (a)</b> Reverse-engineer a corresponding E/R diagram
+for this relational schema.  That is, give an E/R diagram that would
+be mapped to this set of relations.
+
+<p><li><b>Part (b)</b> Give an alternate relational design for this
+database that uses only one relation.
+
+<p><li><b>Part (c)</b> Briefly discuss the advantages and
+disadvantages of the original four-relation design versus the
+one-relation design in part (b).
+
+</ul>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

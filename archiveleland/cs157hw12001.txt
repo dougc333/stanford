@@ -1,0 +1,462 @@
+cs157 hw1 spring2001
+doug chang dougc@stanford.edu
+
+Collabrated with Qi, Hong, Jared.
+
+1) 
+a) Purple mushrooms are poisonous
+          (purple & mushroom) => poisonous
+       
+Explanation: If there is a purple mushroom, then it is poisonous. 
+
+b) A mushroom is poisonous only if it is purple
+          (mushroom => poisonous)=>purple
+
+Explanation: this follows the pattern A only if B being encoded as A=>B from the 1999 hw1 2d solns. 
+
+c) A mushroom is not poisonous unless it is purple
+          ~purple=>(mushroom =>~(poisonous))
+
+Explanation: This follows the pattern A unless B being encoded as ~B=>A as verified from 2000 hw1 2a solns. 
+
+
+2) 
+a)  For each sentence below, determine whether it is valid, satisfiable, or unsatisfiable
+
+((p=>p) =>p) <=> (p=>(p=>p)).
+
+A: (p=>p)
+B: (p=>p)=>p
+C: p=>(p=>p)
+D: ((p=>p) =>p) <=> (p=>(p=>p))
+--------------------------------
+p  |  p   |  A  |  B  |  C  |  D  |
+--------------------------------  
+T  |  T  |  T  |   T  |  T  |  T  |
+F  |  F  |  T  |    F  |  T  |  F  |
+-------------------------------
+
+This is satisfiable; it is true for some truth assignment
+
+b) ((p=>q) <=>(q=>p)) <=>(p<=>q)
+
+The column labeled A is: (p=>q)=>(q=>p)
+The column labeled B is:  (p=>q)<=(q=>p)
+The column labeled C is:  (p=>q) <=>(q=>p)
+The column labeled D is: p<=>q
+The column labeled E is: ((p=>q) <=>(q=>p)) <=>(p<=>q)
+------------------------------------------------------------
+|   p  |  q  |  p=>q  |  q=>p  |  A  |  B  |  C  |  D  |  E  |
+| ----------------------------------------------------------  
+|   T  |  T  |    T     |     T     |  T   |  T   |  T  |  T  |  T  |
+|   T  |  F  |    F     |     T     |   T  |  F   |   F  |  F  |  T  |
+|   F  |  T  |    T     |     F     |   F  |  T   |   F  |  F  |  T  |
+|   F  |  F  |    T     |     T     |   T  |  T   |   T  |  T  |  T  |
+------------------------------------------------------------
+
+The expression above is in columns C and D are always the same for all truth assignments of p and q. Hence, from the definition of the equivalence connective, this is valid.
+
+c) (p=>q) & ~(~r<=>p) & r & ~(p | q)
+
+
+A: p=>q
+B: ~r	
+C: ~r=>p	
+D: p=>~r	
+E: ~r<=>p	
+F: ~(~r<=>p)	
+G: (p=>q)&~(~r<=>p)
+H: (p=>q)&~(~r<=>p)&r	
+I: p|q	
+J:~(p|q)
+K: (p=>q) &~(~r<=>p) & r & ~(p|q)
+
+
+
+|  p  |  q  |  r  |  A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |  I  |  J  |  K  |
+----------------------------------------------------------------------------
+|  T  |  T  |  T  |  T  |  F  |  T  |  F  |  F  |  T  |  T  |  T  |  T  |  F  |  F  |
+|  T  |  T  |  F  |  T  |  T  |  T  |  T  |  T  |  F  |  F  |  F  |  T  |  F  |  F  |
+|  T  |  F  |  T  |  F  |  F  |  T  |  F  |  F  |  T  |   F |  F  |  T  |  F  |  F  |
+|  T  |  F  |  F  |  F  |  T  |  T  |  T  |  T  |  F  |  F  |  F  |  T  |  F  |  F  |
+|  F  |  T  |  T  |  T  |  F  |  T  |  T  |  T  |  F  |  F  |  F  |  T  |  F  |  F  |
+|  F  |  T  |  F  |  T  |  T  |  F  |  T  |  F  |  T  |  T  |  F  |  T  |  F  |  F  |
+|  F  |  F  |  T  |  T  |  F  |  T  |  T  |  T  |  F  |  F  |  F  |  F  |  T  |  F  |
+|  F  |  F  |  F  |  T  |  T  |  F  |  T  |  F  |  T  |  T  |  F  |  F  |  T  |  F  |
+----------------------------------------------------------------------------				
+This sentence is never satisfied for all the possible truth values, so this is unsatisfiable.
+
+
+d) (p => q) & ~(~r <=> p) => ~r | q
+
+A: (p=>q)	
+B: ~r	
+C: ~r=>p	
+D: p=>~r	
+E: (~r<=>p)	
+F: ~(~r<=>p)	
+G:(p=>q) & ~(~r<=>p)	
+H: ~r|q	
+I: (p=>q)&~(~r<=>p)=>~r|q
+
+|  p  |  q  |  r  |  A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |  I  |
+-----------------------------------------------------------------
+|  T  |  T  |  T  |  T  |  F  |  T  |  F  |  F  |  T  |  T  |  T  |  T  |
+|  T  |  T  |  F  |  T  |  T  |  T  |  T  |  T  |  F  |  F  |  T  |  T  |
+|  T  |  F  |  T  |  F  |  F  |  T  |  F  |  F  |  T  |  F  |  F  |  T  |
+|  T  |  F  |  F  |  F  |  T  |  T  |  T  |  T  |  F  |  F  |  T  |  T  |
+|  F  |  T  |  T  |  T  |  F  |  T  |  T  |  T  |  F  |  F  |  T  |  T  |
+|  F  |  T  |  F  |  T  |  T  |  F  |  T  |  F  |  T  |  T  |  T  |  T  |
+|  F  |  F  |  T  |  T  |  F  |  T  |  T  |  T  |  F  |  F  |  F  |  T  |
+|  F  |  F  |  F  |  T  |  T  |  F  |  T  |  F  |  T  |  T  |  T  |  T  |
+-----------------------------------------------------------------
+
+This is valid because for all possible truth assignments, the sentence is true.
+
+e)(p=>q) | ~(~r<=>p)
+
+A: ~r=>p
+B: ~r<=p
+C: ~r<=>p
+D: ~(~r<=>p)
+E: (p=>q) | ~(~r<=>p)
+
+
+p          q          r       (p=>q)     ~r        A         B         C          D         E
+------------------------------------------------------------------------------------
+T         T          T          T          F         T          F         F          T          T
+T         T          F          T          T         T          T         T          F          T
+T         F          T          F          F         T           F         F          T         T
+T         F          F          F          T         T           T        T           F         F
+F         T          T          T          F         T           T        T          F          T
+F         T          F          T          T         F           T         F         T          T
+F         F          T          T          F         T           T         T         F          T
+F         F          F          T          T         F           T         F         T          T
+
+This is satisfiable.
+
+
+3) Logical Equivalence. For each case below, what is the largest set of sentences where the sentences are not pairwise logically equivalent?
+
+To have a pair of sentences, phi and psi  be logically equivalent mean both phi|=psi and psi|= phi. Enderton writes it at phi|= =|psi. 
+
+a) If only one propositional constant can be used? We can look at a truth table and some sample sentences to ascertain what the question is asking for.
+
+|  A  |  ~A  |  A=>A  |   ~A&A  | 
+--------------------------------------
+|  T  |    F   |     T       |         F     |     
+|  F  |    T   |     T       |         F     |
+
+There are 4 equivalence classes, every sentence with one propositional constant would fall into one of these classes. My final answer would depend on the definition on what "the sentences that are not pairwise logically equivalent," would mean. I am assuming what Rada said in oh on friday - look for the number of equivalence classes- is the same as number of pairs. 
+
+
+b) If 2 constants are used, there are 16 possible equivalence classes or pairs.
+
+c) if n constants are used, there are 2^(2^n) equivalence classes
+
+
+4) Formal Proof:
+Give a formal proof of the sentence p from the single premise ~~ p using only MP and the standard axiom schema. You should be able to do this using only II, ID, and CR. 
+
+Implication Introduction: s => (t => s)
+Implication Distribution: (r => (s => t)) => ((r => s) => (r => t))
+Conflict Resolution: (~t=>~s) => ((~t=>s)=>t)
+
+
+
+1. ~~p                                                                         Premise
+2. ~~p=>(~p=>~~p)	                                               II
+3. (~p=>~~p)                                                             MP 1,2
+4. ((~p=>~~p))=>(~p=>~p)=>p                                CR
+5.  (~p=>~p)=>p                                                        MP 3,4
+6.  (~p)=>(~~p=>~p)                                                 II
+7.  (~p=>(~~p=>~p))=>((~p=>~~p)=>(~p=>~p))    ID
+8.  (~p=>~~p)=>(~p=>~p)                                        MP 6,7
+9.  ~p=>~p                                                                 MP 3,8
+10. p                                                                           MP 5,9
+
+
+
+5) Clausal Form:
+Convert this sentence into clausal form:
+~(p<=> q & ~r)
+
+  ~((p=>(q&~r) & (q&~r) =>p))
+  ~(p=>(q&~r)) | ~((q&~r) =>p)
+  ~(~p | (q&~r)) | ~(~(q&~r) | p)
+  (p & ~(q&~r)) | ((q&~r) & ~p)
+  (p & (~q | r)) | ( q & ~r & ~p)
+  (p | ( q & ~r & ~p) & ((~q | r) | ( q & ~r & ~p))  
+{p,q}
+{p,~r}
+{p,~p}
+{~q,r,q}
+{~q,r,~r}
+{~q,r,~p}	
+
+
+
+6) Negate, put into clausal form, and prove by resolution that the following sentence is valid.
+        (p|q)&(p => r) => (p => r)
+
+Converting to clausal form:
+~(~((p|q) & (p=>r)) | (p=>r))
+~(~((p|q) & (~p|r)) | (~p|r))
+(  ((p|q) & (~p|r)) & ~(~p|r))
+(  ((p|q) & (~p|r)) &  (p & ~r))
+{p,q}
+{~p,r}
+{p}
+{~r}
+The resolution to the empty clause:
+1. { p,q }
+2. {~p,r }
+3. {p}
+4. {~r}
+5. {~p}	2,4
+6.  { }		3,5
+
+
+7) Propositional Resolution:
+In some of the examples below, propositional resolution has been applied incorrectly. In each case, respond YES if the resolution is correct; otherwise NO  and give all the correct resolvents of the premises. 
+
+a) 	
+1. {p,~p}	Premise	
+2. { }	    	1,1	
+
+No, this is not correct. {p,~p} is vacously true. It is always true, it does not resolve to { }.
+
+
+b) 	
+1. {p} 		Premise
+2. {~p,r}	Premise
+3. { }
+NO, this resolves to {r}.
+
+c) 	
+1. {~p, q}	Premise	
+2. {~r,~p}	Premise
+3. {~r, q}	1,2
+NO, this is not true, should be {~p, q,~r}
+
+
+d) 	
+1. {~p,~r,q}	Premise
+2. {~r,p}	Premise
+3. {~r,~r,q}	1,2
+
+NO, this is not the same as {~r,q}.
+
+e) 	
+1. {p,q,s}	Premise
+2. {~s,~r,~p}	Premise
+3. {q,~r}	1,2
+
+NO,  this should be:
+
+1. {p,q,s}	Premise
+2. {~s,~r,~p}	Premise
+3. {q,s,~s~r}	
+
+or 
+
+1. {p,q,s}	Premise
+2. {~s,~r,~p}	Premise
+3. {q,p,~p~r}	
+
+
+
+
+8. Alice in Logicland:
+	Soon her eye fell on a little glass box that was lying under the table: she opened it, and found in it a very small cake on which the words 'Eat Me' were beautifully marked in currants. Well I'll eat it said Alice. 'And if it makes me larger, I can reach the key; and if it makes me smaller, I can creep under the door; so either way I'll get into the garden, and I dont care what happens!'
+
+l - makes me larger
+r - reach key
+s - makes me smaller
+c - creep under the door
+g - get into the garden
+
+Use propositional resolution to determine whether g is logically entailed by G. Here, G is the set of sentences created by translating the information from the above paragraph into sentences of propositional logic using only the propositions l, r, s, c, and g. Please assume that by "either way" Alice implicitly states that she cannot become both larger and smaller from eating the cake and incorporate this into your translation. Show all steps of your work.
+
+Is G |=g ? We determine this by negating g and use PR to derive the empty clause.
+The premises are encoded as:
+And if it makes me larger, I can reach the key; (l => r)
+and if it makes me smaller, I can creep under the door; (s =>c)
+so either way; I'll get into the garden: (l & r) | (s & c) => g
+she can grow larger or smaller: (l|s). I originally had an XOR function. Cleared this with Rada in OH on thursday, we cannot use an XOR fxn since this would be adding information. I doesn't matter either way for the resolution.
+
+
+(l => r)	                      Premise; 
+~l|r
+{~l,r}
+
+(s =>c)	                      Premise
+~s|c
+{~s,c}
+
+((l&r) | (s & c))=>g)                   Premise
+(~((l&r) | (s & c))  | g)                   
+( (~(l&r) &  ~(s & c)) | g)                   
+((~l | ~r) & (~s | ~c)) | g)                   
+{~l, ~r, g}
+{~s,~c, g}
+
+{l,s}                           Premise	
+
+
+1. {~l,r}
+2. {~s,c}
+3. {~l,~r,g}
+4. {~s, ~c,g}
+5. {l,s}
+6. {~g}
+7.  {~l,~r}                3,6        
+8.  {~s,~c}               4,6
+9.  { ~s}                   2,8
+10. {~l}                    1,7
+11. {s}                      5,10           
+12. { }                       9,11
+
+9. Electronic Circuits
+
+a) For each gate, write a propositional logic sentence that expresses the output in terms of the inputs. For example, for gate g4, you should write g4<=>a&g2. Write the sentences in order from g1 to g5 (dont forget to include g4).
+g1<=> ~a
+g2<=>~b
+g3<=>g1&b
+g4<=>a&g2
+g5<=>a&b
+g6<=>g3| g4
+
+b) Put each sentence into clausal normal form
+
+g1<=> ~a
+
+(g1=> ~a)&(g1<= ~a)
+(~g1| ~a)&(g1| a)
+{~g1, ~a }
+{ g1,a }
+
+g2<=>~b
+(g2=>~b) & (g2<=~b)
+(~g2|~b) & (g2|b)
+{~g2,~b}
+{ g2,b }
+
+
+g3<=>g1&b
+(g3=>g1&b) & (g3<=g1&b)
+(~g3|(g1&b)) & (g3|~(g1&b))
+(~g3|(g1&b)) & (g3|(~g1|~b))
+(~g3|g1)&(~g1|b)) & (g3|~g1|~b))
+{~g3,g1}
+{~g1,b }
+{ g3,~g1,~b }
+
+
+g4<=>a&g2
+(g4=>a&g2) & (g4<=a&g2)
+(~g4|(a&g2)) & (g4 | ~(a&g2))
+((~g4|a)&(~g4|g2)) & (g4 | (~a|~g2))
+((~g4|a)&(~g4|g2)) & (g4 | ~a|~g2))
+{~g4,a}
+{~g4,g2}
+{ g4 ,~a,~g2}
+
+
+g5<=>a&b
+(g5=>a&b)&( g5<=a&b)
+(~g5|(a&b))&( g5|~(a&b))
+(~g5|(a&b))&( g5|(~a|~b))
+((~g5|a)&(~g5|b))&( g5|~a|~b))
+{~g5,a }
+{~g5,b }
+{ g5,~a,~b }
+
+
+
+g6<=>g3| g4
+
+(g6=>g3| g4)&(g6<=(g3| g4))
+(g6=>g3| g4)&(g6<=(g3| g4))
+(~g6|g3| g4)&(g6|~(g3| g4))
+(~g6|g3| g4)&(g6|(~g3&~g4))
+(~g6|g3| g4)&( (~g3|g6)&( g6|~g4))
+{~g6,g3,g4}
+{~g3,g6}
+{ g6,~g4}
+
+Suppose a colleague makes the claim: g5<=>a&b. It is your job to prove that the sentences from a) logically entail the sentence above. Do so by negating the sentence above, putting it into clausal form, and obtaining a contradiction using a resolution proof. You may use the clauses from (b) as the premises.
+
+Negating the goal: ~(g5<=>a&b)
+
+~(g5<=>a&b)
+~( (g5=>(a&b) ) & ( (a&b)=>g5) )
+~( (~g5 | (a&b) ) & ( ~(a&b) | g5) )
+( ~(~g5 | (a&b) ) |  ~( ~(a&b) | g5) )
+( (g5 & ~(a&b) ) |  ( a&b & ~g5) )
+( (g5 & (~a | ~b) ) |  ( a&b & ~g5) )
+( (g5 |  ( a&b & ~g5))  & ( (~a | ~b)  |  ( a&b & ~g5) )
+{g5,a}
+{g5,b}
+{g5,~g5}
+{~a,~b,a}
+{~a,~b,b}
+{~a,~b,~g5}
+
+Setting up the resolution, we only add the clauses for the g5 gate:
+1.{g5,a}
+2.{g5,b}
+3.{g5,~g5}
+4.{~a,~b,a}
+5.{~a,~b,b}
+6.{~a,~b,~g5}
+7.{~g5,a }
+8.{~g5,b }
+9.{g5,~a,~b }
+10. {a}                1,7
+11. {b}                2,8
+12. {~a,~b}         6,9
+13. {~b}              10,12
+14.  { }                 11,13
+
+
+10. Murder Mystery: 
+
+Consider the following mystery puzzle:
+There are three suspects for a murder: Adams, Brown, and Clark. Adams says, "I didn't do it. The victim was an old acquaintance of Brown's. But Clark hated him." Brown states, "I didn't do it. I didn't even know the guy. Besides, I was out of town all that week." Clark says, "I didn't do it. I saw both Adams and Brown downtown with the victim that day; one of them must have done it." Assume that the two innocent men are telling the truth, but that the guilty man might not be. Who did it? 
+Use propositional resolution to solve the mystery. Show all steps of your work.
+We enumerate the sentences from the problem description, convert to CNF, and derive a conclusion from the premises using resolution. 
+
+adamsnokill = Adams didnt do it
+brownnokill = Brown didnt do it
+clarknokill = clark didnt do it
+
+adamsnokill=>brownknewvictim
+adamsnokill=>clarkhatedvictim
+brownnokill=>~(brownknewvictim)
+brownnokill=>(brownoutoftown)
+brownoutoftowm=>~(brownwithvictim)
+clarknokill=>(adamswithvictim & brownwithvictim)
+(adamsnokill & brownnokill) | (adamsnokill & clarknokill) | (brownnokill & clarknokill)
+
+Changing the sentences above to CNF:
+1.{~adamsnokill, brownknewvictim}
+2.{~adamsnokill, clarkhatedvictim}
+3.{~brownnokill, ~brwonknewvictim}
+4.{~brownnokill, brownoutoftown}
+5.{~brownoutoftown, ~brownwithvictim}
+6.{~clarknokill, adamswithvictim}
+7.{~clarknokill, brownwithvictim}
+8.{adamsnokill, brownnokill}
+9.{adamsnokill, clarknokill}
+10.{brownnokill, clarknokill}
+
+Resolving:
+11. 1,3 {~adamsnokill, ~brownnokill}
+12. 4,5 {~brownnokill, ~brownwithvictim}
+13. 7,9 {adamsnokill, brownwithvictim}
+14. 11,13 {~brownnokill, brownwithvictim}
+15. 12,14 {~brownnokill}
+
+Hence the conclusion from the premises is brown killed the victim.
+

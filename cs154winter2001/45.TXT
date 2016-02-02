@@ -1,0 +1,14 @@
+Assignment 4, Problem 5		 		   Solution by Rob
+
+This PDA takes in any sequence of a's and b's, while pushing these
+symbols on its stack. It can never pop a c or d from its stack, as
+these symbols will never be pushed. So you can forget about the
+transitions with c and d. The PDA will never pop any symbol at all.
+
+Note that PDAs can accept a string even if its stack is not empty.
+Therefore it accepts any sequence of a's and b's.
+A CFG is
+		S -> aS | bS | eps
+
+You can derive this CFG with the method from the book, but this is
+needlessly complicated.

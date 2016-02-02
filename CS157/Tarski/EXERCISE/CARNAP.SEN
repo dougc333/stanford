@@ -1,0 +1,10 @@
+4.0 
+WNDS
+Sent
+10
+@x @y (LeftOf(x, y) $ RightOf(y, x))@x @y ((Small(x) & Small(y) & BackOf(x, y)) $ Dodec(x))@x @y ((Cube(x) & Cube(y) & x # y) 
+                      $ (Larger(x, y) | Smaller(x, y)))@x @y @z ((Smaller(x, y) & Smaller(y, z)) 
+                     $ Smaller(x, z))@x @y (Larger(x, y) $ x # y)@x @y @z (Between(x, y, z) | ~Between(x, y, z))@x @y @z (Between(x, y, z) | ~Between(x, z, y))@x @y @z ((Dodec(x) & Dodec(y) & Dodec(z)) $ 
+                  (x = y | x = z | y = z))@x @y @z ((LeftOf(y, z) & Between(x, y, z)) $ LeftOf(x, z))@x @y @u @v @w ((u # v & u # w & v # w & Between(u, x, y) & 
+     Between(v, x, y) & Between(w, x, y)) $ 
+          (Between(u, v, w) | Between(v, u, w) | Between(w, u, v)))

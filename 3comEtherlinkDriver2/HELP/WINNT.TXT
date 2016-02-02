@@ -1,0 +1,162 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                  The EtherLink 10 ISA NIC Family
+             Installing the NDIS Driver for Windows NT
+
+Installing the NIC using Windows NT 4.0
+---------------------------------------
+
+The following steps describe how to install your 3Com NIC in a computer 
+running Windows NT 4.0.  These instructions are for a new installation
+to update a previous installation see the section regarding updating the
+NIC drivers in Windows NT 4.0 which is included in this file.
+
+1.  Start Windows NT.
+
+2.  Choose Start Menu, Settings, Control panel, and double-click the Network
+    icon. If this is a new network install a Network Configuration dialog box
+    will occur saying "Windows NT Networking is not installed.  Do you want to 
+    install it now?  Press YES to continue.
+
+3.  The Network Setup Wizard will prompt you to select an option, either "Wired
+    to the network" (default) or "Remote access to the network".  Make sure
+    "Wired to the network" is selected and press NEXT to continue.
+
+4.  The Network Setup Wizard will bring up another windows.  Click on the "Select
+    from list..." option this will bring up Network Adapter selection window.  Press 
+    the Have Disk button.  Insert the EtherDisk #1 diskette into drive A: and press 
+    the OK button on the insert disk window.
+
+5.  In the Select OEM Option window, select the NIC you are installing.
+    This is normally the 3Com EtherLink 10 ISA (3C509) adapter. Press the
+    OK button.
+
+6.  The Network Setup Wizard should show the adapter you selected in Step 5, with
+    a check next to it.  If this setting is correct press the NEXT button.  Then
+    the Network Setup Wizard will prompt you to make your protocol selection, make
+    sure the appropriate protocols are selected and click NEXT when ready.  The
+    Network Setup Wizard will then prompt you to make you service selections, make
+    sure the appropriate services are selected and click NEXT when ready.  The 
+    Network Setup wizard will prompt you to confirm you selections, if they are
+    correct press NEXT to continue.
+
+7.  The setup will prompt you for the location of the NT source files.  If you
+    are using the CD-ROM a typical path is "D:\I386".  After entering the 
+    appropriate path to the NT files click CONTINUE to proceed with the installation.
+
+8.  Assuming you chose the 3C509 NIC, the 3Com EtherLink 10 ISA (3C509) bus window 
+    appears.  Press the OK button.
+
+9.  NT will copy some files from the EtherDisk, and depending upon the network 
+    configuration you may be required to answer further dialog boxes.
+
+10. Eventually a Network Settings Change dialog box appears stating the network 
+    installation is complete and the computer must be restarted before changes
+    will take effect, press the Yes button to reboot.  
+
+Updating the NIC using Windows NT 4.0
+-------------------------------------
+to update a previous installation see the section regarding updating the
+NIC drivers in Windows NT 4.0 which is included in this file.
+
+1.  Start Windows NT.
+
+2.  Choose Start Menu, Settings, Control panel, and double-click the Network
+    icon.  Then select the Adapter tab.
+
+3.  Look at the Network Adapter windows.  If a 3Com EtherLink III ISA adapter is present,
+    highlight the adapter and press REMOVE.  A warning will appear, press YES.  This
+    NIC will disappear, close the menu, shutdown and reboot the computer.  Now repeat step 2 
+    and continue to step 4.  You will get an error regarding at least one service failed 
+    during start-up, press OK.  This error will not occur after you finished installing the
+    new driver.
+
+4.  Click on the Add button under the Adapter tab and press the "Have Disk..." option.  Insert 
+    the EtherDisk #1 diskette into drive A: and press the OK button on the insert disk window.
+
+5.  After copying files the adapter should appear in the Adapters tab.  Press CLOSE to continue
+    with the installation.
+
+6.  Depending upon your installation configuration you may need to answer further prompts.
+
+7.  When completed reboot the computer to complete the update of the driver.
+
+
+IMPORTANT
+
+If you are using this driver in an Windows NT 4.0 multiprocessor computer,
+then you must update Windows NT 4.0 to Service Pack 3 or newer.  Failure to
+update to Service Pack 3 may result in Windows NT crashes.  If you are
+installing more than one EtherLink 10 ISA in Windows NT 4.0, then follow the
+installation steps below.  Failure to follow these steps may lead to problems
+requiring you to reinstall your operating system.
+
+If you are installing/upgrading the drivers and a previous service pack is 
+already installed you may receive an error after installing that says:
+
+    Event ID: 7023 The server service terminated with the following error: Not
+    enough server storage space is available to process this command.
+
+This is caused because the installation copies the original NT source files over
+the updated files from the service pack.  When this occurs reapply the service
+pack on the system.  Refer to MicroSoft article Q151427 for more information.
+
+Windows 2000 is not supported with this driver set.  For Windows 2000 support
+for the EtherLink 10 ISA (3C509B) use the native driver included with the
+operating system.
+
+
+Installing more than one EtherLink 10 ISA NIC in Windows NT 4.0
+------------------------------------------------------------
+
+When you install more than one EtherLink 10 ISA in Windows NT 4.0, it's very
+important that you install and configure each NIC, then reboot between the
+installation of each NIC.  Do not attempt to install more than one EtherLink
+10 ISA between each reboot.  Failure to follow this procedure may result in a
+system failure during installation.  This may render the system unusable.
+
+Installing the NIC using Windows NT 3.51
+----------------------------------------
+
+The following steps describe how to install your 3Com network NIC in a
+computer running Windows NT.
+
+1.  Start Windows NT.
+
+2.  In the Main Group, open Control panel, then open the Network icon.
+
+3.  If the EtherLink III adapter is already installed, highlight it in the
+    Installed Adapter cards window and press the Remove button. Press the
+    Yes button on the confirmation windows that appears next. Windows NT
+    then removes the NIC and returns to the network setting window. Press
+    the OK button, then press the Restart Now button on the Network
+    Settings Change Window.  After NT reboots, log in and reopen the
+    Network icon.
+
+
+4.  In the Network Settings window, click Add Adapter. Windows NT prepares
+    the Add Network Adapter windows.  Select <other> Requires disk from
+    manufacturer (the last item in the list) and press the Continue button.
+
+5.  Insert the EtherDisk diskette #1 into drive A: and press the OK button on
+    the Insert Disk menu.  If the diskette driver is not A, then enter the
+    correct drive letter followed by a colon in the dialog box.
+
+6.  In the Select OEM Option window, select the correct NIC.  Assuming you
+    are installing the 3C509 ISA NIC, that item is highlighted, so press
+    the OK button.
+
+7.  Next, a Bus Location window appears, for the 3C509 ISA adapter, just
+    press the OK button.
+
+8.  Windows NT will now copy the files from the EtherDisk and install and
+    configure the NIC software.  When this step is complete, the Network
+    Settings windows reappears.  If you have no other network changes to
+    make, press the OK button.  Windows NT will complete the configuration
+    of the network.
+
+9.  In the Network Settings Change window, click Restart to restart
+    your computer.
+
+
+   (%VER WINNT.TXT - Installing the NDIS 3.0 Driver for Windows NT V6.1a)

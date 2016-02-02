@@ -1,0 +1,60 @@
+                             3Com (R) Corporation
+                          EtherDisk (R) Diskette for
+                       The EtherLink 10 ISA NIC Family
+                             Troubleshooting
+
+
+
+ If the NIC diagnostic tests fail, the NIC might not be defective.  Check
+ the following:
+
+ 1.  Make sure that the NIC is completely seated in its slot.  Review
+     the installation instructions in the appropriate NIC guide.
+
+ 2.  If you are running the Group 2 test using the DOS based diagnostic,
+     make sure that the NIC is securely connected to a loopback plug or to
+     a properly cabled coax network.
+
+ 3.  If you are running the Group 3 test using the DOS based diagnostic or
+     the network test using the Windows installer or diagnotic, make sure
+     that the NIC is securely connected to a properly cabled network and an
+     echo server is set up on the network.
+
+ 4.  If you are configuring the I/O base address, interrupt request level,
+     or boot PROM base address, make sure that the settings you choose for
+     these parameters do not conflict with any other peripheral or software
+     program installed in the computer.  For a list of system resources
+     commonly used by other peripherals, select "Commonly used interrupt
+     and I/O base addresses" from the "Configuration and Diagnostic"
+     submenu.
+
+ 5.  Make sure that the configuration setting for the transceiver type is
+     correct.
+
+ 6.  Running Group 2 tests in the DOS based diagnostic while connected to an
+     active network can cause intermittent failures.  These failures can be
+     avoided by using a loopback plug or by connecting to an inactive network
+     on which only the computer being tested is operating.
+
+ 7.  If you installed a twisted-pair NIC, check the LED on the backplate
+     of the adapter.  The LED should be checked only during or after the
+     diagnostic tests have been run.  The LED will be on when there is a
+     proper connection between the NIC and the hub.  The LED will flash if
+     the polarity of the connection is reversed.
+
+ 8.  The slot in the computer may be defective.  Install the NIC in
+     another slot and run the tests again.
+
+ 9.  The computer in which the NIC is installed might be defective.
+     Install the NIC in a known functioning computer and run the tests
+     again.
+
+ 10. The loopback plug you are using might be defective.  Try a different
+     loopback plug.
+
+ 11. Replace the failed NIC with a known working NIC, with the same
+     configuration.  If the second NIC fails, something is probably wrong
+     with the computer, not with the NIC.
+
+     (%VER  TROUBLE.TXT - Troubleshooting tips v6.1a)
+

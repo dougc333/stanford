@@ -1,0 +1,45 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+                      Clarkson Packet Driver
+
+
+
+The EtherLink 10 ISA family of NICs are all software configured.
+When the packet driver is loaded the only required command line
+parameter is the software interrupt value `PKT_INT_NUM.'  This
+software interrupt is used for communication between the driver and
+the protocol and should not be confused with the NIC's hardware
+interrupt.  As of version 1.09 of the Packet Driver Specification
+valid software interrupt values are in the range 0x60 to 0x80.
+
+The packet driver for the EtherLink 10 ISA is a DOS mode driver that 
+does not support plug and play.  Plug and play must be disabled on the 
+EtherLink 10 ISA, and this can be done by running PNPDSABL.BAT from 
+the second diskette of the 6.1 driver set.
+
+The packet driver for the EtherLink 10 ISA does not support auto-media 
+sensing.  The driver will default to the media programmed on the NIC. 
+The default is "Twisted Pair" when the adapter is shipped.  The NIC can
+be forced to the appropriate media by running the configuration utility, 
+3C5X9CFG.EXE, from the second diskette.  Refer to the manual for 
+instructions on configuring the 3C509B NIC.
+
+The SLOT and IOBASE parameters are to be used only when there is
+more than one EtherLink 10 ISA board in the machine.  This parameter
+indicates to the packet driver which NIC to use.  For NICs in ISA mode,
+use the IOBASE parameter.  On Microchannel NICs, EISA NICs, or ISA NICs
+in EISA mode, use the SLOT parameter.  You cannot use both IOBASE and 
+SLOT on the same command line.
+
+EXAMPLE:  You have two EtherLink 10 ISA NICs in your machine.
+One is installed at I/O Base 300 hex and the other at 320 hex.  To
+use the card located at 300 hex and load it at software interrupt
+60 hex for use in a Windows environment, use the command line:
+
+        3C5X9PD -w 0x60 IOBASE=0x300
+
+For a complete usage summary, enter 3C5X9PD at the DOS command prompt.
+
+
+           (%VER PACKET.TXT - Packet Driver v6.1b)

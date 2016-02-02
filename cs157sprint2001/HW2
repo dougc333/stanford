@@ -1,0 +1,158 @@
+From dougc@stanford.edu Sat Apr 28 14:12:20 2001 -0700
+Status: R
+X-Status: A
+X-Keywords:
+Received: from leland2.Stanford.EDU (leland2.Stanford.EDU [171.64.14.58])
+	by pobox3.Stanford.EDU (8.11.1/8.11.1) with ESMTP id f3SLCJD23398;
+	Sat, 28 Apr 2001 14:12:19 -0700 (PDT)
+Received: from fable16.Stanford.EDU (fable16.Stanford.EDU [171.64.15.209])
+	by leland2.Stanford.EDU (8.11.1/8.11.1) with ESMTP id f3SLCIW15979;
+	Sat, 28 Apr 2001 14:12:18 -0700 (PDT)
+Received: (from jarbru@localhost)
+	by fable16.Stanford.EDU (8.11.1/8.11.1) id f3SLCIm20080;
+	Sat, 28 Apr 2001 14:12:18 -0700 (PDT)
+Date: Sat, 28 Apr 2001 14:12:18 -0700 (PDT)
+Message-Id: <200104282112.f3SLCIm20080@fable16.Stanford.EDU>
+From: Jared Robinson Brubaker <jarbru@Stanford.EDU>
+To: dougc@Stanford.EDU
+CC: jarbru@Stanford.EDU
+Subject: a partial set of answers...
+X-UIDL: ae75e055d5d5f2495262d7c635b446c0
+
+sorry, I've been working on finishing up a big project I've been on for a
+year and a half, my time has been sketchy. it's going to be done May 11th,
+so after that I'll start working on projects for this class.
+
+a lot of this problem set I actually think is easier than the last one.
+
+I left out some problems, I know. I'll get to doing them...
+
+
+
+
+1.
+
+a. Yes
+b. No
+c. No
+d. Yes
+e. No
+
+2.
+
+a. p^i = { }
+b. No, it is not valid.
+
+
+3.
+
+
+4.
+
+a. 
+(r(x,y) & r(y,z)) => r(x,z)
+r(x,y) => ~r(y,x)
+r(x,y) | r(y,x)
+
+b. I don't understand what this means. I'm assuming it means that we have
+an order with a minimal element, but with possibly many "maximal"
+elements. If there was _no_ maximal element, then we would violate one of
+the conditions of the partial order, because it would not hold for some
+pairs of objects (i.e., pairs made up of those elements at the "top" of
+the order).
+
+(r(x,y) & r(y,z)) => r(x,z)
+Ex.Ay(r(x,y))
+(~Ey.Ez.(r(x,y) & r(y,z) & ~r(z,x))) => (~r(y,x))
+
+
+the first is for transitivity, the second is to ensure there is a minimal
+element, and the third is for anti-symmetry, as long as we are not dealing
+with two maximal elements (I try to express it by having the existance of
+a third element which is greater than x and y)...
+
+
+
+5.
+
+a.i. query(x) <= Ey.(ta(y,x) & enroll(y,x))
+ii. query(x) <= (enroll(x,y) | ta(x,y))
+
+NOTE: here I assume that all students are either enrolled or ta's...
+
+b.i. ta(y,x) => ~enroll(y,x)
+ii. (Ex.(prereq(u,v) & ~hasTaken(x,v))) => ~enroll(x,u)
+
+
+c. Functions?? I don't know exactly what this is asking...
+
+d.i. yes; no
+ii. no; yes
+iii. yes; yes
+
+
+
+6.
+
+a. 
+g1, g2, g3, g4, g5, c
+
+b. 
+Not(g1)
+Not(g2)
+And(g3)
+And(g4)
+And(g5)
+Or(g6)
+HalfAdder(c)
+
+c.
+Connected(Input1(c), Input1(g1))
+Connected(Input2(c), Input1(g2))
+Connected(Output1(g1), Input1(g3))
+Connected(Input2(c), Input2(g3))
+Connected(Input1(c), Input1(g4))
+Connected(Output1(g2), Input2(g4))
+Connected(Input1(c), Input1(g5))
+Connected(Input2(c), Input2(g5))
+Connected(Output1(g3), Input1(g6))
+Connected(Output1(g4), Input2(g6))
+Connected(Output1(g6), Output1(c))
+Connected(Output1(g5), Output2(c))
+
+Connected(x,y) => Connected(y,x)
+
+d.
+Ax.((Or(x) & (On(Input1(x) | On(Input2(x))))) <=> On(Output1(x)))
+Ax.((Not(x) & (On(Input1(x)))) <=> On(Output1(x)))
+
+e.
+Connected(x,y) => (On(x) <=> On(y))
+
+7.
+
+1. Ax.afraid(x, Dracula)
+2. Ax.(afraid(Dracula,x) => me=x)
+3. afraid(Dracula, Dracula)			UI, 1
+4. afraid(Dracula, Dracula) => me=Dracula 	UI, 2
+5. me=Dracula					MP, 3,4
+
+
+8.
+
+a. True.
+b. False.
+
+I'm still thinking about these....
+
+
+9.
+
+a. A.z(p(z) & (i(x,z) <=> i(y,z)))
+b. p(x) & p(y) & ~i(x,y)
+this is probably too tricky--it assumes that there is one line between
+two points if the points are different. which is true but prob. not in our
+KR.
+
+c. ...
+

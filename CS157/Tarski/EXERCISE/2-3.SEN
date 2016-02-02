@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+10
+Cube(a)Smaller(b, a)Between(c, a, d)Large(d)Larger(e, a)Tet(b)Dodec(e)RightOf(e, b)Smaller(a, e)BackOf(d, a)

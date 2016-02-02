@@ -1,0 +1,45 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+                 MS LAN Manager Installation Notes
+
+
+Microsoft LAN Manager Versions 2.0, 2.1, and 2.2
+------------------------------------------------
+The EtherDisk #2 diskette contains a subdirectory structure and files that
+make it an OEM import disk for the LAN Manager installer.  Use the import
+function of the LAN Manager installer to capture the NDIS driver from the
+EtherDisk diskette.  Be sure to save the new configuration before exiting
+the installer.
+
+
+DOS Installation with LAN Manager 2.2
+-------------------------------------
+The following describes the procedure for importing the driver during
+installation of LAN Manager 2.2 for DOS.
+
+1.  Begin the MS-DOS LAN Manager installation by inserting the MS-DOS
+    Setup diskette and typing:
+
+    A:SETUP
+
+2.  After reading the Microsoft Drivers 1 diskette, a window is displayed
+    showing available network NIC drivers.  In this window choose the
+    following function:
+
+    Select Other Driver         (Alt-D)
+
+3.  When prompted to insert your network driver diskette, insert the
+    EtherDisk #2 diskette.
+
+4.  After the driver is imported from the EtherDisk diskette, a box will
+    be displayed showing the driver.  Select the EtherLink 10 ISA Family
+    driver.
+
+5.  Continue with the remainder of the installation by next selecting a
+    protocol to use with the EtherLink 10 ISA Family driver.
+
+
+                 (%VER LANMAN.TXT - MS LAN Manager v6.1a)
+
+

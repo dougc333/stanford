@@ -1,0 +1,47 @@
+##
+## Makefile for CS107 hw1a
+##
+
+# Set the compiler to be a known ANSI compliant one
+CC = gcc
+
+## adding the '-DNDEBUG' defines the CT symbol NDEBUG which
+## suppresses all the asserts and what not. You'd do that for
+## a production build, but it is a good idea to leave it in
+## for the purposes of this class.
+DFLAG = ## -DNDEBUG
+
+## the -I allows you to include any local header files for our
+## class libraries.  The define of __USE_FIXED_PROTOTYPES__ is
+## essential for convincing the compiler to use the ANSI
+## header files (i.e. with proper prototypes) that ship with gcc
+CFLAGS = -g -Wall $(DFLAG) -I/usr/class/cs107/include ##-V2.7.2.2
+LDFLAGS = -g 
+
+TARGET = test
+
+default : $(TARGET) 
+
+HDRS =  scanner.h
+SRCS =  scanner.c test.c
+OBJS = $(SRCS:.c=.o)
+PROGS = test
+
+test : $(OBJS)
+	$(CC) $(OBJS) $(LDFLAGS) -o test
+
+
+# The dependencies below make use of make's default rules,
+# under which a .o automatically depends on its .c and
+# the action taken uses the $(CC) and $(CFLAGS) variables.
+# These lines describe a few extra dependencies involved.
+
+scanner.o : scanner.h
+test.o : scanner.h
+
+clean :
+	@echo "Removing object files..."
+	/bin/rm -f *.o a.out core $(PROGS) *.purify purify.log
+
+TAGS : $(SRCS) $(HDRS)
+	etags -t $(SRCS) $(HDRS)

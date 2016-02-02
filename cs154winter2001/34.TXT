@@ -1,0 +1,66 @@
+CS 154, HW #3, Problem 4.
+Model Solution
+
+Our Algorithm
+-------------
+1) Convert the CFG to Chomsky Normal Form.
+2) Simplify to eliminate any non-generating non-terminals, e.g. A->AA.
+3) Build a tree in the following manner:
+	* The root is the starting non-terminal.
+	* Each node on the tree will be a single symbol, either a terminal
+	  or a non-terminal.
+	* A terminal node will have no children.
+	* The children of each non-terminal node will be all the symbols
+	  that appear in its productions.
+4) The CFG generates an infinite number of strings iff any non-terminal in
+the tree appears at least twice in a single line of ancestry (i.e. the
+non-terminal has itself as one of its ancestors).
+	* Note that the maximum tree depth that needs to be searched is
+	  n+1, where n is the number of reachable non-terminals in the
+	  CFG.  By the pigeonhole principle, if some non-terminal node
+	  exists at depth n+1, then either itself or one of its ancestors
+	  must appear at least twice in its line of ancestry.
+
+
+Example
+-------
+S -> XY | PQ | a
+X -> PA | YB
+Y -> b
+Q -> XA
+P -> QB
+B -> b
+A -> a
+
+Then S will have X, Y, P, Q and a as children, X will have P, A, Y and B
+as children. Y and B each have b as a single child. A has a as a single
+child.  Q will have X and A as children, and P will have Q and B as
+children. Now note the following path in the tree: S->X->P->Q->X.  Here X
+is a non-terminal that has itself as an ancestor. Hence this grammar
+generates infinitely many strings.
+
+
+Special Issues
+--------------
+We've identified 3 special cases to watch out for:
+
+1) Grammars which "loop" but have unit productions and thus do not
+   generate infinitely many strings.
+   e.g. S->A, A->B, B->A, B->b
+
+   Our algorithm guards against this by using Chomsky Normal Form.
+
+2) Grammars with non-generating non-terminals.
+   e.g. S->AB, A->AA, B->b
+
+   Our algorithm avoids non-generating non-terminals by requiring the
+   agent to simplify the grammar to an equivalent one with no
+   non-generating non-terminals.
+
+3) Grammars with non-reachable non-terminals.
+   e.g. S->AB, A->a, B->b, C->AB
+
+   Our algorithm avoids them by viewing the grammar as a tree with the
+   starting non-terminal as the root node and each symbol in its
+   productions as its descendants.  Thus any non-terminals that are not
+   reachable from the starting non-terminal will not be added to the tree.

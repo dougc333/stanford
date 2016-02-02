@@ -1,0 +1,451 @@
+
+P2 design tradeoffs:
+
+
+
+Implementing Multiprogramming:
+
+There were several options here. The design goal was to implement multiprogramming and not multithreading.
+
+1) Implement a separate process class for each process, where a process has its own virtual address space, file table and list of threads.
+
+2) Since we are not doing multithreading, eaxh process can only have one thread, so we put the address space object addrspace into the thread class.
+
+
+
+
+
+From Silbersatz, the process object needs the following data structures:
+
+Process State:New, running, waiting, Ready, and Terminated
+Program Counter:
+CPU Registers: accumulators, index registers, stack pointer, and GP registers. These are defined in machine.h
+CPU scheduling informatio: We user the thread scheduler for this.
+Memory Management information: value of base and bounds registers, page tables, and software TLB.
+Accounting information: I don't know where this is.
+I/O Status information: This includes the console input/output, and maybe the file system.
+
+The scheduler for the process can be the same one as we use for threads. We are allocating objects for threads to turn them into processes. We can derive from threads for the process object, or we can add to the thread class; which is what we are doing.
+
+
+CHECK TO SEE THE FILESYS AND USERPROG SWITCHES ARE SET. IN MAKEFILE UNDER USERPROG, THE SWITCHES ARE SET FOR THREADS, USER_PROGRAM, FILESYS_NEEDED, AND FILESYS_STUB. 
+
+
+CURRENT DATA STRUCTURES:
+
+kernel->currentThread->space
+// we need a defn. for space, it is non-NULL for user space programs Assume NULL for kernel. 
+
+kernel->fileSystem
+kernel->fileSystem->Open
+kernel->stats
+kernel->interrupt
+kernel->scheduler
+kernel->alarm
+kernel->currentThread->machine->mainMemory
+kernel->currentThread->machine->pageTable
+kernel->currentThread->machine->pageTablesize
+kernel->currentThread->machine->registers[NumTotalRegs]
+kernel->currentThread->machine->mainMemory->MemorySize. This is set by constants to be 256k in machine.h. 
+kernel->currentThread->machine->TranslationEntry->tlb
+kernel->currrentThread->machine->TranslationEntry->pageTable
+kernel->currentThread->stackTop
+kernel->currentThread->stack
+kernel->currentThread->ThreadStatus->status (ready, blocked, running)
+kernel->currentThread->AddrSpace->space
+kernel->currentThread->userRegisters[NumTotalRegisters]
+kernel->currentThread->machine->registers[NumTotalRegisters]
+kernel->interrupt->MachineStatus->status (IdleMode, SystemMode, UserMode) this enum is in interrupt.h system mode is the same as kernelmode.
+
+******************
+kernel->currentThread->space->asid
+
+CURRENT MEMBER FUNCTIONS
+
+kernel->currentThread->SaveUserState()
+kernel->currentThread->RestoreUserState()
+ how is this the same or different than
+kernel->currentThread->addrSpace->SaveUserState()
+kernel->currentThread->AddrSpace->RestoreUserState()
+
+kernel->FileSystem->Create()
+kernel->FileSystem->Open()
+
+
+NOTE: These member functions are only defined for this assignment!!
+OpenFile->Read
+OpenFile->Write
+OpenFile->ReadAt
+OpenFile->WriteAt
+OpenFile->Length
+
+
+
+CONTEXT SWTICH SEMANTICS:
+
+Machine::raise exception switches from kernel space to user space by kernel->interrupt->setStatus(SystemMode) to setStatus(UserMode). q)where is UserMode defined, is this the same global as in MachineStatus??? Yes, the options are SystemMode, UserMode, and IdleMode. Do we need to switch back and forth between kernel and user mode to user kernel mode functions like file open, close, etc. In a real OS this would be the case. 
+
+
+DATA STRUCTURE MODIFICATIONS:
+
+1) To support multiprogramming, the linear mapping is replaced with a page table mapping. Currently there is a page table object in each Addrspace. There is an addrSpace object representing the virtual address of the process. There are several alternatives here, 
+
+1) we can remove the page table object and put it in kernel or machine, where there is only one page table. We would have to create a set of translation member functions translating the virutal addrSpace addresses to physical addresses.
+This implementation would result in the following function declarations for what we need to do functionally:
+ a) kernel->PageTablemanager->Clear (clear memory)
+ b) kernel->PageTablemanager() (constructor, allocate max. number of pages fro code segment data.
+ c)kernel->~PageTablemanager() (destructor, when process destroyed, invalidate page table entries)
+ d)kernel-> PageTablemanager()-> translateVtoP (translate a virtual address and process number to pyhsical address in main memory
+ e)kernel->PageTablemanager()->translatePtoV (translate a physical to a virtual address and process id number)	
+ 
+
+
+2) We can leave the page table object in addrspace, add translation functions from virtual address to physical addresses. We could allocate virtual addresses from mainMemory. 
+
+
+
+
+
+
+
+
+FILE OPERATIONS:
+
+
+I am confused. I don't see how creating a pointer to a string for a filename can be passed to R4 in the CPU. The ReadRegister returns an int. The pointer is a char *pointer to a string. 
+
+If there were a type conversion, I dont see how the pointer magically gets intothe R4 register. Who and where the hell is this written into?
+
+When main is called, there are argc and argv syntax, the examples in NACHOS show how this is parsed. We can throw this on a stack, are we supposed to write this into R4? 
+
+The OPEN() and CREATE() file routines use the kernel->fileSys object for the file names, and the file names are in kernel space. A pointer to a FileSystem object is created and placed in kernel space. We do not need to copy the file string name from kernel space to user space. A CREATE returns a bool true/false if the CREATE succeeded. An OPEN returns a pointer to a OPENFILE object. This is created in kernel space. The OpenFile object contains the int file descriptor associated with the file name, and a int currentOffset. 
+
+NOTE:  This definition only holds when FileSys STUb is defined for this assignement only!!!!
+
+There is an openfile object only in existence for filesys when the menber function Filesys::Open is called. This is misleading, the OpenFile object is not created when FileSys Create is called, but only when FileSys::Open is called.
+
+The Write( chaf *name, int size, OpenFileId id) and Read( char *name, int size, OpenFileId id) funcitons are implemented in SC_Read and SC_Write. The OpenFileId can be either a file or a stdio device as seen in shell.c If it is a stdio device, we do not search through the file table for the process to check to see it is there. If the OpenFileId is a stdio device, then we do not check through the fileTable to make sure it is there. 
+
+
+FILE DESCRIPTORS
+These are ints, note StandardInput = 0, and StandardOutput =1. How are the file and offset 
+
+PROTECTION/SEECURITY
+When accessing files, we need to check in the filetable list to make sure the id of the file is there; this insures the process has opened the file previously, and we are not accessing a file that is not ours. This is placed in the read and write commands. 
+
+When accessing memory, we also do the same type of check, the physical pages for each process is checked to make sure we are accessing physical memory for that respective process. 
+
+
+
+
+LOADING PROGRAMS INTO MEMORY:
+
+1) make sure file is not empty 
+	if (noff.code.size = 0) {
+	printf("error code file empty\n");
+	exit(1); //this is a guess, look this up later
+	}
+
+2) Calculate the number of pages needed for the different segments
+		
+
+
+
+
+Problem 1)
+
+SC_Halt; already done.
+Process halt
+
+
+SC_Exit
+Process Exit: The objects asscociated with the process are destroyed, including deallocating the virtual address space, freeing of the pyhsical memory spaces, freeing of the machine registers, and clean up of child threads. This can only be done after the child threads are finished, or are they forced to finish when this is called?
+
+
+SC_Exec:
+Process Execute: The name of the executabel file name is used to create a new process. The virtual address space is created, code is loaded from the file to physical memory (translation from virtual to physical address), and a thread is forked to run the process. 
+
+Get the name of the executable from command line, parse any arguments to the stack. Program name consists of name up to a whitespace. Push arguments to the stack. Open the file.
+
+
+
+SC_Join
+
+
+
+
+SC_Create
+
+Get the arguments, we can assume the arg is in register 4, the filename??
+q) how do we get the filename string from the argv or argc syntax? VERIFY THIS. HOW DOES THIS WORK??
+
+
+Make sure the filename length is greater than 0:
+if strlen(...) > 0
+
+
+ALlocate memory for the file name in the kernel space(sun workstation):
+
+char *filename = new filename(strlen(...));
+
+Continue if kernel->FileSystem->Create(filename) returns a true, fail with an error message if false.
+
+kernel->FileSystem->Create(filename) uses the OpenForWrite function. This function returns an int for the file descriptor when we pass it a string. The open for write command uses the following funky, it uses flags in the unix open command. The text description says it will create the file if it doesn't exist, and will truncate it if it does.
+
+looking up the unix open flags, this is a bit unclear, UNIX will create the file if it doesnt exist. The mode 0666 flag is not explained in the man page.
+
+
+SC_Open
+
+First look to see if this is an open operation from the Console to a file or another IO device. 
+
+
+Difference between a synchconsole and console device. 
+
+
+If this is a console device, we need to add something to quit out of the loop
+If this is a console device, it should know how many chars to look for like the file size or look for a return/linefeed. The return/linefeed is the same as the quit char. 
+
+
+
+Make sure the file name exists first:
+if (strlen(kernel->currentThread->machine->ReadRegister(4))==0)
+{
+ set an error flag
+ 
+}
+
+Use a new to allocate memory for the kernel file name. Use a strlen operation to determine how many bytes to allocate.
+char * filename = new filename(strlen(...));
+
+This should set the filestring name
+
+
+use kernel->fileSystem->Open. this calls the syscall.h OpenForReadWrite(), and returns an int that is not -1 if successfull.
+
+THIS CREATES AN OPENFILE OBJECT. The openfile object is a int file and int currentOffset. 
+
+This returns a pointer to  an OPENFILE object in the kernel memory space. This object contains the file descriptor and is used for read and write.
+
+
+OpenForReadWrite does not create the file if it does not already exist. It will return an error if it does not already exist.
+
+
+
+
+SC_Read
+Read the 3 parameters, 
+
+kernel->machine->ReadREgister(4) contains the char *name for the file name
+kernel->machine->ReadRegister(5) contains the size of number of bytes to read
+kernel->machine->ReadRegister(6) containts the OpenFileId id that indicates either a file or console device. 
+
+ 
+
+
+There are 2 cases, reading from the console, and from a file.
+
+If reading from a console, first 
+
+
+This reads the file, make sure file is open first. This can be read by another thread or process, but not written to. We can simplify this to allowing only one owner to read to a file. 
+
+kernel->FileSystem->OpenFile->Read
+
+
+This keeps all the file operations in kernel space. 
+
+q) what is the difference between Read and ReadAt?? Readat reads from middle of file, or from any offset. is there the possiblity of another thread interrupting the current file operation, so we have to do a readat and write at to complete the last operation? 
+
+
+
+
+
+SC_Write
+
+This writes to a file, make sure it is open, and no other thread or process  is accessing this.
+
+
+kernel->FileSystem->OpenFile->Write()
+
+
+
+
+SC_Close
+
+This closes a file, make sure it is open first, and the person closing the file owns the open to the file.
+
+~OpenFile
+
+
+
+MODIFICATIONS AND ADDITIONS TO BULLETPROOF THE OS:
+
+
+Bulletproof the user program errors:
+scenario 1: when the stack segment grows beyond a page, generate a page fault exception and grow the stack. 
+
+scenario 2: when the heap segment grows bwyond a page, generate a fault. there is no memory allocator in this os.
+
+scenario 3: when the user tries to r/w a protected section generate a fault 
+
+scenario 4: when too many programs are launched??? We can run out of descriptors and memory tables??? Windows had this problem, but I don't know if not accepting any more executables is a failure mode or a reasonable prevention of an unreasonalbly slow system.
+
+scenario 5: running out of memory. There is no swap file to disk allowing us to grow the memory space??? Do we generate an exception when the memory is ...
+
+scenario 6: user program attempts to access file or memory outside of allowed range.
+
+scenario 7: program memory requirements keep growing. this will kill the machine. how to detect this and stop this? eg keep on generating a malloc till machine runs out of memory. Generate a swap file where we can keep the process in memory. use the file commands we just implemented.
+
+
+scenario 8: 
+when a program is accessing memory across a page boundary, a fault caused by a page fault will cause a reexectution of the current instruction, or will the next instruction be executed. It looks like the next instruction is executed. How do real microprocessors work? 
+
+
+
+
+Problem 2) Implement multiprogramming. 
+
+The intent of this program is to show the shell running, with the user having the ability to type in names of executables. 
+
+
+
+2.1) Come up with a way of allocating physical memory frames so that multiple programs can be loaded into memory at once. 
+
+
+Currently there is a linear page translation from virtual address space to physical address space in addrspace.cc constructor. This needs to be commented out with a mapping scheme that allows multiple programs to see their own virtual address space. This is done by creating a paging scheme where each program sees a a page table. The entries in the page table are computed at load time. The page table consists of 64 entries. The virtual address space per process of 2^32 contains 2^20 possible entries to complete the mapping of the entire virtual address space. Instead of allocating a table of 1M entries, a translation function allocates a physical memory page up to 64 pages for each process. The assumption here is the process cannot take up more memory than the current amount available. We assume there is no swap file to allow main memory contents to be swapped to disk.
+
+ADDRSPACE MODIFICATIONS:
+
+
+ADDRSPACE LINEAR PAGE TABLE REPLACEMENT:
+Any memory access in Addrspace is a virtual address. Currently there is a one ot one mapping in the Addrspace::Load function. This is replaced by a page table mapping. There are several options (review this with E):
+
+1) Allocate a complete virtual address to physical mapping everytime the constructor is called, and set the valid bits to invalid.
+
+2) Allocate the pointer in the constructor, and in the load calculate the valid address ranges the process uses from the noff Header. Since we are given no Mallocs in user land, this approach is valid, but not scalable. 
+
+
+
+Addrspace::Addrspace()
+1) create a pointer to a page table of 64 entries, or max. NumofPages long.
+q) do we need a virtual address space object? We can allocate all million, and generate invalid bits, this allows us to an invalid address check on the address being there vs. an invalid bit in the page table. This is a performance problem, searcing a table of 1M entries to get an invalid address response is too slow in our simulator. 
+
+Addrspace::Load()
+1) open the file name of the executable
+2) determine the addresss space requirements from the noff header, allocate page table entries in the page table sequentially for the 3 segments, code, data and stack segments.
+3) set the bits in the page table, on a load into newly allocated memory, the use bit is set and the valid bit is not set. Verify this. I am not clear on the different states here. 
+
+Design Tradeoffs:
+
+The size of mainMemory is defined in const ints in machine.h. We use the given size and create a bitmap to represent the total physiacl memory in the system. Before a program is loaded, the bitmap is locked and the size is checked to see if it will fit in the available physical memory. 
+
+Each page table will ahve to call the mainMemory->bitmap object to allocate memory pages. q) does the kernel need to know which process owns what page? This would be good for debugging. Use the ASID number.
+
+
+PAGE TABLE IMPLEMENTATION:	
+
+q) does this impact the effect of File Read and Write if the buffer size is greater than one page? No, since this is statically allocated. For large files that cross page boundaries, what do we need to do? Perform validity checking on new page to make sure the page is accessible. There will be cases where a user program crosses page boundaries, and the buffer in the kernel is still the same size or does it grow with the size of the user buffer? What is the problem asking for here? The user program will go to multiple pages, and there could be multiple threads accessing this buffer??
+
+
+Each thread has a virtual address space. We can 1) load the entire program into memory, or 2) load the first page into memory and demand page. The problem called for an implementation not requiring the implementation of page faults, so we are loading the entire program into memory.
+
+The program returns an error if another program will not fit into the available physical memory.
+
+On the first load of a program, the number of pages for each of the 3 segments are computed and stored into a page table mapping. The number of pages are marked in the bitmap data structure in mainMemory.
+
+The data structure for a page table is:
+kernel->machine->pageTable 
+kernel->machine->pageTableSize
+
+Currently machine.cc sets pageTable=NULL; create a list or an array of 64 TranslationEntry items. 
+
+There is one page table per machine, with the entries loaded for each thread. We use the Addrspace SaveState and RestoreState to save and restore the page tables.
+
+Each thread or process has an AddrSpace object which can include a pageTable and TLB object. These store the references to main memory from virtual address space. 
+
+
+The TLB is also currently set to NULL, this needs to be set to hold the 4 most commonly used translations per thread or process. I assume the AddrSpace SaveState and RestoreState also save and restore the contents of the TLB.
+
+
+The data structure for Translation Entry is:
+	int virtual page;
+	int physical page;
+	bool valid;
+	bool readOnly;
+	bool use;
+	bool dirty;
+
+
+q) when do the status bits get set, the valid, readOnly, use, and dirty bits?
+
+READONLY: Kernel buffer is set to this, the one user processes communicate to this. This is one entry in the TLB.
+
+Valid:
+
+Use:
+
+Dirty: On a context switch??
+
+q) what is the difference between the valid and dirty bits?
+q) how to tell main memory is used up? The bitmap will be full.
+
+On a page hit, we have a virtual address mapped to a physiacal address. On a page table miss, a new page entry needs to be assigned from the bitmap table representing physical memory. Design tradeoff, we can create a table of all the possible page lookups for each process. Each process has a virtual address range of 2^32. The page size is 4kb. Each process has a total of 2^20 pages. In program load time, we allocate a set number of pages for the code, uninit and 1 page for the stack. On a context switch, the initial value of the stack may not fit in one page. We need to test for this.
+
+Instead of creating a table of 2^20 entries for each process, we allocate a list of page table base addresses. This list of page table addresses is static for the code and uninit segments, but can grow for the stack segment.
+
+In the 2^20 entries of page table entries, a valid bit indicates the page table is already mapped, an invalid bit indicates the page is not referenced by the current process. q) when does the memory manager change the status of a bit? On allocation to a new address ,this is declared valid. On a malloc, this is declared valid. On a process exit, the bits are declared invalid, allowing the physical pages to be released. 
+
+
+On a page hit, the virtual address to page table address is in this table. On a miss, the address is not there, and a new page must be allocated and stored in the page table list.
+
+
+
+
+TRANSLATION FROM VIRTUAL ADDRESS TO PHYSICAL ADDRESS. Each process has a virtual address space. The used virtual address spaces in each process corresponds to a mapping to the mainMemory available. The mappings from virtual to physical spaces are static, and are determined by looking at kernel->currentThread->addrspace->pageTable. The mappings from physical space to virtual space can also be determined by looking at this table. q) do we keep a copy of this in the kernel for all the processes?? 
+
+
+
+2.2) Provide a way to copy data to/from the kernel and the user's virtual address space.
+
+TRANSLATION FROM KERNEL SPACE TO USER SPACE (VIRTUAL ADDRESS):
+
+The kernel space is NOT the same as virtual address space. It is allocated through a new and stored in the simulation environment. This is an unlimited amount of memory, we use pointers to address kernel memory. Where and how do we define the kernel buffer? 
+
+
+this requires adding 2 functions to read from kernel space, and to write to kernel space. These functions translate a virtual address into a physical address.The memory operations are will copy till the end of the buffer or end of page. 
+
+AddrSpace::MoveFromKerneltoVirtual(char *kernel, int VirtualAddr, int ASID, int VirtualSize);
+
+	kernel = new char [VirtualSize];
+	//copy the data
+
+AddrSpace::MoveFromVirtualtoKernel(char *kernel, int VirtualAddr, int ASID, int VirtualSize);
+
+We can put this in the AddrSpace class or in a separate MemoryManager class in the kernel->machine class. 
+
+
+From the kernel space to the user space, we need the mapping for the virtual page to the physical page and the size of the amount to be transferred. If this amount crosses page boundaries, a new page can be allocated in the user space, and the rest of the buffer can be copied. 
+
+This requires byte swapping per the faq for problem 3.
+
+From the user space to the kernel space, the size of the transfer also determines if we need to get another page. This routine has to dynamically allocate more memory into the workstation to support the number of pages to be copied.
+
+
+
+2.3) add syncronization to the routines that create and init the address spaces
+
+I assume this means using semaphores for creating and initing an address space. This refers to the virtual address space. Only one thread can access a virtual address space at a time. This is multithreading, which we are not doing.
+
+Problem says there is a change to scheudler.cc where it saves and restores machine state on context switches. 
+
+Problem 3)
+
+Implement argument passing the the newly created address space. Push the arguments onto the stack. Note the byte swapping between user memory and the NACHOS sun byte aligment.
+
+
+
+
+
+
+

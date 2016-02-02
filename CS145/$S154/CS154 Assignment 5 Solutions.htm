@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://www-db.stanford.edu/~ullman/hmu/hw5sols.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 5 Solutions</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #5 Solutions</H1>
+<OL>
+  <LI>Let <I>n</I> be the pumping-lemma constant, and consider <I>z = 
+  0^n1^{n+1}2^{n+2}</I>. We can write <I>z = uvwxy</I> such that <I>|vwx| &lt;= 
+  n</I> and <I>|vx| &gt; 0</I>. Note that <I>vx</I> is too short to consist of 
+  all three symbols, 0, 1, and 2, so these strings consist of at most two of the 
+  three. 
+  <P>
+  <DL compact>
+    <DT>(a)
+    <DD>If <I>vx</I> has no 2's, then <I>uv^3wx^3y</I> has at least <I>2n+3</I> 
+    0's and 1's, and therefore has to have at least <I>n+2</I> of one of them. 
+    That symbol occurs at least as many times as do the 2's, so this string is 
+    not in <I>L</I>. 
+    <P></P>
+    <DT>(b) If <I>vx</I> has 2's, it cannot have 0's. Then <I>uwy</I> has at 
+    most <I>2n+2</I> 1's and 2's, and <I>n</I> 0's. If there are more than 
+    <I>n</I> 1's, then there cannot be more 2's than 1's. Either way, <I>uwy</I> 
+    is not in <I>L</I>. </DT></DL>
+  <P></P>
+  <LI>One approach is a PDA construction. Given a PDA <I>P</I> for <I>L</I>, 
+  construct another PDA <I>P</I>' that simulates <I>P</I>, but insists that 
+  before reading any input symbol it must make (on epsilon input) a transition 
+  that <I>P</I> would make on input <I>a</I>. <I>P</I>' is like <I>P</I> with 
+  the following exceptions: 
+  <P>
+  <DL compact>
+    <DT>(a)
+    <DD><I>P</I>' has an additional state <I>q</I>' for every state <I>q</I> of 
+    <I>P</I>. None of the new states are accepting. 
+    <P></P>
+    <DT>(b)
+    <DD>The primed states have the same transitions on epsilon input as the 
+    corresponding unprimed states, but they go to a primed state. That is, if 
+    <I>delta(q,epsilon,X)</I> contains <I>(p,gamma)</I>, then 
+    <I>delta'(q',epsilon,X)</I> contains <I>(p',gamma)</I>. Note that this 
+    capability --- simulating as many epsilon-transitions as <I>P</I> makes 
+    before reading an <I>a</I> is essential. 
+    <P></P>
+    <DT>(c)
+    <DD>The primed states can go, on epsilon, to whatever unprimed state 
+    <I>P</I> goes to on input <I>a</I>. That is, if <I>delta(q,a,X)</I> contains 
+    <I>(p,gamma)</I>, then <I>delta'(q',epsilon,X)</I> contains 
+    <I>(p,gamma)</I>. </DD></DL>
+  <P>To see why this works, suppose <I>aw</I> is in <I>L</I>. Then <I>P</I>' 
+  will simulate, with epsilon input, whatever <I>P</I> does until it makes a 
+  move that reads the <I>a</I>. From that point, <I>P</I>' can only simulate 
+  <I>P</I>, and thus accepts <I>w</I> if and only if <I>P</I> accepts <I>aw</I>. 
+
+  <P></P>
+  <LI>Let <I>n</I> be the pumping-lemma constant. Pick <I>m = n! + n</I>. The 
+  algorithm is to test whether all strings of 0's of length up to <I>m</I> are 
+  in <I>L</I>. If not, then <I>L</I> does not contain all strings of 0's. 
+  <P>We must prove that if <I>L</I> does contain all these strings, then it 
+  contains every string of 0's. We could prove by induction on <I>i</I> that 
+  <I>0^{m+i}</I> is in <I>L</I> for all <I>i</I>. However, an equivalent, and in 
+  this case easier, argument is a ``shortest counterexample'' argument. 
+  <P>Suppose that, although all strings of 0's of length up to <I>m</I> are in 
+  <I>L</I>, there is some string <I>0^k</I> that is not. Then <I>k &gt; m</I>, 
+  surely. Let <I>k</I> be the smallest integer with that property; i.e., all 
+  strings of 0's, from epsilon up to <I>0^{k-1}</I> are in <I>L</I>. Consider 
+  <I>0^{k-n!}</I>. Because <I>k &gt; n! + n</I>, <I>0^{k-n!}</I> is of length at 
+  least <I>n</I>. Thus, the pumping lemma applies to it, and we know that we can 
+  write <I>0^{k-n!} = uvwxy</I> such that <I>vx</I>, of length between 1 and 
+  <I>n</I>, can be ``pumped.'' Since the length of <I>vx</I> surely divides 
+  <I>n!</I>, we know we can find some <I>i</I>, namely <I>i = 1+n!/|vx|</I>, 
+  such that <I>uv^iwv^iy = 0^k</I>. By the pumping lemma, it follows that 
+  <I>0^k</I> really is in <I>L</I> after all. If there is no shortest string of 
+  0's that is not in <I>L</I>, then there can be no string of 0's at all that is 
+  not in <I>L</I>; i.e., <I>L</I> contains all strings of 0's, if it contains 
+  all the strings up to <I>0^m</I>. 
+  <P></P>
+  <LI>Make the following modifications to <I>P</I>: 
+  <P>
+  <DL compact>
+    <P>
+    <DT>(a)
+    <DD>Change all variables named <I>x</I> to some new identifier that does not 
+    appear in <I>P</I>. 
+    <P></P>
+    <DT>(b)
+    <DD>Replace all output statements by statements that store into an array the 
+    characters that would be printed, checking whether they are <TT>hello, 
+    world.</TT> 
+    <P></P>
+    <DT>(c)
+    <DD>If we find that <TT>hello, world.</TT> would have been printed by 
+    <I>P</I>, then execute an assignment <TT>x=1;</TT> </DD></DL>
+  <P>The resulting program assigns to <I>x</I> if and only if <I>P</I> prints 
+  <TT>hello, world.</TT> If we could tell whether the new program assigns to 
+  <I>x</I>, we could tell whether the given program <I>P</I> was a <TT>hello, 
+  world.</TT> printer, which we know we cannot do. Thus, the hypothetical 
+  ``assign to <I>x</I>'' tester does not exist. 
+  <P></P>
+  <LI>Let <I>M = ({q,p,r},{a,b}, {a,b,B}, delta, q, B, {r})</I>, where delta is 
+  given by: 
+  <P>
+  <UL>
+    <LI><I>delta(q,a) = (q,a,R)</I> 
+    <LI><I>delta(q,b) = (p,b,R)</I> 
+    <LI><I>delta(q,B) = (r,B,R)</I> 
+    <LI><I>delta(p,b) = (p,b,R)</I> 
+    <LI><I>delta(p,B) = (r,B,R)</I> </LI></UL>
+  <P>That is, <I>q</I>, the start state, says ``we have not yet seen a 
+  <I>b</I>''; state <I>p</I> says ``we have seen a <I>b</I>, but not yet reached 
+  a blank,'' and <I>r</I> is the accepting state, reached if we get to a blank 
+  after moving over 0 or more <I>a</I>'s and 0 or more <I>b</I>'s. 
+</P></LI></OL></BODY></HTML>

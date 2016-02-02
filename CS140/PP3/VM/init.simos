@@ -1,0 +1,89 @@
+###
+### setup the search path to find scripts
+###
+
+set simosPath "$env(SIMTOOLS)/apps/tcl"
+set nachosArgs ""
+
+###
+### ALWAYS source this file first. It sets up a number of annotation types.
+###
+source "tcl_support.tcl"
+
+###
+### setup default parameters
+###
+
+source "defaults.tcl"
+
+
+###
+### override any of the default parameters
+###
+
+if {!$SIMOS(RestoringCpt)} {
+    set PARAM(MEMSYS.MemSize) 8
+    set PARAM(CPU.Count) 1
+}
+set PARAM(FILES.MemFileDir) /usr/tmp
+
+###
+### load your kernel's symbols - required by most scripts
+### 
+
+set KERNEL ./SIMOS/nachos
+symbol load kernel $KERNEL
+
+###
+### catch annotation errors here
+###
+### this sample prints a backtrace and then goes into interactive mode,
+### alternatively we could just print a warning message, ignore, or exit
+###
+
+handler {
+    console "TCL ERROR:\n" $errorInfo "\n"
+    exit
+}
+
+annotation set simos sigusr {
+    console "sigusr caught, and then ignored\n"
+}
+
+###
+### User-defined parameters and annotations
+###
+
+set detailLevel                              0
+
+set PARAM(DISK.Model)                    Fixed
+set PARAM(DISK.Fixed.Latency)                0
+set PARAM(CACHE.Model)                    None
+set PARAM(MEMSYS.Model)                Perfect
+
+###
+### boot line
+###
+
+expect "simosboot (1)> " {
+    type "b $KERNEL $nachosArgs\n"
+}
+
+###
+### Some of the Tcl files sourced here require parameters to be setup. 
+### Source this AFTER all parameters are initialized (both defaults and 
+### user specified).
+###
+
+annotation set pc kernel::Abort__Fv:START {
+	debug
+}
+
+source nachos.tcl
+source standard.tcl
+
+console "SIMOS: pid [pid]\n"
+log "[annotation info]\n"
+
+# Remove the '#' at the front of the next line to enable nachos debugging
+#annotation set pc kernel::main:START debug

@@ -1,0 +1,512 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (X11; U; SunOS 5.6 sun4u) [Netscape]">
+   <title>Problem Set #1</title>
+</head>
+<body>
+
+<hr>
+<h3>
+CS157 Computational Logic</h3>
+
+<h2>
+Problem Set #1: Propositional Logic</h2>
+
+<h4>
+Genesereth / Abrams / Chai / Katznelson<br>
+Spring 2000</h4>
+
+<table BORDER=0 >
+<tr>
+<td>Assigned:</td>
+
+<td>Thursday, April 6</td>
+</tr>
+
+<tr>
+<td>Due:&nbsp;</td>
+
+<td><b>Thursday, April 13, 5:00pm</b></td>
+</tr>
+</table>
+
+<p>Please email the completed homework to
+<a href="mailto:cs157-homework@cs.stanford.edu">cs157-homework@cs.stanford.edu</a>.
+<br>Details of submission can be found in the <a href="submission.html">homework
+submission policy</a>.
+<p>Please include just the answers written in plain, old-fashioned, barebones
+ASCII.
+<br>Do not echo the questions back to us. We know what they are.
+<p>Finally, please include your name as well as your e-mail address in
+the body of your message. The subject heading of your e-mail should be
+"Homework #1".
+<hr>
+<ol>
+<h3>
+1. Syntax (5 points)&nbsp; Graded by Zoe Abrams</h3>
+Determine whether each of the following is a sentence of propositional
+logic. A YES or NO is all that is needed.
+<p>(a)&nbsp; <font face="Courier New,Courier">p &amp; b => a | ~a | p &amp;
+p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>YES</b></font>
+<br>(b)&nbsp; <font face="Courier New,Courier">true &amp; false&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<b>YES</b></font>
+<br>(c)&nbsp; <font face="Courier New,Courier">f(x,y) => z&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<b>NO because functions are not in the grammar</b></font>
+<br>(d)&nbsp; <font face="Courier New,Courier">p = T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<b>NO because "=" is not in the grammar</b></font>
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+2. Semantics (10 points) Graded by Zoe Abrams</h3>
+Translate the following English sentences into sentences of propositional
+logic. Use only the logical constants we provide for you. For instance,
+the sentence "It is raining or snowing" with the given logical constants:
+<blockquote><tt>raining </tt>= "It is raining"
+<br><tt>snowing </tt>= "It is snowing,"</blockquote>
+should be answered by:
+<br>&nbsp;
+<blockquote><tt>raining | snowing</tt></blockquote>
+(a) "It is impossible to enjoy idling thoroughly unless one has plenty
+of work to do" -Jerome K. Jerome
+<blockquote><tt>p </tt>= "one has plenty of work to do"
+<br><tt>i </tt>= "It is impossible to enjoy idling thoroughly"
+<p><b><font size=+1>~p => i</font></b>
+<br><b><font size=+1>Explanation:&nbsp; i is true.&nbsp; However, when
+the p condition is met, there is no longer any gaurantee of i being true.&nbsp;
+When p is false, i must be true.&nbsp; In natural language the implication
+is sometimes that if the p condition is met, then i necesarily doesn't
+happen.&nbsp; This is an inference and is not a precise interpretation
+of the meaning of unless.</font></b>
+<br><b><font size=+1>From Webster's Dictionary:</font></b>
+<br><b><font size=+1>unless \Un*less"\, conj. [Formerly, onles, onlesse,
+onlesse that, that is, in less, in a less case. See On, and Less.] Upon</font></b>
+<br><b><font size=+1>any less condition than (the fact or thing stated
+in the sentence or clause which follows); if not; supposing that not; if
+it be not; were it not that; except; as, we shall fail unless we are industrious.</font></b></blockquote>
+(b) Completing cs157 requires you are nice to Eitan, Danny, and Zo&euml;,
+and not Professor Genesereth.
+<blockquote><tt>c </tt>= "completing cs157"
+<br><tt>e </tt>= "you are nice to Eitan"
+<br><tt>d </tt>= "you are nice to Danny"
+<br><tt>z </tt>= "you are nice to Zo&euml;"
+<br><tt>g </tt>= "you are nice to Professor Genesereth"
+<p><b><font size=+1>c => (e &amp; d&nbsp; &amp; z &amp; ~g)&nbsp; As with
+unless, it was a common mistake to interpret "requires" as equivalence.&nbsp;
+To make the distinction clear, consider the sentence:&nbsp; "Receiving
+an A in cs157 requires that you register for the class".&nbsp; Clearly,
+this does not mean that registering for the class ensures you will receive
+an A.&nbsp; It does state that if you receive an A, you must have registered
+for the class.</font></b></blockquote>
+(c) Either it is raining and overcast or someone left the shower on and
+the lights off.
+<blockquote><tt>r </tt>= "it is raining"
+<br><tt>o </tt>= "it is overcast"
+<br><tt>s </tt>= "someone left the shower on"
+<br><tt>l </tt>= "someone left the lights off"
+<p><b><font size=+1>Using exclusive or:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (r
+&amp; o &amp; ~(s &amp; l)) | (~(r &amp; o) &amp; s &amp; l)</font></b>
+<br><b><font size=+1>Using inclusive or:&nbsp;&nbsp;&nbsp; (r &amp; o)
+| (s &amp; l)</font></b></blockquote>
+(d) I am neither happy nor sad except when watching the nature channel
+on TV.
+<blockquote><tt>h </tt>= "I am happy"
+<br><tt>s </tt>= "I am sad"
+<br><tt>w </tt>= "I am watching the nature channel on TV"
+<p><b><font size=+1>In Websters Dictionary</font></b>
+<br><b><font size=+1>ex&middot;cept (k-spt)</font></b>
+<br><b><font size=+1>&nbsp; prep. Abbr. ex., exc.</font></b>
+<p><b><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; With
+the exclusion of; other than; but: everyone except me.</font></b>
+<p><b><font size=+1>&nbsp; conj.</font></b>
+<p><b><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1.If it were not for the fact that; only: I would buy the suit, except
+that it costs too much.</font></b>
+<br><b><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2.Otherwise than: They didn't open their mouths except to complain.</font></b>
+<br><b><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+3.Unless.</font></b>
+<p><b><font size=+1>These three definitions are logically equivalent.</font></b>
+<br><b><font size=+1>"if not" yields ~w => ~(h | s)</font></b>
+<br><b><font size=+1>"otherwise" yeilds (h | s) => w</font></b>
+<br><b><font size=+1>"if not" &lt;=> "unless" from part (a)</font></b>
+<p><b><font size=+1>  "a except b" in natural language can
+sometimes be meant as a <=> ~b.  Since this is a
+reasonable but imprecise interpretation only 1 point was
+subtracted.</font></b></blockquote>
+(e) If it is winter its raining, otherwise it's sunny.
+<blockquote><tt>w </tt>= "it is winter"
+<br><tt>r </tt>= "it is raining"
+<br><tt>s </tt>= "it is sunny"
+<p><b><font size=+1>Both of the following interpretations were accepted.</font></b>
+<br><b><font size=+1>Otherwize modifies w: (w => r) &amp; (~w => s)</font></b>
+<br><b><font size=+1>Otherwize modifies (w => r):&nbsp; ~(w =>r) => s</font></b></blockquote>
+
+<h3>
+3. Validity, Satisfiability, and Unsatisfiability (10 points)&nbsp; Graded
+by Zoe Abrams</h3>
+Determine whether each of the following sentences are valid, satisfiable
+or unsatisfiable. A one-word answer (VALID, SATISFIABLE or UNSATISFIABLE)
+is all that is needed for each subproblem.
+<p>(a)&nbsp; <font face="Courier New,Courier">a &amp; (b | c) &amp; (a
+=> b) &lt;=> (~b => ~a) &amp; ((a &amp; b) | (a &amp; c))&nbsp;&nbsp;&nbsp;&nbsp;
+
+<b>VALID</b></font>
+<p>(b)&nbsp; <font face="Courier New,Courier">(a &lt;=> b) &amp; (b =>
+c) &amp; (~c | d) &amp; ~( (~a &amp; ~d) | d)&nbsp;&nbsp;&nbsp;&nbsp; 
+<b><font size=+1>UNSATISFIABLE</font></b></font>
+<p>(c)&nbsp; <font face="Courier New,Courier">((p => q) &lt;=> (q => p))
+&lt;=> (p &lt;=> q)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b><font size=+1>VALID</font></b></font>
+<p>(d)&nbsp; <font face="Courier New,Courier">(a | b => c) &amp; (a | ~c)&nbsp;&nbsp;&nbsp;&nbsp;
+
+<b><font size=+1>SATISFIABLE</font></b></font>
+<br>&nbsp;
+<br>&nbsp;
+<h3>
+4. XOR and Truth Tables (7 points) Graded by Eitan Katznelson</h3>
+(a) Define "p XOR q" with the following truth table:
+<pre>&nbsp;&nbsp;&nbsp; p&nbsp;&nbsp; |&nbsp;&nbsp; q&nbsp;&nbsp; |&nbsp;&nbsp; p XOR q
+&nbsp; ----------------------------
+&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F
+&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T
+&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T
+&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F</pre>
+Draw the truth table for (p|q) &amp; ~(p&amp;q).
+<p>&nbsp;Argue informally that this sentence is equivalent to p XOR q.
+<p><b><font size=+1>Solution:</font></b>
+<pre><b><font size=+1>&nbsp;&nbsp;&nbsp; p&nbsp;&nbsp; |&nbsp;&nbsp; q&nbsp;&nbsp; |(p|q) &amp; ~(p&amp;q)
+&nbsp; ----------------------------
+&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F
+&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T
+&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; T
+&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F</font></b></pre>
+<b><font size=+1>Since the sentences have the same truth value under every
+interpretation, they are equivalent.</font></b>
+<p>(b) Write an unsatisfiable Propositional Logic sentence using only the
+operator XOR and any number of propositional constants.
+<p><b><font size=+1>Solution:</font></b>
+<pre><b><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p xor p</font></b>
+
+</pre>
+&nbsp;
+<h3>
+5. Expressivity of Boolean Functions (7 points)&nbsp; Graded by Zoe Abrams</h3>
+All propositional sentences can be expressed in clausal form (i.e. using
+the 2-arity operators '&amp;' and '|' and the unary operator '~'). In fact,
+all propositional sentences can be expressed with even less: a single 2-arity
+operator. We'll call this operator '#'.
+<p>Fill out the truth table for this operator below.
+<br>(Note that a 2-arity operator can act as a unary operator by using
+a single proposition as both its operands.)
+<pre><b><font size=+1>NOR</font></b></pre>
+
+<pre><b><font size=+1>&nbsp;&nbsp;&nbsp; p&nbsp;&nbsp; |&nbsp;&nbsp; q&nbsp;&nbsp; |&nbsp;&nbsp; p # q&nbsp;&nbsp;&nbsp; | p # p&nbsp; | q # q | (p#p) # (q#q)
+&nbsp; -----------------------------------------------------------
+&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; T
+&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; F
+&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; F
+&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp; F&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp; T&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp; F</font></b></pre>
+<b><font size=+1>can express all propositional sentences.&nbsp; To see
+this,&nbsp; p # p is equivalent to ~p (NOT).&nbsp;&nbsp; Also, ~p # ~q
+is equivalent to p &amp; q (AND).&nbsp; We only need to express the '~'
+and '&amp;' operators to write all sentences.&nbsp; This is because, from
+clausal form, we know we only need '&amp;', '~', and '|'.&nbsp; By DeMorgan's
+laws, (x | y) &lt;=> ~(~x &amp; ~y) and (x &amp; y) &lt;=> ~(~x | ~y) so
+only one of '&amp;' and '|' are needed.</font></b>
+<p><b><font size=+1>NAND also works for similar reasons.</font></b>
+<h3>
+6. Electronic Circuits (8 points)&nbsp;&nbsp;&nbsp; Graded by Eitan Katznelson</h3>
+You are given an old computer chip which takes 3 inputs and gives 1 output.
+The label on the chip says
+<blockquote><tt>~p | q &amp; r</tt></blockquote>
+<i>You decide to test the chip by applying high (true) and low (false)
+voltages to the inputs and measuring the output. The output for each set
+of inputs is shown in the following truth table:</i>
+<pre>&nbsp; p&nbsp;&nbsp;&nbsp; q&nbsp;&nbsp;&nbsp; r&nbsp; | output
+---------------+--------
+&nbsp; T&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp;&nbsp; T&nbsp; |&nbsp;&nbsp; F
+&nbsp; T&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp;&nbsp; F&nbsp; |&nbsp;&nbsp; F
+&nbsp; T&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp; T&nbsp; |&nbsp;&nbsp; F
+&nbsp; T&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp; F&nbsp; |&nbsp;&nbsp; F
+&nbsp; F&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp;&nbsp; T&nbsp; |&nbsp;&nbsp; F
+&nbsp; F&nbsp;&nbsp;&nbsp; T&nbsp;&nbsp;&nbsp; F&nbsp; |&nbsp;&nbsp; T
+&nbsp; F&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp; T&nbsp; |&nbsp;&nbsp; T
+&nbsp; F&nbsp;&nbsp;&nbsp; F&nbsp;&nbsp;&nbsp; F&nbsp; |&nbsp;&nbsp; T</pre>
+Does this chip still perform the computation written on its label? If not,
+write down a propositional logic sentence that captures the output of this
+chip.
+<p><b><font size=+1>Solution:</font></b>
+<pre><b><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; No, ~(p|q&amp;r) is the output.</font></b></pre>
+&nbsp;
+<h3>
+7. Logical entailment (8 points)&nbsp;&nbsp;&nbsp; Graded by Danny Chai</h3>
+Determine which of the following sentences:
+<p>&nbsp;(a) <font face="Courier New,Courier">(p => q) &amp; (q &lt;= ~r)</font>
+<p>(b) <font face="Courier New,Courier">(~p | q) => ((q => ~p) => ~p)</font>
+<p>(c) <font face="Courier New,Courier">(r => p) &amp; ((q => r) => p)</font>
+<p>(d) <font face="Courier New,Courier">~(q | r) &amp; ~p</font>
+<p>are logically entailed by <b>each</b> of the following sets of premises:
+<ol><font face="Courier New,Courier">{r, r => p, ~p => q}</font>
+<p><font face="Courier New,Courier">{(~q &lt;=> p), r | p}</font>
+<p><font face="Courier New,Courier">{p => q, q &amp; ~r}</font></ol>
+For example, if sentence a is logically entailed by 1, and is logically
+entailed by 2, but is not logically entailed by 3, your answer for part
+a should be:
+<blockquote>a. 1, 2</blockquote>
+<b><font size=+1>Solution:</font></b>
+<br><b><font size=+1>a. 3</font></b>
+<br><b><font size=+1>b. 1, 2, 3</font></b>
+<br><b><font size=+1>c. 1, 3</font></b>
+<br><b><font size=+1>d. None</font></b>
+<h3>
+8. Clausal Form (7 points)&nbsp; Graded by Eitan Katznelson</h3>
+Convert the following sentence to clausal form. Do not do any extra simplification.
+<p>&nbsp; <font face="Courier New,Courier">(~a &lt;=> ~b) => ((c &amp;
+b &lt;= d) => (a | b))</font>
+<p><b><font size=+1>Solution:</font></b>
+<pre><b><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {~a,~b,~c,~b,a,b}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {~a,~b,a,b,d}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {~a,a,~c,~b,a,b}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {~a,a,a,b,d}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {b,~b,~c,~b,a,b}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {b,~b,a,b,d}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {a,b,~c,~b,a,b}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {a,b,a,b,d}</font></b>
+
+</pre>
+&nbsp;
+<h3>
+9. Proof Methods (18 points) Graded by Eitan Katznelson</h3>
+
+<ol>
+<li>
+<font face="Courier New,Courier">~t => p &amp; ~s</font></li>
+
+<li>
+<font face="Courier New,Courier">r => s</font></li>
+
+<li>
+<font face="Courier New,Courier">p &amp; ~r => q &amp; v</font></li>
+</ol>
+(a) Prove ~t => q using only the premises above as well as the deduction
+theorem, Modus Ponens, Modus Tollens, &amp;-Elimination, &amp;-Introduction,
+Implication Introduction, and Conflict Realization; note that you may not
+need to use all of these.
+<p><b><font size=+1>Solution:</font></b>
+<pre><b><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. ~t => p &amp; ~s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. r => s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. p &amp; ~r => q &amp; v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. ~t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Deduction Theorem
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. p &amp; ~s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MP 1, 4
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6. ~s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AE 5
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7. p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AE 5
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8. ~r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MT 2, 6
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9. p &amp; ~r&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AI 7, 8
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10. q &amp; v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MP 3, 9
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11. q&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AE 10</font></b>
+
+</pre>
+
+<p><br>(b) Give a formal proof of ~t => q, using only resolution.
+<p><b><font size=+1>Solution:</font></b>
+<pre><b><font size=+1>&nbsp;&nbsp; First, we convert the premises and the negation of the goal to
+&nbsp;&nbsp; clausal form:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (~t => (p &amp; ~s))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I (~~t | (p &amp; ~s))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N (t | (p &amp; ~s))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D ((t | p) &amp; (t | ~s))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; O {t, p}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {t, ~s}
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (r => s)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I (~r | s)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; O {~r, s}
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (p &amp; ~r => q &amp; v)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I ~(p &amp; ~r)|(q &amp; v)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N (~p | ~~r)|(q &amp; v)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (~p | r)|(q &amp; v)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D ((~p | r) | q) &amp; ((~p | r) | v)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; O {~p, r, q}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {~p, r, v}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (~(~t => q))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I (~(~~t | q))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; N (~(t | q))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (~t &amp; ~q)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; O {~t}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {~q}
+
+&nbsp;&nbsp;&nbsp; We then use these clauses to infer the empty clause via
+&nbsp;&nbsp;&nbsp; Propositional Resolution:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. {t,p}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. {t,~s}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. {~r,s}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. {~p, r, q}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. {~t}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Negated Goal
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6. {~q}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Negated Goal
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7. {p}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1, 5
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8. {~s}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2, 5
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9. {~r}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3, 8
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10. {r, q}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4, 7
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11. {q}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10, 9
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12. {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6, 11</font></b>
+
+</pre>
+
+<p><br>(c) Explain why you would not want to use a truth table to solve
+this problem.
+<p><b><font size=+1>Solution:</font></b>
+<pre><b><font size=+1>&nbsp; The truth tables would be fairly large, 2^6 = 64 rows in fact, making
+&nbsp; the task of listing them and comparing interpretations a headache.&nbsp;
+&nbsp; Moreover, it would be much more difficult to obtain intuition from the
+&nbsp; truth table as to why the goal follows from the premises.&nbsp;</font></b>
+
+</pre>
+&nbsp;
+<h3>
+10. Intelligent, Exercising Dogs? (20 points)&nbsp; Graded by Danny Chai</h3>
+To solve this problem, you are free to use any formal method discussed
+in the lectures so far (including the truth table method). However, you
+are required to develop and to explicitly define your own logical constants;
+you are also required to write down, using these constants consistently,
+all the premises from the text that you choose to use in your proofs. Note
+that to answer the questions, it may not be necessary to encode all the
+information provided for you in the text; make sure that you do not mention
+in your solutions any premises that you do not use in the proofs.
+<p><font face="Courier New,Courier">You've decided to buy a pair of Taibos,
+the new exercising robot dogs. Here is some of the information you learn
+from the instruction manual:</font>
+<ul TYPE=DISK>
+<li>
+<tt>One Taibo is silver, the other is black.</tt></li>
+
+<li>
+<tt>The silver Taibo specializes in aerobics; the black Taibo specializes
+in jogging.</tt></li>
+
+<li>
+<tt>The Taibos are always in exactly one of 3 modes: ready, sleeping and
+off. They have also been set up so that they are always in the same mode
+(e.g. if you turn one on, the other one also turns on).</tt></li>
+
+<li>
+<tt>Each Taibo has a light that shines a different color depending on the
+mode. In ready mode, the light is green. In sleeping mode, the light is
+yellow. In off mode, the light is red.</tt></li>
+
+<li>
+<tt>If a Taibo runs out of power, it automatically turns off.</tt></li>
+
+<li>
+<tt>If the black Taibo jogs for 5 hours, it runs out of power.</tt></li>
+
+<li>
+<tt>If you clap twice when the silver Taibo is wagging its tail, it will
+roll over.</tt></li>
+
+<li>
+<tt>If the silver Taibo is in ready mode and is in the same room as its
+owner, it will start wagging its tail.</tt></li>
+
+<li>
+<tt>If a Taibo is not in the same room as its owner it will go into sleep
+mode.</tt></li>
+</ul>
+(a)&nbsp; <font face="Courier New,Courier">Suppose you've allowed your
+black Taibo to jog for 5 hours. Show that it follows from the data above
+that after these 5 hours, the silver Taibo will not be in ready mode.</font>
+<p>(b)&nbsp; <font face="Courier New,Courier">If you clap twice and the
+silver Taibo does not roll over, is the silver Taibo's light green? (Show
+that your answer follows from the data above.)</font>
+<p><b><font size=+1>Solution:</font></b><font size=+1></font>
+<p><b><font size=+1>&nbsp;Here are some example logical constants:</font></b>
+<blockquote><b><font size=+1><tt>sReady</tt>= "the silver Taibo is ready"</font></b>
+<br><b><font size=+1><tt>sReady</tt>= "the silver Taibo is sleeping"</font></b>
+<br><b><font size=+1><tt>bOff</tt>= "the black Taibo is off"</font></b>
+<br><b><font size=+1><tt>sOff</tt>= "the silver Taibo is off"</font></b>
+<br><b><font size=+1><tt>sGreen</tt>= "the silver Taibo's light is green"</font></b>
+<br><b><font size=+1><tt>bNoPower</tt>= "the black Taibo runs out of power"</font></b>
+<br><b><font size=+1><tt>bJog5Hours</tt>= "the black Taibo jogs for 5 hours"</font></b>
+<br><b><font size=+1><tt>clapTwice</tt>= "the owner (you) clap twice"</font></b>
+<br><b><font size=+1><tt>sWaggingTail</tt>= "the silver Taibo is wagging
+its tail"</font></b>
+<br><b><font size=+1><tt>sRollOver</tt>= "the silver Tiabo rolls over"</font></b>
+<br><b><font size=+1><tt>sSameRoom</tt>= "the silver Taibo is in the same
+room as the owner"</font></b></blockquote>
+<b><font size=+1>We can translate some of the information from the text
+of the problem into the following logical sentences. Note that while we
+do not need to use all the information from each piece of information given
+(each bullet point), we cannot combine information from two bullet points
+to get a premise.</font></b>
+<pre><b><font size=+1>&nbsp;R1. bOff => sOff
+&nbsp;R2. sOff => ~sReady
+&nbsp;R3. sSleep => ~sReady
+&nbsp;R4. ~sReady => ~sGreen
+&nbsp;R5. bNoPower => bOff
+&nbsp;R6. bJog5Hours => bNoPower
+&nbsp;R7. clapTwice &amp; sWaggingTail => sRollOver
+&nbsp;R8. sReady &amp; sSameRoom => sWaggingTail
+&nbsp;R9. ~sSameRoom => sSleep</font></b></pre>
+<b><font size=+1>Let us prove both (a) and (b) using resolution (since
+we are allowed to use any legal method). By applying INDO to the rules
+above, we obtain the following clauses:</font></b>
+<pre><b><font size=+1>&nbsp;1. {~bOff, sOff}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From R1
+&nbsp;2. {~sOff, ~sReady}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From R2
+&nbsp;3. {~sSleep, ~sReady}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From R3
+&nbsp;4. {sReady, ~sGreen}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From R4
+&nbsp;5. {~bNoPower, bOff}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From R5
+&nbsp;6. {~bJog5Hours, bNoPower}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From R6
+&nbsp;7. {~clapTwice, ~sWaggingTail, sRollOver}&nbsp; From R7
+&nbsp;8. {~sReady, ~sSameRoom, sWaggingTail}&nbsp;&nbsp;&nbsp;&nbsp; From R8
+&nbsp;9. {sSameRoom, sSleep}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; From R9</font></b></pre>
+<b><font size=+1>Part a:</font></b>
+<br><b><font size=+1>The additional premise here is:</font></b>
+<br><font size=+1></font>&nbsp;
+<br><font size=+1></font>&nbsp;
+<pre><b><font size=+1>&nbsp;10. {bJogged5Hours}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise for 10a</font></b></pre>
+<b><font size=+1>The negated goal is:</font></b>
+<pre><b><font size=+1>&nbsp;11. {sReady}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Negated goal for 10a</font></b></pre>
+<b><font size=+1>Running resolution:</font></b>
+<pre><b><font size=+1>&nbsp;12. {~sOff}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 2,11
+&nbsp;13. {~bOff}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 1,12
+&nbsp;14. {~bNoPower}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 5,13
+&nbsp;15. {~bJog5Hours}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 6,14
+&nbsp;16. {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 10,15</font></b></pre>
+<b><font size=+1>We've reached the empty clause, so the proof is complete.</font></b><font size=+1></font>
+<p><b><font size=+1>Part b:</font></b>
+<br><b><font size=+1>The additional premises here are:</font></b>
+<br><font size=+1></font>&nbsp;
+<br><font size=+1></font>&nbsp;
+<pre><b><font size=+1>&nbsp;17. {clapTwice}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise for 10b
+&nbsp;18. {~sRollOver}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Premise for 10b</font></b></pre>
+<b><font size=+1>We'll prove the silver Taibo's light is not green. Then
+the negated goal is:</font></b>
+<pre><b><font size=+1>&nbsp;19. {sGreen}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Negated goal for 10b</font></b></pre>
+<b><font size=+1>Running resolution:</font></b>
+<pre><b><font size=+1>&nbsp;20. {sReady}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 4,19
+&nbsp;21. {~sSameRoom, sWaggingTail}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 8,20
+&nbsp;22. {~clapTwice, ~sWaggingTail}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 7,18
+&nbsp;23. {~sWaggingTail}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 17,22
+&nbsp;24. {~sSameRoom}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 21,23
+&nbsp;25. {sSleep}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 9,24
+&nbsp;26. {~sReady}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 3,25
+&nbsp;27. {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Resolution: 20,26</font></b></pre>
+<b><font size=+1>We've reached the empty clause, so the proof is complete.</font></b>
+<br><font size=+1></font>&nbsp;</ol>
+
+</body>
+</html>

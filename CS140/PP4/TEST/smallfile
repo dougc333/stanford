@@ -1,0 +1,1013 @@
+//copy test program
+
+
+#include "syscall.h"
+#define BUFSIZE 10000
+
+void prints(char *s);
+int strlen(char *s);
+int main(int argc, char *argv[])
+{
+  char buffer[BUFSIZE];
+  long int i;
+
+
+  for(i=BUFSIZE-1;i>=0; i--)
+    buffer[i]='a';
+  
+  prints("We are loaded in memory.\n");
+  buffer[BUFSIZE-6]='E';
+  buffer[BUFSIZE-5]='L';
+  buffer[BUFSIZE-4]='A';
+  buffer[BUFSIZE-3]='I';
+  buffer[BUFSIZE-2]='S';
+  buffer[BUFSIZE-1]='\0';
+  
+  //prints(buffer);
+
+
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+int strlen(char *s);
+int main(int argc, char *argv[])
+{
+  OpenFileId source, dest;
+  char buf[BUFSIZE];
+  int   n,i;
+
+  if (argc!=2) {
+    prints("Usage: cat SOURCE\n");
+    return -1;
+  }
+
+  if((source=Open(argv[1]))==-1) {
+    prints("cat: Error opening source file\n"); 
+    return -1;
+  }
+  i=0;
+  while ((i<20)&&((n=Read(buf, BUFSIZE, source)) > 0 )) {
+   /* prints("\n");
+    printd(n);
+    prints("\n");*/
+    Write(buf, n, 1);
+    i++;
+  }
+
+  Close(source);
+  return 0;
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+//copy test program
+
+
+#include "syscall.h"
+#define BUFSIZE 10
+
+void prints(char *s);
+int strlen(char *s);
+int main(int argc, char *argv[])
+{
+  OpenFileId source, dest;
+  char buf[BUFSIZE];
+  int   n;
+
+  if (argc!=3) {
+    prints("Usage: cp SOURCE DESTINATION\n");
+    return -1;
+  }
+
+  if((source=Open(argv[1]))==-1) {
+    prints("cp: Error opening source file\n");
+    return -1;
+  }
+  Create(argv[2]);
+  if((dest=Open(argv[2]))==-1) {
+    prints("cp: Error creating destination file\n");
+    return -1;
+  }
+  
+  
+  while ((n=Read(buf, BUFSIZE, source)) > 0 ) {
+    Write(buf, n, dest);
+  }
+
+  Close(source);
+  Close(dest);
+  return 0;
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+// echo program
+
+#include "syscall.h"
+char progname[]="This is the Echo program";
+int strlen(char *s);
+void printd(int n);
+
+main(int argc, char *argv[])
+{
+  int i;
+
+  for (i = 1; i < argc; i++) {
+    Write(argv[i], strlen(argv[i]),1);
+    if ((i+1) != argc)
+      Write(" ", 1, 1);
+  }
+}
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+//test program to isolate failure in read with Read(doug,18,testf)
+
+
+#include "syscall.h"
+
+
+void main() {
+
+
+  OpenFileId testf;
+  char * doug;
+
+  Read(doug, 18, testf);
+
+
+}
+
+
+
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+//prints("\nContent of Doug\n");
+}
+
+
+int strlen(char *s) {
+  int i;
+
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) {
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: WrXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXdfa";
+   filename1="dddd";
+  
+   Create(filename);
+   Create(filename1);
+   file = Open(filename);
+   file1 =Open(filename1);
+    //printf(file);
+
+Write(filename, 7, file);
+Write(filename1, 5, file1);
+
+   Close(file);
+   Close(file1);
+//file = Open(filename);
+//file1 = Open(filename1);
+//Read(filename, 4, file1);
+//Write(filename, 5, file);
+//Close(file);
+
+//Write(filename, 5, 1);
+//Read(filename, 7, 0);
+//Write(filename, 7, file1);
+//Close(file1);
+     //Write ( filename, 6, file );
+ 
+}
+//test program for file commands.
+
+
+#include "syscall.h"
+//#include "stdio.h"
+
+int main()
+{
+
+  int loop;
+
+  OpenFileId file, file1, file2;
+
+   char* filename;
+   char* filename1;
+   char* filetest2;
+
+ 
+   for (loop=0; loop<20000; loop++);
+   filename = "\0";
+   //filename='\0';
+   filename1="dddd";
+   filetest2="mama";
+
+   Create(filename);
+   Create(filename1);
+   file = Open(filename);
+   file1 =Open(filename1);
+    //printf(file);
+
+   //
+   //test error condition, what happens when writing a file that is not open
+   
+   Write(filetest2, 7, file);
+
+   //normal writes
+   Write(filename,  7, file);
+   Write(filename1, 5, file1);
+   
+   Close(file);
+   Close(file1);
+//file = Open(filename);
+//file1 = Open(filename1);
+//Read(filename, 4, file1);
+//Write(filename, 5, file);
+//Close(file);
+
+//Write(filename, 5, 1);
+//Read(filename, 7, 0);
+//Write(filename, 7, file1);
+//Close(file1);
+     //Write ( filename, 6, file );
+ 
+}
+/* halt.c
+ *	Simple program to test whether running a user program works.
+ *	
+ *	Just do a "syscall" that shuts down the OS.
+ *
+ * 	NOTE: for some reason, user programs with global data structures 
+ *	sometimes haven't worked in the Nachos environment.  So be careful
+ *	out there!  One option is to allocate data structures as 
+ * 	automatics within a procedure, but if you do this, you have to
+ *	be careful to allocate a big enough stack to hold the automatics!
+ */
+
+#include "syscall.h"
+
+int
+main()
+{
+    Halt();
+    /* not reached */
+}
+/* matmult.c 
+ *    Test program to do matrix multiplication on large arrays.
+ *
+ *    Intended to stress virtual memory system.
+ *
+ *    Ideally, we could read the matrices off of the file system,
+ *	and store the result back to the file system!
+ */
+
+#include "syscall.h"
+
+#define Dim 	20	/* sum total of the arrays doesn't fit in 
+			 * physical memory 
+			 */
+
+int A[Dim][Dim];
+int B[Dim][Dim];
+int C[Dim][Dim];
+void prints(char *s);
+int strlen(char *s);
+void printd(int n);
+
+int
+main()
+{
+    int i, j, k;
+
+    for (i = 0; i < Dim; i++)		/* first initialize the matrices */
+	for (j = 0; j < Dim; j++) {
+	     A[i][j] = i;
+	     B[i][j] = j;
+	     C[i][j] = 0;
+	}
+    prints("A array\n");
+    for (i = 0; i < Dim; i++) {
+      for (j = 0; j < Dim; j++) {
+	printd(A[i][j]);
+	prints(" ");
+      }
+      prints("\n");
+    }
+    prints("B array\n");
+    for (i = 0; i < Dim; i++) {
+      for (j = 0; j < Dim; j++) {
+	printd(B[i][j]);
+	prints(" ");
+      }
+      prints("\n");
+    }
+    prints("C array before mult\n");
+    for (i = 0; i < Dim; i++) {
+      for (j = 0; j < Dim; j++) {
+	printd(C[i][j]);
+	prints(" ");
+      }
+      prints("\n");
+    }
+
+
+
+
+    for (i = 0; i < Dim; i++)		/* then multiply them together */
+	for (j = 0; j < Dim; j++)
+            for (k = 0; k < Dim; k++)
+		 C[i][j] += A[i][k] * B[k][j];
+
+    prints("C array after mult\n");
+    for (i = 0; i < Dim; i++) {
+      for (j = 0; j < Dim; j++) {
+	printd(C[i][j]);
+	prints(" ");
+      }
+      prints("\n");
+    }
+
+    Exit(C[Dim-1][Dim-1]);		/* and then we're done */
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+/* matmult_halt.c 
+ *    Test program to do matrix multiplication on large arrays.
+ *
+ *    Intended to stress virtual memory system.
+ *
+ *    Ideally, we could read the matrices off of the file system,
+ *	and store the result back to the file system!
+ */
+
+#include "syscall.h"
+
+#define Dim 	20	/* sum total of the arrays doesn't fit in 
+			 * physical memory 
+			 */
+
+int A[Dim][Dim];
+int B[Dim][Dim];
+int C[Dim][Dim];
+
+int
+main()
+{
+    int i, j, k;
+
+    for (i = 0; i < Dim; i++)		/* first initialize the matrices */
+	for (j = 0; j < Dim; j++) {
+	     A[i][j] = i;
+	     B[i][j] = j;
+	     C[i][j] = 0;
+	}
+
+    for (i = 0; i < Dim; i++)		/* then multiply them together */
+	for (j = 0; j < Dim; j++)
+            for (k = 0; k < Dim; k++)
+		 C[i][j] += A[i][k] * B[k][j];
+
+
+ Halt();
+}
+#include "syscall.h"
+
+char elias[]="Elias";
+
+int
+main()
+{
+  SpaceId newProc;
+  OpenFileId input = StandardInput;
+  OpenFileId output = StandardOutput;
+  char prompt[2], ch, buffer[120];
+  int i;
+  int joinIt;
+  
+  
+  prompt[0] = '-';
+  prompt[1] = '-';
+  
+  while( 1 )
+    {
+      Write(prompt, 2, output);
+      
+      i = 0;
+      
+      do {
+	
+	Read(&buffer[i], 1, input); 
+	i++;
+      } while(( buffer[i-1] != '\n') && (i<120) );
+      
+      buffer[--i] = '\0';
+      
+      if (buffer[0]!='&')
+	joinIt=1;
+      else 
+	joinIt=0;
+
+      
+      if( i > 0 ) {
+	if (buffer[0]=='h' && buffer[1]=='a' && buffer[2]=='l' &&
+	    buffer[3]=='t' && buffer[4]=='\0')
+	  Halt();
+	if (joinIt) {
+	  newProc = Exec(buffer);
+	  Join(newProc);
+	}
+	else newProc = Exec(buffer+1);
+      } 
+    }
+}
+
+/* sort.c 
+ *    Test program to sort a large number of integers.
+ *
+ *    Intention is to stress virtual memory system.
+ *
+ *    Ideally, we could read the unsorted array off of the file system,
+ *	and store the result back to the file system!
+ */
+
+#include "syscall.h"
+
+#define SORT_SIZE 64
+
+int A[SORT_SIZE];
+int elias=256;
+
+void prints(char *s);
+int strlen(char *s);
+void printd(int n);
+int
+main()
+{
+    int i, j, tmp;
+
+    prints("Initializing the array\n");
+    /* first initialize the array, in reverse sorted order */
+    for (i = 0; i < SORT_SIZE; i++) {		
+        A[i] = SORT_SIZE - i - 1;
+	printd(A[i]);
+	prints(" ");
+    }
+    prints("\n");
+
+    prints("Sorting\n");
+    /* then sort! */
+    for (i = 0; i < (SORT_SIZE-1); i++)
+        for (j = 0; j < (SORT_SIZE - 1 - i); j++)
+	   if (A[j] > A[j + 1]) {	/* out of order -> need to swap ! */
+	      tmp = A[j];
+	      A[j] = A[j + 1];
+	      A[j + 1] = tmp;
+    	   }
+
+    for (i = 0; i < SORT_SIZE; i++) {		
+	printd(A[i]);
+	prints(" ");
+    }
+    prints("\n");
+
+    prints("Exiting.\n");
+
+    Exit(A[0]);		/* and then we're done -- should be 0! */
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+#include "syscall.h"
+
+
+int
+main()
+{
+  int openFileId;
+  char buffer[100];
+  int i;
+  int size = 100;
+
+  for (i=0; i<size; i++) {
+    buffer[i] = 'i';
+  }
+
+  Create("testFile");
+  openFileId = Open("testFile");
+  Write(buffer, size, openFileId);
+  Close(openFileId);
+  
+  /*
+  openFileId = Open("test.c");
+  size = Read(buffer, size, openFileId);
+  Close(openFileId);
+
+  for(i=0; i<size; i++) {
+    printf("%d ", buffer[i]);
+  }
+*/
+    /* not reached */
+  
+  Exit(0);
+}
+//join test program
+
+char progname[]="This is program testjoinA";
+#include "syscall.h"
+#define BUFSIZE 10
+void printd(int n);
+void prints(char *s);
+int strlen(char *s);
+int main(int argc, char *argv[])
+{
+  int ExitCode, ProcessID;
+  prints("\nA is starting B.\n");
+  ProcessID = Exec("../test/SUN/testjoinB");
+  //printd(ProcessID);
+  prints("\nA is joining B.\n");
+  ExitCode = Join(ProcessID);
+  prints("\nB has exited with exit code:\n");
+  printd(ExitCode);
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+//join test program
+
+char progname[]="This is program testjoinB";
+#include "syscall.h"
+#define BUFSIZE 10
+void printd(int n);
+void prints(char *s);
+int strlen(char *s);
+int main(int argc, char *argv[])
+{
+  int ExitCode, ProcessID;
+  ProcessID = -1;
+  prints("\nB is starting C.\n");
+  ProcessID = Exec("../test/SUN/testjoinC");
+  prints("C process ID = "); printd(ProcessID); prints("\n");
+  if (ProcessID == -1) {
+    prints("Something went wrong executing C\n");
+  }
+  else {
+     prints("\nB is joining C.\n");
+     ExitCode = Join(ProcessID);
+     prints("\nC has exited with exit code:\n");
+     printd(ExitCode);
+  }
+  Exit(0);
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+//join test program
+
+char progname[]="This is program testjoinC";
+#include "syscall.h"
+#define BUFSIZE 10
+void printd(int n);
+void prints(char *s);
+int strlen(char *s);
+int main(int argc, char *argv[])
+{
+  int ExitCode, ProcessID;
+  prints("\nC is starting.\n");
+  prints("\nC is running.\n");
+  //prints("\nC is starting another instance of A.\n");
+  //ProcessID = Exec("../test/SUN/testjoinA");
+  prints("\nC is exiting.\n");
+  Exit(2);
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+}
+
+
+int strlen(char *s) {
+  int i;
+  
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) { 
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break; 
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break; 
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+//test program to isolate failure in read with Read(doug,18,testf)
+
+
+#include "syscall.h"
+void printd(int n);
+void prints(char *s);
+int strlen(char *s);
+
+int main(int argc, char *argv[]) 
+{
+ 
+  char *addr     = "0x10000000";
+  OpenFileId fid = Open("foo");
+  int length = Length(fid);
+  SegmentId sid  = Mmap(fid, addr, length);
+  //
+  // do some writes and reads to see if this is mapped correctly
+  //
+  Read(StandardInput,64,addr);
+  Write(addr, 64, StandardOutput);
+  //
+  //now 
+  Munmap(sid);
+
+}
+
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+//prints("\nContent of Doug\n");
+}
+
+
+int strlen(char *s) {
+  int i;
+
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) {
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break;
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break;
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}
+//word count test program.
+
+
+#include "syscall.h"
+
+//#include "stdio.h"
+void printd(int n);
+void prints(char *s);
+int strlen(char *s);
+
+int main(int argc, char *argv[])
+{
+  typedef int SegmentId;
+  OpenFileId fid;
+  int length=0;
+  int length1=0;
+  SegmentId sid;
+  int i;
+  
+  //printd(1);
+  char *addr;
+char *Buffer;
+  //addr = new char[20000];
+  addr = (char *) 0x00004000;
+  fid = Open("../test/smallfile");
+  prints("\nfid:");
+  printd(fid);
+  //printd(2);
+  length1 = Length(fid);
+  //printd(3);
+  // for testing, make the length multiple pages
+  //length =10000;
+  prints("\nLenght:");
+  printd(length1);
+  prints("\n");
+	 
+  sid  = Mmap(fid, addr, length1);
+  //Read(Buffer, 9, sid);
+  //prints(addr[0]);
+  prints("Memory Address is:");
+  printd((int) addr);
+  prints("\n");
+  Write(addr, 3, StandardOutput);
+  //Munmap(sid);
+  //Write(addr, 64, StandardOutput);
+   // printd(sid);
+prints("\nMemory Address is:");
+  printd((int) addr);
+  prints("\n");
+
+  for (i=500; i<700; i++)
+    addr[i]='X';
+  Write(addr, 10, StandardOutput);
+  
+  if(sid != -1) 
+  Munmap(sid);
+  //Write(addr, 3, StandardOutput);
+  //add some illegal conditions for Munmap
+  //open an nonexistent segment
+  //Munmap(100);
+  //unmap something already unmapped
+  //Munmap(sid);
+  if (fid!=-1)
+    Close(fid);
+}
+
+void prints(char *s) {
+  Write(s, strlen(s), 1);
+//prints("\nContent of Doug\n");
+}
+
+
+int strlen(char *s) {
+  int i;
+
+  i = 0;
+  while (s[i] != '\0')
+    ++i;
+  return i;
+}
+
+void printd(int n) {
+  if (n < 0) {
+    Write("-", 1, 1);
+    n=-n;
+  }
+  if (n / 10) {
+    printd(n / 10);
+  }
+
+  switch(n%10) {
+    case 0: Write("0", 1, 1); break;
+    case 1: Write("1", 1, 1); break;
+    case 2: Write("2", 1, 1); break;
+    case 3: Write("3", 1, 1); break;
+    case 4: Write("4", 1, 1); break;
+    case 5: Write("5", 1, 1); break;
+    case 6: Write("6", 1, 1); break;
+    case 7: Write("7", 1, 1); break;
+    case 8: Write("8", 1, 1); break;
+    case 9: Write("9", 1, 1); break;
+  }
+}

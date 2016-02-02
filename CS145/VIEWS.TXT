@@ -1,0 +1,254 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - VIEWS
+=========================================================================
+
+Three-level vision of database
+
+"Virtual database"        views
+on top of
+"Conceptual database"     relations (tables)
+on top of
+"Physical database"       stored information
+
+
+Why use views?
+
+- To hide some data from some users
+- To make certain queries easier or more natural to express
+- For modularity
+
+-> Real database applications use lots and lots of views
+
+
+View Definition
+---------------
+
+View V = V-query(R1, R2, ..., Rn)
+
+Schema of V is schema of query result
+
+Query Q involving V, conceptually:
+
+   V <- V-query(R1, R2, ..., Rn)
+   evaluate Q
+
+In reality, Q is rewritten automatically to use R1, R2, ..., Rn
+instead of V.
+
+
+SQL Syntax
+----------
+
+CREATE VIEW ViewName AS Query
+
+or CREATE VIEW ViewName(A1, A2, ..., Am) AS Query
+   to rename attributes
+
+
+Example schema:
+
+   Student(ID, name, address, GPA, SAT)
+   Campus(location, enrollment, rank)
+   Apply(ID, location, date, major, decision)
+
+
+Example: Applicants to Santa Cruz
+
+  CREATE VIEW ApplySC AS
+    SELECT ID, date, major
+    FROM Apply
+    WHERE location = "SC"
+
+
+Can use in query:
+
+  SELECT Student.ID, name, major
+  FROM Student, ApplySC
+  WHERE Student.ID = ApplySC.ID
+  AND (GPA > 3.7 OR SAT > 1400)
+
+translated to:
+
+  SELECT Student.ID, name, major
+  FROM Student, Apply
+  WHERE Student.ID = Apply.ID
+  AND (GPA > 3.7 OR SAT > 1400)
+  AND location = "SC"
+
+
+Or could make query into another view:
+
+  CREATE VIEW SmartSC AS
+    SELECT Student.ID, name, date, major
+    FROM Student, ApplySC
+    WHERE Student.ID = ApplySC.ID
+    AND (GPA > 3.7 OR SAT > 1400)
+
+
+Another example: Students who applied to more than one campus
+
+  CREATE VIEW MultiApply AS
+    SELECT DISTINCT Student.*
+    FROM Student as S, Apply as A1, Apply as A2
+    WHERE S.ID = A1.ID
+    AND S.ID = A2.ID
+    AND A1.location <> A2.location
+
+
+Can make entire join into a view ("universal relation"):
+
+  CREATE VIEW AllDB AS
+    SELECT Student.ID, name, address, GPA, SAT, Campus.location,
+           enrollment, rank, date, major, decision
+    FROM Student, Campus, Apply
+    WHERE Student.ID = Apply.ID
+    AND Apply.location = Campus.location
+
+No more joins in queries!
+
+
+Example: SELECT * FROM AllDB
+         WHERE GPA < 3.5
+         AND rank > 3
+         AND major = "psychology"
+
+translated to:
+
+  SELECT Student.ID, name, address, GPA, SAT, Campus.location,
+         enrollment, rank, date, major, decision
+  FROM Student, Campus, Apply
+  WHERE Student.ID = Apply.ID
+  AND Apply.location = Campus.location
+  AND GPA < 3.5
+  AND rank > 3
+  AND major = "psychology"
+
+
+Modifying Views
+---------------
+
+- Does not seem to make sense since views are not stored.
+
+- But does make sense if this is how user views database.
+
+-> Some unambiguous modifications of views are allowed.
+
+
+Example: DELETE FROM ApplySC WHERE date < 1/1/98
+
+  translated to:
+
+  DELETE FROM Apply WHERE date < 1/1/98 AND location = "SC"
+
+
+Example: INSERT INTO ApplySC VALUES (123, 4/15/98, "economics")
+
+  translated to:
+
+  INSERT INTO Apply VALUES (123, NULL, 4/15/98, "economics", NULL)
+
+Note:
+  - Default values used instead of NULL when defined
+  - Systems do not necessarily deduce location should be "SC"
+
+
+Example: INSERT INTO SmartSC VALUES (123, "Mary", 4/15/98, "CS")
+
+Q: Translated to?  Many possibilities...
+
+
+
+
+
+
+
+
+Example: CREATE VIEW AvgSAT(a) AS 
+            SELECT avg(SAT) FROM Student
+
+         UPDATE AvgSAT SET a = 1125
+
+Q: Translated to?
+
+
+
+
+
+
+
+
+- Precise conditions for updatable views are very complicated, may
+  involve keys, equality conditions, etc.
+
+- SQL2 uses conservative conditions.
+  View must be defined as:
+
+  * one-table SELECT
+  * simple WHERE clause
+  * attributes not in view can be NULL or default
+
+
+Authorization revisited
+-----------------------
+
+Recall that for a relation R and user U, U may be authorized for:
+
+SELECT ON R
+INSERT ON R, INSERT(A) ON R
+UPDATE ON R, UPDATE(A) ON R
+DELETE ON R
+
+-> Operation-level privileges on single relations may not provide
+   sufficient control.
+
+
+Ex: Student(ID, name, address, GPA, SAT)
+    Campus(location, enrollment, rank)
+    Apply(ID, location, date, major, decision)
+
+Allow user U to select Student info for Berkeley applicants only
+
+Q: Suggestion?
+
+
+
+
+
+
+
+
+
+
+Ex: Allow user U to delete Berkeley application records only
+
+Q: How?
+
+
+
+
+
+
+
+
+
+Ex: Allow user to delete Student info for Berkeley applicants only
+
+Q: How?
+
+
+
+
+
+
+
+
+
+
+-> Authorization is one very important use of views.
+
+Logistics:
+
+- Creator of view must have privileges to execute view query.
+- Creator of view is OWNER.
+- Owner has all privileges and may GRANT privileges.

@@ -1,0 +1,18 @@
+Prove that any problem in P is reducible to any other problem in P:
+
+Given two problems in P, A and B, we define a mapping from A to B as
+follows:
+
+First find two strings x and y, such that x is in L(B) and y is not
+in L(B).  Of course, this only works if L(B) is not trivial.
+
+Now, we define a Turing machine f to reduce A to B.  f works as follows:
+On input w, run an algorithm for A on w.  If the algorithm accepts,
+output x.  Otherwise, output y.  f is clearly a many-to-one reduction
+from A to B.  Since the algorithm for A is polynomial time, f is
+polynomial time.
+
+We have just reduced A to B, for every A and B in P (except, of course,
+for the trivial languages).
+
+QED

@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+6
+@x (Cube(x) | Tet(x) | Dodec(x))@x (Small(x) | Medium(x) | Large(x))@x @y (Larger(x, y) $ Large(x))@x @y (Larger(x, y) $ (Large(x) | Small(y)))~?x ?y (Larger(x, y) & Small(x) & Small(y))@x @y @z ((BackOf(x, z) & Between(y, x, z)) $ BackOf(x, y))

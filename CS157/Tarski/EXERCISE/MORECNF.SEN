@@ -1,0 +1,7 @@
+4.0 
+WNDS
+Sent
+15
+~[(Cube(a) & ~Small(a)) | (~Cube(a) & Small(a))]
+; Put an NNF form of 1 here.
+; Put a CNF form of 1 here.~[(Cube(a) | ~Small(a)) & (~Cube(a) | Small(a))]~(Cube(a) & Larger(a, b)) & Dodec(b)~ (~Cube(a) & Tet(b))~ ~Cube(a) | Tet(b)

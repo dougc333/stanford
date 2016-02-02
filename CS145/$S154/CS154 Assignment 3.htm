@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www-db.stanford.edu/~ullman/hmu/hw3.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 3</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #3</H1>
+<H3 align=center>Due Monday, January 31, 2000, 3:15PM</H3>Because the first 
+project is due on 2/2, this will be a ``half assignment,'' worth 50 points. 
+<OL>
+  <LI>(<I>20 pts.</I>) Let us consider all possible DFA's with three states; 
+  call them <I>p</I>, <I>q</I>, and <I>r</I>. State <I>r</I> is accepting, and 
+  the other two are not. We are not going to specify a start state. The input 
+  symbols are 0 and 1, only. There are 729 different transition functions that 
+  this DFA could have, since each of the three states can have a transition to 
+  any of the three states on each of two input symbols. We thus have six 
+  choices, each from three objects (states), for a total of 3^6 = 729 transition 
+  functions. Some of these transition functions cause states <I>p</I> and 
+  <I>q</I> to be equivalent. In how many of these 729 automata are <I>p</I> and 
+  <I>q</I> equivalent? Explain your reasoning. 
+  <P><!--LI>
+(<I>15 pts.</I>)
+Now, let us consider only those DFA's from question (1) where <I>q</I> is
+<B>not</B> equivalent to <I>p</I>.
+Note that <I>r</I> can never be equivalent to either of the other two states,
+because only <I>r</I> is accepting.
+Suppose also that <I>p</I> is the start state.
+Some of these DFA's have a three-state minimal DFA; those are the DFA's
+such that both <I>q</I> and <I>r</I> are reachable from <I>p</I>.
+For example, there are 81 DFA's in which the transitions from <I>p</I> on
+both 0 and 1 are to <I>p</I>, and in these DFA's, the minimal equivalent
+consists of state <I>p</I> alone, regardless of whether <I>q</I> and <I>p</I> are
+equivalent.
+However of these 81 DFA's, 36 have <I>p</I> equivalent to <I>q</I>; these are the
+DFA's where <I>q</I> goes to <I>p</I> or <I>q</I> on each of 0 and 1, and the
+transitions from <I>r</I> are arbitrary.
+Thus, there are 81 - 36 = 45 DFA's that have no equivalent states but
+have a minimal DFA with only one state.
+There are also DFA's that have three inequivalent states, but only <I>p</I>
+and <I>q</I> or only <I>p</I> and <I>r</I> are accessible from the start state <I>p</I>.
+How many are there?
+To sum up, how many of the 729 DFA's with <I>p</I> and <I>q</I> not equivalent,
+have a 3-state minimal equivalent DFA?
+Explain your reasoning.
+
+<P--></P>
+  <LI>(<I>15 pts.</I>) Give an algorithm to decide whether a given DFA accepts 
+  at least 100 different strings. <I>Hint</I>: We learned how to test if the 
+  language of a DFA is infinite. You may refer to this test in your algorithm 
+  and need not give the details. If a language is infinite, then surely it 
+  accepts at least 100 strings. What if the language is finite? Just knowing it 
+  is finite does not allow us to test strings systematically. We could face a 
+  situation where, say, we have found 60 strings that the DFA accepts, and we 
+  keep testing longer and longer strings, and don't find any more that are 
+  accepted, but we worry that there are 40 strings even longer that the DFA will 
+  accept. How do you put a limit on how long an accepted string can be if the 
+  DFA's language is finite? 
+  <P></P>
+  <LI>(<I>15 pts.</I>) Give a CFG that generates the set of strings of the form 
+  <I>wcx</I>, where <I>w</I> and <I>x</I> are strings of <I>a</I>'s and 
+  <I>b</I>'s, <I>w</I> and <I>x</I> are of the same length, but <I>x</I> is 
+  <B>not</B> the reverse of <I>w</I>. For each of your variables, give an 
+  intuitive explanation of what strings they generate. </LI></OL></BODY></HTML>

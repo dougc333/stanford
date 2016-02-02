@@ -1,0 +1,75 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (Win98; I) [Netscape]">
+   <title>problem 5</title>
+</head>
+<body>
+<u><font size=+2>Problem Set 9, Problem 5 (Sipser 7.26)</font></u>
+<p><font size=+1>To show that PUZZLE is NP complete, by definition of NP-complete,
+we need to show that 1) all NP problems are reducible to PUZZLE, and 2)
+PUZZLE is in NP (as opposed to being exponential)</font>
+<p><font size=+1>1) To prove all NP problems are reducible to PUZZLE, we
+need only show that one NP-complete problem is reducible to PUZZLE.&nbsp;
+We will use 3SAT.&nbsp; A sample 3SAT problem is:</font>
+<br><img SRC="equation.gif" height=80 width=451>
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td><font size=+1>For each variable (i.e. x1 and x2) add a card.&nbsp;
+Create an entry in the column of holes for each clause.&nbsp; Let the first
+column for card x1 represent x1 and the second column represent ^x1.&nbsp;
+Start with all possible holes punched:</font></td>
+
+<td><img SRC="generic_piece.gif" height=161 width=150></td>
+</tr>
+</table>
+
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td><font size=+1>Now block off the hole (Cn, x1) if clause Cn has the
+variable x1 as one of its 3 literals.&nbsp; Also block off (Cn, ^x1) if
+Cn has ^x1 as one of its literals.&nbsp; Doing this for cards x1 and x2
+yields</font></td>
+
+<td><img SRC="pieces.gif" height=170 width=364></td>
+</tr>
+</table>
+
+<table BORDER COLS=2 WIDTH="100%" >
+<tr>
+<td><font size=+1>Finally, add the card with its second column totally
+blocked off</font></td>
+
+<td><img SRC="blocked_piece.gif" height=140 width=117></td>
+</tr>
+</table>
+<font size=+1>Solve PUZZLE with these pieces and let 3SAT accept iff PUZZLE
+accepts.&nbsp; Note that in this representation, when you stack a card
+corresponding to variable x without flipping it, you are attempting to
+solve 3SAT by making x true. When you stack card x after flipping it, you
+are solving SAT with x set to false.&nbsp; Since, for example, the uppermost
+hole for every card corresponds always to clause C1, you need this hole
+to be blocked only by one card (i.e. you only need one of the 3 literals
+in C1 to be true).&nbsp; The fact that all clauses C1, C2, and C3 are anded
+together is taken care of because you need all holes to be blocked.&nbsp;
+Lastly, we need the piece with its second column totally blocked because
+we want 3SAT to be solved if it is possible to block off a full column.&nbsp;
+Note that this particular problem is solved by flipping the x1 card (setting
+x1 to false) and leaving the x2 card as is (setting x2 to true).&nbsp;
+In this way, in column 1, the C1 and C3 holes are blocked by the x2 card
+(x2 being true makes clauses C1 and C3 true), and the C2 hole is blocked
+by the x1 card (^x1 being true makes clause C2 true).&nbsp; The second
+column is blocked by the final piece.</font>
+<p><font size=+1>2)&nbsp; Proof that PUZZLE is in NP:</font>
+<br><font size=+1>&nbsp; Construct the following verifier V for PUZZLE:</font>
+<br><font size=+1>&nbsp; a) non-deterministically select an orientation
+for each card.</font>
+<br><font size=+1>&nbsp; b) check that all possible hole slots are filled
+(this step is executed a maximum of 2nk times where n is the number of
+cards and k is the number of entries in each of the 2 columns)</font>
+<br><font size=+1>&nbsp; c) accept if all holes were filled</font>
+<br><font size=+1>&nbsp; Since all steps run in P time, PUZZLE is in NP.</font>
+<p><font size=+1>Therefore we can conclude PUZZLE is NP-complete</font>
+</body>
+</html>

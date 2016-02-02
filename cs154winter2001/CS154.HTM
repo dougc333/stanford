@@ -1,0 +1,56 @@
+
+<title>CS154, Assignment 8, Problem 1 Solution</title>
+
+<h2>CS154, Assignment 8, Problem 1 Solution</h2>
+
+<h3>Assuming input/output string reversed</h3>
+
+The easiest way to solve this problem is to assume that the
+input and output strings are reversed (ie. least significant digit first).
+In this case, the Turing machine operation simply scans across the
+string once left to right, entering a "carry" state <i>q1</i> when
+an <i>@</i> symbol is encountered and replacing with a zero.  The
+transition diagram for this machine is given below:
+<p>
+
+<img src="cs154-1.gif">
+
+<p>
+
+This machine requires just <i>n+1</i> steps to convert
+the input string, so the asymptotic time complexity is O(<i>n</i>),
+where <i>n</i> is the number of digits in the input string.
+<p>
+
+<hr>
+
+<h3>A solution for the problem as originally given</h3>
+
+The Turing machine operation begins by marking the first symbol in the input
+string, in order to indicate the left end of the tape.  Then
+the head scans to the right end of the input string, while
+determining whether or not the output string will "overflow"
+(ie. whether the output string will have more digits than the input string).
+Finally, the head moves right to left across the string,
+converting the 10-adic representation to decimal by replacing
+<i>@</i> symbols and performing "carrying" arithmetic when
+appropriate.  In the overflow case, the digits in the output string
+are shifted one place to the right in order to make room for the
+new leading digit.
+<p>
+The transition diagram for the machine is given below.  Transitions
+containing elements of the form <i>1..9</i> correspond to multiple
+transitions, ie. <i>1,2,3,4,5,6,7,8,9</i>.
+<p>
+
+<img src="cs154-2.gif">
+
+<p>
+
+By counting steps in the Turing machine above, we see that
+numbers that overflow take <i>4n+3</i> steps to convert, whereas
+numbers that do not overflow take just <i>2n+1</i> steps to convert.
+In both cases, then, the asymptotic time compexity is O(<i>n</i>), where
+<i>n</i> is the number of digits in the input string.
+
+<p>

@@ -1,0 +1,374 @@
+<HTML>
+
+<BODY BGCOLOR="white">
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>CS145 Assignment #2 &nbsp -- &nbsp Due Wednesday April 24</b></center>
+</font></td></tr>
+</table>
+
+<ul>
+
+<li> The procedure for turning in this assignment and the late policy
+are exactly the same as for <i><a href="a1.html">Assignment
+#1</a></i>.  Details on electronic submission are <a
+href="http://www.stanford.edu/class/cs145/submit-README.txt">now
+available</a>.
+
+<p><li> The grading (and non-grading) of exercises and challenge
+problems will also proceed as in <i><a href="a1.html">Assignment
+#1</a></i>.
+
+<p><li><b> Note about SQL on Oracle:</b> If you decide to test your
+solutions to the SQL written exercises using Oracle, note that
+Oracle's implementation of SQL differs somewhat from the SQL standard
+as covered in the textbook and class.  These differences are outlined
+in the document <a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-nonstandard.html">Oracle
+9i SQL</a>, available through the course Web site Project page.
+
+</ul>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Exercises</b></center>
+</font></td></tr>
+</table>
+
+<ol>
+
+<li> In the following textbook exercises we'll use computers this time
+instead of battleships.  <i>For a complete description of the schema
+please see Exercise 5.2.1 on page 207.</i>  Here are a few additional
+clarifications:
+
+<ul>
+
+<li> The "manufacturer" is what's stored in the attribute called
+<tt>maker</tt>.
+
+<li> In each of the four relations, attribute <tt>model</tt> is a key,
+and there are no other keys.
+
+<li> You may assume that attribute <tt>rd</tt> in relation <tt>PC</tt>
+is a string containing both the speed (e.g., 12x) and type (CD or DVD)
+of the removable disk.
+
+</ul>
+
+<p>Note that altogether this problem asks for a <i>gigantic</i> number
+of SQL queries.  Feel free to pick and choose - you will get full
+credit if you write a reasonable fraction and variety of the queries.
+If you do them all, you will be a true SQL expert.
+
+<p><b>(i)</b> Do parts (c) and (d) of Exercise 6.1.3 in the textbook (pages
+252-253). Write the SQL queries only - you do not need to show the
+results on the sample data although you are free to do so if you wish.
+
+<p><b>(ii)</b> Do parts (c) and (e) of Exercise 6.2.2 in the textbook (pages
+262-263). Write the SQL queries only - you do not need to show the
+results on the sample data although you are free to do so if you wish.
+
+<p><b>(iii)</b> Do parts (b), (c), and (d) of Exercise 6.3.1 in the textbook
+(page 274).
+
+<p><b>(iv)</b> Do Exercise 6.4.3 in the textbook (page 284) for your
+six queries (three parts, two queries each) from part (iii).  We
+suggest that you do the "if so" part of the problem (rewriting to
+eliminate duplicates) but not the "if not" part of the problem
+(rewriting to eliminate subqueries), unless you are so inclined.  A
+further exercise is to rewrite the queries using aggregation.
+
+<p><b>(v)</b> Do parts (b), (d), and (g) of Exercise 6.4.6 in the textbook
+(pages 284-285). Write the SQL queries only - you do not need to show
+the results on the sample data although you are free to do so if you
+wish.
+
+<p><b>(vi)</b> Do parts (b), (d), and (g) of Exercise 6.5.1 in the textbook
+(pages 290-291). Write the SQL modifications only - you do not need to
+describe the effects on the sample data although you are free to do so
+if you wish.
+
+<p><li> Consider the XML data in Figure 4.23 on page 182 of the
+textbook.  Your queries should work on any XML data conforming to the
+DTD given in Figure 4.22 on page 181.
+
+<p><b>(a)</b> Write an XPath expression to find the names of all stars
+whose street or city is "Hollywood."
+
+<p><b>(b)</b> Write an XPath expression to find the titles of all movies
+made after 1975.
+
+<p><b>(c)</b> Write an XPath expression to find all stars whose second
+listed movie has the word 'Strikes' in its title.
+
+<p><b>(d)</b> Write an XQuery expression to find all pairs of star names
+where the two stars acted in a movie together.  Assume that a movie is
+uniquely identified by its title.  The elements in your query
+result should be of the form:
+<pre>
+  &lt;Pair>
+    &lt;Name1>...&lt;/Name1>
+    &lt;Name2>...&lt;/Name2>
+  &lt;/Pair>
+</pre>
+Stars should not be paired with themselves (you may assume that star
+names are unique), and each pair should occur exactly once, not once
+in each order.
+
+<p><b>(e)</b> Write an XQuery expression to find the names of all stars who
+made at least one movie in a year earlier than the average year in the
+database.
+
+</ol>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Challenge Problems</b></center>
+</font></td></tr>
+</table>
+
+<ol>
+
+<li> Specify a real-world relational schema (i.e., not just
+"<tt>R</tt>" and "<tt>S</tt>") and then write a SQL query <tt>Q</tt>
+over the relations such that:
+
+<ul>
+
+<li> <tt>Q</tt> has one <tt>EXISTS</tt> or <tt>IN</tt> subquery in its
+<tt>WHERE</tt> clause (in its "positive" version, i.e., do not use
+<tt>NOT EXISTS</tt> or <tt>NOT IN</tt>).
+
+<li> <tt>Q</tt> cannot be rewritten as an equivalent query
+<tt>Q'</tt> without a subquery such that <tt>Q'</tt> is guaranteed to
+always return the same number of duplicates in the result as
+<tt>Q</tt>, even when <tt>Q'</tt> includes the keyword
+<tt>DISTINCT</tt>.
+
+</ul>
+
+Your query <tt>Q</tt> does not need to use aggregation or any other
+"fancy" SQL constructs.
+
+<p><li>Consider a relational schema <tt>Student(ID,GPA)</tt>, where
+<tt>ID</tt> is a key.  Are the following two queries always
+equivalent?  Either way, justify your answer.
+
+<pre>
+  select avg(GPA) from Student
+  select sum(GPA)/count(*) FROM Student
+</pre>
+
+<p><li> We didn't cover these features in class, but both XPath and
+XQuery have a special syntax for "dereferencing" <tt>IDREF</tt>
+attributes.  In other words, when specifying an XML traversal in XPath
+or XQuery, there is a way to traverse through an <tt>IDREF</tt>
+attribute <tt>@A</tt> to the element <tt>E</tt> that <tt>A</tt> points
+to, and continue traversing from <tt>E</tt>.  Suppose neither XPath
+nor XQuery provided such a feature.  Is it possible to "emulate"
+<tt>IDREF</tt> dereferencing behavior in XPath using other constructs
+in the language?  How about in XQuery?  If it helps, you may assume
+there is a known DTD for the XML data being queried.
+
+</ol>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Project Part 2</b></center>
+</font></td></tr>
+</table>
+
+<h3>Partners</h3>
+
+Please remember the ongoing rule about partnerships: If a student
+turns in any part of the project as part of a team, every later part
+of the project must be submitted individually or as part of the same
+team.  Details of partnership rules can be found in the <i><a
+href="project.html">Project</a></i> page.
+
+<h3>Part A</h3>
+
+Copy the Oracle load file
+<tt>/usr/class/cs145/sample_data/Grades.txt</tt> into your own
+filespace.  Based on this load file, create a table called
+<tt>Grades</tt> in Oracle into which you will load the data. The
+schema you should use for the table is:
+
+<pre>  Grades(name CHAR(15), course CHAR(9), year CHAR(2), quarter CHAR(6), grade CHAR(2))</pre>
+
+Load the data file into your Oracle table.  Also make sure your
+<tt>Courses</tt> table from Project Part 1 is created and loaded as
+part of the same database.  Now you have two tables with an attribute
+<tt>course</tt> that joins them.  Using <tt>sqlplus</tt>, execute a
+few SQL queries and modifications over these two tables.  You will
+want to refer to the document <i><a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-nonstandard.html">Oracle
+9i SQL</a></i> (available through the course Web site Project page)
+for details of Oracle's SQL quirks.
+
+<p>Create a script that shows the successful creation and loading of
+the <tt>Grades</tt> table, as well as the execution of at least two
+SQL queries involving both tables, and one SQL modification
+(<tt>insert</tt>, <tt>delete</tt>, or <tt>update</tt>) on each table.
+
+<p>
+
+<h3>Part B</h3>
+
+In this part of the project you will considerably extend your warm-up
+work from Part 1 - the simple Web interface and single simple SQL
+query issued from the interface to Oracle.  While in the first part of
+the project you needed to know only a little about Pro*C (for C users)
+or JDBC (for Java users), now you will be making more extensive use of
+these languages.  You will also continue to use CGI or Java Servlets
+as in the first part of the project.
+
+<p>In addition to the various help documents and Web sites mentioned
+in <i><a href="a1.html">Assignment #1</a></i>, you will find the
+following documents useful for this part of the project:
+
+<ul>
+
+<li><i><a target="_blank" href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-proc.html">
+Introduction to Pro*C Embedded SQL</a></i> for C users
+
+<li><i><a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-jdbc.html">Introduction
+to JDBC</a></i> for Java users
+
+</ul>
+
+Both of these documents are available through the course Web site
+Project page.  They provide a number of important details, including
+information specific to our computing environment and pointers to
+suites of sample programs.
+
+<p>You may continue to use the small database we are providing, with
+the <tt>Grades</tt> table in addition to the <tt>Courses</tt> table
+enabling somewhat more complex queries.  (If you prefer to create and
+use a different database you are welcome to do so.)  Your extended Web
+front-end and connection to Oracle should include at least the
+following features:
+
+<ol>
+
+<li> One or more <b>input boxes</b>, where the value typed by the user
+becomes a parameter to a SQL query issued to Oracle (with results
+displayed in the Web page as usual).
+
+<p><li> One or more <b>drop-down menus</b>, where again the value
+selected by the user becomes a parameter to a SQL query issued to
+Oracle.  If you wish you may use both input boxes and menus to gather
+parameters for a single query.
+
+<p><li> The ability to <b>modify the database</b> in some
+parameterized fashion through the Web interface (<tt>insert</tt>s,
+<tt>delete</tt>s, or <tt>update</tt>s with input from the user).
+
+<p><li> <b>N-at-a-time browsing </b>, where the first <i>N</i> tuples
+in a query result are displayed, then the user must request the next
+<i>N</i> to be displayed, etc.  (This behavior is similar to search
+engines, and to many other search features on the Web that return more
+than a few results.)  It's up to you whether to support
+<i>previous-N</i> as well as <i>next-N</i>; the former is not
+required.  It's also up to you whether <i>N</i> is hard-coded or a
+parameter that can be input by the user.
+
+<p><li> <b>Link-based browsing</b>, where a result page presented by
+your program contains hyperlinks on certain attribute values
+(typically join attributes).  Clicking on a hyperlink should issue
+another SQL query related to the item being clicked on, and generate
+another result page in HTML as usual.  Here's an example: Suppose a
+query returns a subset of the rows in the <tt>Courses</tt> table,
+displayed in HTML.  The values in column <tt>courses</tt> can be
+displayed as hyperlinks, where clicking on one of these links issues a
+query to find all entries in the <tt>Grades</tt> table for that
+specific course.
+
+</ol>
+
+The following Web pages have been created with additional hints
+specific to this programming assignment:
+
+<ul>
+
+<li><i><a target="_blank" href="
+http://www.stanford.edu/class/cs145/hw/hw2hint.html">Hints for Project
+Part 2, C users</a></i>
+(<tt>http://www.stanford.edu/class/cs145/hw/hw2hint.html</tt>)
+
+<li><i><a target="_blank" href="
+http://www.stanford.edu/class/cs145/hw/hw2JavaNotes.html">Hints for Project
+Part 2, Java users</a></i>
+(<tt>http://www.stanford.edu/class/cs145/hw/hw2JavaNotes.html</tt>)
+
+</ul>
+
+<h3>Note on maintaining your databases</h3>
+
+You should consider two factors in the maintenance of your databases
+throughout the CS145 project:
+
+<ol>
+
+<li> Oracle is not backed up, so anything you need long-term should be
+saved in the leland file system.
+
+<li> As you start modifying data in a database, you will undoubtedly
+want the ability to get a "fresh start" easily from your original
+data.
+
+</ol>
+
+We recommend that you establish a routine of saving all data in Oracle
+load files, and perhaps reloading the database each time you start
+working with it.  Remember to delete the contents of each table (or
+destroy and recreate the tables) before reloading.  Otherwise, unless
+you take <tt>APPEND</tt> out of your control file (or there is a
+declared key), Oracle will happily append the new data to your old
+table, causing your table size to double, triple, quadruple, etc.  To
+get rid of a table called <tt>T</tt>, issue the following command to
+<tt>sqlplus</tt>:
+
+<pre>
+  drop table T;
+</pre>
+
+If you want to get rid of all tuples in <tt>T</tt>
+without deleting the table itself, issue the command:
+
+<pre>
+  delete from T;
+</pre>
+
+<h3>What to submit</h3>
+
+<i>For details please see the online <a
+href="http://www.stanford.edu/class/cs145/submit-README.txt">submission
+instructions</a>.</i>
+
+<ul>
+
+<li> C users will submit all source files that you created or
+modified, including the <tt>Makefile</tt> if you modified it, all
+relevant <tt>.html</tt> files, and a URL for a "home" <tt>.html</tt>
+that we can use to test your system.
+
+<li> Java users will submit their entire <tt>servletdir</tt> directory
+structure, including all static <tt>.html</tt> documents in the
+<tt>webpages</tt> directory and the Java Servlet code in the
+<tt>servlets</tt> directory.
+
+</ul>
+</ul>
+<pre>
+
+
+</pre>
+</BODY>

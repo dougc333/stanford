@@ -1,0 +1,214 @@
+<html>
+
+<head>
+<title>Assignment 1 Code Description</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+
+
+<meta name="Microsoft Theme" content="canvas 001, default"><meta name="Microsoft Border" content="tb"></head>
+
+<body background="../_themes/canvas/cnvbkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#6699FF" vlink="#006666" alink="#FF3300"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="arial, helvetica">
+
+<p align="center"><img src="_derived/shmem-desc.htm_cmp_canvas000_bnr.gif" width="600" height="60" border="0" alt="Assignment 1 Code Description"></p>
+
+<p align="center"><nobr>[&nbsp;<a href="shmem.htm">Up</a>&nbsp;]</nobr> <nobr>[&nbsp;Assignment&nbsp;1&nbsp;Code&nbsp;Description&nbsp;]</nobr> <nobr>[&nbsp;<a href="shmem-impl.htm">Assignment&nbsp;1&nbsp;DSM&nbsp;Modifications</a>&nbsp;]</nobr></p>
+
+<!--msthemeseparator--><p align="center"><img src="../_themes/canvas/cnvrule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top"><!--mstheme--><font face="arial, helvetica">
+
+<h2 align="center"><!--mstheme--><font face="arial black, arial, helvetica">CS244b Assignment #1 Code Description<!--mstheme--></font></h2>
+
+<h3><!--mstheme--><font face="arial black, arial, helvetica">How to go about doing the assignment &amp; turning it in<!--mstheme--></font></h3>
+
+<p>Follow this procedure when implementing a modification &amp; your lives will be much
+easier (as will ours!): </p>
+
+<ol>
+  <li>Make a new subdirectory for the modification. </li>
+  <li>Copy the Makefile and .cc and .h files from the previous modification into the new
+    subdirectory. For the first modification, copy the skeletal DSM system we provide in <samp>/usr/class/cs244b/shared-memory/</samp>.
+  </li>
+  <li>Make the modification, get it to work, etc. </li>
+  <li>Use <samp>make clean</samp> to remove your objects &amp; executables. </li>
+</ol>
+
+<p>It is to your advantage to wait until you are finished with everything before
+submitting anything. If you choose this strategy, you will end up with one subdirectory
+per modification. After making all the modifications, run the submit program <tt>/usr/class/cs244b/bin/submit</tt>
+from the directory containing all of your modification directories (the <tt>submit</tt>
+script recursively copies all files in the current directory). A new submission will
+overwrite the old one. Use <tt>make clean</tt> before submitting to conserve disk space. </p>
+
+<p>&nbsp;</p>
+
+<h3><!--mstheme--><font face="arial black, arial, helvetica">Compiling and Invoking the DSM Program<!--mstheme--></font></h3>
+
+<p>Copy the source files from <samp>/usr/class/cs244b/shared-memory/</samp> to your own
+directory. <samp>cd</samp> there and type <samp>make</samp>. This will automatically
+calculate dependencies and then generate an executable named <samp>dsm</samp> which runs
+as a server or as a client. To run it as a server, invoke it as follows: </p>
+
+<!--mstheme--></font><pre>    dsm [ -c <em>clients</em> ] [ -a ] <em>app#</em>  </pre><!--mstheme--><font face="arial, helvetica">
+
+<p>The <samp>-c</samp> flag specifies how many client instances should connect before the
+application starts (the default is three). Be sure to put a space between the <samp>-c</samp>
+and the number.</p>
+
+<p>The <samp>-a</samp> flag has the server automatically invoke the clients locally as a
+convenience for debugging. Performance numbers obtained when using <samp>-a</samp> are
+meaningless (since all clients and the server are sharing a single machine) and should not
+be submitted. </p>
+
+<p>The <samp><em>app#</em></samp> parameter indicates which of the sample applications
+should run on the clients. This number is transmitted from server to clients once all
+clients connect. </p>
+
+<p>To run <samp>dsm</samp> as a client, invoke it as follows: </p>
+
+<!--mstheme--></font><pre>      dsm -s <em>IP-address</em> <em>port#</em>  </pre><!--mstheme--><font face="arial, helvetica">
+
+<p>The IP address and port number to use are indicated when you start the server. </p>
+
+<p>&nbsp;</p>
+
+<h3><!--mstheme--><font face="arial black, arial, helvetica">Sample Applications<!--mstheme--></font></h3>
+
+<p>There are three sample applications. For all three applications, the user must manually
+abort the application by sending SIGINT to the server instance (CTRL-C will do). </p>
+
+<p><b>Application 1.</b> This is a simple program that illustrates that most basic
+properties of distributed shared memory and sequential consistency. </p>
+
+<p>To illustrate the ordering properties of sequential consistency, application 1 goes
+through a simple exercise. There is an array of integers (initialized to zero) with one
+integer per client. The nth client writes a 1 into the nth element of the array, and then
+reads the array. Where there are zeros in the array, the client can conclude that its read
+took place before the corresponding client's write. The client then displays which clients
+it can tell ran after it. You can check this output by hand for inconsistency (i.e., if
+client 2 claimed it ran before client 3, and client 3 claimed it ran before client 2, then
+the shared memory protocol is not maintaining sequential consistency.) </p>
+
+<p>After the first exercise, to illustrate the behavior of locks, application 1 enters an
+infinite loop on a second exercise. Application 1 keeps two pairs of variables (x1,y1) and
+(x2,y2). (x1,y1) is protected by a lock and (x2,y2) is not. To update (x1,y1), the
+application acquires the lock, writes x1, sleeps one second, writes y1, and releases the
+lock. To update (x2,y2), the application simply writes x2, sleeps one second, and writes
+y2. If the locking system is working, the application should always find x1 and y1 holding
+the same value, but x2 and y2 will often hold different values. </p>
+
+<p>Application 1 will continue forever unless terminated by the server. </p>
+
+<p><b>Application 2.</b> This is a test driver that exercises the basic DSM consistency
+mechanism and synchronization primitives. This application is provided as a test driver in
+effect, to make sure the DSM system is providing sequential consistency and correct
+locking behavior over a large number of pages and locks. It works by allocating a large
+array and filling it up with an incrementing sequence (0 in the first location, 1 in the
+second, etc.) Then the application picks two locations at random and swaps them. To avoid
+synchronization problems, it grabs two locks before doing the swap --- one lock that
+protects the first array element being swapped, and one that protects the second. The lock
+that protects a given element is a hash of that element's index (i.e., one lock protects
+many elements); this keeps the number of locks from being ridiculously high. </p>
+
+<p>Application 2 will terminate computation after examining the modified array. The
+instance will continue to run unless manually aborted by the server. </p>
+
+<p><b>Application 3.</b> This is a snail simulation. Snails like to migrate to areas where
+there are more food. Snails also produce baby snails, get old and die, and occasionally
+starve. The number of snails of various ages at various places is stored in shared memory;
+each client is responsible for a certain region of space. As the simulation runs, each
+processor keeps local tallies of how many snails have been created and destroyed, which
+are later audited against the global picture to catch consistency problems. </p>
+
+<p>Application 3 will terminate computation after examining the modified array. The
+instance will continue to run unless manually aborted by the server. </p>
+
+<p>&nbsp;</p>
+
+<h3><!--mstheme--><font face="arial black, arial, helvetica">Structure of the Skeletal DSM Program<!--mstheme--></font></h3>
+
+<p>The program contains application code, a DSM system, a synchronization system, and a
+communication layer. We have provided simple but complete versions of each component. You
+will modify, optimize, and evaluate the overall system, focusing on DSM consistency and
+synchronization. The sample applications that are included will illustrate the advantages
+of these modifications and optimizations. </p>
+
+<p>The program can run as either the server or as a client. The server keeps track of the
+clients, and when all have connected, informs them (via RPC) to begin a specified
+application. When the server exits, it instructs all the clients to exit. </p>
+
+<p>The supplied implementation has a very simple structure. One instance of the program
+runs as the server. For simplicity, this instance never runs the application code. The
+server keeps track of the addresses of the other instances (which are acting as clients),
+the ownership of each page, and the ownership of each lock. The server also has
+&quot;backing storage&quot; for the data of each page in the system. Initially, the server
+owns all of the pages in the system and the clients must request those pages individually.
+The server's storage of a page is updated whenever a transfer of ownership occurs on that
+page (a page steal). </p>
+
+<p>The other instances run as clients. When the client's application code needs a page,
+the DSM library asks the server to acquire it. The server transfers the page from its
+current owner to that client, or if there is no current owner, it simply supplies the
+data. In this system, the clients have enough memory space to cache every single shared
+space in their virtual address space (hence the &quot;cache&quot; each machine suffers no
+capacity-induced cast-outs). In a similar fashion, when the client needs to acquire a
+lock, it simply asks the server. The server then notifies the client when the client has
+been granted the lock. </p>
+
+<p>The client instances work together, using DSM managed by the server to hold state
+shared between the instances. The application (on the clients) treats this shared memory
+as if it were ordinary (local) memory. When application code attempts to access (read or
+write) a page that is actually remote, the UNIX virtual memory system delivers a signal
+(SIGSEGV) that is handled by the DSM system. The DSM system acquires the page and then
+returns control to the application. The application uses the synchronization system for
+concurrency control. The synchronization system locates the current lock holder and
+returns when the lock has been granted. The DSM and synchronization systems use the
+communication layer to send packets. This layer is designed to hide the details of packet
+formats and UNIX socket programming, and to limit the damage buggy programs can inflict on
+the network. </p>
+
+<p>&nbsp;</p>
+
+<h3><!--mstheme--><font face="arial black, arial, helvetica">Getting Familiar with the Supplied Code<!--mstheme--></font></h3>
+
+<p>This section leads you through a few exercises intended to guide you through the
+supplied implementation. You are not required to do these exercises as part of the
+assignment, but you should look them over. If you can't see how to do them, please contact
+a TA. </p>
+
+<p><b>Exercise 1.</b> Compile the distributed shared memory code and run the first sample
+application. Check to make sure the partial orderings the clients reported are consistent
+with some global ordering. Then, why do (x1,y1) stay in sync where (x2,y2) become
+different? Specifically, what interleaving of updates leaves (x2,y2) unequal? </p>
+
+<p>To help you verify your answer to the previous question, compile portions of dsm with
+debugging messages on. To turn on debugging messages, change the <samp>#undef DEBUG_xxx</samp>
+directives to <samp>#define DEBUG_xxx</samp>, e.g. in <samp>rpc.c</samp>, and recompile.
+Rerun application one, and see if you can account for the RPC traffic. For this sort of
+debugging, it may be helpful to run the server and all clients in the same window, i.e.,
+use the <samp>-a</samp> option to <tt>dsm</tt>. </p>
+
+<p><b>Exercise 2.</b> Turn off debugging messages (if you turned them on) and run the
+second sample application. What happens if the lock acquisition step is removed from this
+application? (Try it to verify your answer.) Why is the application careful about the
+order in which it grabs the lock pair, i.e., what happens if it does not grab the lock
+with the smaller lock ID first? (Verify your answer by modifying the code and observing
+the failure.) </p>
+
+<p><b>Exercise 3.</b> Enable debugging in app3.c, recompile, and run application 3 with
+three clients on one machine (using <samp>-a</samp>). If you look carefully at the
+simulation status, you'll notice that there is a distinct lag between the time when some
+snails migrate and when they can actually be accounted for in the adult snail count in the
+destination location. Why? What is the ordering of events that hides these snails for so
+long? 
+<!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="arial, helvetica">
+
+<p align="center"><img src="../images/stanford_seal64.gif" alt="7003.gif (16024 bytes)" WIDTH="64" HEIGHT="64"></p>
+
+<!--msthemeseparator--><p align="center"><img src="../_themes/canvas/cnvrule.gif" width="300" height="10"></p>
+
+<p align="center"><font size="1"><em><a name="disabled" href="../index.htm">Back to CS
+244B Homepage</a><br>
+This page was last modified April 10, 1999<br>
+<a href="mailto:benw@cs.stanford.edu">benw@cs.stanford.edu</a></em></font></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table></body>
+</html>

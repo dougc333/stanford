@@ -1,0 +1,391 @@
+Hints on approaching the problem of defining a search strategy:
+
+In part 2 of the project, you will be implementing a search strategy for
+your NFA and DFA (or e-NFA if you did not make a conversion from e-NFA to
+NFA).  This task should be significantly easier than part 1, though there
+is a lot of room for improvement, and you might find that you want to go
+back and alter the original specifications of your automata structure.
+
+The requirements of this project are that you turn in a program that takes
+two files as inputs (one regular expression and one data file), and
+searches the data file for strings that match the regular expression using
+the automata that you constructed.  Beyond that, everything is up to you.
+The more efficient you make your search, and the more power you provide
+your searching approach, the more fulfillment and the more interesting the
+results you will derive from part 3.
+
+This handout will consist of several sections:
+1. Taking command line inputs in Unix
+  a) argc, argv
+  b) making flags to expand flexibility of your program
+
+2. Search algorithms for DFAs and NFAs
+  a) NFA search algorithm
+  b) DFA search algorithm
+  c) Improving NFA searching algorithms
+  d) Improving DFA searching algorithms
+
+3. Search strategies for different kinds of pattern-matching
+  a) Efficient searching
+  b) First final state versus last final state acceptance
+  c) String rejection
+
+4. Metalanguages and expanding the flexibility of your search engine
+  a) Defining a metalanguage
+  b) Parsing the metalanguage
+  c) Motivation and suggestions for implementation
+
+SECTION 1 - Command Line Inputs in Unix
+
+PART a) (skip if you understand command line interface in Unix)
+
+For those of you coming into this project without prior experience
+programming in Unix, command line arguments are arguments passed to your
+program by the operating system that are read when the program is run.
+
+For instance, when you run the program to remove a file, "rm", you must
+enter additional command line inputs, and there are more optional command
+line inputs that allow you to specify the behaviour of the program.
+
+"rm file" removes the file specified (in this case, "file") by passing the
+string "file" to the program rm so that it knows which file to remove.
+
+"rm -f -r folder" removes the directory specified (in this case, "folder")
+without asking the user if he or she would like to remove it, and
+recursively descending into the directory to remove all of its contents.
+This is specified to rm by passing it the strings "folder", "-f", and
+"-r".  
+
+We have requested that your program take two arguments from the command
+line by default (in other words, every solution should include this method
+of operation).  The format of the command line should be:
+
+<myprogram> <regexfile> <datafile>
+
+Where <myprogram> should be replaced by the name of your program,
+<regexfile> should be replaced by the name of a file containing a regular
+expression, and <datafile> should be the name of the file you are going to
+search over.  
+
+So how is this done?  In the test.c file I provided at the beginning of
+the quarter that simply demonstrated the output of the parser, you'll see
+that main is called with two arguments, argc and argv, and it returns an
+integer.  The return value is really not imperative -- it's a way to tell
+the OS to print a message if a deviant value is returned.  I believe a
+deviant value is anything other than 0, but I don't quite recall.  You can
+look this up if you're curious.  The important things are the arguments
+passed in.
+
+argc is an integer that defines the size of argv, the argument vector.
+The argument vector is of type char **, and represents an array of
+strings.  The 0th element of argv (argv[0]) is always the string that was
+used to invoke the program.  This is usually simply the program name,
+though it could represent a path if you are running a program explicitly
+from another directory (such as typing "/usr/pubsw/bin/telnet" instead of
+just "telnet"), so argc is always a number equal to or greater than 1.
+Each other index of argv represents the remaining strings on the command
+line.  Note that strings in quotes on the command line (single or double)
+are grouped together in a single argument string.  So in our example above
+with rm, the argument vector looks like:
+argv[0] = "rm"
+argv[1] = "-f"
+argv[2] = "-r"
+argv[3] = "folder"
+and argc is set to 4.  The way you'll want to implement the default
+program command line interface is to check first if the number of
+arguments is equal to 3, then to set the name of the file containing the
+regular expression (some variable in your program) to be equal to argv[1],
+and the name of the file containing the data to be equal to argv[2], and
+then run your program as you normally would, opening the regular
+expression file to get your regular expression string, and the data file
+to search the data.  This is all you *have* to do.  The next part of this
+handout expands on this idea.
+
+PART b) (ideas for expanding your program's interface)
+
+You can create a more flexible and interesting program by allowing
+different kind of inputs.  How do you know what kinds of inputs you need
+to use?  You specify some way for the user to set "flags" to tell the
+program how to interpret what they are passing in.  A flag is like the
+"-f" in the rm example above, which tells the rm program not to query the
+user before deleting a file.
+
+If you decide to implement a command line interface with optional flags,
+we request that you include one flag, "-h", that will print out a "help"
+message that tells the user what the various flags you are providing are,
+and what they do.  We also request that you nonetheless implement the
+default interface as stated.  Here are some ideas for expanding the way
+you interpret the command line interface:
+
+1. Don't add any flags (other than -h), but make the regular expression
+file optional.  Check if argc is 2 in main, and if it is, then instead
+request that the user input a regular expression from standard input.
+
+2. Same as 1, but make the datafile optional, and take data instead from
+standard input.  Note that these two methods are mutually exclusive,
+unless you specify that any regular expression filename must end with a
+certain suffix, and any data file must end with a different one, so that
+the program can tell how to interpret the files coming in.  
+
+3. Implement flags.  To implement flags, you'll want to check each element
+of argv (using the argc value to loop through them) to see if any begins
+with a hyphen.  Those that do are interpreted as flags instead of files.
+If a certain flag is present, you'll want to set a boolean variable in
+your program which you can test to decide what to do in certain
+situations.  Don't feel shy about making this boolean variable a global
+variable, because it may be that you'll need it deep in your code, and you
+don't want to have to pass around this otherwise irrelevant value.  Here
+are some ideas for different options you might offer the user:
+
+"-i" - Interactive mode.  Make the function run in a continuous loop until
+some "quit" option is taken.  Take just the data file as input, and then
+allow the user to type various regular expressions and run each separately
+over the input.
+
+"-nfa" - Force NFA mode.  Force the program to use the NFA representation
+of the regular expression instead of converting to a DFA representation.
+This would be useful for testing your NFA search algorithm.
+
+"-longest"/"-shortest" - Specify how to react to final states.  In
+Shortest String mode, you would want to print out the accepted string when
+you first enter an accepting state.  In Longest String mode, you'd want to
+save the longest string you've seen in an accepting state so far, but only
+print it out when the input is exhausted or the DFA rejects on a later
+input symbol.
+
+"-debug" - Debug mode. Have the contructor or the search algorithm give
+verbose descriptions of what it's doing at important points in the
+program.  This may help you debug in general, if it tells you exactly what
+your program has done and you can trace back through the actions your
+program took.
+
+"-sa1"/"-sa2"/etc. - Search Algorithm N mode.  Allows the user to specify
+which of the search algorithms should be executed by the engine to handle
+the input.  This is useful, really, only if you have implemented more than
+one alternative search algorithm or strategy.  This flag would allow you
+to experiment with different strategies and see which are most useful on
+what kinds of inputs.
+
+"-meta" - Metalanguage Mode.  Interpret the regular expression file as a
+file containing commands in a metalanguage.  I will explain this in
+section 4 of this handout.  
+
+There are many more ideas for extending the flexibility of your program.
+Be creative!  Flags can be very useful in debugging, especially.  Note
+that you will receive no deduction if one of your flag options doesn't
+work, though you may receive extra credit.  These are all completely
+optional.  The only method you *need* to implement is the default
+behaviour of taking two input files and using the first as the regular
+expression file and the second as the data file.
+
+SECTION 2 - Seach Algorithms
+
+Part a) The NFA Search Algorithm
+
+NFASearch (NFATable, inputStream)
+1. Create a set of current states, and initialize it to empty.
+2. Create a set of add states, and initialize it to empty.
+3. Insert start state(s) into the current state set. (You probably
+implemented the NFA to have only one start state, which is fine.  In this
+case, you insert only that value).
+4. For each symbol, a, from inputStream
+  a. If current contains any state in the set of final states, do whatever
+       it is you do on accepting inputs.
+  b. If current is empty or a = EOF, do whatever it is you do on rejecting
+       inputs. 
+  c. For each state q in the current state set:
+    i. Remove q from current state set.
+    ii. Fetch transition set S from q on input a (this may be empty).
+    iii. Add each state in S to the add set.
+  d. Swap add set with current state set (equivalent to, but faster than,
+       adding every state in add to current, then making add empty).
+  e. Advance the input stream pointer.
+5. You're done!
+
+Part b) The DFA Search Algorithm
+
+DFASearch (DFATable, inputStream)
+1. Set current state variable equal to the start state.
+2. For each input symbol a from inputStream
+  a. If current state is in the final state set, do whatever it is you do
+       on accepting an input.
+  b. If current state is a dead state, do whatever it is you do on
+       rejecting an input.
+  c. Find transition off of current state on input a.
+  d. Change current state to this new state.
+  e. Advance the input stream pointer.
+3. You're done!
+
+From this you should gain an appreciation for exactly why it is that a DFA
+is so much faster than an NFA, and exactly how much faster it is likely to
+be.  Note that in the NFA, in the worst case, for any given input symbol
+the running time of getting the next state set may require on the order of
+the square of the number of states in the NFA.  This represents how much
+slower the NFA search is than the DFA search.
+
+Part c) Improving the NFA Searching Algorithm
+
+One of the best improvements you can make to the speed of the NFA is in
+the representation and manipulation of sets.  Using a bit vector to
+represent the states that are "in" the set allows you to take advantage of
+the computer's speed at bitwise arithmetic.  
+
+A bit vector representation of a set is as follows: you explicitly
+enumerate the number of elements that could possibly be in the set (in
+this case, it's the number of states).  Order the elements from 0 to n-1
+in some arrangement (it doesn't particularly matter which, but it's
+important that this arrangment is constant for the run of your machine).
+For each element labeled k, if the element is in the set, set the kth bit
+of the bitvector to "on".  If an element k is not in the set, the kth bit
+should be "off".  You can do this by bitwise operation on the bitvector,
+which is essentially just an array of integers that is long enough to
+represent every state of your NFA.
+
+Then the NFA Search Algorithm looks like this:
+
+NFABitVectorSearch (NFATable, inputStream)
+1. Create bit vector for current set, and initialize to 0 everywhere (you
+     can do this by explicitly assigning each integer in the array to 0,
+     or you can use the stdlib calloc function to allocate an array of
+     integers which will all, by default, be set to 0).
+2. Create bit vector for next set, and initialize to 0 everywhere.
+3. OR the start set with the current state set (or, if your NFA can have
+     only one start state q, explicitly set the qth bit to 1).
+4. For each input a in inputStream
+  a. if (current set AND final state set != 0) do whatever it is you do
+       when you on an accepting input.
+  b. if (current set = 0) do whatever it is you do on a rejecting input.
+  c. For each statebit q set in current state set
+    i. OR the add set with the set of transition states off of q on input
+         a.
+    ii. Set the qth bit of the current set to 0.
+  d. Swap the add set and the current set (equivalent to ORing the two
+       sets together and setting the add set to 0 everywhere).
+  e. Increment the input stream pointer.
+5. You're done!
+
+Savings on many operations will be up to 32 times (the number of bits in
+an integer), though this is a difficult problem to implement.
+
+If you do not want to try a bit vector, there are other ways to improve
+searching and set comparison using normal elements.  Here is sort of a
+scale of how quickly you can expect your NFA search algorithm to run based
+on the way you represent your sets:
+
+SLOW: representing sets as unordered arrays of integers that name specific
+states.  Inclusion in the array is considered set inclusion. Checking to
+see if a certain state is included in the array requires, in worst case,
+to compare against each state in the set, and, on average, will require
+half that number of comparisons.  Checking to see if a certain state is
+not in the set will always require you to compare against every single
+state in the set.  Set comparison (checking to see if some state in one
+set is included in another set, as in checking to see if current states
+are included in the final states) will, in the worst case, require you to
+make n*m comparisons, where n and m are the size of the two sets
+respectively.  If the two sets share no elements, then you will always
+make n*m comparisons.  This is not efficient.
+
+FASTER: representing sets as ordered arrays of integers representing
+states.  Inclusion in the array is considered set inclusion.  Ordering
+your representation of states "canonicalizes" the state set -- that is, it
+forces a given set to always have the same representation and allows you
+to search it more efficiently.  You can determine much more quickly on
+average whether or not a state is in the state set, though savings are not
+that spectacular.  Checking set inclusion by linear search requires on
+average half as many comparisons as there are states in the set.  You see
+savings, however, if the state is not in the set, because, on average,
+you'll know after that many comparisons that the state is not in the set.
+For set comparison, you get fourfold savings over unordered arrays on
+average (on a linear search) when a state is not in the set, since you
+save half for each state checked (m/2 * n/2 = (m*n)/4).  You might also
+take advantage, if you have lots of states in your next state set, of
+doing a logarithmic binary tree search on the array, as you would have
+learned in CS106.  The tradeoff is that you need to make sure the state
+sets are sorted.  You can save a lot of execution if you do this during
+the construction of the NFA instead of waiting until you need to to sort
+the set.  You also need to insert states into your current and add state
+sets in the proper position to get the full benefit of this strategy.
+
+FASTEST (of these proposed strategies): the bit vector implementation
+considered above.  This forces a canonical representation for sets (the
+bit vector is an ordered array), and simultaneously allows you to take
+advantage of the computation power at your fingertips to greatly speed up
+individual and set comparisons.  However, it's also much harder to
+implement, and, in some cases (especially if you have a lot of states but
+few transitions off of each state), it will require much more memory as
+well.
+
+PART d) Improving DFA Searching Algorithms:
+
+In general, a DFA search scan is very fast.  It will always be linear in
+time with the input, independent of the number of states.  That's as good
+as you can get in pattern matching of a long input, actually, however
+there are ways to speed it up.  One way is by implementing better search
+strategies, which I'll explain in section 3, and another way is to ensure
+that the number of instructions executed per input character is
+minimized.  How do we do this?
+
+In general, approaching this problem is a fairly advanced task and
+requires some intuition of how the computer is representing and using your
+structures and your input in memory.  One way to approach the problem is
+by minimizing the number of pointer redirections required to reach the
+next state of your DFA.  Ideally, you could allocate the memory in a
+static local array, though this would tend to require knowing, in advance,
+how many states are in your DFA (or at least setting an upper bound that
+you can live with).  A very ambitious approach would be to have your
+program be some kind of perl script that, rather than producing a DFA
+structure in memory, produces a program that will statically allocate the
+arrays in the stack and then compile and run this program on the input
+itself.  This is more or less how lexical analyzers like lex operate, and
+I would be very impressed with such a solution.  
+
+The other approach is to ensure that your program does not allocate and
+reallocate lots of memory after your DFA is built.  This will reduce the
+chances that parts of your DFA will be moved to virtual memory.  Note that
+this is assuming that your DFA is very large and that your input stream is
+very long, otherwise there's not much gain here.  If this is the case, you
+might try statically allocating a buffer for your input stream, so that
+characters are read from the file and written to the same memory every
+time.  This will maintain localization in memory of your input, and thus
+not cause the VM manager to page your memory in and out based on
+reallocating strings for your input.  If you just read inputs from your
+FILE structure using getc, for instance, I believe this is the default
+behaviour -- large chunks of file input are saved in a buffer somewhere,
+and when you call getc, you are really reading from the buffer instead of
+main memory.  If you take this approach you'd want to save a copy of
+recently seen characters as you go, so you can print them out if you reach
+an accepting state.
+
+Other ideas for improving the DFA search algorithm would be most
+appreciated, if anyone thinks of some.  I think it would be helpful if you
+proposed ideas to me and I could add them to this handout with attribution
+to the conceiver (this was the case sometimes in my last handout, when I'd
+add algorithms to the handout which were suggested by students in section
+or office hours, but I didn't know people's names, so I couldn't give
+credit where credit was due).  
+
+SECTION 3 - Search Strategies
+
+PART a) Efficient Searching
+
+Rather than saving and outputting previous characters every time you see
+an accepting state, instead save the start and final index (in terms of
+where they occur in the file), and use these at the end of your scan to
+print out all accepting strings by reading straight from the file.  This
+preserves memory and removes inefficient i/o operations from the core of
+your search algorithm.
+
+PART b) First Final State versus Last Final State Acceptance
+
+PART c) String Rejection
+
+SECTION 4 - Metalanguages (for the ambitious or curious)
+
+PART a) Defining a Metalanugage
+
+PART b) Parsing the Metalanguage
+
+PART c) Motivation and Suggestions for Implementation
+
+
+

@@ -1,0 +1,14 @@
+Problem 3:
+
+The virtual memory assingment consists of implementing a memory manager with a swap file to provide the illusion of unlimited physical memory. The second part of the assignment implements memory mapped files as an IPC mechanism.
+
+
+MEMORY MANAGEMENT ARCHITECTURE:
+
+     The illusion of unlimited physical memory is provided by a memory manager which operates on the TLB, updating the VPN/PPN entries with an Inverted Page Table and a Swap File. The segments of a process are loaded into the swap file. We implemented this by storing the contents of the program into mainMemory.
+
+     On a TLB miss, the machine generates a Page Fault Exception. The exception handler recognizes a TLB miss, reads the Bad Virtual Address and looks in the IPT for a translation. 
+     If the entry is not found in the IPT, the memory manager looks into the process page table for an entry. An invalid entry will cause a halt. 
+     If the entry is found in the IPT, the entry is moved from the IPT to the TLB. Before writing the entry into the TLB from the IPT, the TLB entry is copied into the IPT to update the USE and DIRTY bits.
+     If the entry is not found in the IPT, but found in the process PageTable, the entry is copied into the IPT and then put into the TLB.
+	

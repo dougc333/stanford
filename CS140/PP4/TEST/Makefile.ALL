@@ -1,0 +1,170 @@
+# Makefile for building user programs to run on top of Nachos
+#
+# Several things to be aware of:
+#
+#    Nachos assumes that the location of the program startup routine (the
+# 	location the kernel jumps to when the program initially starts up)
+#       is at location 0.  This means: start.o must be the first .o passed 
+# 	to ld, in order for the routine "Start" to be loaded at location 0
+#
+CC = $(GCCDIR)gcc
+AS = $(GCCDIR)as
+LD = $(GCCDIR)ld
+
+CPP = /usr/class/cs140/tools/bin/cpp
+INCDIR =-I../../userprog -I../../threads -I../../lib
+CFLAGS = -G 0 -c $(INCDIR)
+
+ifdef SIMOS
+CFLAGS += -DSIMOS
+endif
+
+# added filetest to the end of all: ... sort
+
+all: halt shell matmult sort filetest filetest1 cp echo cat f1 testjoinA testjoinB testjoinC bigmem wc1 wc cd ls mkdir remove genfile touch badcd
+
+
+start.o: ../start.s ../../userprog/syscall.h
+	$(CPP) $(CPPFLAGS) ../start.s > strt.s
+	$(AS) $(ASFLAGS) -o start.o strt.s
+	rm strt.s
+
+halt.o: ../halt.c
+	$(CC) $(CFLAGS) -c ../halt.c
+halt: halt.o start.o
+	$(LD) $(LDFLAGS) start.o halt.o -o halt.coff
+	$(BINDIR)/coff2noff halt.coff halt
+
+shell.o: ../shell.c
+	$(CC) $(CFLAGS) -c ../shell.c
+shell: shell.o start.o
+	$(LD) $(LDFLAGS) start.o shell.o -o shell.coff
+	$(BINDIR)/coff2noff shell.coff shell
+
+sort.o: ../sort.c
+	$(CC) $(CFLAGS) -c ../sort.c
+sort: sort.o start.o
+	$(LD) $(LDFLAGS) start.o sort.o -o sort.coff
+	$(BINDIR)/coff2noff sort.coff sort
+
+matmult.o: ../matmult.c
+	$(CC) $(CFLAGS) -c ../matmult.c
+matmult: matmult.o start.o
+	$(LD) $(LDFLAGS) start.o matmult.o -o matmult.coff
+	$(BINDIR)/coff2noff matmult.coff matmult
+ 
+filetest.o: ../filetest.c
+	$(CC) $(CFLAGS) -c ../filetest.c
+filetest: filetest.o start.o
+	$(LD) $(LDFLAGS) start.o filetest.o -o filetest.coff
+	$(BINDIR)/coff2noff filetest.coff filetest
+
+filetest1.o: ../filetest1.c
+	$(CC) $(CFLAGS) -c ../filetest1.c
+filetest1: filetest1.o start.o
+	$(LD) $(LDFLAGS) start.o filetest1.o -o filetest1.coff
+	$(BINDIR)/coff2noff filetest1.coff filetest1
+
+cp.o: ../cp.c
+	$(CC) $(CFLAGS) -c ../cp.c
+cp: cp.o start.o
+	$(LD) $(LDFLAGS) start.o cp.o -o cp.coff
+	$(BINDIR)/coff2noff cp.coff cp
+
+echo.o: ../echo.c
+	$(CC) $(CFLAGS) -c ../echo.c
+echo: echo.o start.o
+	$(LD) $(LDFLAGS) start.o echo.o -o echo.coff
+	$(BINDIR)/coff2noff echo.coff echo
+
+cat.o: ../cat.c
+	$(CC) $(CFLAGS) -c ../cat.c
+cat: cat.o start.o
+	$(LD) $(LDFLAGS) start.o cat.o -o cat.coff
+	$(BINDIR)/coff2noff cat.coff cat
+
+bigmem.o: ../bigmem.c
+	$(CC) $(CFLAGS) -c ../bigmem.c
+bigmem: bigmem.o start.o
+	$(LD) $(LDFLAGS) start.o bigmem.o -o bigmem.coff
+	$(BINDIR)/coff2noff bigmem.coff bigmem
+
+f1.o: ../f1.c
+	$(CC) $(CFLAGS) -c ../f1.c
+f1: f1.o start.o
+	$(LD) $(LDFLAGS) start.o f1.o -o f1.coff
+	$(BINDIR)/coff2noff f1.coff f1
+
+testjoinA.o: ../testjoinA.c
+	$(CC) $(CFLAGS) -c ../testjoinA.c
+testjoinA: testjoinA.o start.o
+	$(LD) $(LDFLAGS) start.o testjoinA.o -o testjoinA.coff
+	$(BINDIR)/coff2noff testjoinA.coff testjoinA
+
+testjoinB.o: ../testjoinB.c
+	$(CC) $(CFLAGS) -c ../testjoinB.c
+testjoinB: testjoinB.o start.o
+	$(LD) $(LDFLAGS) start.o testjoinB.o -o testjoinB.coff
+	$(BINDIR)/coff2noff testjoinB.coff testjoinB
+
+testjoinC.o: ../testjoinC.c
+	$(CC) $(CFLAGS) -c ../testjoinC.c
+testjoinC: testjoinC.o start.o
+	$(LD) $(LDFLAGS) start.o testjoinC.o -o testjoinC.coff
+	$(BINDIR)/coff2noff testjoinC.coff testjoinC
+
+wc1.o: ../wc1.c
+	$(CC) $(CFLAGS) -c ../wc1.c
+wc1: wc1.o start.o
+	$(LD) $(LDFLAGS) start.o wc1.o -o wc1.coff
+	$(BINDIR)/coff2noff wc1.coff wc1
+
+wc.o: ../wc.c
+	$(CC) $(CFLAGS) -c ../wc.c
+wc: wc.o start.o
+	$(LD) $(LDFLAGS) start.o wc.o -o wc.coff
+	$(BINDIR)/coff2noff wc.coff wc
+
+cd.o: ../cd.c
+	$(CC) $(CFLAGS) -c ../cd.c
+cd: cd.o start.o
+	$(LD) $(LDFLAGS) start.o cd.o -o cd.coff
+	$(BINDIR)/coff2noff cd.coff cd
+
+ls.o: ../ls.c
+	$(CC) $(CFLAGS) -c ../ls.c
+ls: ls.o start.o
+	$(LD) $(LDFLAGS) start.o ls.o -o ls.coff
+	$(BINDIR)/coff2noff ls.coff ls
+
+mkdir.o: ../mkdir.c
+	$(CC) $(CFLAGS) -c ../mkdir.c
+mkdir: mkdir.o start.o
+	$(LD) $(LDFLAGS) start.o mkdir.o -o mkdir.coff
+	$(BINDIR)/coff2noff mkdir.coff mkdir
+
+remove.o: ../remove.c
+	$(CC) $(CFLAGS) -c ../remove.c
+remove: remove.o start.o
+	$(LD) $(LDFLAGS) start.o remove.o -o remove.coff
+	$(BINDIR)/coff2noff remove.coff remove
+
+
+genfile.o: ../genfile.c
+	$(CC) $(CFLAGS) -c ../genfile.c
+genfile: genfile.o start.o
+	$(LD) $(LDFLAGS) start.o genfile.o -o genfile.coff
+	$(BINDIR)/coff2noff genfile.coff genfile
+
+touch.o: ../touch.c
+	$(CC) $(CFLAGS) -c ../touch.c
+touch: touch.o start.o
+	$(LD) $(LDFLAGS) start.o touch.o -o touch.coff
+	$(BINDIR)/coff2noff touch.coff touch
+
+
+badcd.o: ../badcd.c
+	$(CC) $(CFLAGS) -c ../badcd.c
+badcd: badcd.o start.o
+	$(LD) $(LDFLAGS) start.o badcd.o -o badcd.coff
+	$(BINDIR)/coff2noff badcd.coff badcd

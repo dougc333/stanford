@@ -1,0 +1,13 @@
+4.0 
+WNDS
+Sent
+1
+?x (?y (y = x & ?x (LeftOf(y, x) &  
+           ?y (y = x & ?x (LeftOf(y, x) &  
+                ?y (y = x & ?x (LeftOf(y, x) &  
+                     ?y (y = x & ?x (LeftOf(y, x) &   
+                          ?y (y = x & ?x (LeftOf(y, x) &  
+                                ?y (y = x & ?x (LeftOf(y, x))))))))))))))
+; This sentence is interesting in that it uses only two 
+; variables to say something that seems like it would
+; take more.  

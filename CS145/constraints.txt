@@ -1,0 +1,525 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - CONSTRAINTS AND TRIGGERS
+=========================================================================
+
+INTEGRITY CONSTRAINTS impose restrictions on the allowable data in the
+database, in addition to the simple structure and type restrictions
+imposed by the basic schema definition.
+
+
+Q: We've already seen a few kinds of integrity constraints.  What are
+   they?
+
+1.
+
+2.
+
+3.
+
+
+Why use integrity constraints?
+
+  (1) To catch data-entry errors.
+
+  (2) As correctness criteria when writing database updates.
+
+  (3) To enforce consistency across data in the database.
+
+  (4) To tell the system about the data - it may choose to store the
+      data or process queries accordingly.
+
+
+-> Many useful constraints cannot be expressed with the types of
+   constraints we've talked about so far.
+
+
+Ex: In E-R, restrict a student to apply to a campus no more than once
+    per year.
+
+
+
+
+
+
+
+
+
+
+Ex: Same E-R diagram, restrict a student with GPA < 3.0 to only apply
+    to campuses with rank > 4.
+
+
+The only constraints expressible in the basic E/R model are KEYS and
+MULTIPLICITIES (although we can sometimes express more complex
+constraints by rewriting the diagram in a contorted way).
+
+The relational model / SQL allows much richer constraints.
+
+
+Example schema:
+
+   Student(ID, name, address, GPA, SAT)
+   Campus(location, enrollment, rank)
+   Apply(ID, location, date, major, decision)
+
+
+Example constraints:
+
+- A student with GPA < 3.0 can only apply to campuses with rank > 4.
+
+- All applications with date < 1/1/00 have non-NULL decision.
+
+- Apply.ID and Apply.location appear in Student.ID and
+  Campus.location, respectively.
+
+- Campus.rank < 10.
+
+
+Types of integrity constraints
+------------------------------
+
+(1) Non-null
+(2) Key
+(3) Referential integrity
+(4) Attribute-based
+(5) Tuple-based
+(6) General assertions
+
+
+Declaring and Enforcing Constraints
+-----------------------------------
+
+Two times at which constraints may be declared:
+
+  1. Declared with original schema.
+     Constraints must hold after bulk loading.
+
+  2. Declared later.
+     Constraints must hold on current database.
+
+After declaration, if a SQL statement causes a constraint to become
+violated then (in most cases) the statement is aborted and a run-time
+error is generated.
+
+
+Non-Null Constraints
+--------------------
+
+- Restricts attributes to not allow NULL values
+
+Ex: CREATE TABLE Student (ID integer NOT NULL,
+                          name char(30) NOT NULL,
+                          address char(100),
+                          GPA float NOT NULL,
+                          SAT integer)
+
+
+Key Constraints
+---------------
+
+Ex: ID is key for Student => no two tuples in Student can have the same
+                             value for their ID attribute
+
+
+There are two kinds of keys in SQL:
+
+  (1) PRIMARY KEY: at most one per relation, automatically non-null,
+                   automatically indexed (in Oracle)
+
+  (2) UNIQUE: any number per relation, automatically indexed
+
+
+There are two ways to define keys in SQL:
+
+  (a) With key attribute
+
+  (b) Separate within table definition
+
+
+Ex: CREATE TABLE Student (ID integer PRIMARY KEY,
+                          name char(30),
+                          address char(100),
+                          GPA float,
+                          SAT integer,
+                          UNIQUE (name,address))
+
+
+Referential Integrity
+---------------------
+
+Very important and common kind of constraint.
+
+Ex: If an ID appears in Apply then it also appears in Student.
+
+Ex: If a location appears in Apply then it also appears in Campus.
+
+Q: Do the reverse directions make sense?
+
+
+
+Terminology:
+
+- Apply.ID "references" Student.ID
+
+- "Referential integrity" means referenced value always exists
+
+- Equivalent to saying there are no "dangling tuples" in join
+  from referencing relation to referenced relation
+
+
+Referential Integrity in SQL
+----------------------------
+
+- Referenced attribute must be PRIMARY KEY
+  (e.g., Student.ID, Campus.location)
+
+- Referencing attribute called FOREIGN KEY
+  (e.g., Apply.ID, Apply.location)
+
+
+There are two ways to define referential integrity in SQL:
+
+  (1) With referencing attribute
+
+  (2) Separate within referencing relation
+
+
+Ex: CREATE TABLE Apply(ID integer REFERENCES Student(ID),
+                       location char(25),
+                       date char(10),
+                       major char(10),
+                       decision char,
+                       FOREIGN KEY location REFERENCES Campus(location))
+
+
+Can omit referenced attribute name if it's the same as referencing
+attribute:
+
+  ID integer REFERENCES Student, ...
+
+
+Can have multi-attribute referential integrity.
+Can have referential integrity within a single relation.
+
+Ex: Dorm(first-name,
+         last-name,
+         room-number,
+         phone-number,
+         roommate-first-name,
+         roommate-last-name,
+         FOREIGN KEY (roommate-first-name,roommate-last-name)
+           REFERENCES Dorm(first-name,last-name))
+
+
+Referential Integrity Enforcement
+---------------------------------
+
+Consider R(P, ...) and S(..., F references R(P), ...)
+
+Q: What modification operations can violate constraint?
+
+1.
+
+2.
+
+3.
+
+4.
+
+
+Inserts/updates to S that violate constraint are disallowed.
+
+  - Must insert referenced value first, then referencing value
+  - Except for "deferred" constraint checking (won't cover)
+
+
+Deletes from R with referencing values.
+
+<picture>
+
+
+
+
+
+
+
+
+
+
+Four options:
+
+  (a) Disallow (default)
+
+  (b) "SET NULL" - set all referencing values to NULL
+
+  (c) "SET DEFAULT" - set all referencing values to default
+
+  (d) "CASCADE" - delete all tuples with referencing values
+
+Updates to R.P: same four options
+
+See book for syntax.
+
+
+Attribute-Based Constraints
+---------------------------
+
+Constraints on values for Relation.Attribute
+
+- Type/domain specifications are a kind of attribute-based constraint.
+- Non-null constraints are a kind of attribute-based constraint.
+
+
+SQL Syntax: Add "CHECK (<condition>)" to attribute.
+
+<condition> is like a SQL WHERE clause, can refer to attribute itself.
+
+
+Ex: CREATE TABLE Student (...
+                          GPA float CHECK(GPA <= 4.0 AND GPA > 0),
+                          ...)
+
+Ex: CREATE TABLE Apply (...
+                        decision char CHECK(decision in ('Y','N','U'))
+                        ...)
+
+
+Conditions can be more complex, e.g., with subqueries:
+
+Ex: Apply (...
+           major char(10) CHECK(major NOT IN
+                                  (SELECT dept-name FROM Dept
+                                   WHERE status = "full"))
+           ...)
+
+Q: Can we encode referential integrity constraints this way?
+
+
+
+
+
+
+
+
+
+
+-> But above constraint only checked on modifications to Apply, NOT on
+   modifications to Dept or other referenced relations -- significant
+   hole in constraint-checking.
+
+
+- Can also create domains with attribute-based constraints.
+
+
+Tuple-Based Constraints
+-----------------------
+
+Constraints on values for Relation.Tuple
+
+Similar to attribute-based constraints except CHECK applies to entire
+tuples => specified separately in table definition
+
+
+Ex: CREATE TABLE Campus(location char(25),
+                        enrollment integer,
+                        rank integer,
+                        CHECK(enrollment >= 10,000 OR rank > 5)
+
+[ Encodes enrollment < 10,000 => rank > 5 ]
+
+
+As with attribute-based constraints, can have subqueries but
+constraint only checked when relation itself is modified.
+
+
+General Assertions
+------------------
+
+Constraints on entire relation or entire database
+
+In SQL, stand-alone statement:
+
+  CREATE ASSERTION <name> CHECK (<condition>)
+
+
+Ex: Average GPA is > 3.0 and average SAT is > 1200
+
+CREATE ASSERTION HighVals CHECK(
+  3.0 < (SELECT avg(GPA) FROM Student) AND
+  1200 < (SELECT avg(SAT) FROM Student))
+
+
+Ex: A student with GPA < 3.0 can only apply to campuses with rank > 4.
+
+CREATE ASSERTION RestrictApps CHECK(
+   NOT EXISTS (SELECT * FROM Student, Apply, Campus
+               WHERE Student.ID = Apply.ID
+               AND Apply.location = Campus.location
+               AND Student.GPA < 3.0 AND Campus.rank <= 4))
+
+
+Assertions checked for each modification that could potentially
+violate them.
+
+Q: What operations could violate assertion HighVals?
+
+
+
+
+
+
+
+
+
+
+Q: What operations could violate assertion RestrictApps?
+
+
+
+
+
+
+
+
+
+
+Q: Can we encode referential integrity constraints this way?
+
+
+
+
+
+
+
+
+
+
+Triggers
+--------
+
+- More general than constraints
+
+- In SQL3 but not in SQL2, already in most products in some form
+
+
+General form:
+
+  CREATE TRIGGER <name>
+  BEFORE | AFTER | INSTEAD OF <events>
+  <referencing clause>                // optional
+  WHEN (<condition>)                  // optional
+  <action>
+  FOR EACH ROW                        //optional 
+
+
+<events>: INSERT ON R
+          DELETE ON R
+          UPDATE [OF A1, A2, ..., An] ON R
+
+<condition>: like general assertion
+
+<action>: sequence of SQL statements
+
+FOR EACH ROW: execute once for each tuple changed
+              if omitted, execute once for each relevant statement
+              ("row-level" versus "statement-level")
+
+<referencing clause>:
+
+   REFERENCING OLD as <old-var> NEW as <new-var>
+
+   then can refer to <old-var> and <new-var> in condition and action
+
+   DELETE: OLD only;  INSERT: NEW only;  UPDATE: both
+
+   If statement-level:
+
+   REFERENCING OLD_TABLE AS <old-var> NEW_TABLE AS <new-var>
+
+
+Ex: If an application tuple is inserted for a student with GPA > 3.9
+and SAT > 1450 to Berkeley, set decision to "Y".
+
+  CREATE TRIGGER AutoAccept
+  AFTER INSERT ON Apply
+  REFERENCING NEW AS NewApp
+  WHEN (NewApp.location = 'Berkeley' AND
+        3.9 < (SELECT GPA FROM Student WHERE ID = NewApp.ID) AND
+        1450 < (SELECT SAT FROM Student WHERE ID = NewApp.ID))
+  UPDATE Apply
+    SET decision = 'Y'
+    WHERE ID = NewApp.ID
+    AND location = NewApp.location
+    AND date = NewApp.date
+  FOR EACH ROW
+
+
+Q: Can we achieve the same affect using assertions?
+
+
+
+
+
+
+Ex: Same trigger without FOR EACH ROW
+
+  CREATE TRIGGER AutoAccept
+  AFTER INSERT ON Apply
+  REFERENCING NEW_TABLE AS NewApps
+  UPDATE Apply
+    SET decision = 'Y'
+    WHERE (ID,location,date) IN (SELECT ID,location,date FROM NewApps)
+    AND location = 'Berkeley'
+    AND 3.9 < (SELECT GPA FROM Student WHERE ID = Apply.ID)
+    AND 1450 < (SELECT SAT FROM Student WHERE ID = Apply.ID)
+
+
+Ex: If campus enrollment drops from above 7,000 to below 7,000, delete
+all applications to that campus dated after 2/15/00 and set all "Y"
+decisions for applications before 2/15/00 to "U".
+
+  CREATE TRIGGER Drop
+  AFTER UPDATE OF enrollment ON Campus
+  REFERENCING OLD AS OldVals NEW AS NewVals
+  WHEN (OldVals.enrollment >= 7,000 AND NewVals.enrollment < 7,000)
+  DELETE FROM Apply
+    WHERE location = NewVals.location AND date > 2/15/00;
+  UPDATE Apply
+    SET decision = 'U'
+    WHERE location = NewVals.location
+    AND decision = 'Y'
+  FOR EACH ROW
+
+
+Q: Can we achieve the same affect using assertions?
+
+
+
+
+
+
+Don't worry too much about BEFORE and INSTEAD OF, they can be messy.
+
+
+What Oracle 7.3.2. Supports
+---------------------------
+
+- Non-null constraints and key constraints as covered.
+
+- Referential integrity without non-default options for ON UPDATE.
+
+- Attribute-based and tuple-based constraints without subqueries.
+
+- No general assertions.
+
+- No domains.
+
+- Triggers: * No INSTEAD OF.
+            * FOR EACH ROW before the WHEN clause.
+            * WHEN clause allowed only with FOR EACH ROW.
+            * No subqueries in WHEN condition.
+            * <action> is PL/SQL procedure with some restrictions.
+            * No REFERENCING clause, implicit variables NEW and OLD for
+              FOR EACH ROW triggers.
+            * No NEW_TABLE / OLD_TABLE for statement-level triggers.

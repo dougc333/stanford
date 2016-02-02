@@ -1,0 +1,48 @@
+Step1. Redraw the PDA, so that it empties its stack before accepting
+--------------------------------------------------------------------
+
+e: epsilon
+d: a dummy character just for the purpose of making the transition
+i: intermediate state
+
+
+ _____               _____             _____            _____            _____
+|     | e,e-->$     |     | e,e-->d   |     | e,d-->e  |     |e,$-->e   |     |
+|  S  |------------>|  p  |---------->|  i  |--------->|  q  |--------->|  f  |
+|_____|         [-->|_____|---]       |_____|      [-->|_____|---]      |_____|
+                |             |                    |             |
+                |_____________|                    |_____________|
+                  a,e-->a                          eps,a-->eps
+                  b,e-->b                          eps,b-->eps
+                  c,a-->e
+                  d,b-->e
+
+Step2. Apply the algorithm to convert PDA to CFG
+------------------------------------------------
+
+Asf --> e Apq e
+Apq --> App Apq
+Apq --> a Apq e
+Apq --> b Apq e
+Apq --> e Aii e
+Aii --> e
+App --> a App c
+App --> b App d
+App --> App App
+App --> e
+
+Simplify the grammar:
+
+S --> A
+A --> aA | bA | EA | eps
+E --> aEc | bEd | EE | eps
+
+Simplify further by eliminating the unit production:
+
+S --> aS | bS | ES | eps
+E --> aEc | bEd | EE | eps
+
+P.S. This grammer can not be further simplifed to 
+S --> aS | bS | aSc | bSd | SS | eps
+It accepts more strings than the original one, such as "abc".  
+

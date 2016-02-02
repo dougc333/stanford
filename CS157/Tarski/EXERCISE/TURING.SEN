@@ -1,0 +1,7 @@
+4.0 
+WNDS
+Sent
+10
+~(Cube(a) & Larger(a, b))
+; Write the negation normal form of 1 here.  Similarly for the other 
+; sentences that follow.~(Cube(a) | ~Larger(b, a))~(~Cube(a) | ~Larger(a, b) | a # b )~(Tet(b) | (Large(c) & ~Smaller(d, e)))Dodec(f) | ~(Tet(b) | ~Tet(f) | ~Dodec(f))

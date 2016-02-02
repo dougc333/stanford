@@ -1,0 +1,28 @@
+Soln
+----
+ 
+Assume Utm is decidable by a tm R
+ 
+Use R to construct S
+ 
+S will decide Etm (the emptiness problem).
+ 
+S="On input <M>, an encoding of a tm M
+ 
+1.) Run tm R on <M, the accept state of M>
+2.) If the accept state is useless, accept.
+3.) else: reject"
+ 
+S decides Etm
+ 
+Etm undecidable
+ 
+contradiction
+ 
+Utm undecidable
+ 
+ 
+------------------
+ 
+ 
+Grant, Matt and Geoff

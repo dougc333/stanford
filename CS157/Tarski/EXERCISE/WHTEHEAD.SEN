@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+14
+?x ?y (x # y)@x @y @z (x = y | x = z | y = z)?x ?y (x # y) & @x @y @z (x = y | x = z | y = z)?x ?y (x # y & @z (z = x | z = y))?x ?y ?z (x # y & y # z)?x ?y ?z (x # y & y # z & x # z)?x ?y ?z (x # y & y # z & x # z & @u (u = x | u = y | u = z))@x (Large(x) % x = a)?y @x (Large(x) % x = y)?y @x (Dodec(x) % x = y)?y @x ((Dodec(x) & Medium(x)) % x = y)?x ?y (x # y & Dodec(x) & Dodec(y))?x (Dodec(x) & @y (Dodec(y) $ x = y))?x ?y (x # y & @z (Tet(z) % (z = x | z = y)))

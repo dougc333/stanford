@@ -1,0 +1,19 @@
+#define PROCEDURE void
+#define BEGIN {
+#define END }
+#define BINKY 2 + 2 * 10
+#define EMPTY
+
+#PROCEDURE main()
+  #BEGIN
+    Print(#BINKY);
+    Print(#HELLO);
+     Print(#EMPTY);
+  #END
+
+#define HELLO world
+#define HELLO everyone
+
+#HELLO
+#hello
+"string#HELLO"

@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+10
+?x Tet(x)?x (Tet(x) & Large(x))?x (Tet(x) | Large(x))?x ((Tet(x) & ~Tet(x)) | Large(x))?x (~Tet(x) | Large(x))?x (Tet(x) $ Large(x))?x (Tet(x) & Large(x) & Large(x))?x (~Cube(x) | Between(x, a, b))?x (Cube(x) $ Between(x, a, b))?x (Cube(x) & Between(x, a, b))

@@ -1,0 +1,14 @@
+Assignment 4, Problem 6		 		   Solution by Rob
+
+Unfortunately I have no time to draw the PDA here, by I can give you a
+description. From the initial state it pushes a bottom-of-stack marker
+on its stack and proceeds to state A. In state A it reads 0's, while
+writing O's on its stack (by means of loop) (thereby counting i). Then
+it does an epsilon transition to state B in which it reads 1's while
+popping 0's from its stack. By reading the empty-stack marker and
+putting it back the PDA now moves to state C, in which it reads 1's
+while pushing 1's on its stack. Subsequently, it takes an epsilon
+transition to state D in which (by means of yet another loop) it reads
+2's while popping 1's from its stack. Finally there is a transition to
+the acceptance state (so there are 6 states altogether) that pops the
+bottom-of-stack marker.

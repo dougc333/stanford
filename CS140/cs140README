@@ -1,0 +1,64 @@
+Group: Screwed
+Elias H. Dagher 	dagher@stanford
+Doug Chang		dougc@leland
+Lionel O. Gresse 	gresse@leleand
+CS140, Summer 1999
+Homework 1
+
+                                   -README-
+
+
+
+
+----------------------------------------------------------------------------------
+Problem 4: Alarm
+----------------------------------------------------------------------------------
+
+A.   Major Design Decisions
+  1.    The Alarm WaitUntil(intx) function is a semiaccurate scheduler for intx, using totalTicks as for the 
+     	system time.			
+  2. 	When a thread calls Alarm::WaitUntil(int x), the thread is placed on a separate alarm queue. This 
+     	threads in this queue are checked to see if they should be scheduled. There will be a nondeterministic
+     	delay between the decision of when x triggers and when the process actually gets run. It is important to minimize
+     	this delay in real time systems as mentioned in the problem, as a loose guarantee of latency.		
+  3. 	The original intent was to use the SortedList data structure in list.cc. I could not get it to work, and hacked in 	
+     	a solution at the last minute. The datastructure consists of 2 lists derived from List<T> in list.cc with one a list of 
+     	pointers to threads, and the other holding the int x values. 	 	
+  4. 	Member function implementation
+     a. additional member functions to test for alarmqueue empty, scheduling a delayed thread, and
+        testing for the system time to see if a thread should be scheduled were addeed. The calling 
+	of a function to compare system time vs. delayed thread time was implemented in scheduler.cc since
+        the alarm function is not called on regular time intervals.
+     b. Once the lock is released, the priority inverted thread reverts back to
+	its original priority.
+     c. If the lock holder is not in the readList of the scheduler then
+	no priority inversion occurs, since this situation implies that the lock
+	holder is on some waiting list.  Updating the priority of a blocked lock
+	holder would require discovery of which lists the lock holder is waiting in.
+	A search to find these lists would require a great deal of overhead.  As a
+	result the gain of priority inversion would be lost in the time spent
+	looking for the the lists that the lock holder is on.
+	    	
+B.   What happens when:
+  1. 	Alarm::WaitUntil(int x) is called:
+     a.	the current thread is put to sleep on a queue in the kernel->alarm object. The 
+        delay time is stored on a separate queue. Interrupts are disabled to insure the 
+	switch from the thread calling this function to be cleanly stored in the alarm wait queue.
+  2. Alarm::alarmlistempty is called
+     a. The calling function calls to see if there are threads in the alarm list.
+        If there are, the calling entity can test the entries in the delay time to determine
+	if a thread should be scheduled.
+  3. Alarm:timeisup is called:
+     a. The entries in the list are tested to see if any of them are close to the current time.
+	The current time is determined from kernel->stats->totalTicks. If an entry in the list is
+	less than the current time, it is removed from the list. This thread is scheduled on the ReadytoRun queue.
+     b. This function was not completely debugged, the sort was not implemented. 
+  4. Alarm::Addthread is called:
+     a.	This removes a thread from the alarm list and calls the scheduler ReadyToRun function for scheduling.
+
+
+
+
+
+
+

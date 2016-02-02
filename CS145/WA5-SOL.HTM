@@ -1,0 +1,291 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Sample Solution for Written Assignment 5</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p>CS145 Spring &#146;00 Professor Widom<br>
+Sample Solution for Written Assignment 5</p>
+
+<p><strong>Problem 1a</strong><br>
+The following solution works only if there are no cycles in the
+graph.</p>
+
+<p>WITH RECURSIVE MinFares AS<br>
+(SELECT frm, too, cost<br>
+FROM flight)<br>
+UNION<br>
+(SELECT m.frm, f.too, m.cost+f.cost AS cost<br>
+FROM MinFares m, Flights f<br>
+WHERE m.too = f.frm)<br>
+SELECT frm, too, MIN(cost)<br>
+FROM MinFares<br>
+GROUP BY frm, too;</p>
+
+<p>The following solution is slightly better, but still does not
+work in the most general case.</p>
+
+<p>WITH RECURSIVE MinFares AS<br>
+(SELECT frm, too, cost<br>
+FROM flight)<br>
+UNION<br>
+(SELECT m.frm, f.too, m.cost+f.cost AS cost<br>
+FROM MinFares m, Flights f<br>
+WHERE m.too = f.frm<br>
+AND m.frm &lt;&gt; f.too)<br>
+SELECT frm, too, MIN(cost)<br>
+FROM MinFares<br>
+GROUP BY frm, too;</p>
+
+<p>The following solution computes the correct answer in all
+cases. Unfortunately, although the query can always be executed
+without problems (i.e., it always reaches a fixed point), the
+conservative monotonicity rules of SQL3 probably forbid it.</p>
+
+<p>WITH RECURSIVE MinFares AS<br>
+(SELECT frm, too, cost<br>
+FROM flight)<br>
+UNION<br>
+(SELECT m.frm, f.too, m.cost+f.cost AS cost<br>
+FROM MinFares m, Flights f<br>
+WHERE m.too = f.frm<br>
+AND m.frm &lt;&gt; f.too<br>
+AND m.cost+f.cost &lt; ALL (SELECT S.cost FROM MinFares as S
+WHERE S.frm = m.frm, S.too = f.too))<br>
+SELECT frm, too, MIN(cost)<br>
+FROM MinFares<br>
+GROUP BY frm, too;</p>
+
+<p><strong>Problem 1b</strong><br>
+None of the three queries above (executed over the types of
+databases described) return answers where too and frm are the
+same city.</p>
+
+<p><font color="#000000"><strong>Problem 2a</strong><br>
+</font>If the database system is clever enough to only run the
+base query once, then it runs a total of 8 SELECT queries,
+otherwise it runs 16. The base case discovers paths of length 1;
+each recursive step extends the length of the discovered paths by
+1.</p>
+
+<p><font color="#000000"><strong>Problem 2b</strong><br>
+If the database system is clever enough to only run the base
+query once, then it runs a total of 4 SELECT queries, otherwise
+it runs 8. The base case discovers paths of length 1; each
+recursive step doubles the length of the discovered paths.</font></p>
+
+<p><font color="#000000"><strong>Problem 3</strong><br>
+This solution appears in the CS145 Oracle FAQ. First we create
+the tables without the foreign-key constraints:</font></p>
+
+<pre>CREATE TABLE firstborn (cID INT PRIMARY KEY,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  eID INT);
+CREATE TABLE mother(eID INT PRIMARY KEY,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    cID INT);</pre>
+
+<p>Then, we add foreign key constraints: </p>
+
+<pre>ALTER TABLE firstborn ADD CONSTRAINT firstbornREFmother
+&nbsp;&nbsp;&nbsp; FOREIGN KEY (eID) REFERENCES mother(eID)
+&nbsp;&nbsp;&nbsp; INITIALLY DEFERRED DEFERRABLE;
+ALTER TABLE mother ADD CONSTRAINT motherREFfirstborn
+&nbsp;&nbsp;&nbsp; FOREIGN KEY (cID) REFERENCES firstborn(cID)
+&nbsp;&nbsp;&nbsp; INITIALLY DEFERRED DEFERRABLE;</pre>
+
+<p><font color="#000000"><strong>Problem 4a</strong><br>
+CREATE TABLE R (<br>
+A INTEGER NOT NULL,<br>
+B INTEGER);</font></p>
+
+<p><font color="#000000">CREATE TABLE R (<br>
+A INTEGER CHECK (A IS NOT NULL),<br>
+B INTEGER);</font></p>
+
+<p><font color="#000000">CREATE TABLE R (<br>
+A INTEGER,<br>
+B INTEGER);<br>
+CREATE ASSERTION foo CHECK (<br>
+NOT EXISTS (SELECT * FROM R WHERE A IS NULL)</font>);</p>
+
+<p><strong>Problem 4b</strong><br>
+CREATE TABLE R (<br>
+A INTEGER PRIMARY KEY,<br>
+B INTEGER);</p>
+
+<p>CREATE TABLE R (<br>
+A INTEGER CHECK (1 = (SELECT COUNT(*) FROM R AS S WHERE S.A =
+A)),<br>
+B INTEGER);</p>
+
+<p>CREATE TABLE R (<br>
+A INTEGER,<br>
+B INTEGER);<br>
+CREATE ASSERTION foo CHECK (<br>
+(NOT EXISTS<br>
+(SELECT * FROM R GROUP BY A HAVING COUNT(*) &gt; 1))<br>
+);</p>
+
+<p><strong>Problem 4c</strong><br>
+CREATE TABLE R (A INTEGER PRIMARY KEY, B INTEGER);<br>
+CREATE TABLE S (C INTEGER REFERENCES R(A));</p>
+
+<p>No answer possible - consider deletions</p>
+
+<p>CREATE TABLE R (A INTEGER PRIMARY KEY, B INTEGER);<br>
+CREATE TABLE S (C INTEGER);<br>
+CREATE ASSERTION foo CHECK (<br>
+NOT EXISTS (SELECT * FROM S WHERE C NOT IN (SELECT A FROM R)));</p>
+
+<p><font color="#000000"><strong>Problem 4d</strong><br>
+CREATE TABLE R (A<br>
+A INTEGER CHECK (A &gt;= 10 AND A &lt;= 20),<br>
+B INTEGER);</font></p>
+
+<p><font color="#000000">CREATE TABLE R (A INTEGER, B INTEGER);<br>
+CREATE ASSERTION foo CHECK (<br>
+NOT EXISTS (SELECT * FROM R WHERE A &lt; 10 OR A &gt; 20));</font></p>
+
+<p><font color="#000000"><strong>Problem 4e</strong><br>
+CREATE TABLE R (<br>
+A INTEGER CHECK (A &gt;= ALL (SELECT 2*B FROM R WHERE R.A = A)),<br>
+B INTEGER CHECK (B &lt; ALL (SELECT A/2 FROM R WHERE R.B = B)));</font></p>
+
+<p><font color="#000000">CREATE TABLE R (A INTEGER, B INTEGER,
+CHECK (A &gt;= 2*B));</font></p>
+
+<p><font color="#000000">CREATE TABLE R (A INTEGER, B INTEGER);<br>
+CREATE ASSERTION foo CHECK (<br>
+NOT EXISTS (SELECT * FROM R WHERE A &lt; 2*B));</font></p>
+
+<p><font color="#000000"><strong>Problem 4f</strong><br>
+No answer possible - consider deletions</font></p>
+
+<p>CREATE TABLE R (A INTEGER, B INTEGER);<br>
+CREATE TABLE S (C INTEGER);<br>
+CREATE ASSERTION foo CHECK (NOT EXISTS (<br>
+SELECT * FROM R WHERE A &gt;= (<br>
+SELECT AVG(C) FROM S)));</p>
+
+<p><strong>Problem 5a</strong><br>
+You can re-use an answer from 4b, since the functional dependency
+implies that <tt>A</tt> is a key. Here is a more general
+solution:</p>
+
+<p>CREATE ASSERTION foo CHECK<br>
+(NOT EXISTS (<br>
+(SELECT * FROM R AS R1, R AS R2<br>
+WHERE R1.A = R2.A AND R1.B <> R2.B));</p>
+
+<p><strong>Problem 5b</strong><br>
+CREATE ASSERTION foo CHECK (NOT EXISTS (<br>
+(SELECT *<br>
+FROM R AS R1, R AS R2<br>
+WHERE R1.A = R2.A AND NOT EXISTS<br>
+(SELECT * FROM R AS R3 WHERE R3.B = R1.B AND R3.C = R2.C))));</p>
+
+<p><strong>Problem 6a</strong><br>
+Whenever a student switches to the CS department, his GPA goes up
+by 10%.</p>
+
+<p>CREATE TRIGGER foo<br>
+AFTER UPDATE OF major ON Student<br>
+REFERENCING<br>
+NEW_TABLE AS NT<br>
+OLD_TABLE AS OT<br>
+UPDATE STUDENT<br>
+SET gpa =gpa * 1.1<br>
+WHERE id IN (<br>
+SELECT NT.id<br>
+WHERE NT.major = 'CS'<br>
+AND OT.major &lt;&gt; 'CS'<br>
+AND NT.id = OT.id);</p>
+
+<p><font color="#000000"><strong>Problem 6b</strong><br>
+CREATE TRIGGER foo<br>
+AFTER INSERT ON Student<br>
+REFERENCING NEW_TABLE AS NT<br>
+WHEN (10 &lt;= (SELECT COUNT(*) FROM NT))<br>
+UPDATE Student<br>
+SET gpa = 0;</font></p>
+
+<p>This trigger sets all GPA's to 0 if a batch of at least 10
+students are inserted. </p>
+
+<p><font color="#000000"><strong>Problem 7a</strong><br>
+CREATE TRIGGER VdelR<br>
+AFTER DELETE ON R<br>
+REFERENCING OLD_TABLE AS OT<br>
+DELETE FROM V WHERE A IN (SELECT A FROM OT WHERE A &gt; 5);</font></p>
+
+<p><font color="#000000"><strong>Problem 7b</strong><br>
+CREATE TRIGGER VupdR<br>
+AFTER UPDATE ON R<br>
+REFERENCING OLD_TABLE AS OT, NEW_TABLE AS NT<br>
+DELETE FROM V WHERE A IN (SELECT A FROM OT);<br>
+INSERT INTO V (SELECT A FROM NT WHERE A &gt; 5);</font></p>
+
+<p><font color="#000000"><strong>Problem 7c</strong><br>
+CREATE TABLE V (A INTEGER, B INTEGER);</font></p>
+
+<p><font color="#000000">INSERT INTO V SELECT A, B FROM R;</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VinsR<br>
+AFTER INSERT ON R<br>
+REFERENCING NEW_TABLE AS NT<br>
+INSERT INTO V (SELECT A, B FROM NT);</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VdelR<br>
+AFTER DELETE ON R<br>
+REFERENCING OLD_TABLE AS OT<br>
+DELETE FROM V WHERE A IN (SELECT A FROM OT);</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VupdR<br>
+AFTER UPDATE ON R<br>
+REFERENCING OLD_TABLE AS OT, NEW_TABLE AS NT<br>
+DELETE FROM V WHERE A IN (SELECT A FROM OT);<br>
+INSERT INTO V (SELECT A, B FROM NT);</font></p>
+
+<p><font color="#000000"><strong>Problem 7d</strong><br>
+CREATE TABLE V (INTEGER A, INTEGER B, INTEGER C);</font></p>
+
+<p><font color="#000000">INSERT INTO V (SELECT A, R.B, C FROM R,
+S WHERE R.B = S.B);</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VinsR<br>
+AFTER INSERT ON R<br>
+REFERENCING NEW_TABLE AS NT<br>
+INSERT INTO V (SELECT A, NT.B, C FROM NT, S WHERE NT.B = S.B);</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VinsS<br>
+AFTER INSERT ON S<br>
+REFERENCING NEW_TABLE AS NT<br>
+INSERT INTO V (SELECT A, NT.B, C FROM R, NT WHERE R.B = NT.B);</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VdelR<br>
+AFTER DELETE ON R<br>
+REFERENCING OLD_TABLE AS OT<br>
+DELETE FROM V WHERE A IN (SELECT A FROM OT);</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VdelS<br>
+AFTER DELETE ON S<br>
+REFERENCING OLD_TABLE AS OT<br>
+DELETE FROM V WHERE C IN (SELECT C FROM OT);</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VupdR<br>
+AFTER UPDATE ON R<br>
+REFERENCING OLD_TABLE AS OT, NEW_TABLE AS NT<br>
+DELETE FROM V WHERE A IN (SELECT A FROM OT);<br>
+INSERT INTO V (SELECT A, NT.B, C FROM NT, S WHERE NT.B = S.B);</font></p>
+
+<p><font color="#000000">CREATE TRIGGER VupdS<br>
+AFTER UPDATE ON R<br>
+REFERENCING OLD_TABLE AS OT, NEW_TABLE AS NT<br>
+DELETE FROM V WHERE C IN (SELECT C FROM OT);<br>
+INSERT INTO V (SELECT A, NT.B, C FROM R, NT WHERE R.B = NT.B);</font></p>
+</body>
+</html>

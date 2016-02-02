@@ -1,0 +1,249 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0065)http://graphics.stanford.edu/courses/cs161-00-winter/project.html -->
+<HTML><HEAD><TITLE>CS 161 Programming Project Handout</TITLE>
+<META content="text/html; charset=iso-8859-1" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffcc>
+<CENTER>
+<P align=center><B><FONT face="Verdana, Arial, Helvetica, sans-serif" size=+2>CS 
+161 Programming Project Handout</FONT></B></P>
+<P align=center><B><FONT face="Verdana, Arial, Helvetica, sans-serif" 
+size=+2>Winter 2000</FONT></B></P></CENTER>
+<HR>
+
+<H2>Overview</H2>In the UNIX operating system, process scheduling is done 
+through a technique called <EM>round-robin with multi-level feedback</EM> 
+[Bach86]. At every time unit, the process having highest priority is picked to 
+run. After the completion of its alloted time cycle, it is context-switched out 
+(with an adjusted priority value), and the cycle repeats again. Processes are 
+maintained in a dynamic priority queue. Therefore, a basic scheduler might 
+implement the following algorithm: <PRE>  while (no process is chosen to execute)
+  {
+      pick highest priority process from queue;
+      if ( no such process exists)
+	 idle until interrupt is received;
+  }
+  remove chosen process from queue;
+  re-insert currently running process into priority queue with
+      adjusted priority.
+  context switch to chosen process;
+</PRE>In addition, the scheduler would also execute the following algorithm once 
+every few clock ticks: <PRE>  for each process in the queue
+  {
+      new priority &lt;- f(old priority, recent CPU usage)
+  }
+</PRE>This is used to implement a notion called <EM>aging</EM>, where the 
+priority of an older process gradually increases with time, to increase its 
+chances of being selected for execution. 
+<P><B>Note:</B> This model is a simplified version of the actual scheduler 
+implementation in UNIX, but it captures some essential details. 
+<P>The goal of the programming project is to implement and document a a simple 
+UNIX scheduler that is built over a dynamic priority queue data structure. What 
+we will provide you with is the following: 
+<UL>
+  <LI>A sample implementation of a priority queue using sorted, doubly-linked 
+  circular lists. 
+  <LI>A template for a scheduler driver as described above. 
+  <LI>Sample test inputs to allow you to check your code. 
+  <LI>A library of routines to manage the comparison and update of priorities. 
+  <LI>Various other scripts and utilities to assist in code development. 
+</LI></UL>For more details, see the <A 
+href="http://graphics.stanford.edu/courses/cs161-00-winter/project/code.html">Code 
+Details section</A>. 
+<P>What you will hand in is the following: 
+<UL>
+  <LI>Routines for manipulating a priority queue 
+  <LI>A simple scheduler driver that implements the schematic described earlier. 
+
+  <LI>Documentation for the above. </LI></UL>We will run your scheduler on data 
+similar to the test data that will be available to you. The course staff will 
+evaluate your work on the basis of several factors; the primary ones will be: 
+<UL>
+  <LI>correctness, 
+  <LI>speed, as measured relative to our implementation, 
+  <LI>code readability and in-line documentation (embedded comments), 
+  <LI>write-up quality. </LI></UL>You may work on your project alone or in a group 
+of up to <STRONG>three</STRONG> partners; only one submission per group is 
+required. You must submit your work by 9:30 am on Tuesday, 7 March, 2000. No 
+late submissions will be accepted <STRONG>under any conditions</STRONG>. A 
+competitive implementation of a known data structure should take a few evenings 
+of work. 
+<P>If you have any questions, please contact the TAs or the instructor. To help 
+us help you efficiently, make sure that: 
+<UL>
+  <LI>you first contact <A href="http://consult.stanford.edu/">Distributed 
+  Computing Consulting</A> for help with maintaining your leland account or 
+  using computing resources available at Sweet Hall, and 
+  <LI>you stay tuned to the <A 
+  href="http://graphics.stanford.edu/courses/cs161-00-winter/project/announcements.html">announcements</A> 
+  and project <A 
+  href="http://graphics.stanford.edu/courses/cs161-00-winter/project/faq.html">FAQ</A> 
+  WWW pages, where corrections, clarifications, and answers to common questions 
+  will be posted. Important announcements will also be mailed to the class. 
+</LI></UL>
+<HR>
+
+<H2>Data Structures</H2>Many data structures can support the <EM>priority 
+queue</EM> operations defined on page 149 of your text (CLR), or even the 
+extended set of <EM>mergeable heap</EM> operations listed on page 400. CLR 
+describes several implementations of priority queues in varying levels of 
+detail. Pseudocode is provided for some, while for others only a brief 
+description is given. Many other ideas for priority queues and variants have 
+appeared in the literature. Here is a list of some relevant data structures: 
+<UL>
+  <LI><B>Doubly linked lists</B>. CLR, Section 11.2, 
+  <LI><B>Heaps</B>, CLR, Chapter 7, 
+  <LI><B>Binomial Queues</B> 
+  <UL>
+    <LI>Brown, M. Implementation and analysis of binomial queue algorithms, 
+    <I>SIAM Jour. Computing 7</I>,3 (Aug. 1978), 298-319. 
+    <LI>Vuillemin, J. A data structure for manipulating priority queues, 
+    <I>Comm. ACM 21</I>,4 (April 1978), 309-315. 
+    <LI>CLR, Chapter 20. </LI></UL>
+  <LI><B>Leftist Trees</B> 
+  <UL>
+    <LI>Crane, C. A. Linear lists and priority queues as balanced binary trees, 
+    Technical Report STAN-CS-72-259, Computer Science Dept., Stanford U., 
+    Stanford, CA, 1972. 
+    <LI>Knuth, D. <I>The Art of Computer Programming, Vol. 3: Sorting and 
+    Searching,</I> Addison-Wesley, Reading, MA, 1973. 
+    <LI>Tarjan, R. <I>Data Structures and Network Algorithms,</I> Series: 
+    CBMD-NSF regional conference in applied mathematics, vol. 44, Philadelphia, 
+    1983. </LI></UL>
+  <LI><B>Pagodas</B> 
+  <UL>
+    <LI>Francon, J., Viennot, G., and Vuillemin, J. Description and analysis of 
+    an efficient priority queue representation, <I>Proc. 19th Annual Symp. on 
+    Foundations of Computer Science</I>, IEEE, Piscataway, NJ, 1978, 1-7. 
+  </LI></UL>
+  <LI><B>Fibonacci Heaps</B> 
+  <UL>
+    <LI>Fredman, M. L., and Tarjan, R. E. Fibonacci heaps and their uses in 
+    improved network optimization algorithms, <I>Jour. ACM 34</I>,3 (July 1987), 
+    596-615. 
+    <LI>CLR, Chapter 21. </LI></UL></LI></UL>You may use any of the above data 
+structures, use data structures described elsewhere, or invent your own, 
+possibly by combining multiple familiar ones. The <KBD>Union</KBD> (or merge) 
+operation will not be used in any of our test data, and need not be implemented. 
+Throughout the sequel we will use the term <EM>heap</EM> to refer to your 
+priority queue structure, no matter how you have chosen to really implement it. 
+<P>We have provided a sample implementation of the scheduler that implements the 
+priority queue as a sorted, doubly linked, circular list, which you can use to 
+compare your data structure against. 
+<HR>
+
+<H2>Structure of the problem</H2>Our heaps are <EM>dynamic</EM> (i.e. of varying 
+size) collections of <EM>elements</EM>, each comprising two fields: 
+<OL>
+  <LI>A unique element identifier (<EM>id</EM>), stored as an <KBD>unsigned 
+  int</KBD> 
+  <LI>a field that we will refer to as the <EM>priority</EM> of the element. All 
+  structures to be considered should provide immediate access to the present 
+  element of highest priority, so the top of the heap always contains the 
+  element having the <B>maximum</B> priority value. </LI></OL>In an 
+implementation, elements are stored in <EM>nodes</EM>. A node may comprise 
+other, implementation-specific fields in addition to a priority and an id. Also, 
+a node may contain the special field <KBD>SENTINEL</KBD> if it does not 
+represent an element, in which case the id field can be used to define alternate 
+varieties of <EM>sentinel nodes</EM>. 
+<P>Your heaps must support the operations listed below; this is the list of page 
+400 of CLR, minus the <KBD>Union</KBD> (merge) operation. All operations, 
+<EM>unless stated otherwise</EM>, may assume that 
+<UL>
+  <LI>their element argument <KBD>E</KBD> is a non-zero pointer to a 
+  non-sentinel node whose associated element is in the heap, and 
+  <LI>their priority argument <KBD>K</KBD> is not the special field 
+  <KBD>SENTINEL</KBD>. </LI></UL>
+<P>
+<TABLE border=2>
+  <TBODY>
+  <TR>
+    <TH>Operation 
+    <TH>Description </TR>
+  <TR>
+    <TD><KBD>Insert(K,I)</KBD> 
+    <TD>Inserts the element with priority <KBD>K</KBD> and id <KBD>I</KBD>, 
+      into the heap. If an item with the same priority is already in the heap, 
+      the one with the higher id value is treated as if it had the higher 
+      priority. </TD>
+  <TR>
+    <TD><KBD>Delete(E)</KBD> 
+    <TD>Removes <KBD>*E</KBD> (i.e. the element represented by the node 
+      <KBD>E</KBD> points to) from the heap. </TD>
+  <TR>
+    <TD><KBD>Increase-Key(E,K)</KBD> 
+    <TD>Resets the priority of the node pointed to by <KBD>E</KBD> in the heap 
+      to the new value <KBD>K</KBD>, which is assumed to be greater than the 
+      current priority of that node. </TD>
+  <TR>
+    <TD><KBD>Maximum()</KBD> 
+    <TD>Returns the element (i.e. a pointer to the node) with the highest 
+      priority in the heap, or <KBD>NULL</KBD> if the set is empty. </TD>
+  <TR>
+    <TD><KBD>Extract_Max()</KBD> 
+    <TD>Deletes from the heap the element containing the highest priority, and 
+      returns a pointer to that node. </TD></TR></TBODY></TABLE>
+<P>
+<H2>Optimizing performance</H2>A major factor in deciding which data structure 
+will perform best is the expected mixture of operations that will be performed 
+on it. A fairly realistic assumption to make is that process arrival times are 
+governed by a Poisson distribution of mean R, and process durations are drawn 
+from an exponential distribution of mean aR. We will supply you with sample data 
+sets drawn from such (a,R) distributions. 
+<P>We will compile and run your code on more elaborate tests than the provided 
+ones. These tests will have the same distributions of operations as described, 
+but there is no guarantee that they will occur in the same order; hence caching 
+schemes you may implement are not guaranteed to exhibit the same behavior. Also, 
+we will test you code multiple times on the same inputs, allowing randomized 
+algorithms to do well. 
+<P>Almost any data structure listed above, with the exception of our lists, will 
+make a competitive submission. Cleverness in coding, however, can make a 
+difference: you may find it helpful to browse the short book by Jon L. Bentley 
+called <CITE>Writing Efficient Code</CITE>, available on reserve in the Math 
+library; an <A 
+href="http://www.cs.orst.edu/~crowl/programming/Bentley82.html">extensive 
+summary</A> is available on the WWW. Inline assembly, although allowed, is 
+probably a waste of time since 
+<UL>
+  <LI>modern compilers produce much better machine code that humans, 
+  <LI>trying to maintain and debug inline assembly is a pain, and 
+  <LI>your choice of data structure and algoritm, as well as the quality of your 
+  writeup, matter much much much more than low level coding. </LI></UL>Still, 
+providing reasonable hints to the compiler, e.g. via clever loop reordering or 
+using the <KBD>register</KBD> qualifier (see Bentley's book), is a good 
+compromise between the competing attitudes "the compiler knows it all" and "the 
+compiler knows scrap". 
+<P>Your code will be evaluated using the provided <KBD>161make</KBD> script, 
+which compiles your code using our <KBD>Makefile</KBD>. No other optimization 
+flags - besides those in our <KBD>Makefile</KBD> - will be used for compiling 
+and linking your code during grading. 
+<HR>
+
+<H2>Turning in your work</H2>Your project has to be submitted by 9:30 am, 
+Tuesday, 7 March, 2000. Here are detailed <A 
+href="http://graphics.stanford.edu/courses/cs161-00-winter/project/submit.html">submission 
+instructions</A>, including a description of the write-up we require. 
+<HR>
+
+<H2>Platforms</H2>Your code must be written in <KBD>C</KBD>. The speed will be 
+judged on a Sun Sparc computer, so your code should run on such a machine, 
+although you may wish to program and debug it on another. If you choose to use 
+another platform for development, make sure that you optimize its performance on 
+a Sun Sparc; also, before submitting your work, <EM>make sure your code compiles 
+and executes - producing correct results - on one of the Sun Sparcs in Sweet 
+Hall: elaine1 through elaine44 </EM>. For further information on these machines, 
+see <A href="http://consult.stanford.edu/">Distributed Computing Consulting</A>. 
+
+<P>If you don't yet have an account on these machines, consult the <A 
+href="http://consult.stanford.edu/accountinfo/">Distributed Computing Group 
+Accounts Information</A> WWW page for information on how to obtain one. 
+<P>If you are not familiar with software development on a UNIX environment, 
+don't fret. Our provided sample code and development environment should ease 
+your task. 
+<HR>
+
+<CENTER>
+<H1>Happy Hacking!</H1><FONT size=-1>last updated by Guibas on Wed Feb 9 
+10:54:43 PDT 2000</FONT> </CENTER>
+<HR>
+</BODY></HTML>

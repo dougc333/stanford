@@ -1,0 +1,514 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (X11; U; SunOS 5.6 sun4u) [Netscape]">
+   <title>Problem Set #2</title>
+</head>
+<body>
+
+<hr>
+<h3>
+CS157 Computational Logic</h3>
+
+<h2>
+Problem Set #2: Relational Logic</h2>
+
+<h4>
+Genesereth / Abrams / Chai / Katznelson<br>
+Spring 2000</h4>
+
+<table BORDER=0 >
+<tr>
+<td>Assigned:</td>
+
+<td>Thursday, April 20</td>
+</tr>
+
+<tr>
+<td>Due:</td>
+
+<td><b>Thursday, May 4, 12:00am (Note the changed time)</b></td>
+</tr>
+</table>
+
+<p>Please email the completed homework to
+<a href="mailto:cs157-homework@cs.stanford.edu">cs157-homework@cs.stanford.edu</a>.
+<br>Details of submission can be found in the <a href="submission.html">homework
+submission policy</a>. 
+<BR>If you want verification of submission, please cc yourself. 
+<p>Please include just the answers written in plain, old-fashioned, barebones
+ASCII.
+<br>Do not echo the questions back to us. We know what they are.
+<p>Finally, please include your name as well as your e-mail address in
+the body of your message. The subject heading of your e-mail should be
+<b>EXACTLY</b>
+"Homework #2".&nbsp; This subject heading ensures your homework will be
+routed to the correct folder.
+<hr>
+<ol>
+<h3>
+<LI> Relational Logic: Syntax (8 points / Graded by Danny Chai)</h3>
+Given the following list of variables and constants:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; variables:&nbsp; x, y, z
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; object constants:&nbsp; rover,
+fido, mousy, spots
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; function constants: grow, shrink
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; relational constants with an arity
+of one:&nbsp; dog, cat, cow, ugly
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; relational constants with an arity
+of two: plays, fights, eats, bigger, smaller, scared
+<p>determine whether each of the following is a syntactically legal sentence
+of relational logic.&nbsp; A YES or NO is all that is needed.
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (a) ugly(z) &amp; eats(x, y) =>
+smaller(y,mousy) <b>Yes</b>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (b)&nbsp; bigger( rover, shrink(x)
+)&nbsp;&nbsp; &lt;=> ~smaller(rover, shrink(x))&nbsp; <b>Yes</b>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (c)&nbsp; ( cat(x) &amp; dog(y)
+&amp; cow(spots) ) => fights(x, y, spots)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>No. The arity of <i>fights</i> is wrong.</b>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (d)&nbsp; if cow(y) => ~eats(fido,
+y) &amp; eats(z, y)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Yes.</b>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (e)&nbsp; friendly(z) => plays(z,
+y)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>No. <i>friendly</i> is not
+a relational constant.</b>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (f)&nbsp; (rover(y) &amp; fido(z))
+=> plays(y,z)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>No. object constants cannot
+be used in place of relation constants.</b>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (g) bigger(mousy, spots) => pet(x)
+&amp; scared(z, mousy)&nbsp;&nbsp;&nbsp;&nbsp; <b>Yes.</b>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (h) fights(dog(x), cat(y))&nbsp;&nbsp;&nbsp;
+<b>No. You cannot use a relation inside of another relation</b>
+<p>
+<b>Each problem was worth 1 point.  </b>
+
+<h3>
+<LI> English Translation (12 points / Graded by Danny Chai)</h3>
+Translate each of the following English sentences into an equivalent sentence
+in relational logic. Use only the relation and object constants given in each part
+and you can introduce your own variables if necessary.
+<p>
+<p>(a) All start-ups in Silicon Valley succeed.
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; object constants:&nbsp; siliconValley
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; relational constants with an arity
+of one:&nbsp; startup, succeed
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; relational constants with an arity
+of two: in(Object, Place)
+
+<p><b><tt>(startup(x) &amp; in(x,siliconValley)) => succeed(x)</tt></b>
+<p>(b) There is no spoon.
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; relational constants with an arity
+of one:&nbsp; spoon
+<p><b><tt>~spoon(x)</tt></b>
+
+<p>(c) Kings play chess on finely grained sand, if the weather is nice.
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; object constants:&nbsp; weather, chess
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; relational constants with an arity
+of one:&nbsp; finelyGrainedSand, king
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; relational constants with an arity
+of three: playOn(Player, Game, Thing)
+<p><b><tt>nice(weather) => (finelyGrainedSand(y) &amp; king(x) =>
+playOn(x, chess, y))</tt></b>
+
+<p>(d) Only the good die young. But not everyone good dies young.
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; relational constants with an arity
+of one:&nbsp; good, dieYoung
+<p><b><tt>(dieYoung(x) => good(x)) & (Ey.(good(y) &
+~dieYoung(y)))</tt></b>
+
+<p>(e) If I'm hungry I'll eat anything but prefer to eat candy.
+<p>&nbsp;&nbsp;&nbsp;object constants:&nbsp; i
+<p>&nbsp;&nbsp;&nbsp;relational constants with an arity of one: candy
+<p>&nbsp;&nbsp;&nbsp;relational constants with an arity of two:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preferToEat( person, thing ),
+ willEat( person, thing )
+<b><tt><p>hungry(i) => willEat(i, x) &amp; (candy(y) => preferToEat(i, y))
+</tt></b>
+
+<p>(f)You can fool some people all of the time, and you can fool all of
+the people sometime, but you can't fool all the people all of the time.
+<p>&nbsp;&nbsp;&nbsp;relational constants with an arity of two:
+<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fool( person, time )
+
+<p><b><tt>
+(Ex.Ay.fool(x,y)) & (Ey.Ax.fool(x,y)) & ~(Ax,Ay.fool(x,y))
+</tt></b><p>
+<b>Each problem was worth 2 points.</b>
+
+<h3>
+<LI>Blocks World (15 points / Graded by Danny Chai)</h3>
+Consider the following block world:
+<pre>&nbsp;&nbsp;&nbsp; +---+
+&nbsp;&nbsp;&nbsp; | ! |
+&nbsp;&nbsp;&nbsp; +---+
+&nbsp;&nbsp;&nbsp; | @ |
+&nbsp;&nbsp;&nbsp; +---+ +---+ +---+
+&nbsp;&nbsp;&nbsp; | * | | + | | % |
+&nbsp;---+---+-+---+-+---+---</pre>
+Given the following syntax:
+<pre>&nbsp;&nbsp;&nbsp; variables: x, y
+&nbsp;&nbsp;&nbsp; objext constants: a, b, c, d, e
+&nbsp;&nbsp;&nbsp; relational constants with an arity of one: clear, onTable
+&nbsp;&nbsp;&nbsp; relational constants with an arity of two: on, over
+
+&nbsp;&nbsp;&nbsp; clear(x) means block x is clear; there are no blocks on top of it.
+&nbsp;&nbsp;&nbsp; onTable(x) means block x is on the table.
+&nbsp;&nbsp;&nbsp; on(x,y) means block x is stacked directly on top of block y.
+&nbsp;&nbsp;&nbsp; over(x,y) means block x is above y on the same stack.</pre>
+Using the universe of discourse <tt>|i| = {!, @, %, *, +}</tt>, where each
+symbol represents the labeled blocks, give an interpretation that represents
+this state of the world.
+<p><b>Solution:</b>
+<pre><b>&nbsp;&nbsp; a^i = !
+&nbsp;&nbsp; b^i = @
+&nbsp;&nbsp; c^i = *
+&nbsp;&nbsp; d^i = +
+&nbsp;&nbsp; e^i = %
+&nbsp;&nbsp; clear^i = {!, +, %}
+&nbsp;&nbsp; onTable^i = {*, +, %}
+&nbsp;&nbsp; on^i = {&lt;!,@>, &lt;@,*>}
+&nbsp;&nbsp; over^i = {&lt;!,@>, &lt;!,*>, &lt;@,*>}</b></pre>
+<p>
+<b>Note that any other solution must look exactly like this, except for the
+    interpretation of object constants. Points were taken off if the
+    object constants were 
+    missing, or if terms were missing in the relational constants. More
+    points were taken off if the answers showed a fundamental
+    misunderstanding of interpretations.
+</b><p>
+<h3>
+<LI>Distinguishing Models (16 points / Graded by Zoe Abrams)</h3>
+Two interpretations are indistiguishable models if they cannot be distinguished
+by any set of sentences. That is, the two interpretations satisfy the exact
+same set of sentences. Thus, if there is a sentence that is satisfied by
+one interpretation but not another, the two are distinguishable.
+<p>For each of the following pairs of interpretations, say whether the
+pair is distinguishable or indistinguishable. If you answer "distinguishable,"
+then supply a single relational logic sentence that distinguishes the two
+interpretations.
+<p>Note: Variables are allowed.
+<p>(a)
+<pre>&nbsp;&nbsp;&nbsp; |i| = {!,%,+}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |j| = {!,%,+}
+&nbsp;&nbsp;&nbsp; a^i = %&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a^j = %&nbsp;
+&nbsp;&nbsp;&nbsp; b^i = !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b^j = +
+&nbsp;&nbsp;&nbsp; c^i = +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c^j = !
+&nbsp;&nbsp;&nbsp; p^i = {&lt;%,%>, &lt;%,!>, &lt;%,+>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p^j = {&lt;!,!>, &lt;%,+>, &lt;%,!>}</pre>
+<b>Distinguishable.
+<br>They can be distinguished by the sentence <TT>p(a,a)</TT>.</b>
+<p>(b)
+<pre>&nbsp;&nbsp;&nbsp; |i| = {o,+,!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |j| = {o,+,!,@}
+&nbsp;&nbsp;&nbsp; a^i = +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a^j = o
+&nbsp;&nbsp;&nbsp; b^i = !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b^j = o
+&nbsp;&nbsp;&nbsp; c^i = o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c^j = !
+&nbsp;&nbsp;&nbsp; p^i = {&lt;o,!>, &lt;o,+>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p^j = {&lt;!,o>, &lt;@,+>, &lt;+,@>}</pre>
+<b>Distinguishable.
+<br>They can be distinguished by
+the sentence <TT>p(x,b) | p(c,x)</TT>.</b>
+<p>(c)
+<pre>&nbsp;&nbsp;&nbsp; |i| = {o,+,!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |j| = {o,+,!,@}
+&nbsp;&nbsp;&nbsp; a^i = !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a^j = o
+&nbsp;&nbsp;&nbsp; b^i = +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b^j = !
+&nbsp;&nbsp;&nbsp; c^i = o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c^j = @
+&nbsp;&nbsp;&nbsp; d^i = +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d^j = +
+&nbsp;&nbsp;&nbsp; p^i = {&lt;!,+>, &lt;+,+>, &lt;o,!>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p^j = {&lt;o,!>, &lt;+,!>, &lt;!,+>, &lt;@,o>}</pre>
+<b>Distinguishable.</b>
+<br><b>They can be distinguished by the sentence <TT>p(b,b)</TT></b>
+<p>
+(d)
+<pre>&nbsp;&nbsp;&nbsp; |i| = {o,+}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |j| = {o,+,!,@}
+&nbsp;&nbsp;&nbsp; a^i = +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a^j = o
+&nbsp;&nbsp;&nbsp; b^i = +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b^j = !
+&nbsp;&nbsp;&nbsp; c^i = o&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c^j = @
+&nbsp;&nbsp;&nbsp; p^i = {&lt;o,o>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p^j = {&lt;@,@>, &lt;+,!>, &lt;!,+>, &lt;@,+>}</pre>
+<b>Distinguishable.<br>They can be distingushed by the sentence
+<TT>~p(x,b)</TT>.</b>
+<br>&nbsp;
+<p><b>Each part was worth 4 points.&nbsp; 2
+points were given if the relationship between the interpretations were
+correct but the sentence given did not distinguish them.&nbsp; Full credit
+was given if existential quantifiers were used.&nbsp; Extra credit (2 points)
+were given if answers used only universal logic.</font></b>
+<br><b>The sentence given was considered incorrect if variables
+were assigned elements in the domain under which the sentence would be
+true or false because the question asked for simply a sentence in relational
+logic - not a sentence and a variable assignment.&nbsp; Also, this reasoning
+can lead to incorrect conclusions:</font></b>
+<p><b><TT>|i| = {*, &amp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+|j| = {&amp;, +}</TT></b>
+<br><b><TT>p^i = { &lt;&amp;,&amp;>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+p^j = {&lt;+,+>}</TT></b>
+<p><b>These two interpretations are indistinguishable.&nbsp;
+Yet assigning x the value &amp; yields p(x,x) true for i, false for j.&nbsp;
+One would incorrectly conclude that these are distinguishable!</b>
+<br>&nbsp;
+
+<br>&nbsp;
+<h3>
+<LI>Models, Entailment (10 points / Graded by Zoe Abrams)</h3>
+In the following, assume "entails" to mean "relationally entails." We also
+use <tt>U</tt> and <tt>^</tt> to represent set union and intersection,
+respectively.
+<p>Let S and T be sets of sentences, and let phi and t be sentences in
+relational logic. State whether each of the following statements are true
+or false.
+<p>(a) If <tt>S</tt> entails <tt>phi</tt> and <tt>T</tt> entails
+<tt>psi</tt>,
+then <tt>S U T</tt> entails <tt>(phi &amp; psi)</tt>
+<p><b>True.</b>
+<p>(b) If <tt>S</tt> entails <tt>phi</tt> and <tt>T</tt> entails
+<tt>phi</tt>,
+then <tt>S ^ T</tt> entails <tt>phi</tt>
+<p><b>False. If the intersection is empty, for example.</b>
+<p>(c) If <tt>S</tt> entails <tt>phi</tt> then <tt>S U T</tt> cannot entail
+<tt>~phi</tt>.
+<p><b>False. If S U T is unsatisfiable, it entails everything, including
+~phi.</b>
+<p>(d) If <tt>S U T</tt> is <tt>{}</tt>, then <tt>S U T</tt> does not entail
+any sentence <tt>phi</tt>.
+<p><b>False. For example, <tt>phi = r(x) | ~(r(x)</tt>.</b>
+<p>(e) If <tt>S</tt> logically entails <tt>phi</tt> and
+<tt>T</tt> logically
+entails <tt>(phi => psi)</tt>, then <tt>S U T</tt> entails <tt>psi</tt>
+<p><b>True.</b>
+<p>(f) If <tt>S</tt> logically entails <tt>phi</tt> and
+<tt>T</tt> logically
+entails <tt>(phi => psi)</tt>, then <tt>S ^ T</tt> entails <tt>psi</tt>
+<p><b>False.</b>
+<p>
+<b>Each of the 6 parts was worth 1.5 points.  Since this adds up to
+    nine, every student was given a one point free-be.</b>
+    <p>
+<H3><LI> Models And Interpretations (12 points / Graded by Zoe
+Abrams)</H3> 
+<PRE>
+    Parts (a) and (b) refer to the following syntax: 
+
+
+    variables :        x, y, z
+    object constants : a, b, c
+    Unary Relational : p
+    Binary Relational : q
+    
+In the following questions, use the universe of discourse |i| = {*,#,@}. 
+
+(a) For each of the following sentences of relational logic, give an interpretation that 
+    is a model for that sentence. 
+
+
+	1. q(x,a) & q(a,y) => q(x,y)
+
+	2. p(x) => p(b)
+ 
+	3. ( ~p(a) & ~q(b,c) ) <=> ~( p(x) | q(y,z) ) 
+<B>
+Solution:
+	
+	a^i = #
+	b^i = *
+	c^i = #
+
+	p^i = { <*>, <@>, <#> }
+	q^i = { <*,#>, <#,@>, <*,@> }
+
+	This is a model for all three sentences.
+</B>
+
+(b) For each sentence in part (a), find an interpretation that satisfies the sentence but 
+    is not a model. Indicate this by providing: 
+	(i) the interpretation, 
+ 	(ii) a variable assignment for which the interpretation does satisfy the sentence, 
+	and 
+ 	(iii) a variable assignment for which the interpretation does not satisfy the 
+	      sentence. If such an interpretation is not possible, state "Not Possible" 
+	      and briefly (in one or two sentences) explain why. 
+
+<B>
+Solution: 
+	1) 	
+		i(a) = #
+
+		i(q) = { <*,#>, <#,@>, <*,@>, <@,#> }
+		
+		v(x) = *
+		v(y) = @
+		The above variable assignment satisfy the sentence
+
+		v(x) = @
+		v(y) = @
+		The above variable assignment makes the sentence false.			
+		
+	2) 	
+		i(b) = #
+
+		i(p) = { <@> } 		
+		v(x) = #
+		The above variable assignment satisfy the sentence
+
+		v(x) = @
+		The above variable assignment makes the sentence false.
+
+	3) 
+		i(a) = #
+		i(b) = @
+		i(c) = *
+		
+		i(p) = { <@> } 		
+		i(q) = { <*,#>, <#,@>, <*,@>, <@,#> }
+		
+		v(x) = #
+		v(y) = @
+		v(z) = *
+		The above variable assignment satisfy the sentence
+
+		v(x) = @
+		v(y) = #
+		v(z) = *
+		The above variable assignment makes the sentence false.		
+</B>
+</PRE>
+<b>Common Mistakes:
+<p>
+         To give a sentence for part b iii that makes the antecedant of a
+    sentence false.  But, this makes the overall sentence true.
+<p>
+     To assign variables to be object constants.  A variable assignment
+should map the variable to an element of the domain.
+<p>
+     To assume that all interpretations for sentence three must be models
+because it is one of DeMorgan's Laws.  Normal equivalences do not hold
+     for certain argument combinations (if arguments are either different
+object constants or one a variable and one an object constant).  If 'a'
+has been
+     assigned a specific domain element, p(a) is NOT equivalent to p(x)
+since p(a) may be true, but there may be some domain element for which p
+is
+     false.
+<p>
+Each of a1, a2, a3, b1, b2, b3 was worth two points.
+</b><p>    
+<H3> <LI> Geometry (12 Points / Graded by Eitan Katznelson) </h3>
+<PRE>
+Consider the Plane as a collection of all it's points. Define an Object to be a set 
+of such points. Assume an interpretation I whose Universe of Discourse is the set of 
+all Objects, and which associates the following meanings to the following relational 
+constants:
+
+p(x) means "x is a point"
+l(x) means "x is a line"
+c(x) means "x is a circumference"
+i(x,y) means "x intersects y", i.e. x and y have at least one point in common.
+
+(a) Consider the binary relational constant e. Let the interpretation of e(x,y) be 
+    "x is equal to y". Give a sentence which use only the four relational constants 
+    above, but not e, which has the same truth value as e(x,y) under every variable 
+    assignment.
+	[Hint: Two objects are equal iff they are made of the exactly the same points.]
+<B><TT>
+	Solution:
+	(FA.z)[i(x,z) <=> i(y,z)]
+
+	Comments:
+	    A common mistake was thinking that the universe of discourse 
+	contained only points, circumferences, and lines. These were
+	only the relational constants that we defined, they don't
+	restrict our universe.
+	
+</B></TT>
+(b) Consider the ternary relational constant t. Let the interpretation of t(x,y,z) 
+    be "x, y and z lie on one line" if x, y and z are points. The interpretation when 
+    one of them isn't a point doesn't matter. Assume t(x,y,z) to be true if two among 
+    x, y and z are equal. Give a sentence using the four original relational constants 
+    and e, which has the same truth value as t(x,y,z) under every variable assignment.
+
+	[Hint: Think about the two lines, one connecting x to y, the other connecting
+                y to z.]
+<B><TT>
+	Solution:
+	p(x) & p(y) & p(z) => (TE.w)(l(w) & i(x,w) & i(y,w) & i(z,w))
+
+	Comments:
+	    Keep things simple, there were quite a few people
+	who introduced more variables and quantifiers than necessary.
+	Quantifying the variables x, y, z shouldn't have been done.
+	This is because we want to relate these variables to the variables
+	in t(x,y,z).
+</B></TT>
+
+(c) 
+    Give a sentence using the original four relational constants, together with e and t, 
+    whose truth value is the same as: 
+	For each triple (x,y,z) of points that don't lie on a line,
+	there is one and only one circumference passing through x, y and z.
+
+	[Hint: separate the existence and uniqueness.]
+<B><TT>
+ 
+	Solution:
+
+	(p(x) & p(y) & p(z) & ~t(x,y,z)) =>
+	[ 
+		(TE.w)(c(w) & i(x,w) & i(y,w) & i(z,w))       Existence	
+	    &
+		(FA.w_1,w_2)(  				      Uniqueness
+				(c(w_1) & i(x,w_1) & i(y,w_1) & i(z,w_1))
+				&
+				(c(w_2) & i(x,w_2) & i(y,w_2) & i(z,w_2))
+			       =>
+				e(w_1,w_2)
+			     )
+	]
+
+    Comments: Quantifiers have the highest precedence, we must
+              therefore use parentheses to quantify a whole sentence. 
+</B></TT>
+</PRE>
+<H3> <LI> Family (15 Points / Graded by Eitan Katznelson) </h3>
+<PRE>
+Assume an interpretation I whose Universe of Discourse is the set of all people.
+Introduce a Unary function constant father, where father(x) is the father of a person x.
+Introduce a binary relation constant parent, such that parent(x,y) means that y is 
+a parent of x. Introduce one last binary relation same, such that same(x,y) means that
+x and y are the same person.
+
+(a) Introduce constants zoe and eitan. Write a sentence to express the fact
+    that eitan's father is zoe's father's son.
+    <b><tt>
+    Solution:	same( father(father(eitan)), father(zoe) ) 
+    </tt></b>
+	
+(b) Write a sentence that captures the fact that a person's father is a parent.
+    <b><tt>
+    Solution:	(FA.x)parent(x,father(x))
+
+	Comments: Try not to over complicate things by introducing 
+	          unnecessary new variables and quantifiers. 
+	</b></tt>
+
+(c) Introduce a constant danny. Write a sentence to express the fact
+    that danny has no siblings.
+    <b><tt>
+    Solution:   (FA.x,y)( parent(danny,x) & parent(y,x) => same(danny,y) )
+    </b></tt>
+
+(d) Introduce the binary relational constant ismother. Let the interpretation of
+    of ismother(x,y) be "y is the mother of x". Construct a sentence, using the 
+    above defined functional and relational constants, that has the same truth 
+    value as ismother(x,y) under any variable assignment (Assume everyone has exactly
+    one mother and one father as parents).
+    <b><tt>
+    Solution:   parent(x,y) & ~same(y, father(x))
+    </b></tt>
+
+(e) Introduce the binary relational constant cousin. Let the interpretation of 
+    cousin(x,y) be "x and y are first cousins" (Nobody is their own cousin).   
+    Construct a sentence, using the above defined functional and relational constants, 
+    that has the same truth value as cousin(x,y) under any variable assignment.  
+    <b><tt>
+    Solution:   
+	define sibling(x,y) <=> (TE.z)(parent(x,z) & parent(y,z)) & ~same(x,y)
+	cousin(x,y)<=> (TE.z_1,z_2)(parent(x,z_1) & parent(y,z_2) & sibling(z_1, z_2))  
+    </b></tt>
+</ol>
+</body>
+</html>

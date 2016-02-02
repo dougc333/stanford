@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+9
+@x (~?y Smaller(y, x) $ (x = c | x = d | x = e))@x ((x = a | x = d) % ?y ?z Between(x, y, z))e = c % a = dDodec(b) & ?v (Dodec(v) & LeftOf(b, v))?v (Dodec(f) & Dodec(v) & BackOf(f, v))?x (BackOf(x, e) & ?y (BackOf(y, x) & ?z BackOf(z, y)))@y (y = b $ (~?x Between(x, y, f) & (y = f | y = c)))?x (Dodec(x) & BackOf(x, a) & @y ((Dodec(y) & BackOf(y, a)) $ x = y))?x Between(x, e, c)

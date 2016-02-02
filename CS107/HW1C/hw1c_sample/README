@@ -1,0 +1,17 @@
+Hi!
+In order to use the sample .o's that we supply in this directory, copy
+them into your work directory and type
+
+  make rsg
+
+This will compile your *.c files and link them with the .o you just
+copied.
+Remember that if you do a 'make clean' you will get rid of these .o files
+(just need to copy them back again).
+
+NOTE: These binaries are for the SUN SOLARIS platform -- don't try to use
+them on AMY's (try SAGAs, EPICs, or ELAINEs).
+
+Happy coding!...
+
+

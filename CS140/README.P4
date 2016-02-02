@@ -1,0 +1,269 @@
+Group: Screwed
+Elias Dagher 	dagher@leland
+Lionel Gresse   gresse@leland
+Doug Chang      dougc@leland
+CS140, Summer 1999
+Homework 4
+
+                                   -README-
+
+Program Notes:
+-------------
+	
+All of our changes can be identified through #ifdef from the previous assignments. All of the PP2, 3, and 4 ifdefs are turned on for this assignment. Assingment 1 ifdefs were also incorporated into this assingment.
+Please also see the TESTCASES file for test cases that prove our functionality.
+
+
+
+----------------------------------------------------------------------------------
+General Stuff
+----------------------------------------------------------------------------------
+
+The file systems assignment consists of 
+1) modifying the file header and the filesys routines to support growable file sizes to the maximum size of the disk. This requires adding sectors when the OS is writing to the OpenFile on the disk and runs out of space. Error checking is added when  reaching the end of the disk. To support the additional sectors or disk blocks, additional levels of pointers to sectores are added, an indirect and double indirect pointer table are added.
+2) To implement a name space, a pointer to an OpenFile Directory File is kept in each process. When a shell process is forked, it inherits the root directory. A cd command changes this pointer to point to subdirectories. System calls are added to Create and Exec to allow new programs to be started in other directories. 
+ 
+
+Implementation:
+
+Problem 1: Max. file size
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+     A file access is defined with the general semantics of files are
+in 2 stages, before the file is created, the file exists as a string
+describing a file name. In this stage, we check to see if there is
+room on the disk, if the file name is unique, and we read in the
+existing directory structure to add a new entry. The adding or
+"allocation" for this file name consists of traversing the file
+pointer table structure and allocatin new pointers as necessary for
+the size of the file we are creating. The second step is to keep an
+OpenFile object representing open files. Once the file is open, data
+can be read and written.
+
+  1.File Header and File System Modifications:
+      Additional pointer tables are added to support more pointers to
+additional sector locations. A direct and inderect table pointer point
+to sector numbers to point to sectors directly. A double indirect
+table pointer points to a table containing pointers to
+sectors.Extensive testing was completed to insure the creation and
+deletion of the pointers in the various tables are correct.
+      To grow files, we added the ability for OpenFile::WriteAt to
+determine when it is out of space and to add sectors.
+  2.Routines   are added  in    FileSystem::Allocate to  traverse  the
+"pointer path"  to  find   out  where  the   next pointer  should   be
+allocated. Given the request to allocate additional bytes, we traverse
+the  direct,   indirect and   double indirect   tables.  We  test this
+implementation by itself by writing a genfile test program to allocate
+sectors  and verifying the  tables  entries are allocated as described
+above.
+
+IMPLEMENTATION:
+  1. Datastructure addition of 2 addtional datamembers to indicate the
+sector number of indirect and double indirect tables.  
+  2. Changing filesys::Allocate. Given a filesize and a pointer to the
+bitmap for the freemap, we search for where we need to add a new file
+header. The allocation procedure incorporates the modification to
+search the table structure from direct data sectors to indirect to
+double indirect pointers.
+  3. Changing filesys:Deallocate. Deallocate the pointers that are
+allocated in the table structure.
+  4. Changing ByteToSector to traverse the table pointer structure.
+  5. Add FileHeader::AddSector, used to add a sector and write the
+status of having an incremented sector back to the fileheader. This
+function also needs to implement the structure for searching through
+the table structure.
+----------------------------------------------------------------------------------
+Problem 2: Implement Extensible Files
+----------------------------------------------------------------------------------
+A. Major Design Decisions:
+	
+  1.  Growing the directory file past the current limit of
+MaxDirEntries uses the modifications from above. When a writeAt to a
+sector runs out of room , we ask the bitmap for additional sectors,
+and add the new sector count to the file header data structure. Note
+we do NOT add a directory entry at a time, but allocate a stucture for
+many more directory entries at a time. The function grow table grows
+the number of entries by a constant NumSpareEntries.
+
+  2. The syscalls for SC_Create were modified to create a file of 0
+bytes, and to grow the file only when the file is written to.
+  3. File header syncronization:
+	There were several components in the implementation of file
+header syncronization. In general, all requests from threads to a file
+header are locked or guarded by a manager class. The manager class
+tracks the sectors of the file headers. Threads wishing to read or
+write to these header files must go through the manager for
+access. Threads will block on this, with reference counting used to
+define when an entry can be deleted from the manager table. The
+following are the general points:
+	-lock and centralize the access from each thread to the
+fileheader sector on the disk. This prevents another thread from
+getting access to the fileheader and creating a separate copy. The
+consistency problem arises when multiple copies are being update
+concurrently and there is no master.
+	-keep a common table in the kernel as mentioned in the
+book. This centralizes the resource and allows syncronization. The
+kernel keeps track of an openHeader table. A manager class, headman.cc
+for files and dirman for directories keeps track of threads writing to
+a header file and returns a pointer to a sector location and lock if
+it is avaialble. If not available, the thread is blocked.
+  4. Directory Syncronization:
+	-kept a table of open directories in the kernel
+	-when a directory is open and a FetchFrom is called reading in
+a directory structure from the disk, the directory manager will return
+a pointer to the directory entry table, with the directory manager
+object also including a table size and lock. This object is the entry
+into the directory manager table for each open directory owned by a
+process. All the userprograms opening the same directory will point to
+the same directory table object.
+	-if a directory is not in the open directory table, the kernel
+opens the directory and adds it to hte list and increases the
+reference count for the directory manager table object.
+	-when a writeback is completed after the fetchfrom, the
+reference count of the directroy manager object is decremented.
+	-when the reference count for the directory manager object
+reaches 0, the entry is deleted from the directory manager table
+indicating all user processes are finished with the directory file.
+	-when the directory does any directory activity, it uses the
+lock it got back from the directory entry table.
+   5. Global Resource Syncronization: All global resources like flags
+and bitmaps are locked. The bitmaps accesses to freeMapFile bitmap are
+locked.
+
+IMPELMENTATION:
+   1.  Changed modules OpenFile::WriteAt to add growth for additional
+sectors when the number of bytes to be written exceeds the number of
+bytes left in the last sector.
+   2.  Added modules headman.cc, headman.h, and created a new header
+manager in the kernel. 
+	-the header object in the manager class consists of a pointer
+the the header table, a reference count, and a status bit to indicate
+to other threads the header file is being used. 
+	-the header manager defines methods Subscribe, Unsubscribe,
+IsAlreadyFetched, and SetAlreadyFetched for managing access to the
+fileheader sectors. The header uses one shared lock in this class to manage multiple processes
+accessing the header manager. This single lock guarantees exclusivity.
+ 	-the hash tables are keyed by sector for fast searching.
+  3.Directory Syncronization: this is the same as for header syncronization:
+	-Added modules dirman.cc and dirman.
+  4. Syncronizing accesses to freemap. Add a lock to the freemap BitMap resource. 	
+
+----------------------------------------------------------------------------------
+Problem 3:Hierarchial Name Space
+----------------------------------------------------------------------------------
+A.Major Design Decisions:
+  1. Implementing a name space required: 
+	- modifications to the systems calls to support files and directories 
+	- Definition of working directories for each thread 
+	- Creation of functions to allow file operations in
+subdirectories. We separated file operations between creating files,
+and directories. This allows error checking with the parser.
+  2. Definition of a name space. There were several options for
+implementing a name space for defining the path and for telling the
+differences between files and directories. The options are listed
+below:
+	- Store the path information as part of the file name. For
+example, we would store a file test under the root directory as
+/test. A file toto under the subdirectory tata would be stored as
+/tata/toto. This implementation choice would require us to change the
+max file length to a number that would be as long as the worst case
+path length description.
+	- Store the path name in a table with a attribute describing
+if a filename is a directory or not. Directories are stored in the
+root directory file, and can hence be searched to determine if a
+filename is a file or a directory.
+  3. Implementation of a parser using strtok.
+  4. Partioning of file and directory operations into separate file
+and directory operations. The file operations defined in the previous
+assignments include opening, reading, writing, closing, and creating a
+file. We partition these into separate operations for both files and
+directories.
+  5. Implementation of functions inside filesys classes to allow for
+the creation of files in subdirectories. We also added methods to
+interface with the directory and filesys classes as listed below. For
+clarity we left out the arguments in the function descriptions. This
+is detailed in the source code. The objective of this interface is to
+allow the syscalls to partition operations into operations in
+subdirectories. We separate creating files from creating directories,
+and an interface for file system operations of create, remove, and
+open in subdirectories.
+	- FileSystem::CreateDirectoryinDir();
+	- FileSystem::RemoveInDir();
+	- FileSystem::OpenInDir();
+	- FileSystem::CreateinDir();
+	- FileSystem::CreateInDir();
+  6. Implementation of directory functions to allow directory
+operations. A directory is a file of 0 length. The interface required
+for Directory entries are to look for a specific entry, make or create
+a new directory in the files system, remove an entry, and grow the
+directory table when it reaches the limit.
+	- Directory::FindDir()
+	- Directory::MakeDirEntry()
+	- Directory::RemoveDirEntry();
+	- Directory::GrowTable();
+	- Directory::GetNumEntries();
+
+B.Implementation:
+
+     Chdir: This was implemented in the following steps:
+	1) Copy the directory filename string from user to kernel
+space.
+	2) parse the directory structure for both /name and name.
+	3) check for valid path after parsing, this must be a valid
+directory path
+	4) make sure the directory path does not already exist, and
+there is space on the disk
+	5) create the directory entry using the Maxfilelength number
+of characters input, and write the status back to the disk.
+     Lsdir:
+	1) get the current directory the current thread is pointing to
+	2) List the entries in the directory header file of what is present 
+	   in the current Directory.	
+     Mkdir:
+	1) copy the string for the directory from user space to kernel space
+	2) parse the string for a directory path
+	3) check to see this is a valid path
+	4) copy the current contents of the directory header file
+	4) make sure the directory does not already exist and there is space in
+	   the bitmap for this entry.	
+	5) create the directory entry and write the new directory header back.
+     Remove:  		
+	1) copy the string for the OpenFile pointer to the file to the
+kernel from user space.
+	2) check for valid string
+	3) check to make sure the entry exists in the directory
+	4) remove the file in the current directory
+
+Changes to existing system calls:
+      Exec:
+	1)for newly loaded user programs, set the thread's directory
+pointer to the directory pointer of the directory the shell is in.
+      Create:
+	1) Parse the command line, and check for a valid path.
+	2) create the file in the directory of the parsed path.		
+
+----------------------------------------------------------------------------------
+Problem 4:File Caches
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions:
+	1) Disk Cache is a hash table for fast searching
+	2) SynchDisk Writes are rerouted to the disk cache
+	3) Write back dirty blocks in the following scenarios:
+		-on file close operations
+		-on shutdown
+		-on demand
+	4) LRU block replacement
+	5) Minimize disk accesses by not emptying idle cache blocks even after file closes.
+
+B.Implementation:
+	1) Reroute disk reads and writes from synchdisk to the disk
+cache. A miss causes an update per sector from the disk.
+		-cache read: checks if the requested sector is in the
+cache. If it is, and the sector is valid (not used), the cache sector
+entry is fetched from the cache.
+ 		-cache write: checks to see if sector is in the
+cache. If it is not, write into a free cache block and mark the sector
+as dirty. If it is there, set the sector to dirty after a write has
+completed. In the process of writing, set hte used bit.

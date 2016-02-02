@@ -1,0 +1,274 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Sample Solution for Written Assignment #2</title>
+<base href="ftp://transfer/~lindholm/WWW/wa2.html">
+</head>
+
+<body bgcolor="#FFFFFF" leftmargin="20">
+
+<p>CS145 Spring &#146;00 Professor Widom<br>
+Sample Solution for Written Assignment 2</p>
+
+<p><strong>Question 1a<br>
+</strong>An example is Students(SSN, DormName, DormAddress) with
+FDs</p>
+
+<ul>
+    <li>SSN -&gt; DormName</li>
+    <li>DormName -&gt; DormAddress</li>
+</ul>
+
+<p>The key is SSN, so the functional dependency DormName -&gt;
+DormAddress violates BCNF.</p>
+
+<p><strong>Question 1b<br>
+</strong>Students decomposes into Dorms(DormName, DormAddress)
+and Students(SSN, DormName).</p>
+
+<p><strong>Question 1c<br>
+</strong>An example is Class(Course, Section, Book), if there are
+no functional dependencies. A course can have any number of
+sections and any number of books. For a given course, however,
+the sections and books are independent of each other, so Course
+-&gt;&gt; Section.</p>
+
+<p>Class is in BCNF, since there are no functional dependencies,
+but it is not in 4NF because the given MVD is non-trivial and
+Course is not a superkey.</p>
+
+<p><strong>Question 1d<br>
+</strong>The example given for Question 1c decomposes into
+Class_Sections(Course, Section) and Class_Books(Course, Book).</p>
+
+<p><strong>Question 1e<br>
+</strong>An example is Teaching(Course, Section, TA) with FDs</p>
+
+<ul>
+    <li>There is only one TA for each course and section, so
+        Course, Section -&gt; TA.</li>
+    <li>Each TA teaches only one course, but may teach multiple
+        sections, so TA -&gt; Course.</li>
+</ul>
+
+<p>This example is in 3NF because (Course, Section) form a key,
+but is not in BCNF because TA is not a superkey.</p>
+
+<p><strong>Question 2<br>
+</strong>These answers assume that for each ID, there can only be
+one Name, one Address, one Office, and one Salary associated with
+it.</p>
+
+<p><strong>Question 2a</strong></p>
+
+<ul>
+    <li>For EmpName, ID -&gt; Name.</li>
+    <li>For EmpAddress, ID -&gt; Address.</li>
+    <li>For EmpOffice, ID -&gt; Office.</li>
+    <li>For EmpSalary, ID -&gt; Salary.</li>
+</ul>
+
+<p><strong>Question 2b<br>
+</strong>All four relations are in BCNF because they all have
+only two attributes, and any two-attribute relation must be in
+BCNF.</p>
+
+<p><strong>Question 2c<br>
+</strong>This is a bad design. Information about any particular
+employee is scattered in four relations, meaning that most
+queries will involve a join operation. The ID attribute values
+are replicated in all four relations, wasting storage space. A
+better design would be joining the four relations back together
+as Emp(ID, Name, Address, Office, Salary), which is still in
+BCNF.</p>
+
+<p>Alternate answer: If you assume instead that each employee can
+have multiple names, multiple addresses, multiple offices, and
+perhaps multiple salaries, then</p>
+
+<ol>
+    <li>There are no completely non-trivial FDs for any relation.</li>
+    <li>All four relations are in BCNF.</li>
+    <li>This would be a good design because it has no redundancy.
+        Compare this with a different design which joins all four
+        relations back together as Emp(ID, Name, Address, Office,
+        Salary). There would be four multivalued dependencies in
+        Emp, Emp would not be in 4NF, and a 4NF decomposition
+        would, in fact, give us the original design.</li>
+</ol>
+
+<p><strong>Question 3<br>
+</strong>In principle, we need to compute the closure of each
+subset of {A, B, C} with respect to the given set of FDs. Since
+we are only interested in finding the minimal keys, a good
+strategy is to start with the smaller subsets such as {A}. If we
+get lucky and find that {A}+ already covers {A, B, C}, then there
+is no need to consider any larger subset containing A.</p>
+
+<p>Let's begin with {A}. Initially, A is in {A}+. By A-&gt;D, D
+is in {A}+. By D-&gt;C, C is also in {A}+. No more FDs are
+applicable, so {A}+ is {A, C, D}. Because {A}+ does not contain
+B, {A} is not a key.</p>
+
+<p>Now let's consider {B}. Initially, B is in {B}+. By B-&gt;E, E
+is in {B}+. By E-&gt;A, A is also in {B}+. Since we have both A
+and B in {B}+, AB-&gt;C implies that C is in {B}+. It is not
+necessary to finish the closure computation, because now we know
+that {B}+ already contains A, B, and C, i.e., {B} is a key of R1.
+Obviously, it is minimal.</p>
+
+<p>We still have to consider other subsets not containing B since
+there might be multiple minimal keys for R1. The remaining
+subsets are {A, C} and {C}. However, we have seen that {A}+
+contains both {A, C} and {C}. This implies that {A, C} and {C}
+are not keys, because if they were, {A}+ would have covered A, B,
+C. (Alternatively, you can work out {A, C}+ and {C}+ and convince
+yourself that they don't cover {A, B, C}.)</p>
+
+<p>So {B} is the only key.</p>
+
+<p><strong>Question 4a<br>
+</strong>No, F1 and F3 are not equivalent. F1 does not hold, with
+this instance:</p>
+
+<blockquote>
+    <table border="0">
+        <tr>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+    </table>
+</blockquote>
+
+<p>In particular, A -&gt; B is satisfied, and AB -&gt; C is
+satisfied, so F3 holds. In F1, A -&gt; B is satisfied, but B
+-&gt; C is not satisfied, so F1 does not hold.</p>
+
+<p><strong>Question 4b<br>
+</strong>Yes, they are equivalent.</p>
+
+<p><strong>Solution Method 1</strong></p>
+
+<ol>
+    <li>Prove that F2 implies F3<br>
+        a. A -&gt; B implies A -&gt; B<br>
+        b. A -&gt; C implies AB -&gt; C by augmentation</li>
+    <li>Prove that F3 implies F2<br>
+        a. A -&gt; B implies A -&gt; B<br>
+        b. A -&gt; A by reflexivity<br>
+        A -&gt; A and A -&gt; B imply A -&gt; AB by combining<br>
+        A -&gt; AB and AB -&gt; C imply A -&gt; C by transitivity</li>
+</ol>
+
+<p><strong>Solution Method 2<br>
+</strong>To prove that an FD X -&gt; Y is implied by a set of FDs
+F, you need to compute {X}+ with respect to F and show that it
+includes Y.</p>
+
+<ol>
+    <li>Prove that F2 implies F3<br>
+        a. {A}+ = {AB}+ <em>(by A -&gt; B)</em> = {ABC} <em>(by A
+        -&gt; C)</em><br>
+        {ABC} includes B, so A -&gt; B is implied by F2<br>
+        b. {AB}+ = {ABC} <em>(by A -&gt; C)</em><br>
+        {ABC} includes C, so AB -&gt; C is implied by F2</li>
+    <li>Prove that F3 implies F2<br>
+        a. {A}+ = {AB}+ <em>(by A -&gt; B)</em> = {ABC} <em>(by
+        AB -&gt; C)</em><br>
+        {ABC} includes B, so A -&gt; B is implied by F3<br>
+        b. {A}+ = {AB}+ <em>(by A -&gt; B)</em> = {ABC} <em>(by
+        AB -&gt; C)</em><br>
+        {ABC} includes C, so A -&gt; C is implied by F3</li>
+</ol>
+
+<p><strong>Question 5<br>
+</strong>In this example, A -&gt;&gt; B holds, but A -&gt; B does
+not hold.</p>
+
+<blockquote>
+    <table border="0">
+        <tr>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>2</td>
+        </tr>
+    </table>
+</blockquote>
+
+<p><strong>Question 6<br>
+</strong>An example is the relation R(<u>A</u>, <u>B</u>, C) with
+FDs A -&gt; C and B -&gt; C. Then </p>
+
+<ol>
+    <li>R is decomposed into R1(<u>A</u>, C) and R2(<u>A</u>, B)
+        when the functional dependency A -&gt; C is chosen first.</li>
+    <li>R is decomposed into R1(<u>B</u>, C) and R2(<u>A</u>, B)
+        when the functional dependency B -&gt; C is chosen first.</li>
+</ol>
+
+<p><strong>Question 7a<br>
+</strong>We can get a different result, e.g., tables may be
+&quot;more decomposed&quot; than they need to be for BCNF. See
+Question 2 for an example.</p>
+
+<p><strong>Question 7b<br>
+</strong>We cannot lose information about the data (which is a
+fine answer for this problem), but we can lose FDs in certain
+cases..</p>
+
+<p><strong>Question 7c<br>
+</strong>Usually no, although if you do not consider all implied
+dependencies when &quot;projecting&quot; onto the decomposed
+relations then it's possible to lose a dependency and end up
+with something that's not in BCNF with respect to the original
+dependencies. Still, &quot;no&quot; is a fine answer for this
+problem.</p>
+
+<p><strong>Question 8a<br>
+</strong>Perform the same &quot;closure&quot; operation on FD's
+as in the BCNF algorithm. Leave the MVD's alone - even if they
+were &quot;closed&quot; you would need to keep the originals
+since there is no splitting rule for MVDs.</p>
+
+<p><strong>Question 8b<br>
+</strong>See sidebar on page 163. &quot;A complete set of rules
+.. is quite complex and beyond the scope of this book. ...
+Fortunately, we can often obtain the relevant multivalued
+dependencies ... by using the transitive rule, the
+complementation rule, and the intersection rule.&quot;</p>
+</body>
+</html>

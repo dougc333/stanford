@@ -1,0 +1,40 @@
+Assignment 4, Problem 3		Solution by Rob
+
+S -> AabC
+A -> Cc
+C -> A | ba | eps
+
+First eliminate epsilon productions:
+
+S -> AabC | Aab
+A -> Cc | c
+C -> A | ba
+
+Next eliminate unit productions:
+
+S -> AabC | Aab
+A -> Cc | c
+C -> Cc | c | ba
+
+Then split up long production:
+
+S -> AT | AV
+T -> aU
+U -> bC
+V -> ab
+A -> Cc | c
+C -> Cc | c | ba
+
+And finally replace terminals by nonterminals:
+
+S -> AT | AV
+T -> XU
+U -> YC
+V -> XY
+A -> CZ | c
+C -> CZ | c | YX
+X -> a
+Y -> b
+Z -> c
+
+This is in Chomsky normal form.

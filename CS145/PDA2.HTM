@@ -1,0 +1,73 @@
+<title> CS145 Project Part 2 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Personal Database Application: Part 2
+<br>Due Monday April 17</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+The procedure for turning in this assignment is the same as for prior
+assignments, and please remember the strictly enforced <a
+href="http://www-db.stanford.edu/~widom/cs145/info.html#late">late
+policy</a>.
+
+<p><i>Please save a copy of your final relational schema (part (g)),
+as it will be needed for subsequent project parts.</i>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+In this second part of the project, you will produce a relational
+schema from the entity-relationship diagram you came up with in PDA
+Part 1.  In the following project part, you will create an actual
+database from this schema using the Oracle DBMS.
+
+<ul>
+
+<b>(a)</b> Please attach a copy of your E/R diagram from PDA Part 1.
+If you would like to make changes to your original E/R diagram at this
+point (due to TA feedback or any other reason), you may do so.  The
+new E/R design will not be graded but will be used as a basis for
+grading the next part of this assignment.
+
+<p><b>(b)</b> Using the method for translating an E/R diagram to
+relations, produce a set of relations for your database design.  As
+usual, please be sure to underline key attributes in your relations.
+
+<p><b>(c)</b> For each relation in your schema, specify a set of completely
+nontrivial functional dependencies for the relation.  Any functional
+dependencies that actually hold in the real-world scenario that you're
+modeling should be specified, or should follow from the specified
+dependencies.  Don't worry if you find that some of your relations
+have no nontrivial functional dependencies.
+
+<p><b>(d)</b> Is each relation in your schema in Boyce-Codd Normal
+Form (BCNF) with respect to the functional dependencies you specified?
+If not, decompose the relation into smaller relations so that each
+relation is in BCNF.  Be sure to underline key attributes in your new
+relations.
+
+<p><b>(e)</b> Are there any non-trivial multivalued dependencies that
+hold on any of the relations in your schema?  (You needn't consider
+MVD's that are also functional dependencies.)  If so, specify the
+multivalued dependencies, then decompose the relations into smaller
+ones so that each one is in Fourth Normal Form (4NF).  Be sure to
+underline key attributes in your new relations.
+
+<p><b>(f)</b> Now that you've decomposed your relations as far as
+possible, are there any relations that could be <i>combined</i>
+without introducing redundancy (i.e., without creating BCNF or 4NF
+violations)?  If so, combine them.
+
+<p><b>(g)</b> Is there anything you still don't like about the schema
+(e.g., attribute names, relation structure, etc.)?  If so, modify the
+relational schema to something you prefer.  You will be working with
+this schema quite a bit, so it's worth spending some time now to make
+sure you're happy with it.
+
+</ul> 
+
+<b>SAVE A COPY OF YOUR FINAL SCHEMA - YOU WILL NEED IT FOR SUBSEQUENT
+PROJECT PARTS.</b>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

@@ -1,0 +1,313 @@
+<html>
+
+<head>
+   <title>Problem Set #3</title>
+</head>
+
+<body>
+<hr>
+<h3>CS157 Computational Logic</h3>
+
+<h2>Problem Set #3: Herbrand and Relational Proofs</h2>
+
+<h4>
+Genesereth / Abrams / Chai / Katznelson
+<br>
+Spring 2000
+</h4>
+
+<table BORDER=0 >
+  <tr>
+    <td>Assigned:</td>
+    <td>Thursday, May 11</td>
+  </tr>
+  
+  <tr>
+    <td>Due:</td>
+    <td><b>Thursday, May 18, 11:59:59PM </b></td>
+  </tr>
+</table>
+
+<p>Please email the completed homework to
+<a href="mailto:cs157-homework@cs.stanford.edu">cs157-homework@cs.stanford.edu</a>.
+<br>Details of submission can be found in the <a href="submission.html">homework
+submission policy</a>.
+<BR>If you want verification of submission, please cc yourself.
+<p>Please include just the answers written in plain, old-fashioned,
+barebones ASCII.
+<br>Do not echo the questions back to us. We know what they are.
+<p>Finally, please include your name as well as your e-mail address in
+the body of your message. The subject heading of your e-mail should be
+<b>EXACTLY</b> "Homework #3".&nbsp; This subject heading ensures your
+homework will be routed to the correct folder.
+<hr>
+
+<OL TYPE=1>
+<li><h3>Herbrand Model Properties (10 points)</H3>
+    <p>
+    Several subsets of relational logic are discussed in chapter 7:<p>
+    (a) Basic logic<br>
+    (b) Universal logic<br>
+    (c) Existential logic<br>
+    (d) Functional logic<p>
+    Which of the following are true in each type of logic?<p>
+    <OL>
+      <LI>If a set of sentences in a language has a model, then it has a
+	  Herbrand model.<br>
+      <LI>If an interpretation satisfies a set of sentences in a
+	  language, then the corresponding Herbrand interpretation also
+	  satisfies those sentences.
+      <LI>The size of the Herbrand universe for a language with a
+	  finite number of objects constants is infinite.
+      <LI>It is always possible to use the Herbrand method to determine
+	  logical entailment for a set of sentences in a language in a
+	  finite amount of time.
+      <LI>Consider an interpretation <TT>i</TT>, and its corresponding
+	  Herbrand interpretation <TT>h</TT>. If <TT>h</TT> satisfies a
+	  set of sentences in a language, then <TT>i</TT> also satisfies
+	  that set of sentences.
+    </OL>
+    <p>
+    For example, if for basic logic, statements 2 and 3 are true, your
+    answer for part a should be:<br>
+    <BLOCKQUOTE>
+    a. 2, 3
+    </BLOCKQUOTE>
+    <p>
+    
+<LI><H3>Herbrand Method (15 points)</H3>
+    For this problem only, we are dealing with <b>Universal Logic</b>
+    <p>
+
+    For the given language:
+    <p>
+
+    <pre>
+      &lt;variable> ::= X | Y
+      &lt;objconst> ::= bill | ted
+      &lt;relconst 1> ::= excellent | bogus
+    </pre>
+    <p>
+
+    (a) Write down the Herbrand universe for the language, and then
+    provide a (single) Herbrand model for the following premises:
+    <pre>
+    bogus(X) | excellent(X)
+    excellent(bill)
+    bogus(Y) => ~excellent(Y)
+    </pre>
+
+    (b) Give a chart that shows the possible Herbrand interpretations for
+    <TT>excellent</TT> and <TT>bogus</TT>. In other words, fill in the chart:
+    <pre>
+      excellent | bogus
+     -----------+-------
+                |
+                |
+                |
+    </pre>
+
+    (c) Give a chart that shows the Herbrand interpretations that satisfy
+    the premises from part (a)
+<p>
+    (d) Give a chart that shows the Herbrand interpretations that satisfy
+    the following sentence:
+    <pre>
+    ~excellent(ted)
+    </pre>
+
+    (e) Is the sentence in (d) relationally entailed by the premises in
+    (a)? Why or why not?
+    <p>
+
+<LI><h3>Free/Bound Variables (6 points)</h3>
+    Say which variable occurences are free and which are bound in the
+    following sentence:
+    <p>
+    <pre>
+    Ax. [ (p(x,y) ^ Ey.q(y)) -> (Ex.Ey.Ez.Ax.p(z,x) v Au.q(x)) ]
+    </pre>
+    Your answer should list each variable from left to right order of
+    appearance in the sentence. So it should look like:
+    <p>
+    <pre>
+    3. x -   , y -   , y -   , z -   , x -   , x -
+    </pre>
+    And you fill in the blanks.
+    <p>
+	
+<LI><h3>Unification (8 points)</h3>
+    <P>
+    Consider the two expressions (q is a 5-ary relation):
+    <pre>
+      q(x,y,f(x),z,u)   and
+
+      q(a,x,z,f(x),h(v,z))
+    </pre>
+    State whether or not each of the following substitutions
+    unify the above expressions. A simple "Yes" or "No" for each
+    substitution is all we want.
+    <pre>
+    a)  { x <- a, y <- x, z <- f(x), u <- h(v,z) }
+
+    b)  { x <- a, y <- a, z <- f(a), u <- h(v,f(a)) }
+
+    c)  { x <- a, y <- a, z <- f(a), u <- h(f(a),f(a)), v <- z }
+
+    d)  { x <- a, y <- x, z <- f(a), u <- h(b,f(a)), v <- b }
+    </pre>
+      
+<LI><h3>More Unification (8 points)</h3>
+<p>
+    Are these pairs of terms unifiable?  State 'Yes' or 'No'.
+    <p>
+    <pre>
+    (a) b and f(x)
+
+    (b) x and f(b)
+
+    (c) x and f(y)
+
+    (d) x and f(x)
+
+    (e) x and g(a,y)
+
+    (f) f(y) and g(b)
+
+    (g) f(x) and f(h(x))
+
+    (h) g(x,x) and g(a,b)
+    </pre>
+    <p>
+    
+<LI><h3>Most General Unifier (12 points)</h3>
+    <P>
+    Consider the two expressions:
+    <pre>     
+    d: p(f(x,f(a,z)),x)   and
+
+    e: p(f(y,f(a,u)),f(u,z))
+    </pre>
+
+    a) Of the following, which are most general unifiers of d and e?
+    <pre>
+    i)  { x<-f(b,b) , y<-f(b,b) , z<-u }
+    ii)  { x<-f(u,u) , y<-f(u,u) , z<-u }
+    iii)  { x<-f(u,u) , y<-f(u,u) , z<-u }o{ u<-x }
+    </pre>
+
+    b) Consider the following expressions:
+    <pre>
+     d1: r(u, f(a) ,x)   and
+     e1: r(z, f(v), g(w,y))
+     </pre>
+     state which of the unifiers from part (a) is a more general
+     unifier of d1 and e1. If they are equally general just write
+     "equal".
+     <p>
+     <ol>
+       <li>i and ii from part (a)
+       <li>i and iii from part (a)
+     </ol>
+     <p>
+     So if (ii) from part (a) is a more general unifier of d1 and e1 than
+     (i), but (i) and (iii) are equally general for d1 and e1, your answer
+     should be: 
+     <p>
+     <pre>
+     6b. i, equal
+     </pre>
+
+     c) Which of the following are the most general unifiers of
+     expressions d and e?
+     <pre>
+       i) { v<-a , x<-g(w,y) , z<-u }
+       ii) { v<-a , x<-g(w,y) , z<-u }o{ u<-w }
+       iii) { v<-a , x<-g(w,y) , z<-u }
+             o{ u<-w , v<-x , z<-y, y<-u, w<-z, x<-v }
+     </pre>
+     d) For the following state which is a more general
+     unifier for expressions d and e. If they are equally general just
+     write "equal". 
+     <p>
+     <ol>
+       <li>i and ii from part (c)
+       <li>ii and iii from part (c)
+     </ol>
+<p>
+      
+   
+<LI><H3>Simple relational proof (15 points)</H3>
+    <p>
+    For the given language:
+    <p>
+    <pre>
+    &lt;variable> ::= x | y
+    &lt;objconst> ::= max | ross
+    &lt;relconst1> ::= awesome | impressed | texan
+    &lt;relconst2> ::= cooler
+    </pre>
+    use the following premises:
+    <pre>
+    texan(ross)
+    Ax.Ey.(cooler(y,x))
+    Ax.Ay.(cooler(x,y) & texan(y) => awesome(x))
+    Ax.Ay.(awesome(x) => impressed(y))
+    </pre>
+    to prove <TT>impressed(max)</TT> using <b>only</b> the rules of
+    inference mentioned 
+    in class and in Chapter 8. The format of your proof should be like
+    that on page 8-5 of the text; in particular, be sure to label each
+    step of the proof with the inference rule used, along with the
+    premises the rule was applied to.
+    <p>
+
+<LI><H3>Clausal Form (12 points)</h3>
+    
+    Convert the following into clausal form. Use the algorithm
+    discussed in class and report only the final clauses.
+    <br>
+    <pre>
+    (a) ~Ey.(Ax.p(x) | Ez.(q(z,y) & r(z)))
+    (b) Ay.( Ax.Ey.(p(y) & q(x,y)) =&gt; r(y,f(y)))
+    (c) Ax.Ay.Az (Ey.p(x,y) <-> Ez.q(x,z))
+    </pre>
+    
+<li><H3>Relational Resolution (14 points)</h3>
+    Students are in one of three years: sophomore, junior, or
+    senior. The predicate "above" indicates that the student of the first
+    argument is in a class above the student of the second argument.
+    [Don't forget the issues involved with renaming variables for
+      resolution.]
+    <BR>
+    <BR>
+    Given the following clauses: 
+    <PRE>
+    1.  {~above(x,y),~senior(y)} 
+    2.  {~above(x,y), ~soph(x)} 
+    3.  {senior(x), soph(x), junior(x)} 
+    4.  {~above(x,y),~above(y,z), above(x,z)} 
+    5.  {~above(x,y),~junior(x), ~junior(y)}
+    6.  {above(Jane,Jill)} 
+    7.  {above(Jill,Mary)}
+    </PRE>
+    
+    a)	Use resolution refutation to prove that these clauses logically entail
+    "Jane is not a Junior".
+    <p>
+    Your proof should be less than 16 steps including the seven premises
+    above, which you can assume (i.e. start your proof from step 8).  For
+    each step, indicate the two deriving clauses (previous steps used 
+    to derive the current line) and the mgu applied, if any.
+    <p>
+    b)  Use resolution to answer the question "Who is a junior?"
+    <p>
+    Your proof should be less than 14 steps including the seven premises
+    above, which you can assume (i.e. start from step 8).  For each step,
+    indicate the two deriving clauses (previous steps used to derive the
+    current line) and the mgu applied, if any. 
+    
+</ol>
+</body>
+</html>
+

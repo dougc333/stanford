@@ -1,0 +1,664 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - RELATIONAL DATABASE DESIGN
+=========================================================================
+
+Design steps (added one):
+
+1. Real-world
+       to
+2. E/R model
+       to
+3. Relational schema
+       to
+4. Better relational schema
+       to
+5. Relational DBMS
+
+
+Step (3) to step (4) is based on a "design theory" for relations and
+is called "normalization".  It's important for two reasons:
+
+(a) Automatic mappings from E/R to relations may not produce the best
+relational design possible.
+
+(b) Database designers may go directly from (1) to (3), in which case
+the relational design could be really bad.
+
+
+** This is one of the more theoretical topics of CS145, but even it
+   has fairly practical applications.
+
+
+Functional Dependencies
+-----------------------
+
+Example schema:
+
+ Student(SS#, name, address, HScode, HSname, HScity, cumGPA, priority)
+ Apply(SS#, campus, date, major)
+
+
+Suppose Student.priority is determined by Student.cumGPA
+
+
+
+
+
+
+
+Formally - for every pair of tuples t and u in Student:
+           if t[cumGPA] = u[cumGPA] then t[priority] = u[priority]
+
+This is a "functional dependency" (FD): a constraint specified with
+the schema of a relation
+
+  - Based on knowledge of real world
+  - All data must conform
+
+
+Notation for declaring an FD for a relation R:
+
+   A1, A2, ..., Am -> B1, B2, ..., Bn   (commas sometimes omitted)
+
+states that for every pair of tuples t and u in R:
+if t[A1,...,Am] = u[A1,...,Am] then t[B1,..,Bn] = u[B1,..,Bn]
+
+We will abbreviate "A1, A2, ..., Am" as "AA" (or "A-bar") and
+"B1, B2, ..., Bn" as "BB" (or "B-bar")
+
+
+
+
+
+
+
+
+Q: What are some functional dependencies for Student
+   besides cumGPA -> priority?
+
+
+
+
+
+
+
+
+
+
+
+Q: What are some functional dependencies for Apply?
+
+
+
+
+
+
+
+
+
+
+Functional Dependencies and Keys
+--------------------------------
+
+AA is a key for R if:
+
+  (1) AA -> BB  where BB is all attributes of R
+  (2) no subset of AA satisfies (1), i.e., AA is minimal
+
+
+
+
+
+
+
+(a) Subtlety: What if relation can contain duplicate tuples?
+
+
+
+
+
+(b) Note that key is required to be minimal
+    <introduce "superkey">
+
+
+
+
+
+- "Trivial FD": AA -> BB where BB is a subset of AA
+
+
+
+
+
+
+- "Nontrivial FD": AA -> BB where BB is not a subset of AA
+
+
+
+
+
+
+- "Completely nontrivial FD": AA -> BB with no overlap between AA and BB
+
+
+
+
+
+
+** Most of the time we're interested in completely nontrivial FD's.
+
+
+Rules for Functional Dependencies
+---------------------------------
+
+SPLITTING RULE: If AA -> B1, B2, ..., Bn
+                then AA -> B1, AA -> B2, ..., AA -> Bn
+
+Q: Can we also split the left-hand side?
+
+
+
+
+
+
+
+COMBINING RULE: If AA -> B1, AA -> B2, ..., AA -> Bn
+                then AA -> B1, B2, ..., Bn
+
+
+TRIVIAL DEPENDENCY RULES: If AA -> BB then AA -> (BB - AA)
+                          If AA -> BB then AA -> (BB U AA)
+
+
+TRANSITIVE RULE: If AA -> BB and BB -> CC then AA -> CC
+
+
+Closure of Attributes
+---------------------
+
+Given a relation R, a set of FD's for R, and a set of attributes
+{A1, A2, ..., Am} of R:
+
+Find all attributes B in R such that A1, A2, ..., Am -> B
+
+This set of attributes is the "closure" and is denoted {A1, A2, ..., Am}+
+
+
+ALGORITHM for computing closure:
+
+   start with {A1, A2, ..., Am}
+   repeat until no change:
+      if current set of attributes includes LHS of a dependency,
+      add RHS attributes to the set
+
+** Effectively applies combining and transitive rules until there's no
+   more change
+
+
+Ex: closure of {SS#, HScode} in Student
+
+
+
+
+
+
+
+Q: How can we exploit closure to test whether a set of attributes
+   is a key?
+
+
+
+
+
+
+
+
+Specifying FD's for a Relation
+------------------------------
+
+- A set S2 of FD's "follows" from another set S1 of FD's if all
+relation instances that satisfy S1 also satisfy S2.
+
+<ex: apply rules above>
+
+
+
+
+
+- When specifying FD's for a relation, we would like to specify a
+minimal set of completely nontrivial FD's such that all FD's that hold
+on the relation follow from the dependencies in this set.  Sounds
+hard, but in practice this approach comes naturally.
+
+
+Q: How can we tell if one FD follows from others?
+
+<ex: Does AA -> BB follow from a set S of FD's?>
+
+
+
+
+
+
+
+
+Using FD's to Produce a Good Relational Schema
+----------------------------------------------
+
+(1) Start with set of relations
+
+(2) Define FD's (and therefore keys) for them based on real world
+
+(3) Transform relations to "normal form" ("normalize" the relations)
+
+
+What is a BAD relational schema?
+
+This one is really bad:
+
+  Apply(SS#, name, campus, sport, HScode, HScity)
+
+  - Assume students play the same sports at every high school attended
+
+
+Consider "Mary" (SS# 123) who is applying to Berkeley and Santa Cruz.
+She played tennis, basketball, and volleyball at both of her high
+schools, Gunn (code 26) and Menlo-Atherton (code 28)
+
+Q: How many tuples in the relation?
+
+
+
+
+
+
+
+
+
+
+
+
+
+This relation exhibits three types of "anomalies":
+
+(1) REDUNDANCY
+
+
+
+
+
+(2) UPDATE ANOMALY
+
+
+
+
+
+(3) DELETION ANOMALY
+
+
+
+
+ 
+Q: What's the "best design" for this information?
+
+
+
+
+
+
+
+
+
+
+Good design: (a) No anomalies
+             (b) Can reconstruct all original information
+
+
+Q: What's the best design if different sports can be played at different
+   high schools?
+
+
+
+
+
+
+
+Relation Decomposition
+----------------------
+
+GOAL: "decompose" relations into smaller, better ones as above.  Do it
+automatically with a formal framework based on FD's (and later MVD's).
+
+
+DEFINITION: R1(A1, ..., Am) / R2(B1, ..., Bn) is a decomposition of
+R(C1, ..., Ck) if {A1, ..., Am} U {B1, ..., Bn} = {C1, ..., Ck}
+
+
+
+
+
+
+
+
+
+Idea of decomposition:
+  (1) R1 is restriction of R to attributes in {A1, ..., Am}
+  (2) R2 is restriction of R to attributes in {B1, ..., Bn}
+  (3) Reassembling R1 and R2 would produce R
+
+Notes:
+
+  - The restriction in (1) and (2) is called "projection" and duplicate
+    tuples are eliminated.
+
+  - The reassembling in (3) is called "join" and is a cross-product
+    if R1 and R2 do not share attributes.
+
+  - R is never actually created, it's just a step in the design process.
+
+
+Ex decomposition:
+
+  Apply1(SS#, name, campus)
+  Apply2(SS#, sport, HScode, HScity)
+
+<check criteria for decomposition>
+
+
+
+
+
+Ex decomposition:
+
+  Apply1(SS#, name, HScode, HScity)
+  Apply1(name, campus, sport)
+
+<check criteria for decomposition>
+
+
+
+
+
+Boyce-Codd Normal Form (BCNF)
+-----------------------------
+
+Defines which decompositions are good ones
+
+
+Given: relation R and set of FD's for R
+
+Definition: R is in BCNF with respect to its FD's if for every
+nontrivial FD AA -> BB, AA contains a key
+
+
+Q: Why does violating this requirement produce a "bad" relation?
+
+
+
+
+
+Ex:  Student(SS#, name, address, HScode, HSname, HScity, cumGPA, priority)
+
+FD's: SS# -> name, address
+      HScode -> HSname, HScity
+      cumGPA -> priority
+      SS# -> cumGPA
+
+Key: SS#, HScode
+
+
+Q: Relation in BCNF?
+
+
+
+
+
+Each violation produces anomalies.
+
+
+Ex: Apply(SS#, campus, date, major)
+    Can apply to campus multiple times but with one major each time
+
+FD's: SS#, campus, date -> major
+Key:  SS#, campus, date
+
+Q: Relation in BCNF?
+
+
+
+ALGORITHM for decomposing a relation into BCNF relations:
+
+  (1) apply closure to the user-specified FD's:
+        replace each AA -> BB with AA -> (AA+ - AA)
+        and remove duplicates
+  (2) repeat until no more BCNF violations:
+        if R with AA -> BB violates BCNF then:
+           (2a) decompose R into R1(AA,BB) and R2(AA,CC)
+                where CC is all attributes in R except (AA U BB)
+           (2b) use splitting rule to assign FD's to the new relations
+
+
+
+
+
+
+
+
+
+
+<run algorithm on Student example>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- Final decomposed relations may be different depending on which
+violating FD is chosen in each iteration (homework).  But all
+decompositions will be in BCNF.
+
+
+Does BCNF guarantee a good decomposition?
+
+(1) Removes anomalies?  Yes
+
+(2) Reconstructs original relation?
+
+- Can we get too many tuples?
+
+   Consider R(A,B,C) with tuples (1,2,3) and (4,2,5)
+
+   Decompose into R1(A,B) with tuples (1,2) and (4,2)
+                  R2(B,C) with tuples (2,3) and (2,5)
+
+   "Reassembled" relation has four tuples => wrong
+
+   But BCNF would not decompose this way unless B -> C or B -> A
+
+- Can we get too few tuples?  No
+
+
+With BCNF get: Set of relations without anomalies
+               Can reconstruct original relation
+
+Sounds great, BUT...
+
+
+BCNF may destroy the ability to check certain FD's within a single
+relation.
+
+
+Ex: Contact(SS#, campus, officer)
+
+FD's: SS#, campus -> officer
+      officer -> campus
+
+Key: SS#, campus
+
+Appears to contain anomaly because officer O at campus C is recorded
+many times.
+
+
+Q: BCNF decomposition?
+
+
+
+
+
+Q: What's wrong with it?
+
+
+
+
+
+** There's something called "Third Normal Form (3NF)" that solves this
+   problem, but the problem is actually quite rare.  See book.
+
+
+Multivalued Dependency (MVD)
+----------------------------
+
+DEFINITION:
+
+   AA ->> BB is an MVD for relation R if:
+   For all tuples t,u in R:
+      If t[AA] = u[AA] then there exists a v in R such that:
+         (1) v[AA] = t[AA]
+         (2) v[BB] = t[BB]
+         (3) v[CC] = u[CC] where CC is all attributes in R except (AA U BB)
+
+<show with picture>
+<show implied fourth tuple>
+
+
+
+
+
+
+
+
+
+
+- MVD's are also called "tuple-generating dependencies"
+
+
+Ex: Apply(SS#, campus, sport)
+
+Assume all students apply to each campus with all sports.
+
+Q: What are FD's?
+
+
+
+Q: What is key?
+
+
+
+
+Q: Is it in BCNF?
+
+
+
+
+Q: What are MVD's?
+
+
+
+
+
+
+<show example data to verify>
+
+
+
+
+
+
+
+
+
+
+** Intuition: MVD's uncovers situations where independent facts related
+   to a certain object are being squished together in one relation.
+
+
+- "Trivial MVD": AA ->> BB where BB is a subset of AA or (AA U BB) contains
+                 all attributes of R
+
+- "Nontrivial MVD": AA ->> BB where BB is not a subset of AA and
+                    (AA U BB) does not contain all attributes of R
+
+
+Rules for Multivalued Dependencies
+----------------------------------
+
+FD-IS-AN-MVD RULE: If AA -> BB then AA ->> BB
+
+Prove by showing (1), (2), (3) in MVD definition
+
+
+
+
+
+
+
+
+
+
+TRANSITIVE RULE: If AA ->> BB and BB ->> CC then AA ->> CC
+
+
+COMPLEMENTATION RULE: If AA ->> BB then AA ->> CC where CC is all attributes
+                      in R except (AA U BB)
+
+
+Q: Are there any rules for FD's that do not apply for MVD's?
+
+
+
+
+
+
+
+Fourth Normal Form (4NF)
+------------------------
+
+Given: relation R and set of MVD's for R
+
+Definition: R is in 4NF with respect to its MVD's if for every
+nontrivial MVD AA ->> BB, AA contains a key
+
+Note: Since every FD is also an MVD, 4NF implies BCNF
+
+
+Q: What happens in the MVD definition if AA contains a key?
+
+
+
+
+
+
+ALGORITHM for decomposing a relation into 4NF relations
+(same idea as BCNF):
+
+  (1) apply closure to the user-specified FD's and MVD's:
+        ** homework!
+  (2) repeat until no more 4NF violations:
+        if R with AA ->> BB violates 4NF then:
+           (2a) decompose R into R1(AA,BB) and R2(AA,CC)
+                where CC is all attributes in R except (AA U BB)
+           (2b) assign FD's and MVD's to the new relations
+                ** MVD's: hard problem!
+
+
+<run algorithm on Apply example>

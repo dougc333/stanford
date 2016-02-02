@@ -1,0 +1,325 @@
+<HTML>
+<HEAD>
+<title>Problem Set #1</title>
+
+</HEAD>
+<BODY>
+
+<HR>
+<H3>CS157 Computational Logic</H3>
+<H2>Problem Set #1: Propositional Logic</H3>
+<H4>Genesereth / Abrams / Chai / Katznelson<BR>
+Spring 2000</H4>
+
+<TABLE BORDER=0>
+  <TR><TD>Assigned:</TD><TD>Thursday, April 6</TD></TR>
+  <TR><TD>Due:     </TD><TD><B>Thursday, April 13, 5:00pm</B></TD></TR>
+</TABLE>
+
+<P>
+
+Please email the completed homework to
+<A HREF="mailto:cs157-homework@cs.stanford.edu">
+cs157-homework@cs.stanford.edu</A>.
+<BR>Details of submission can be
+found in the <A HREF="submission.html">homework submission policy</A>.
+<P>
+Please include just the answers written in plain, old-fashioned,
+barebones ASCII. <BR> Do not echo the questions back to us.  We know
+what they are.
+<P>
+Finally, please include your name as well as your e-mail address in the
+body of your message. The subject heading of your e-mail should be
+"Homework #1".
+<HR>
+
+<OL>
+
+<LI><H3>Syntax (5 points)</H3>
+<p>Determine whether each of the following is a sentence of propositional
+logic. A YES or NO is all that is needed.
+<p>(a)&nbsp; <FONT FACE="Courier New,Courier">p &amp; b => a | ~a | p &amp;
+p</FONT>
+<br>(b)&nbsp; <FONT FACE="Courier New,Courier">true &amp; false</FONT>
+<br>(c)&nbsp; <FONT FACE="Courier New,Courier">f(x,y) => z</FONT>
+<br>(d)&nbsp; <FONT FACE="Courier New,Courier">p = T</FONT>
+<p><br>
+
+<LI><H3>Semantics (10 points)</h3>
+<p>
+Translate the following English sentences into sentences
+of propositional logic. Use only the logical constants we provide for you.
+For instance, the sentence "It is raining or snowing" with the
+given logical constants:
+<BLOCKQUOTE>
+    <CODE>raining </CODE>= "It is raining" <BR>
+    <CODE>snowing </CODE>= "It is snowing," <BR> <BR>
+</BLOCKQUOTE>
+should be answered by:<BR> <BR>
+<BLOCKQUOTE>
+    <CODE>raining | snowing </CODE><BR>
+</BLOCKQUOTE>
+
+<p>(a) "It is impossible to enjoy idling thoroughly
+unless one has plenty of work to do" -Jerome K. Jerome
+<p>
+<BLOCKQUOTE>
+    <CODE>p </CODE>= "one has plenty of work to do"<BR>
+    <CODE>i </CODE>= "It is impossible to enjoy idling thoroughly"<BR><BR>
+</BLOCKQUOTE>
+
+<p>(b) Completing cs157 requires you are nice to Eitan, Danny, and
+Zo&euml;, and not Professor Genesereth.
+<p>
+
+<BLOCKQUOTE>
+     <CODE>c </CODE>= "completing cs157"<BR>
+     <CODE>e </CODE>= "you are nice to Eitan"<BR>
+     <CODE>d </CODE>= "you are nice to Danny"<BR>
+     <CODE>z </CODE>= "you are nice to Zo&euml;"<BR>
+     <CODE>g </CODE>= "you are nice to Professor Genesereth"<BR><BR>
+</BLOCKQUOTE>
+
+<p>(c) Either it is raining and overcast or someone
+left the shower on and the lights off.
+<p>
+
+<BLOCKQUOTE>
+     <CODE>r </CODE>= "it is raining"<BR>
+     <CODE>o </CODE>= "it is overcast"<BR>
+     <CODE>s </CODE>= "someone left the shower on"<BR>
+     <CODE>l </CODE>= "someone left the lights off"<BR><BR>
+</BLOCKQUOTE>
+
+<p>(d) I am neither happy nor sad except when watching
+the nature channel on TV.
+<p>
+<BLOCKQUOTE>
+<p>
+     <CODE>h </CODE>= "I am happy"<BR>
+     <CODE>s </CODE>= "I am sad"<BR>
+     <CODE>w </CODE>= "I am watching the nature channel on TV"<BR><BR>
+</BLOCKQUOTE>
+
+<p>(e) If it is winter its raining, otherwise it's sunny.
+<p>
+<BLOCKQUOTE>
+    <CODE>w </CODE>= "it is winter"<BR>
+    <CODE>r </CODE>= "it is raining"<BR>
+    <CODE>s </CODE>= "it is sunny"<BR><BR>
+</BLOCKQUOTE>
+
+<LI><H3>Validity, Satisfiability, and Unsatisfiability (10 points)</H3>
+
+<p>Determine whether each of the following sentences are valid,
+satisfiable or unsatisfiable. A one-word answer (VALID, SATISFIABLE
+or UNSATISFIABLE) is all that is needed for each subproblem.
+
+<p>(a)&nbsp; <FONT FACE="Courier New,Courier">a &amp; (b | c) &amp;
+(a => b)
+<=> (~b => ~a) &amp; ((a &amp; b) | (a &amp; c))</FONT>
+<p>(b)&nbsp; <FONT FACE="Courier New,Courier"> (a <=> b) &amp; (b => c)
+&amp; (~c | d) &amp; ~( (~a &amp; ~d) | d)</FONT>
+<p>(c)&nbsp; <FONT FACE="Courier New,Courier"> ((p => q) <=> (q => p))
+<=> (p <=> q)</FONT>
+<p>(d)&nbsp; <FONT FACE="Courier New,Courier"> (a | b => c) &amp;
+(a | ~c)</FONT>
+<P><BR>
+
+<LI><H3>XOR and Truth Tables (7 points)</h3>
+<P>
+(a) Define "p XOR q"  with the following truth table:
+<PRE>
+    p   |   q   |   p XOR q
+  ----------------------------
+    T   |   T   |      F
+    T   |   F   |      T
+    F   |   T   |      T
+    F   |   F   |      F
+</PRE>
+Draw the truth table for (p|q) & ~(p&q).<p>
+Argue informally that this sentence is equivalent to  p XOR q.
+<p>
+(b) Write an unsatisfiable Propositional Logic sentence using only the
+operator XOR and any number of propositional constants.
+<p><br>
+
+<LI><H3>Expressivity of Boolean Functions (7 points)</h3>
+<P>
+All propositional sentences can be expressed in clausal form (i.e. using
+the 2-arity operators '&amp;' and '|' and  the unary operator '~'). In fact,
+all propositional sentences can be expressed with even less: a single
+2-arity operator. We'll call this operator '#'.
+<p>Fill out the truth table for this operator below.
+<br>(Note that a 2-arity operator can act as a unary operator by using a
+single proposition as both its operands.)
+<p>
+<PRE>
+    p   |   q   |   p # q
+  ----------------------------
+    T   |   T   |      
+    T   |   F   |      
+    F   |   T   |     
+    F   |   F   | 
+</PRE>
+<p>
+<br>
+
+<LI><h3>Electronic Circuits (8 points)</h3>
+    <P>
+    You are given an old computer chip which takes 3 inputs and gives 1 output.
+    The label on the chip says
+<BLOCKQUOTE><CODE>
+    ~p | q & r
+</CODE></BLOCKQUOTE>
+    <i>You decide to test the chip by applying high (true) and low (false)
+    voltages to the inputs and measuring the output.  The output for each set
+    of inputs is shown in the following truth table: </i>
+<PRE>
+  p    q    r  | output
+---------------+--------
+  T    T    T  |   F
+  T    T    F  |   F
+  T    F    T  |   F
+  T    F    F  |   F
+  F    T    T  |   F
+  F    T    F  |   T
+  F    F    T  |   T
+  F    F    F  |   T
+</PRE>
+Does this chip still perform the computation written on its label?  If not,
+write down a propositional logic sentence that captures the output
+of this chip.
+<P><BR>
+
+<LI><h3>Logical entailment (8 points)</h3>
+
+<P>Determine which of the following sentences:<p>
+(a)&nbsp;
+<FONT FACE="Courier New,Courier">(p => q) &amp; (q <= ~r)</FONT>
+<p>
+(b)&nbsp;
+<FONT FACE="Courier New,Courier">(~p | q) => ((q => ~p) => ~p)</FONT>
+<p>
+(c)&nbsp;
+<FONT FACE="Courier New,Courier">(r => p) &amp; ((q => r) =>
+p)</FONT>
+<p>
+(d)&nbsp;
+<FONT FACE="Courier New,Courier">~(q | r) &amp; ~p</FONT>
+<p>
+are logically entailed by <b>each</b> of the following sets of premises:
+<p>
+<OL>
+<LI>
+<P><FONT FACE="Courier New,Courier">{r, r => p, ~p =>
+q}</FONT>
+<li>
+<P><FONT FACE="Courier New,Courier">{(~q <=> p), r | p}</FONT>
+<li>
+<P><FONT FACE="Courier New,Courier">{p => q, q &amp; ~r}</FONT>
+</ol>
+<p>
+For example, if sentence a is logically entailed by 1, and is logically
+entailed by 2, but is not logically entailed by 3, your answer for part
+a should be:<br>
+<BLOCKQUOTE>
+    a. 1, 2
+</BLOCKQUOTE>
+<P>
+
+<LI><h3>Clausal Form (7 points)</h3>
+        <P>
+    Convert the following sentence to clausal form. Do not do any
+    extra simplification.<BR>
+
+    <P>&nbsp; <FONT FACE="Courier New,Courier">(~a <=> ~b) => ((c & b <= d) => (a | b))
+    </FONT>
+
+<P><BR>
+
+<LI><h3>Proof Methods (18 points)</h3>
+    <P>
+<OL>
+<LI>
+<FONT FACE="Courier New,Courier">~t => p &amp; ~s</FONT></LI>
+
+<LI>
+<FONT FACE="Courier New,Courier">r => s</FONT></LI>
+
+<LI>
+<FONT FACE="Courier New,Courier">p &amp; ~r => q &amp; v</FONT></LI>
+</OL>
+<P>
+
+(a) Prove ~t => q using only the premises above as well as the
+deduction theorem, Modus Ponens, Modus Tollens, &-Elimination,
+&-Introduction, Implication Introduction, and Conflict Realization; note that you may not need to
+use all of these.
+<P>
+(b) Give a formal proof of ~t => q, using only resolution.
+<P>
+(c) Explain why you would not want to use a truth table to solve this
+problem.
+<P><BR>
+
+<LI><h3>Intelligent, Exercising Dogs? (20 points)</h3>
+<P>
+To solve this problem, you are free to use any formal method discussed in
+the lectures so far (including the truth table method). However, you are
+required to develop and to explicitly define your own logical
+constants; you are also required to write down, using these constants
+consistently, all the premises from the text that you choose to use in
+your proofs. Note that to answer the questions, it may not be necessary to
+encode all the information provided for you in the text; make sure that
+you do not mention in your solutions any premises that you do not use in
+the proofs.
+<P>
+
+<FONT FACE="Courier New,Courier">You've decided to buy a pair of Taibos,
+the new exercising robot dogs. Here is some of the information you learn
+from the instruction manual:</FONT>
+<p>
+<UL TYPE=DISK> 
+<LI><CODE>One Taibo is silver, the other is black.</CODE>
+<LI><CODE>The silver Taibo specializes in aerobics; the black Taibo 
+specializes in jogging.</CODE>
+<LI><CODE>The Taibos are always in exactly one of 3 modes: ready,
+sleeping and off.  They have also been set up so that they are
+always in the same mode (e.g. if you turn one on, the other one
+also turns on).</CODE>
+
+<LI><CODE>Each Taibo has a light that shines a different color
+depending on the mode. In ready mode, the light is green. In
+sleeping mode, the light is yellow. In off mode, the light is red.</CODE>
+
+<LI><CODE>If a Taibo runs out of power, it automatically turns off.</CODE>
+
+<LI><CODE>If the black Taibo jogs for 5 hours, it runs out of
+power.</CODE>
+
+<LI><CODE>If you clap twice when the silver Taibo is wagging its
+tail, it will roll over.</CODE>
+
+<LI><CODE>If the silver Taibo is in ready mode and is in the same
+room as its owner, it will start wagging its tail.</CODE>
+
+<LI><CODE>If a Taibo is not in the same room as its owner it will go into
+sleep mode.</CODE>
+
+</UL>
+    <P>
+<P>(a)&nbsp; <FONT FACE="Courier New,Courier">Suppose you've allowed your
+black Taibo to jog for 5 hours. Show that it follows from the data above
+that after these 5 hours, the silver Taibo will not be in ready mode.
+</FONT><BR>
+<BR>(b)&nbsp; <FONT FACE="Courier New,Courier">If you clap twice and the
+silver Taibo does not roll over, is the silver Taibo's light green? (Show
+that your answer follows from the data above.)</FONT>
+
+
+
+</OL>
+
+</BODY>
+</HTML>

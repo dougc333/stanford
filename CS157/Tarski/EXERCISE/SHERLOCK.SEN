@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+7
+Tet(b) % Tet(c)Dodec(b) % Dodec(c)Cube(b) % Cube(c)Tet(a) & ~Tet(b)FrontOf(a, b) $ (FrontOf(b, c) | FrontOf(c, b))LeftOf(a, c) $ ~LeftOf(a, b)BackOf(b, a) % BackOf(c, b)

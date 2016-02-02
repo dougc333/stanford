@@ -1,0 +1,66 @@
+Doug Chang dougc@stanford.edu
+Hong Lam   honglam@stanford.edu
+
+
+CS143 README
+-----------------------------------------------------------------
+
+dpp.l implementation:
+  This preprocessor functionality consists of:
+  1) Removing all well formed comments and replacing them with \n.
+  2) detecting unterminated comments, remove and replace with \n. Report
+    an error for all unterminated comments.
+  3) comments embedded in string literals are not misidentified as comments
+  4) we added EOF back to stdout after searching for unterminated comments
+
+  5) entering WELL DEFINED define macro substitutions into a hashtable. A WELL    DEFINED macro is defined as #define NAME replacement. Our implementation assumes there is nothing in front of the #define.
+      
+     WELL DEFINED is described as:
+     - starting with #define. 
+     - one space between #define and the NAME (must be in caps)          
+     - one space between the NAME and replacement
+     - the replacement can be a string with macros; this is not processed
+       as another macro or comment. This is just echoed without processing.
+     - the replacement can be entirely empty, or any character up to the new line including spaces at the beginning.
+     - macros in string literals are treated as being part of the string.This is part of the rule: \"[^\n^"]*\"
+     - string literals are echoed unchanged
+     - marcos with arguments are not supported   
+     - a macro name can be redefined with the new replacement We implemented this with the ChangeValue function and the rule:#[A-Z]+ .
+ 
+  5) replace #NAME with a previously defined macro.
+  
+  6) removing malformed macros. Reporting an invalid directive message and replacing with \n
+     MALFORMED MACROS are described as:
+     - a noncapital letter immediately following a #
+     
+  7) output to stdout the file with malformed and wellformed comments removed, malformed #define definition removed, and with the #define macro substitutions
+     completed
+     - a macro definition is substituted only when the identifier has a #
+       and followd by a valid macro. 
+
+
+HashTable Implementation:
+-----------------------------------------------------------------------
+1) We took the hash table from the cs106b Eric Roberts book and modified it
+to work in this environment.
+
+Dppmain.cc implementation:
+-----------------------------------------------------------------------
+1) we removed the putc/getc loop and replaced this with the ECHO command in dpp.l. We also modified dppmain.cc to follow the main.cc usage of yylex().
+
+
+Scanner Implementation:
+------------------------------------------------------------------------------
+In the scanner implementation we:
+
+1) defined 10.E0x99 to be defined only when the number following the E is a base 10 integer. The hex value is not converted to an int when it is placed in an exponent.
+
+2)We defined 10.0E10.0 to be a valid double. We defined 10.0E10 to be a valid double.
+
+3) We defined 10.0E to be an invalid double.
+
+4) we passed the /samples tests.
+
+
+
+

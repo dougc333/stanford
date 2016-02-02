@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+10
+?x (Tet(x) & Large(x))?x ?y (Larger(x, y) & ~Large(x)) ~@x (Small(x) | Medium(x))@x @y ((Dodec(x) & Dodec(y)) $ x = y) ~@y (Cube(y) $ Small(y))@x (Large(x) % Tet(x))@x @y (Larger(x, y) $ BackOf(x, y))?x ?y (Cube(x) & Tet(y) & LeftOf(x, y) & Smaller(x, y))?x ?y ((Small(x) & Large(y) & @z (Between(z, x, y) % Cube(z))))@x (Small(x) % @y (y # x $ LeftOf(x, y)))

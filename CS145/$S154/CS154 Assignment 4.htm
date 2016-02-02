@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0047)http://www-db.stanford.edu/~ullman/hmu/hw4.html -->
+<HTML><HEAD><TITLE>CS154 Assignment 4</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc lang=EN>
+<H1 align=center>CS154 Assignment #4</H1>
+<H3 align=center>Due Monday, February 14, 2000, 3:15PM</H3>
+<OL>
+  <LI>(<I>50 pts.</I>) Here is an ambiguous CFG: 
+  <P><PRE>     S -&gt; 0S | 1S | S0 | epsilon
+</PRE>(The epsilon is intended to represent the empty string, not a sequence 
+  of 7 characters). 
+  <P>
+  <DL compact>
+    <DT>(a)
+    <DD>Describe informally the language of this grammar. 
+    <P></P>
+    <DT>(b)
+    <DD>Give an example of a terminal string that has two leftmost derivations. 
+    Show those leftmost derivations. 
+    <P></P>
+    <DT>(c)
+    <DD>Convert this grammar to a PDA that accepts by empty stack. You may 
+    either specify the PDA formally, as a 7-tuple with delta given by a list of 
+    rules, or as a transition diagram. In that latter case, we'll assume Z_0 is 
+    the start symbol. 
+    <P></P>
+    <DT>(d)
+    <DD>Modify your answer to (c) so acceptance is by final state. 
+    <P></P>
+    <DT>(e)
+    <DD>Give an unambiguous grammar for the same language. </DD></DL>
+  <P></P>
+  <LI>(<I>25 pts.</I>) 
+  <DL compact>
+    <DT>(a)
+    <DD>Design a PDA that accepts the set of strings of 0's and 1's that have an 
+    equal number of 0's and 1's (in any order, e.g., 1001, epsilon, or 
+    011011100010). Your PDA should accept by empty stack, and we suggest that it 
+    is important for part (b) that it has only one state. 
+    <P></P>
+    <DT>(b)
+    <DD>Convert your PDA from (a) to a CFG that defines the same language. 
+  </DD></DL>
+  <P></P>
+  <LI>(<I>25 pts.</I>) Here is a grammar; it generates the language with blocks 
+  of 0's followed by blocks of at least as many 1's, like the grammar we used in 
+  the class notes. <PRE>     S -&gt; AAS | A | epsilon
+     A -&gt; 0A1 | 0B1
+     B -&gt; B1 | epsilon
+</PRE>Convert the grammar to Chomsky normal form. Show the grammars that 
+  result from the intermediate steps --- elimination of useless symbols, 
+  elimination of epsilon-productions, elimination of unit productions. Note that 
+  the resulting grammar will not generate the empty string as the original 
+  grammar does. </LI></OL></BODY></HTML>

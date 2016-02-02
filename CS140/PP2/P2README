@@ -1,0 +1,107 @@
+
+Elias Dagher 	dagher@leland
+Lionel Gresse   gresse@leland
+Doug Chang      dougc@leland
+CS140, Summer 1999
+Homework 2
+
+                                   -README-
+
+Program Notes:
+-------------
+	
+All of our changes can be identified through #ifdef PP2_1, PP2_2, and PP2_3 in the included source files.
+
+
+
+----------------------------------------------------------------------------------
+General Stuff
+----------------------------------------------------------------------------------
+
+
+
+
+Problem 1: Implementing System Calls
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+  1. Support for Processes 
+      The goal was to support processes from the implementation of threads from assignment 1. From Silbersatz, a process requires the following elements: 
+	- a process state dfined as New, Running, Waiting, Ready, and terminated
+	- A set of CPU registers
+	- A scheduler to schedule processes
+	- Memory Managment 
+	- Accounting Information
+	- I/O status information
+      In our design, we had a choice of either designing a separate process class or using the existing threads class. The existing multithreading implementation provides access to CPU registers through thread save and restore state, a scheduler to schedule threads with priorities, and accounting information through the simulated machine and mipssim modules. We added Memory management functionality to the existing code base. 
+  2. Architecture of Data Structures
+      The Thread class was modified to support a process with the assumption multithreading was not required. The data structures added to the thread class included an object represeting the virtual address space for a process and a list of open files for the process. We used the join solution from assignment1. 
+  3.File Operations
+      File Operations were defined using the provided slasses filesys and openfile. The current impelementation for filesys_stub looks for an existing file name if a file is to be created. If the filename string does not exist in the UNIX directory, the file name is created. A file descriptor is created, but not saved. When a file is open, an OpenFile object is created and added to the fileTable in each thread. The OpenFile object contains a integer for the FileID of the open file, and an offset for the file. 
+  4.File Descriptors
+      File descriptors are integers. 0 and 1 are reserved for console input and output.	
+  5.Protection of Resources
+      Protection for the OS was designed into the implementation as follows:
+	- on a file operation, check the current thread owns the open fileID in the file table. This prevents any thread or process from accessing any open file. The read, and write operations in the kernel check the file table in each thread to make sure the thread has already opened the file first. The create routine would assign protection levels to the file as it is created. The open routine would check file permissions before allowing the file descriptor to be added to the filetable in the current thread.
+  6.Kernel to/from User communication
+       We implemented fixed buffer sizes.
+  7.Preventing the OS from crashing
+       - If there is not enough memory left, we do not load the program. The exception.cc routine dumps any page fault exceptions.
+       - We check for null filenames by testing for the strlen of a filename. The routines SC_Create, and SC_Open.
+       - We check for valid fileIds in Read and Write. We are NOT impelenting stderr. We check for a valid file id of >2 for closing a file. 
+       - We test for Reading and writing to a console device in SC_Read and SC_Write.
+       - modify addrspace.cc to not generate an assertion when the required number of pages is less than the currently available number of pages.
+       - ignore page fault errors, change exception.cc to dump page fault errors.	
+       		 				 
+       	
+     
+     The following functional descriptions are from Kernighan and Ritchie 2nd edition, and the syscall.h descriptions in the code. 
+  
+  7. SC_Exec: The goal was to execute a given executable. The design decisions were to implement checking to see if the executable exists. If the executable file exists, a new thread is instantiated, the code is loaded into memory, and a fork is called to execute the program. 
+	
+  8. SC_Join: The goal was to allow a process to be joined to another. Error testing was added to prevent teh routine from hanging if a process did not exist when join is called, the process did not exist in the child therad queue for the parent process, and for recursive joins.
+
+  9. SC_Create: Create a file, and return a bool TRUE or FALSE if successful. If the file exists, return a TRUE. Error checking was added to prevent the routine from hanging when no file name is given. 
+
+  10. SC_Open: If the file does not exist, return a -1. Else, return a file ID and append it to the thread that created the file. Many threads can open the same file. CHECK TO SEE IF THIS is added to current thread or to the thread that called it.A thread can get switched out, so it is important to reference the ASID of the request in some cases. 
+
+  11. SC_Close: Check to see the file is first open in the appropiate list of the thread. Assume this is currentThread. If the fileID is in the file table for the thread, remove the fileID from the file table. 
+
+  12. SC_Read: CHeck to see if the fileID is 0 or 1, indicating a console device. If not a console device, Read from a file vs. reading a char at a time from consoleInput.
+
+  13. SC_Write: Check to see if the file ID is 0 or 1 indicating a console device output. If this is a file, check to see the thread has this fileid in the filetable.
+
+  14. SC_Exit: Implemented as cleanup for processes that are implemented as threads with file tables and address space objects. 
+    
+----------------------------------------------------------------------------------
+Problem 2:MultiProgramming
+----------------------------------------------------------------------------------
+A. Major Design Decisions
+   1. The page table is a static allocation where we load as many pages as necessary for the program to run. We look in the segments from the noff header and add an extra size for the stack. The intent of this section is to have the shell running and allow multiple programs to run. When the programs are finished running, the shell prompt returns. 
+   
+   2. Syncronization is addded to prevent another thread from interfering in the creation and updating of a page table. 
+   
+   3. Translation and buffer copy functions are handled inside the memory manager class. These functions are used to pass string names for files and executables from user <-> kernal space. One character or bytes are copied at a time. When a buffer is copied across a paga boundary, the copy is first started on a page with a counter keeping track of how many bytes are copied. As we pass the page boundary, a new page count is started until the copy size is reached.
+
+   4. Locks are added to the kernel buffer to prevent a process writing to a buffer and another process from reading from the same buffer with the potential for incorrect data. Locks were also added to the standard input and devices. The standard input and output devices are similar to a file in containing a fileId, but the devices do not have a file offset. Thus, we add locks to the reading of the buffers in the SC_Read and SC_Write routines as they are reading and writing from the console. 
+
+   5. ASSUMPTION: We are NOT IMPLEMENTING LOCKS ON THE FILES as we think locks belong as part of the file system, which is part of a furute assingment. We do recognize the potential problem of a program reading from a file while it is being written to by another file. This problem can be solved by locks on open files in the kernel, but we are assuming this is part of a future assingment. 
+ 
+   6. On a program load, we check to make sure there is enough space in physical memory to load the program with a 1k stack size. The memory is tracked with the bitmap class. The 
+
+
+    
+----------------------------------------------------------------------------------
+Problem 3:Argument Passing
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+  1. Pushing an argument on the stack, and storing the arguments into a data structure. The datastructure used was a strtok. The advantages of this approach over a list is less code for list management. The current state of the stack is saved, the arguments are read into a data structure till a NULL is reached. 
+   
+  
+
+
+
+
+
+

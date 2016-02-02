@@ -1,0 +1,281 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - DATA WAREHOUSING AND DATA MINING
+=========================================================================
+
+
+Two types of database activity:
+
+(1) OLTP: On-Line Transaction Processing
+
+    - Short transactions, both queries and updates
+      (e.g., update account balance, enroll in course)
+    - Queries are simple
+      (e.g., find account balance, find grade in course)
+    - Updates are frequent
+      (e.g., concert tickets, seat reservations, shopping carts)
+
+(2) OLAP: On-Line Analytical Processing
+
+    - Long transactions, usually complex queries
+      (e.g., all statistics about all sales, grouped by dept and month)
+    - "Data mining" operations
+    - Infrequent updates
+
+Data Warehousing
+----------------
+
+Bring data from "operational" (OLTP) sources into a single warehouse
+to do analysis and mining (OLAP).
+
+<show figure here>
+
+
+
+
+
+
+
+
+
+
+
+
+** Extremely popular in large corporations today.  Many have spent
+   millions in data warehousing projects.
+
+
+Ex: Wal-Mart
+
+All distributor, store, and sales information copied into warehouse.
+Used to make store layout and supplier decisions.  Many terabytes of
+data.
+
+
+Ex: Victoria's Secret
+
+All sales information gathered in warehouse.  Used to supply
+appropriate merchandise (current and future) to appropriate outlets.
+Warehouse paid off in 1-2 years.
+
+
+Technical challenges:
+
+(1) Extracting data from operational sources in useful format.
+    <add to figure>
+
+(2) Transforming, "cleansing" ("scrubbing"), and possibly summarizing
+    operational data.
+    <add to figure>
+
+(3) Integrating data from multiple sources.
+    <add to figure>
+
+(4) Keeping warehouse up-to-date as source data changes.
+
+
+Data at Warehouse
+-----------------
+
+Most warehouse applications are of similar character with two kinds of
+data:
+
+  "Fact" data: sales transactions, flight arrivals, course enrollments
+  -> Updated frequently, often append-only, very large
+
+  "Dimension" data: store items, store customers, students, courses
+  -> Updated infrequently, not as large
+
+
+Two ways to model and query this kind of data at a warehouse:
+
+ROLAP (Relational OLAP):
+  Relational database system tuned for "star schemas"
+
+MOLAP (Multidimensional OLAP):
+  New data model and interface
+
+
+ROLAP: Relational OLAP
+-----
+
+Star Schema: One fact table referencing several dimension tables
+
+Ex:  Store(StoreID, city, state)
+     Item(ItemID, name, description)
+     Customer(CustID, name, address)
+     Sales(StoreID, ItemID, CustID, qty, price)  // fact table
+
+<picture>
+
+
+
+
+
+
+
+
+
+
+
+
+Complete "star join":
+
+SELECT *
+FROM   Sales, Store, Item, Customer
+WHERE  Sales.StoreID = Store.StoreID
+AND    Sales.ItemID = Item.ItemID
+AND    Sales.CustID = Customer.CustID;
+
+
+Typical OLAP query will:
+  (1) Do all or part of star join
+  (2) Filter interesting tuples based on fact and/or dimension data
+  (3) Group by one or more dimensions
+  (4) Aggregate the result
+
+Ex: Find the sum of all sales in California with item price > 100,
+    grouped by store and customer
+
+
+
+
+
+
+
+
+
+
+
+
+Performance:
+
+- Queries can be extremely slow
+- New query processing techniques
+- Systems make extensive use of materialized views
+
+Q: Why are materialized views appropriate in this setting?
+
+A:
+
+
+
+
+
+MOLAP: Multidimensional OLAP
+-----
+
+Based on "data cube" or "multidimensional database"
+
+Idea: Dimension data forms axes of "cube"
+      Fact data in cells
+      Aggregated data on edges
+
+-> N-dimensional version of spreadsheet
+
+<picture>
+
+
+
+
+
+
+
+
+
+
+
+
+Queries can "slice and dice", "drill down and roll up"
+
+
+SLICE: Select on one dimension attribute, e.g., one store
+
+DICE: Same thing only sideways
+
+
+DRILL DOWN ("de-aggregate"):
+
+  Examining summary data, break it out by dimension attribute
+
+  Ex: Looking at sum of all California sales, break it out by
+      store
+
+
+ROLL UP ("aggregate"):
+
+  Examining data, summarize along some dimension
+
+  Ex: Looking at data grouped by item and customer, aggregate so
+      only grouped by customer
+  
+
+Performance:
+
+- Data cube can be huge
+- Also can be sparse
+- Can compute in advance, compute on demand, or some combination
+
+** MOLAP can be user illusion over ROLAP
+
+
+Data Mining
+-----------
+
+** Search for patterns in large databases
+
+- Often performed over data warehouses
+- Less structured and less ad-hoc than OLAP queries
+
+Classic application: "Market basket" data
+
+Purchase(salesID, item)
+
+...
+(3, bread)
+(3, milk)
+(3, eggs)
+(3, beer)
+(4, beer)
+(4, chips)
+....
+
+Want to find "association rules"
+
+  {L1, L2, ..., Ln} -> {R1, R2, ..., Rm}
+
+"If a customer bought all the items in set {L1, L2, ..., Ln}, he is
+very likely to also have bought all the items in set {R1, R2, ..., Rm}.
+
+Ex: {bread, milk} -> {eggs}
+    {diapers}     -> {beer}
+
+Q: Can we write a SQL query to find association rules?
+
+
+
+
+Q: What can we write it in?
+
+
+
+
+Two concepts for association rules:
+
+  X -> Y
+
+SUPPORT: X must appear frequently
+         Support = #sales containing X / total #sales
+
+CONFIDENCE: probability that Y appears if X does
+            Confidence = #sales containing X and Y / #sales containing X
+
+
+Goals of data mining:
+
+- Quickly find association rules over extremely large data sets
+  (e.g., all Wal-Mart sales for a year).
+
+- Allow user to tune support and confidence.
+
+- Also other types of rules and patterns.

@@ -1,0 +1,45 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+               The 3C5X9 EtherLink 10 ISA NIC Family
+                         System Resources
+
+
+Listed below are commonly used peripherals and their option settings.  If
+any of these peripherals are installed in your computer, check which
+resources they are using and make sure that the software options on the
+EtherLink 10 ISA NIC are not set to use the same resources.  Other
+peripherals not mentioned in these lists could also cause conflicts.
+
+
+I/O Base Address    Device
+----------------    ------
+
+    200-20F          Game I/O adapter
+    230-23F          Bus mouse
+    270-27F          LPT3: third parallel port
+    2F0-2FF          COM2: second serial port
+    320-32F          Fixed disk controller
+    370-37F          LPT2: second parallel port
+    380-38F          Monochrome display adapter
+    3B0-3BF          LPT1: first parallel port
+    3C0-3CF          EGA/VGA display adapter
+    3D0-3DF          CGA display adapter (also EGA/VGA in color video modes)
+    3F0-3FF          Floppy disk controller, COM1: first serial port
+
+
+Interrupt Level     Device
+---------------     ------
+       3             COM2
+       4             COM1
+       5             LPT2
+       6             Floppy disk controller
+       7             LPT1
+       8             Real-time clock
+       9             EGA/VGA display adapter
+      11             SCSI adapter
+      12             Bus mouse
+      13             Math coprocessor
+      14             IDE Hard disk controller
+
+
+               (%VER SYSRESRC.TXT - System Resources v6.1a)

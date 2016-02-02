@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+9
+@x Cube(x) $ Small(x)?a Cube(a)?v Cube(v) & Medium(v) & Larger(v, c)?u (Small(u) & Cube(u)@w (Tet(w) $ ?z Dodec(z) & Larger(w, z))@x @y @z LeftOf(x, y) & LeftOf(y, z) $ LeftOf(x, z)@x @y (Larger(a, b) $ Cube(a) & Dodec(b))@x @y  Cube(x) & Cube(y) $ LeftOf(x, y)@x (Cube(x) $ ?x Between(x, x, y))

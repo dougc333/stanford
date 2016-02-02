@@ -1,0 +1,20 @@
+1st: If a language is regular it is in SPACE(k)
+  Given a language is regular, we know there exists a DFA that accepts the
+language.  As a DFA is basically a TM that only takes an input string and
+does not have a work space we see that it is in SPACE(0).  (For calculating
+space complexities we can consider the states of a TM to be "free" and only
+the work tape count towards the space complexity.  Hence because a TM that's
+actually a DFA has no work tape, or a work tape of 0, it is in SPACE(0) thus
+in SPACE(k) where k is a constant.)
+ 
+2nd: If a language is in SPACE(k) it is regular.
+  Given a language with an alphabet size of 'x' and an input string of
+length 'n' the number of different configurations that can exist on the work
+tape is 'xn'.  If we create in the TM a state for each of the 'xn'
+configurations we can effectively eliminate the need for the work tape,
+resulting in a TM of SPACE(0) or SPACE(k).  We now observe that a 2-way DFA
+is the equivalent of such converted TMs as described above, as a 2-way DFA
+has the ability to move the head both to the right and the left, and no
+longer has to deal with a work tape. A 2-way DFA is a special case of a
+2-way NFA, so it is given that it accepts a regular language, proving our
+second point.

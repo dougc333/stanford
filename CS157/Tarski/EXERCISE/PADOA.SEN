@@ -1,0 +1,8 @@
+4.0 
+WNDS
+Sent
+4
+@x @y ((~RightOf(x, y) & ~RightOf(y, x)) $ x = y)@x @y ((Cube(x) & Cube(y)) $ 
+            ~(LeftOf(x, y) | LeftOf(y, x)))?x (Tet(x) | Dodec(x)) & 
+          @x ((Tet(x) | Dodec(x))$ 
+                ?y (BackOf(x, y)  & @z (BackOf(x, z) $ z = y)))?x (Cube(x) & Small(x) & ?y ?z Between(x, y, z))

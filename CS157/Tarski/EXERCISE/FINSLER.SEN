@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+12
+?x (Cube(b) & Small(b))?x (Cube(b) & Small(b) & x = b)?x (Cube(b) & Small(b) & x = x)@x ?y (Cube(b) & Small(b))?x ?y Cube(y)@x ?y (Cube(x) & ~Larger(x, x))?y (Cube(y) & @x (BackOf(x, y) $ Dodec(x)))?y (Tet(y) & @y (Cube(y) $ Small(y)))@x @y @z (Between(x, y, a) $ x = b )?x (Tet(x) & ?y (y = x & Small(y)))?x (Tet(x) & ?y (y = x & ?x (Dodec(x) & LeftOf(y, x))))@y ?x (Tet(x) & ?y (y = x & ?x (Dodec(x) & LeftOf(y, x))))

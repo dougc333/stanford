@@ -1,0 +1,407 @@
+Testfile for Problem 3
+
+
+CS140
+dougc@leland.stanford.edu
+gresse@leland.stanford.edu
+dagher@leland.stanford.edu
+
+
+The testing andproof of our ptogram functionality are divided into 3
+parts.
+
+1) ROBUSTNESS TESTING: this shows the testing for the error conditons that
+could occur at runtime. This includes invalid OpenFileId, nonexistent
+files and addresses, and are described below. We chose an approach that
+first started with the simple corner cases like invalid file names and
+built on top this to test the permuations of error conditions.
+
+2) FUNCTIONAL TESTING: This is a demonstration of the required
+functionality as described in the assingment. This includes a
+demonstration of sort, wc -l. The intent of this section is to show
+functionality of the various code paths in the project. We include
+demonstrations of cat, and cp from the last assingment for completeness.
+
+3) PERFORMANCE TESTING
+
+
+
+ROBUSTNESS TESTING:
+
+SC_Length:
+	- Test with negative OpenfileId
+Code for test with negative OpenfileId
+  prints("\nTest with negative OpenfileId.\n");		
+  fid = -2;
+  length1 = Length(fid);
+  printd(length1);
+  prints("\n");
+
+	- Test on the stdin and stdout
+Code for test on the stdin and stdout
+  prints("\nTest on the stdin and stdout.\n");
+  prints("\nStdin:\n");		
+  fid = 0;
+  length1 = Length(fid);
+  printd(length1);
+  prints("\n");
+  prints("\nStdout:\n");	
+  fid = 1;
+  length1 = Length(fid);
+  printd(length1);
+  prints("\n");
+
+	- Test with non-existant OpenFileId
+Code for test with non-existant OpenFileId
+  prints("\nTest with non-existant OpenFileId.\n");
+  fid = 3;
+  length1 = Length(fid);
+  printd(length1);
+  prints("\n");
+
+	- Test in normal usage
+Code for test in normal usage:
+  prints("\nTest in normal usage.\n");
+  fid = Open("../test/smallfile");
+  length1 = Length(fid);
+  printd(length1);
+  prints("\n");
+  Close(fid);
+
+Output of our test program:
+--../test/SUN/wc1
+
+Testing SCLength
+
+Test with negative OpenfileId.
+0
+
+Test on the stdin and stdout.
+
+Stdin:
+-1
+
+Stdout:
+0
+
+Test with non-existant OpenFileId.
+0
+
+Test in normal usage.
+16
+
+--
+
+SC_Mmap:
+
+-The test on the openfile Id are made with a valid address:
+  addr = (char *) 0x00004000;
+
+	- Test with negative OpenfileId
+Code for test with negative OpenfileId
+  prints("\nTest with negative OpenfileId.\n");		
+  fid = -2;
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  printd(sid);
+  prints("\n");
+
+	- Test on the stdin and stdout
+Code for test on the stdin and stdout
+  prints("\nTest on the stdin and stdout.\n");
+  prints("\nStdin:\n");		
+  fid = 0;
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  printd(sid);
+  prints("\n");
+  prints("\nStdout:\n");	
+  fid = 1;
+  sid  = Mmap(fid, addr, length1);
+  printd(sid);
+  printd(length1);
+  prints("\n");
+
+	- Test with non-existant OpenFileId
+Code for test with non-existant OpenFileId
+  prints("\nTest with non-existant OpenFileId.\n");
+  fid = 3;
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  printd(sid);
+  prints("\n");
+  Close(fid);
+
+	- Test in normal usage
+Code for test in normal usage:
+  prints("\nTest in normal usage.\n");
+  fid = Open("../test/smallfile");
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  Write(addr, 3, StandardOutput);
+  prints("\n");
+  printd(sid);
+  prints("\n");
+  Close(fid);
+
+	- Test with an invalid address
+Code for test with an invalid address
+  addr = (char *) -0xfffffff0;
+  prints("\nTest with a negative address.\n");
+  fid = Open("../test/smallfile");
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  Write(addr, 3, StandardOutput);
+  prints("\n");
+  printd(sid);
+  prints("\n");
+  Close(fid);
+
+	- Test with out of space address
+Code for test out of space address
+  addr = (char *) 0xffffffff;
+  prints("\nTest with an out of space address.\n");
+  fid = Open("../test/smallfile");
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  Write(addr, 3, StandardOutput);
+  prints("\n");
+  printd(sid);
+  prints("\n");
+  Close(fid);
+
+--../test/SUN/wc1
+
+Testing SCMmap
+
+Test with negative OpenfileId.
+Invalid OpenFileID, file not opened
+-1
+
+Test on the stdin and stdout.
+
+Stdin:
+Error can't map console input.Invalid OpenFileID, file not opened
+-1
+
+Stdout:
+Invalid OpenFileID, file not opened
+-1-1
+
+Test with non-existant OpenFileId.
+Invalid OpenFileID, file not opened
+-1
+
+Test in normal usage.
+slj
+0
+
+Test with a negative address.
+è
+-1
+
+Test with an out of space address.
+
+Process [../test/SUN/wc1] has segmenation faulted trying to get VA=4294967295
+--
+
+
+Testing SC_Unmap: The goal here is to show the swapfile does NOT grow as
+we repeatedly write to a file on an unmap.
+ 
+	-test multiple unmaps to the same file
+	-test illegal conditions
+
+
+	-test multiple unmaps to the same file:
+
+This is a directory listing of smallfile at 16 bytes:
+
+
+saga19:~/cs140/pp3/test> ls -ll smallfile
+-rw-------   1 gresse   37             16 Aug 12 13:24 smallfile
+saga19:~/cs140/pp3/test> 
+
+
+
+ prints("\nTesting SCUnMmap\n");
+
+  prints("\nrunning write once\n");
+  fid = Open("../test/smallfile");
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  Write(addr, 3, StandardOutput);
+  Munmap(sid);
+  prints("\n");
+  printd(sid);
+  prints("\n");
+  Close(fid);
+
+  prints("\nrunning write again\n");
+  fid = Open("../test/smallfile");
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  Write(addr, 3, StandardOutput);
+  Munmap(sid);
+  prints("\n");
+  printd(sid);
+  prints("\n");
+  Close(fid);
+
+
+Output:
+--../test/SUN/wc1 
+
+Testing SCUnMmap and write.
+
+running write once
+sljSegmentID is found in segmentID table
+
+StartPage: 4
+numSegPages: 1
+sspn: 4
+
+0
+
+running write again
+sljOpenfile Id is: 34SegmentID is found in segmentID table
+
+StartPage: 4
+numSegPages: 1
+sspn: 5
+
+1
+--
+
+
+
+
+	-testing illegal conditions
+	-unmapping illegal segmentID numbers would include negative and
+nonexistent segmentID numbers.
+
+
+  prints("\nrunning illegal Unmaps again\n");
+  fid = Open("../test/smallfile");
+  length1 = Length(fid);
+  sid  = Mmap(fid, addr, length1);
+  Write(addr, 3, StandardOutput);
+  Munmap(sid-10);
+  prints("\n");
+  printd(sid);
+  prints("\n");
+  Close(fid);
+
+
+Output:
+
+--../test/SUN/wc1
+
+running illegal Unmaps again
+
+0
+sljSegmentID is not found in segmentID table
+
+0
+--
+
+
+
+
+FUNCTIONAL TESTING:
+
+Demonstration of sort.c :
+ 
+--../test/SUN/sort 
+Initializing the array
+63 62 61 60 59 58 57 56 55 54 53 52 51 50 49 48 47 46 45 44 43 42 41 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 0 
+Sorting
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 
+Exiting.
+--
+
+Demonstration of Join: 
+
+--../test/SUN/testjoinA
+
+A is starting B.
+
+A is joining B.
+
+B is starting C.
+C process ID = 15
+
+B is joining C.
+
+C is starting.
+
+C is running.
+
+C is exiting.
+
+C has exited with exit code:
+2
+B has exited with exit code:
+0--
+
+Demonstration of filetest1: From the previous assingment the permuations
+of illegal filenames still work. This is important in proving the
+UsertoKernel and KernelToUser functions still work.
+
+--../test/SUN/filetest1
+Error Creating File: No file name.
+Error: Cannot close standard input/output device.
+--
+
+
+Demonstration of echo:
+
+--../test/SUN/echo hello
+hello--
+
+
+Demonstration of wc -l:
+
+This is the unix version:
+
+
+drwx------   5 gresse   37           2048 Aug 12 14:26 .
+drwx------  11 gresse   37           2048 Aug 12 15:04 ..
+drwx------   2 gresse   37           2048 Aug 12 13:13 CVS
+-rwxr-xr-x   1 gresse   37            145 Aug  4 08:45 Makefile
+-rwxr-xr-x   1 gresse   37           1066 Aug  4 08:45 Makefile.ALL
+drwx------   3 gresse   37           2048 Aug 12 13:13 SIMOS
+drwx------   3 gresse   37           2048 Aug 12 13:16 SUN
+-rw-------   1 gresse   37              0 Aug 12 15:08 SwapFile
+-rw-------   1 gresse   37              5 Aug 12 14:26 dddd
+-rwxr-xr-x   1 gresse   37           1741 Aug  4 08:45 init.simos
+saga19:~/cs140/pp3/vm> wc -l Makefile
+     15 Makefile
+saga19:~/cs140/pp3/vm> 
+
+
+This is the verification from the nachos shell of wc:
+
+--../test/SUN/wc -l Makefile
+15 Makefile
+--
+
+NB: we included all the flags in our wc implementation.
+--../test/SUN/wc Makefile.ALL
+26 121 1066 Makefile.ALL
+--../test/SUN/wc -l Makefile.ALL
+26 Makefile.ALL
+--../test/SUN/wc -c Makefile.ALL
+1066 Makefile.ALL
+--../test/SUN/wc -w Makefile.ALL
+121 Makefile.ALL
+--
+
+
+PERFORMANCE TESTING:
+	Refer to README Problem2 part E for result on LRU versus RANDOM
+page replacement. Note, in the code RANDOM can be turned on with a #define in
+/userprog/memman.h
+
+
+

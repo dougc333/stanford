@@ -1,0 +1,6 @@
+4.0 
+WNDS
+Sent
+20
+Cube(c) & Cube(d) & FrontOf(c, d)Cube(c) $ Tet(a)Cube(d) & Cube(e) & ~Larger(d, e)?x (Cube(x) & x # d & x # e)?x (Tet(x) & Between(x, c, d))?x ?y (Tet(x) & Tet(y) & Smaller(x, y) & LeftOf(x, y))?x ?y (Tet(x) & Tet(y) & ~FrontOf(x, y) & ~BackOf(x, y))?x ?y (Between(a, x, y) & Larger(a, x) & Smaller(a, y))?x (Cube(x) & ((x # c & x # d) | Large(x)))?x ?y ?z (Cube(x) & Dodec(y) & Dodec(z) & Between(y, x, z) & 
+Larger(x, z) & LeftOf(x, z))@x ~BackOf(x, d)@x ((Cube(x) & Large(x)) $ x = e)@x ~LeftOf(x, d)@x (x # e $ (FrontOf(x, e) | RightOf(x, e)))@x ((Tet(x) & Large(x)) % x = b)@x ((LeftOf(x, a) & ~Cube(x)) $ (Tet(x) & Small(x)))@x ((x # a & x # b  & x # d) $ Small(x))@x @y ((Medium(x) & Medium(y)) $ x = y)@x @y ((Tet(x) & Tet(y) & x # y) $ (x = a | y = a))@x (Between(x, c, d) $ (Tet(x) & Medium(x)))

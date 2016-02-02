@@ -1,0 +1,71 @@
+Homework 5 
+
+Question 1 Solution
+
+First part: 
+
+Let K be the set of halting algorithms (for recognizing languages) -
+represented as strings - that accept themselves. Show that K is an
+undecidable language.
+
+Solution: 
+
+The proof is by contradiction. We will assume that K is decidable, and
+attempt to derive a contradiction from this assumption. If K is
+decidable, then so is its complement, K*, because the decidable
+languages are closed under complementation. K* is the set of all
+strings which are not halting algorithms or, if they are algorithms,
+do not accept themselves expressed as a string. Since K* is decidable,
+then there exists some halting algorithm A which is a decider for
+K*. We can define A as follows:
+
+A(w) =  accept  if w is not a halting algorithm, or does not accept w
+        reject  if w is a halting algorithm and accepts w
+          
+Now it must be possible to run the algorithm A on itself represented
+as a string. In this case the result would be
+
+A(<A>) =  accept  if A is not a halting algorithm, or does not accept <A>
+          reject  if A is a halting algorithm and accepts <A>
+         
+If A rejects, clearly there is a contradiction, since A will do this
+only if it accepts A. If A accepts, we can also derive a
+contradiction. It will accept only if either A is not a halting
+algorithm, or A does not accept <A>. Clearly the former is a
+contradiction, since A is defined as a halting algorithm above. The
+latter is also a contradiction, since clearly A accepts <A>. Since we
+have reached a contradiction both ways, our initial assumption that K
+was decidable must be false. Therefore K must be undecidable.
+
+Second part: 
+
+Prove that the language H of all halting algorithms is undecidable,
+i.e. it impossible to decide whether a given algorithm halts on all
+inputs.
+
+Solution:
+
+This proof uses a reduction. Assume for the purpose of contradiction
+that H is decidable.  If H is decidable, then we can show that it is
+possible to reduce the problem of deciding the language K, above, to
+the problem of deciding the language H. We could do this as
+follows. Because H is decidable, then there must exist an algorithm,
+B, which decides H. B is defined as follows:
+
+B(<M>) =  accept  if M is halting on all inputs
+          reject  if M is not halting on all inputs
+
+Now it is possible to construct a new algorithm, C, which uses the
+algorithm B to decide the language K. C operates as follows. It reads
+the input <M>, and passes it to the algorithm B. If B rejects, then M
+is not halting, and thus C also rejects. If B accepts, then we know
+that it will halt on any input. Then C simulates M, and runs the
+algorithm M on the string <M>. When M halts, as it is guaranteed to
+do, C does the following: if it is in an accept state, then C accepts,
+and if it is in a reject state, then C also rejects. Therefore C
+decides the language K.
+
+However, we proved previously above that the language K was
+undecidable. Thus we have reached a contradiction, and our original
+assumption that H is decidable must be false. Therefore H must be
+undecidable.

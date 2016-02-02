@@ -1,0 +1,214 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - INTRODUCTORY MATERIAL
+=========================================================================
+
+** Note: This lecture material complements the material in Chapter 1
+of the textbook.  Please read chapter 1.
+
+
+Database Management System (DBMS): System for providing EFFICIENT,
+CONVENIENT, and SAFE MULTI-USER storage of and access to MASSIVE
+amounts of PERSISTENT data
+
+Most familiar use: many Web sites rely heavily on DBMS's.
+
+Examples: <solicit from class>
+
+
+
+
+
+
+Non-Web examples of DBMS's: <solicit from class>
+
+
+
+
+
+
+Example: Banking system
+-----------------------
+
+Data = information on accounts, customers, balances, current interest
+rates, transaction histories, etc.
+
+
+MASSIVE: many gigabytes at a minimum for big banks, more if keep
+history of all transactions, even more if keep images of checks
+-> Far too big for memory
+
+
+PERSISTENT: data outlives programs that operate on it
+
+
+MULTI-USER: many people/programs accessing same database, or even same
+data, simultaneously
+-> Need careful controls
+
+Jane @ ATM1: withdraw $100 from account #55
+  get balance from database;
+  if balance > 100 then
+      balance := balance - 100;
+      dispense cash;
+      put new balance into database;
+
+John @ ATM2: withdraw $50 from account #55
+  get balance from database;
+  if balance > 50 then
+      balance := balance - 50;
+      dispense cash;
+      put new balance into database;
+
+Initial balance = 400
+Final balance = ??
+
+
+Appears similar to concurrent programming problems (synchronization,
+semaphores, etc.)
+BUT: data not main-memory variables
+
+Appears similar to file system concurrent access
+BUT: want to control at smaller granularity
+
+Also database may be distributed, replicated, etc.
+
+
+SAFE: (1) From system failures
+      (2) From malicious users
+
+
+CONVENIENT: Simple commands to - debit account, get balance, write
+statement, transfer funds, etc.
+-> Also unpredicted queries should be easy
+
+
+EFFICIENT: Don't search all files in order to - get balance of one
+account, get all accounts with low balances, get large transactions,
+etc.
+
+Massive data -> DBMS's carefully tuned for performance
+
+
+A DBMS is a software system
+---------------------------
+
+Buy, install, set up for particular application.  Available for PC's,
+workstations, mainframes, supercomputers
+
+Basic software infrastructure:
+<figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Major DBMS vendors/products
+---------------------------
+
+Oracle
+IBM (DB2)
+Microsoft (SQL Server, Access)
+Informix
+Sybase
+
+-> All are "relational" (or "object-relational") database systems
+
+
+Terminology and basic ideas
+---------------------------
+
+* Data model: describes conceptual structuring of data stored in
+database
+
+Ex: data is set of records, each with student-ID, name, address,
+courses, photo
+
+Ex: data is graph where nodes represent cities, edges represent
+airline routes
+
+
+* Schema versus data
+
+Schema describes how data is to be structured, defined at set-up time,
+rarely changes (also called "metadata")
+
+Data is actual "instance" of database, changes rapidly
+
+Compare to types and variables in programming languages
+
+
+* Data Definition Language (DDL)
+
+Commands for setting up schema of database
+
+<add box to basic software infrastructure>
+
+
+Process of designing schema can be complex, may use design methodology
+and/or tool
+
+<add box to basic software infrastructure>
+
+
+* Data Manipulation Language (DML)
+
+Commands to manipulate data in database:
+  RETRIEVE, INSERT, DELETE, MODIFY
+Also called "query language"
+
+
+* People
+
+DBMS implementor: builds system (245, 346)
+
+Database designer: sets up schema, loads data (145)
+
+Database user: queries/modifies data (145)
+
+<add people to basic software infrastructure>
+
+
+Less traditional database applications
+--------------------------------------
+
+Stock monitoring, air traffic: real-time, historical data and queries,
+"active" database
+
+Distributed, heterogeneous databases: collaborative design, medical
+information systems, data warehousing, "querying the Web"
+
+Scientific data - e.g., satellite, X-ray: terabytes or more, fancy
+interfaces, specialized query languages
+
+Towards end of course we will cover:
+  Database-backed Web sites
+  Data warehousing
+  Data mining
+  Temporal databases
+  XML

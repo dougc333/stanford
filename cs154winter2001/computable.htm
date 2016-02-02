@@ -1,0 +1,24 @@
+<Title>Computable and partial recursive functions</Title>
+<H1>Computable and partial recursive functions</H1>
+
+A function f from words to words (over a finite alphabet) is called
+<I>computable</I> if there exists an method - any method at all - to
+compute it.
+It is <I>recursive</I> if it can be computed by a Turing machine; that is,
+if there exists a Turing machine that accepts every input, and when
+given input string x, leaves the string f(x) on its tape upon acceptance.
+<P>
+A partial function is called <I>partial recursive</I> if it can be
+computed by a Turing machine; that is, if there exists a Turing
+machine that accepts input x exactly when f(x) is defined, in which
+case it leaves the string f(x) on its tape upon acceptance.
+<P>
+By Church's thesis, a function is recursive if and only if it is
+computable.
+
+<HR>
+<TABLE border=0 width=100%><TR><TD>
+<A HREF=../..>Rob van Glabbeek</A>
+</TD><TD Align=right>
+<A HREF=mailto:rvg@cs.stanford.edu>rvg@cs.stanford.edu</A>
+</TD></TR></TABLE>

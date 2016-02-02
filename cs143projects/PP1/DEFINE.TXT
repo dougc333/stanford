@@ -1,0 +1,7 @@
+#define TEST replace
+#define    TEST replace
+#define test replace
+#define TEST    replace
+#define HELLO world
+compiler #define CLASS course
+#define TEST new replace

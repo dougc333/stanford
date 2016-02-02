@@ -1,0 +1,19 @@
+/* test file for testing scanner implementation */
+
+
+
+#include "scanner.h"
+#include <stdio.h>
+
+
+#define noFileName "NoFile"
+#define fileName   "student"
+
+
+int main(int argc, char *argv[]){
+  Scanner testScanner;
+
+  printf("test.c calling NewScannerFromFileName w/no filename\n");
+  NewScannerFromFileName(noFileName, " ", 1);
+  printf("end NewScannerFromFileName\n");
+}

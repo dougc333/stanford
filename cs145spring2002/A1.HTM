@@ -1,0 +1,595 @@
+<HTML>
+
+<BODY BGCOLOR="white">
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>CS145 Assignment #1 &nbsp -- &nbsp Due Wednesday April 17</b></center>
+</font></td></tr>
+</table>
+
+<ul>
+
+<li> <b>Written work, on-campus students:</b> Please turn in your
+written work during class, or to the course administrator (Sarah Weden
+in Gates 419) between 9:00 AM and 4:00 PM.  Please put your name and
+preferred email address on every page that you turn in - you'd be
+surprised how many times assignments mysteriously come apart.  The
+on-time deadline is 4:00 PM on the due date.  If you don't turn in
+your assignment during class then Sarah will timestamp it for you when
+you give it to her.  Written work turned in after the deadline but
+less than 24 hours late (i.e., by 4:00 PM on Thursday) will be
+accepted but penalized 20%.  No written work will be accepted more
+than 24 hours late since solutions may be made available at that
+time. <i>Please remember that written work will not be accepted
+electronically.</i>
+
+<p><li> <b>Written work, SCPD students:</b> Written work due on
+Wednesday must be timestamped by the Thursday courier at the latest.
+Please put your name, preferred email address, and SCPD company site
+name on every page that you turn in - you'd be surprised how many
+times assignments mysteriously come apart.  No late written work is
+permitted for SCPD students sending their work by courier, and
+consequently no late penalties apply.  Please see the <i><a
+href="assignments.html">Assignments</a></i> page for a discussion of
+courier timestamping issues.  Written work not sent or timestamped by
+an SCPD courier is subject to the policies for on-campus students
+specified in the previous bullet. <i>Please remember that written work
+will not be accepted electronically.</i>
+
+<p><li> <b>Programming work:</b> Programming work will be submitted
+electronically (for both on-campus and SCPD students), and must be
+submitted by midnight on the Wednesday that it is due.  Programming
+work submitted after the deadline but less than 24 hours late (i.e.,
+by Thursday midnight) will be accepted but penalized 10%, and
+programming work submitted more than 24 hours but less than 48 hours
+late (i.e., by Friday midnight) will be penalized 30%.  No programming
+work will be accepted more than 48 hours late.  Details on electronic
+submission are <a
+href="http://www.stanford.edu/class/cs145/submit-README.txt">now
+available</a>.
+
+<p><li> <b>For emergencies:</b> Since emergencies do arise, each
+student is allocated four "chits" for turning in work with no penalty.
+Please see the <i><a href="assignments.html">Assignments</a></i> page for a
+detailed description of chits.
+
+<p><li> <b>Honor Code reminder:</b> For more detailed discussion of
+the Stanford Honor Code as it pertains to CS145, please see the <i><a
+href="assignments.html">Assignments</a></i> and <i><a
+href="project.html">Project</a></i> pages under <b>Honor Code</b>.  In
+summary: You must indicate on your written and programming assignments
+<i>any assistance</i> (human or otherwise) that you received.  Any
+assistance received that is not given proper citation will be
+considered a violation of the Honor Code.  In any event, you (or you
+and your partner in the case of project teams) are responsible for
+understanding and being able to explain on your own all material that
+you submit.
+
+</ul>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Assignment Components and Grading</b></center>
+</font></td></tr>
+</table>
+
+<ul>
+
+<li> The written problems are worth 15% of your final grade in CS145.
+Each assignment contains two types of written problems:
+
+<ol>
+
+<p><li> <b>Exercises</b> are intended primarily to help you learn
+the basic material (and prepare for the exams).
+
+<li> <b>Challenge problems</b> are more open-ended and
+difficult, intended to help you think more deeply about the topics.
+
+</ol>
+
+<p>Due to limited staffing for grading, <i>we will not grade all of
+the exercises</i>, but will simply spot-check them.  We will grade the
+challenge problems.  We will provide sample solutions for all
+exercises and challenge problems.  There are four possible overall
+marks for your written work on each assignment:
+
+<ul>
+
+<p><li> <b>Check-plus</b> means you appear to have done many of the
+exercises and you did well on the challenge problems.
+
+<li> <b>Check</b> means you appear to have done many of the
+exercises and you may have attempted the challenge problems but you
+didn't do well on them.
+
+<li> <b>Plus</b> means you missed many of the exercises but did
+well on the challenge problems.
+
+<li> <b>Minus</b> means you missed many of the exercises and you may
+have attempted the challenge problems but you didn't do well on them.
+
+</ul>
+
+<p><b>Check-plus</b> is the best, <b>check</b> and <b>plus</b> are
+roughly equivalent although we're more impressed with <b>plus</b>, and
+<b>minus</b> is the worst although better than not turning in the
+assignment at all.
+
+<p><li> The project is worth 35% of your final grade in CS145.
+Project parts will be graded out of a varying number of points.
+
+</ul>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Exercises</b></center>
+</font></td></tr>
+</table>
+
+<ol>
+
+<p><li> Do parts (a)-(i) of Exercise 5.2.4 in the textbook (pages
+210-212).  Write the relational algebra expressions only - you do not
+need to show the results on the sample data although you are free to
+do so if you wish.
+
+<p><li> Design an XML document format for encoding data about items
+and users in an online auction.  You need not be as comprehensive as,
+say, <i><a target="_blank" href="http://www.ebay.com">eBay</a></i>, but you
+should assume the data includes (at least): items for sale including
+itemID, description, minimum bid, and ending time; categories that
+items belong to; sellers and buyers (bidders) including userID, name,
+and contact information; and bidding histories including time, bidder,
+and price.  Specify a DTD and give one small example XML document
+conforming to that DTD.  Your encoding should use at least two levels
+of nesting and should include at least one attribute of type ID and at
+least one attribute of type IDREF or IDREFS.
+
+</ol>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Challenge Problems</b></center>
+</font></td></tr>
+</table>
+
+<ol>
+
+<p><li>Consider the following relational schema:
+
+<pre>
+   Name(ID, name)  // ID is a key
+   GPA(ID, gpa)    // ID is a key, gpa is a key
+</pre>
+
+Let's keep things simple by assuming gpa's are unique, i.e., no two
+students have the same gpa.
+
+<p><b>(a)</b> Can you write a relational algebra expression to find
+the name of the student with the highest gpa in the database?  If so,
+write it.  If not, explain why not.
+
+<p><b>(b)</b> Can you write a relational algebra expression to find
+the name of the student with the median gpa in the database?  If so,
+write it.  If not, explain why not.  (Recall that the median of a set
+of numbers is the number in the middle, i.e., there are an equal
+number of higher and lower numbers.  To keep things simple you may
+assume that there is an odd number of gpa's.)
+
+<p><li>Your task is to create a schema for storing XML in a relational
+database system.  You may consider "basic" XML only: elements,
+attributes, and text.  You don't need to consider DTDs or ID and
+IDREF(S) attributes.  You may assume that all data to be loaded is in
+a single XML document, and you may assume that the relational DBMS can
+generate unique values for you to use as identifiers if needed.
+
+<p><b>(a)</b> Describe a generic relational schema that can be used to
+store any XML data.  Specify the schema of your relations (including
+keys), and briefly explain how data is translated from an XML document
+into the relations.
+
+<p><b>(b)</b> Describe how you might specify a set of relations for an
+XML document when you can examine the document itself in order to
+create the relational schema.  Of course your answer to part (a) would
+still work, but the idea is to specify a set of relations whose schema
+attempts to capture any regularity that may be present in the XML
+document.  <i>Warning: Depending on how seriously you take it, this
+one can be an extremely open-ended problem.  Many research papers have
+been published on the topic.</i>
+
+</ol>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Project Part 1</b></center>
+</font></td></tr>
+</table>
+
+<h3>Partners</h3>
+
+The CS145 project may be completed individually or in teams of two,
+the choice is up to each student.  Details of partnership rules can be
+found in the <i><a href="project.html">Project</a></i> page.  Summarizing:
+
+<ul>
+
+<li> An identical amount of work is expected and the same grading
+scale is used for individual and team projects.
+
+<li> If you work in a team, <b>choose your partner carefully</b>.
+Teams are permitted to "divorce" at any time during the course, and
+individual students may choose to team up as the project progresses,
+however students from divorced teams may not form new teams or join
+other teams.
+
+<li> Both partners in a team will receive exactly the same grade for
+each project part submitted jointly.
+
+</ul>
+
+Please make sure to submit your work jointly - <i>do not turn your
+project in twice, once for each partner.</i>
+
+<h3>Scope</h3>
+
+If you find this first part of the project a snap, you're not
+overlooking something, and don't worry - it will get much more
+interesting as time goes by.  The primary purpose of this first
+"warm-up" part is for us to provide you with a whole bunch of basic
+information, and to get everyone up-to-speed on our computing systems
+and the languages and tools we will be using.  Those of you who have
+done some Web programming before, especially anyone who has used a
+DBMS behind a Web site, will find this project part nearly trivial.
+Those of you who haven't will find it merely straightforward.  With
+all that said, <i>please don't start at the last minute</i> - as with
+all programming and systems work, everything takes a bit of time, and
+unforeseen snafus do crop up.
+
+<h3>Part A</h3>
+
+In this portion of the project you will experiment with Oracle's
+<tt>sqlplus</tt> command-line interface and its bulk loader.  You will
+create a database table to contain information about Stanford courses,
+load the table with a small amount of (real) data we are providing,
+and run a few commands to get familiar with Oracle.
+
+<ul>
+
+<p><li><b>Step 0:</b> Read the document <i><a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-intro.html">Getting
+Started With Oracle</a></i></i>, available through the course Web site
+Project page.  If you filled out our course registration form by April
+8 then your Oracle account has been created.  Log into Oracle,
+<b>change your password</b>, try some of the examples in the document,
+and experiment with the <tt>help</tt> command.  (Teams please note:
+The one and only thing that must be completed individually by each
+partner is changing your Oracle password - please change it on both
+Oracle accounts, even if you use only one of the accounts actively.)
+
+<p><li><b>Step 1:</b> Read the document <i><a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-load.html">Using
+the Oracle Bulk Loader</a></i>, available through the course Web site
+Project page.  Copy the Oracle load file
+<tt>/usr/class/cs145/sample_data/Courses.txt</tt> into your own
+filespace.  Based on this load file, create a table called
+<tt>Courses</tt> in Oracle into which you will load the data. The
+schema you should use for the table is:
+
+<pre>  Courses(course CHAR(9), units INT, title CHAR(32))</pre>
+
+Load the data file into your Oracle table.
+
+<p><li><b>Step 2:</b> Run the <tt>sqlplus</tt> "describe" command on
+your <tt>Courses</tt> table: type "describe Courses;".  Also run at least one
+SQL query on your <tt>Courses</tt> table through <tt>sqlplus</tt>.  The
+query "select * from Courses;" is a popular option.  Feel free to
+experiment with more interesting queries.
+
+<p><li><b>Step 3:</b> Create a script that shows the successful
+creation and loading of your <tt>Courses</tt> table, as well as the
+"describe" command and execution of at least one query. Information on
+creating scripts is provided in the <i><a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-intro.html">Getting
+Started With Oracle</a></i> document under <b>Recording Your Session</b>.
+
+</ul>
+
+<h3>Part B</h3>
+
+In this portion of the project you will build a small Web interface
+that connects to Oracle, queries the course information database table
+you created in Part A, and displays the result in HTML.
+<p>
+
+First you must decide which programming language you will use.  You
+may choose either C (with some optional C++) or Java.  You should make
+the choice carefully, as you will want to stick with it for the entire
+project.  If you choose C, you will use Pro*C to interact with Oracle
+and CGI to implement the Web interface.  If you choose Java, you will
+use JDBC to interact with Oracle and Servlets to implement the Web
+interface.  You will experiment with various details of Pro*C and JDBC
+later in the project; in this part of the project you will focus
+primarily on learning CGI (for C users) or Servlets (for Java users).
+If you are interested in using other languages or tools for building
+your Web interface and interacting with Oracle, please see the
+important discussion and ground-rules on this topic in the <i><a
+href="project.html">Project</a></i> page under <b>Programming and
+System Issues</b>.
+<p>
+
+<UL>
+
+<LI><b>Step 0:</b> Read the document <i><a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-web.html">Web-Database
+Programming: CGI and Java Servlets</a></i> (available through the course
+Web site Project page) for an overview of CGI or Servlets.<p>
+
+<LI><b>Step 1:</b> Set up your account/directories.<p>
+
+<ul><li><b>C users:</b> If you filled out our course registration form
+by April 8 then a CGI account has been created for you.  Create a
+directory <tt>cgi-bin</tt> from your home directory and set
+the following permission (replace "username" with your actual user
+name):
+
+<pre>  fs setacl ~/cgi-bin username.cgi write</pre>
+
+<p>
+
+Your CGI script will be run from
+<tt>cgi-courses.stanford.edu</tt>. The URL for your CGI executable
+will be:
+
+<pre>  http://cgi-courses.stanford.edu/~username/cgi-bin/scriptname</pre>
+
+<p><li><b>Java users:</b>
+
+Compiling Servlets in Unix requires a few changes to your
+<tt>PATH</tt> and <tt>CLASSPATH</tt> environment variables.  These
+changes have been made for you in the source file
+<tt>/usr/class/cs145/all.env</tt>.  Just type "source
+/usr/class/cs145/all.env". Alternatively, you can add this command
+to your <tt>.cshrc</tt> file.
+
+<P>
+Within your home directory you must set up the following
+directory structure:
+
+<PRE>
+   servletdir
+      webpages
+         WEB-INF
+            servlets
+</PRE>
+<P>
+A shell script to build this hierarchy is provided at
+<tt>/usr/class/cs145/code/bin/buildServletDirectory</tt>.  (Note: If
+you add "source /usr/class/cs145/all.env" to your <tt>.cshrc</tt>
+file, you can run <tt>buildServletDirectory</tt> by just typing the
+command.)
+<P>
+You should store <tt>.html</tt> pages within this structure, in the
+<tt>webpages</tt> directory. All Servlets must be located in the
+<tt>servlets</tt> directory.
+
+</ul>
+<p>
+<LI>
+<b>Step 2:</b> Copy sample code.
+
+<p>
+We are providing sample programs to demonstrate the basic
+functionality of CGI and Servlets, located at
+<tt>/usr/class/cs145/hw1/samples/</tt> under the <tt>C</tt> or
+<tt>Java</tt> subdirectory as appropriate.
+
+<p><i>Please note that the instructions, code, and support we are
+providing are only tested and "guaranteed" on the leland Solaris
+machines.</i>
+
+<p>
+<ul>
+<li> <b>C users:</b> Copy the appropriate files to your own directory.
+In all <tt>.html</tt> files, change "yourname" to your own username.  Move all
+<tt>.html</tt> files to a place accessible on the Web (such as your WWW
+directory).
+<p>
+
+Type "make cgidemo1" and "make cgidemo2" to compile.  When finished,
+move the executable files <tt>cgidemo1</tt> and <tt>cgidemo2</tt> to
+your <tt>~/cgi-bin/</tt> directory.  You should now be able to open
+and view <tt>cgidemo1.html</tt> and <tt>cgidemo2.html</tt> in your Web
+browser.<p>
+
+<li> <b>Java users:</b> Copy the appropriate files to your own
+directory.  All <tt>.html</tt> files should be placed in the <tt>webpages</tt>
+directory from Step 1.  <tt>ServletDemo.java</tt> should be placed in
+the <tt>servlets</tt> directory.
+
+<p>First you must compile your <tt>.java</tt> file.  Next, once your
+directory structure is set up and your Servlets are compiled, you can
+run the Java JSDK 2.1 Web server manually on any leland Solaris
+machine (e.g., <tt>saga</tt>'s, <tt>elaine</tt>'s, <tt>myth</tt>'s) in
+order to provide these documents over the Web.  The steps involved in
+starting the server are:
+
+<p>
+<OL>
+<LI>
+Choose a random port number in the range 5000-65000.  This will bind your
+server application to that port for the machine on which you're
+running your server.  Try to choose a random number and remember it -
+you will be the only person on that machine who can use that
+port, and you will need it to have access over the Web.
+</LI>
+<p><LI>
+Change to the <tt>servletdir</tt> directory, which is the root of
+the directory structure you created in Step 1. From there, start the
+server by calling "startserver -port portnum" from the Unix
+command line, where "portnum" is the port number you chose in the
+previous step.  The server will begin in the background, and you can
+see it using the "ps -elf | grep username" command.  If you do
+not enter a port number, the default port number 8080 will be chosen
+for you.  (You can actually set the default yourself: After you've
+run the server once, it will create a configuration file called
+"default.cfg" for you; it finds the default port number there.)
+</LI>
+<p><LI>
+From your browser, enter the URL of a Web page or Servlet
+contained in your <tt>servletdir</tt> hierarchy. Static HTML
+documents placed in the <tt>webpages</tt> directory are accessible
+from the Web at the address
+<TT>http://machineXX:portnum/page.html</TT>, where "machineXX"
+refers to the Solaris machine from which you're running the Web server
+(e.g., <tt>saga22</tt>, <tt>elaine12</tt>, <tt>myth7</tt>,
+etc.), "portnum" is a specific port (see above), and "page.html"
+is the name of the HTML page that you are serving.
+</LI>
+<p><LI>
+To stop the server, issue the command "stopserver".
+</LI>
+<p><LI>
+If you want to recompile your Servlets you must stop the server,
+recompile, then restart the server.  Static HTML pages that you
+are hosting from the <tt>webpages</tt> directory can be changed
+at will.
+</LI>
+</OL>
+
+
+
+</ul>
+<p>
+
+<LI>
+<b>Step 3:</b> Understand the sample code.
+
+<p>
+<ul>
+<li> <b>C users:</b> Read <tt>cgidemo1.c</tt>, <tt>cgidemo2.c</tt>,
+<tt>cgiparse.h</tt> and the <tt>.html</tt> files.  Make sure you understand how
+they work.  You may also read <tt>cgiparse.c</tt> if you wish.
+<p>
+
+<li> <b>Java users:</b> Read <tt>ServletDemo.java</tt> and the
+<tt>.html</tt> files provided. Make sure you understand how they
+work. For detailed documentation you may want to refer to the <i><a
+target="_blank"
+href="http://java.sun.com/products/servlet/2.3/javadoc/index.html">
+Java Servlets Class Docs</a></i> from Sun, available through the course
+Web site Project page.
+</ul>
+<p>
+
+<LI>
+<b>Step 4:</b> Write your own code to display a database table.
+
+<p><I> Note: Make sure that special characters in the data including
+&amp;, &lt;, &gt; can be displayed properly in your result table.</I>
+
+<p>
+In this step, you will write a Web interface that retrieves and
+displays the contents of the course information table stored in
+Oracle.  Your Web interface should ask for a username and password
+through a Web form, retrieve the contents of the table from the
+database using that username and password, and display the data in an
+HTML table format.  We are providing code that interacts with Oracle
+and retrieves the data, and you do not need to modify this part of the
+code.
+<p>
+
+<ul>
+<li> <b>C users:</b> The file <tt>readDB.pc</tt> contains code to
+retrieve all tuples of the table "Courses" from Oracle.  The main
+function is <tt>GetData</tt> and can be called by:
+
+<pre>  data = GetData(username, password, &numRecords);</pre>
+
+where "username" and "password" are character strings of an Oracle
+account's username and password.  "numRecords" is an integer and will
+contain the number of retrieved tuples upon return.  The return value
+"data" is a pointer to a "CourseInfo" structure (defined in
+<tt>readDB.pc</tt>), and can be accessed through data[i].course,
+data[i].units, and data[i].title, where i is between 0 and
+numRecords-1.  All code outside the functions <tt>GetData</tt> and
+<tt>sql_error</tt> is written in regular C.  To compile the program,
+type "make readDB".
+<p>
+
+Your task is to modify <tt>readDB.pc</tt> (which currently contains an
+empty <tt>main()</tt>) and to write a corresponding <tt>.html</tt> file
+to create a Web interface that asks for username and password through
+a Web form, then retrieves and displays the "Courses" table using the
+provided username and password.  You should format the results page to
+display the data in an HTML table.<p>
+
+<li> <b>Java users:</b> The method <tt>getData</tt> in the
+<tt>ServletDemo.java</tt> file is responsible for connecting to Oracle
+and executing a query. This method is called within the
+<tt>ServletDemo</tt> class by passing in three arguments: the query
+string to send to Oracle, the Oracle username, and the password:
+
+<pre>  queryResults = getData(String query, String user, String passwd);</pre>
+
+The <tt>queryResults</tt> variable is of type <tt>ResultSet</tt>, and
+can be manipulated as shown in the <tt>while</tt> loop of the
+<tt>doGet</tt> method. Connecting to Oracle requires specifying the
+appropriate Oracle driver, then establishing a connection with the
+<tt>getConnection</tt> method.  (For further information on JDBC you
+can refer to our document <i><a target="_blank"
+href="http://www-db.stanford.edu/~ullman/fcdb/oracle/or-jdbc.html">Introduction
+to JDBC</a></i> or the <i><a target="_blank"
+href="http://java.sun.com/products/jdbc/learning.html">JDBC
+Tutorial</a></i> from Sun, both available through the course Web site
+Project page.)  Executing any valid SQL query is simply a matter of
+passing a different query string to the <tt>getData</tt> method.
+
+<p>In this assignment you need to process the retrieved data and
+format the results page (returned by the Servlet) to display the data
+in an HTML table.  Take a close look at the <tt>doGet</tt> method and
+in particular at the way it extracts tuples one at a time from the
+retrieved results.
+</ul>
+<p>
+
+
+</UL>
+
+<h3>What to submit</h3>
+
+<i>For details please see our latest <a
+href="http://www.stanford.edu/class/cs145/submit-README.txt">submission
+instructions</a>.</i>
+
+<ul>
+
+<li>All students will submit a script illustrating their work for Part
+A.
+
+<li>For Part B:
+
+<ul>
+
+<li> C users will submit their modified <tt>readDB.pc</tt>, along with
+a URL for the corresponding <tt>.html</tt> file, and the
+<tt>.html</tt> file itself.
+
+<li> Java users will submit their entire <tt>servletdir</tt>
+directory structure, including all static <tt>.html</tt>
+documents in the <tt>webpages</tt> directory and the Java Servlet code
+in the <tt>servlets</tt> directory.
+
+</ul>
+</ul>
+<pre>
+
+
+</pre>
+</BODY>

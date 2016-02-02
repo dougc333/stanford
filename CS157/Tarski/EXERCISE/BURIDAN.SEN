@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+10
+a # b & b # c & a # cLarger(a, b) & ~ Larger(a, c) ~?x Small(x)@x (~Small(x) $ ~Cube(x))Dodec(b) & Dodec(c)?x (Dodec(x) & ?y ?z (Tet(y) & Tet(z) & Between(x, y, z)))@x (Medium(x) $ ?y FrontOf(x, y))@x (?y FrontOf(x, y) $ Medium(x))@x (LeftOf(x, c) $ (Dodec(x) | Large(x)))@x (?y BackOf(x, y) $ (x = a | x = b | x = c))

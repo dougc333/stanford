@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0050)http://www-db.stanford.edu/~ullman/hmu/hw1sol.html -->
+<HTML><HEAD><TITLE>CS154 - PS - Solutions 1 and 4</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc>
+<H2>Homework 1 Solutions</H2>
+<H4>Problem #1</H4>
+<DL>
+  <DD>Induction on the length of y: 
+  <P><B>Base Cases:</B><BR>At |y| = 0, y = epsilon, so the proof is just the 
+  definitions
+  <P>
+  <DL>
+    <DD>delta-hat(q,epsilon) = q = f(q,epsilon). </DD></DL>
+  <P>By transitivity of equivalence,
+  <P>
+  <DL>
+    <DD>delta-hat(q,epsilon) = f(q,epsilon) </DD></DL>
+  <P>At |y| = 1, y is a string consisting of the single arbitrary symbol a. With 
+  delta-hat we have a = epsilon.a, and thus 
+  <DL>
+    <DD>
+    <P>delta-hat(q,a) = delta-hat(q,epsilon.a) = delta(delta-hat(q,epsilon),a) = 
+    delta(q,a) (from basis 0) </P></DD></DL>
+  <P>And with f we have a = a.epsilon, and thus 
+  <DL>
+    <DD>
+    <P>f(q,a) = f(q,a.epsilon) = f(delta(q,a), epsilon) = delta(q,a) 
+</P></DD></DL>
+  <P>We have delta-hat(q,a) = delta(q,a) = f(q,a). Again, by transitivity of 
+  equivalence, delta-hat(q,a) = f(q,a). 
+  <P><B>Induction:</B><BR>We assume that delta-hat(q,w) = f(q,w) for any string 
+  w of length less than that of y. Now we can prove that delta-hat(q,y) = f(q,y) 
+  as follows: 
+  <P>y has at least two symbols (if it has less than two symbols, then it falls 
+  under our bases above). Let us represent y as axb, where a and b are two 
+  symbols of y, the first and last respectively, and x is an infix string, 
+  possibly empty, containing all other characters in y. 
+  <P>We have delta-hat(q,axb) = delta(delta-hat(q,ax),b) Because |ax| &lt; |axb| 
+  = |y|, we can invoke the inductive hypothesis to get: 
+  <DL>
+    <DD>
+    <P>delta-hat(q,axb) = delta(f(q,ax),b) = delta(f(delta(q,a),x),b) 
+  </P></DD></DL>
+  <P>Again, because |x| &lt; |axb| = |y|, we can substitute: 
+  <DL>
+    <DD>
+    <P>delta-hat(q,axb) = delta(delta-hat(delta(q,a),x),b) = delta-hat(delta(q, 
+    a),xb) </P></DD></DL>
+  <P>Finally, since |xb| &lt; |axb| = y, we can conclude with: 
+  <DL>
+    <DD>
+    <P>delta-hat(q,axb) = f(delta(q,a),xb) = f(q,axb) </P></DD></DL>
+  <P>Since delta-hat(q,axb) = f(q,axb) and y = axb, we have delta-hat(q,y) = 
+  f(q,y), which is what we wanted to show. Because of the property of 
+  mathematical induction on the length of the string y, we can conclude that 
+  this property holds for all strings. 
+  <H4>Problem #2</H4>This is the 5-tuple definition for one such automaton, as 
+  well as the transition table; others are possible. Note the problem 
+  specifically asked for the 5-tuple notation of your automaton.
+  <P>M = ({q0, q1, q2, q3, q4}, {0, 1}, delta, q0, {q0})
+  <P>The transition function delta is described below:
+  <P>
+  <CENTER>
+  <TABLE border=4 cellPadding=2 cellSpacing=2>
+    <TBODY>
+    <TR>
+      <TH>State</TH>
+      <TH>On 0</TH>
+      <TH>On 1</TH></TR>
+    <TR>
+      <TD><TT>q0</TT></TD>
+      <TD><TT>q0</TT></TD>
+      <TD><TT>q1</TT></TD></TR>
+    <TR>
+      <TD><TT>q1</TT></TD>
+      <TD><TT>q2</TT></TD>
+      <TD><TT>q3</TT></TD></TR>
+    <TR>
+      <TD><TT>q2</TT></TD>
+      <TD><TT>q4</TT></TD>
+      <TD><TT>q0</TT></TD></TR>
+    <TR>
+      <TD><TT>q3</TT></TD>
+      <TD><TT>q1</TT></TD>
+      <TD><TT>q2</TT></TD></TR>
+    <TR>
+      <TD><TT>q4</TT></TD>
+      <TD><TT>q3</TT></TD>
+      <TD><TT>q4</TT></TD></TR></TBODY></TABLE></CENTER>
+  <H4>Problem #3</H4>The DFA M = (Q x Sigma, {0,1}, delta, {p}, F) where delta 
+  is defined as: 
+  <P>
+  <CENTER>
+  <TABLE border=4 cellPadding=2 cellSpacing=2>
+    <TBODY>
+    <TR>
+      <TH></TH>
+      <TH>State</TH>
+      <TH>On 0</TH>
+      <TH>On 1</TH></TR>
+    <TR>
+      <TD><TT></TT></TD>
+      <TD><TT>{p}</TT></TD>
+      <TD><TT>{q,s}</TT></TD>
+      <TD><TT>{q}</TT></TD></TR>
+    <TR>
+      <TD><TT>*</TT></TD>
+      <TD><TT>{q}</TT></TD>
+      <TD><TT>{r}</TT></TD>
+      <TD><TT>{q,r}</TT></TD></TR>
+    <TR>
+      <TD><TT></TT></TD>
+      <TD><TT>{r}</TT></TD>
+      <TD><TT>{s}</TT></TD>
+      <TD><TT>{p}</TT></TD></TR>
+    <TR>
+      <TD><TT>*</TT></TD>
+      <TD><TT>{s}</TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{p}</TT></TD></TR>
+    <TR>
+      <TD><TT>*</TT></TD>
+      <TD><TT>{q,s}</TT></TD>
+      <TD><TT>{r}</TT></TD>
+      <TD><TT>{p,q,r}</TT></TD></TR>
+    <TR>
+      <TD><TT>*</TT></TD>
+      <TD><TT>{q,r}</TT></TD>
+      <TD><TT>{r,s}</TT></TD>
+      <TD><TT>{p,q,r}</TT></TD></TR>
+    <TR>
+      <TD><TT>*</TT></TD>
+      <TD><TT>{r,s}</TT></TD>
+      <TD><TT>{s}</TT></TD>
+      <TD><TT>{p}</TT></TD></TR>
+    <TR>
+      <TD><TT>*</TT></TD>
+      <TD><TT>{p,q,r}</TT></TD>
+      <TD><TT>{q,r,s}</TT></TD>
+      <TD><TT>{p,q,r}</TT></TD></TR>
+    <TR>
+      <TD><TT>*</TT></TD>
+      <TD><TT>{q,r,s}</TT></TD>
+      <TD><TT>{r,s}</TT></TD>
+      <TD><TT>{p,q,r}</TT></TD></TR>
+    <TR>
+      <TD><TT></TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{}</TT></TD></TR></TBODY></TABLE></CENTER>
+  <P>The states in F are indicated with a "*" in the transition table. 
+  <H4>4.</H4>The solution to this problem is easiest shown graphically, but I 
+  will show it here as a transition diagram. There are simpler automata, but I 
+  will present the most straightforward one (which, incidentally, has 13 states 
+  and 15 arcs): 
+  <P>M = ({q_k|1 &lt;= k &lt;= 13}, {0,1}, delta, q0, {q12, q13}) 
+  <P>delta = 
+  <CENTER>
+  <TABLE border=4 cellPadding=2 cellSpacing=2>
+    <TBODY>
+    <TR>
+      <TD><TT><B>State</B></TT></TD>
+      <TD><TT><B>On 0</TT></B></TD>
+      <TD><TT><B>On 1</B></TT></TD></TR>
+    <TR>
+      <TD><TT>q1</TT></TD>
+      <TD><TT>{q1,q2}</TT></TD>
+      <TD><TT>{q1,q3}</TT></TD></TR>
+    <TR>
+      <TD><TT>q2</TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{q4}</TT></TD></TR>
+    <TR>
+      <TD><TT>q3</TT></TD>
+      <TD><TT>{q5}</TT></TD>
+      <TD><TT>{}</TT></TD></TR>
+    <TR>
+      <TD><TT>q4</TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{q6}</TT></TD></TR>
+    <TR>
+      <TD><TT>q5</TT></TD>
+      <TD><TT>{q7}</TT></TD>
+      <TD><TT>{}</TT></TD></TR>
+    <TR>
+      <TD><TT>q6</TT></TD>
+      <TD><TT>{q6,q8}</TT></TD>
+      <TD><TT>{q6}</TT></TD></TR>
+    <TR>
+      <TD><TT>q7</TT></TD>
+      <TD><TT>{q7}</TT></TD>
+      <TD><TT>{q7,q9}</TT></TD></TR>
+    <TR>
+      <TD><TT>q8</TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{q10}</TT></TD></TR>
+    <TR>
+      <TD><TT>q9</TT></TD>
+      <TD><TT>{q11}</TT></TD>
+      <TD><TT>{}</TT></TD></TR>
+    <TR>
+      <TD><TT>q10</TT></TD>
+      <TD><TT>{q12}</TT></TD>
+      <TD><TT>{}</TT></TD></TR>
+    <TR>
+      <TD><TT>q11</TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{q13}</TT></TD></TR>
+    <TR>
+      <TD><TT>q12</TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{}</TT></TD></TR>
+    <TR>
+      <TD><TT>q13</TT></TD>
+      <TD><TT>{}</TT></TD>
+      <TD><TT>{}</TT></TD></TR></TBODY></TABLE></CENTER></DD></DL></BODY></HTML>

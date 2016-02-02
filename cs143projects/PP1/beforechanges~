@@ -1,0 +1,48 @@
+Before any changes Original pp1 submission.
+
+
+ scanner options: -vI8 -Cem
+  279/2000 NFA states
+  140/1000 DFA states (642 words)
+  36 rules
+  Compressed tables always back-up
+  1/40 start conditions
+  125 epsilon states, 56 double epsilon states
+  11/100 character classes needed 201/500 words of storage, 4 reused
+  3623 state/nextstate pairs created
+  282/3341 unique/duplicate transitions
+  144/1000 base-def entries created
+  239/2000 (peak 248) nxt-chk entries created
+  24/2500 (peak 196) template nxt-chk entries created
+  0 empty table entries
+  4 protos created
+  4 templates created, 109 uses
+  49/256 equivalence classes created
+  6/256 meta-equivalence classes created
+  9 (1 saved) hash collisions, 145 DFAs equal
+  0 sets of reallocations needed
+  1071 total table entries needed
+
+
+With 1 rule (void )
+scanner options: -dvI8 -Cem
+  88/2000 NFA states
+  37/1000 DFA states (167 words)
+  11 rules
+  Compressed tables always back-up
+  1/40 start conditions
+  50 epsilon states, 31 double epsilon states
+  11/100 character classes needed 201/500 words of storage, 4 reused
+  457 state/nextstate pairs created
+  72/385 unique/duplicate transitions
+  41/1000 base-def entries created
+  116/2000 (peak 155) nxt-chk entries created
+  24/2500 (peak 124) template nxt-chk entries created
+  0 empty table entries
+  5 protos created
+  4 templates created, 18 uses
+  31/256 equivalence classes created
+  6/256 meta-equivalence classes created
+  0 (0 saved) hash collisions, 38 DFAs equal
+  0 sets of reallocations needed
+  601 total table entries needed

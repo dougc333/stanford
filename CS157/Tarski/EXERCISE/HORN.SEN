@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+6
+Between(a, b, c)Cube(b) | ~Dodec(a) | ~Medium(a)Dodec(a) | ~Between(a, b, c) | ~Medium(a)Medium(a) | ~Cube(b)~Between(a, b, c) | Cube(b) Larger(b, a)

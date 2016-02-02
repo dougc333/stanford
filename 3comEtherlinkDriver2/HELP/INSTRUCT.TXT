@@ -1,0 +1,434 @@
+                         3Com (R) Corporation
+                      EtherDisk (R) Diskette for
+                 The EtherLink 10 ISA (R) NIC Family
+      Configuration and Diagnostic Program Instructions Summary
+
+
+ Overview
+ --------
+ The configuration portion of the program allows you to change the
+ configuration parameters for the NIC to fit the specific
+ environment in which the NIC is installed.
+
+ The diagnostic portion of the Configuration and Diagnostic Program is
+ designed to make sure that the NIC is installed correctly and
+ functioning properly in your computer.  The Group 1 tests check the
+ physical components, connectors, and circuitry of the NIC and
+ require only that the NIC be installed in the computer.  The Group 2
+ tests check the NIC's ability to transmit data on the network and
+ require that the NIC be connected to a loopback plug or to a network.
+ The Group 3 tests check the NIC's ability to correctly transmit and
+ receive data over the network and require that the adapter be connected
+ to a network on which an echo server has been set up.
+
+ The computer containing the NIC to be configured or tested must be
+ running DOS only.
+
+ NOTE:  If this computer is an operating server, notify all users of the
+        server to save their work and log out from the network.  The
+        Configuration and Diagnostic Program disrupts the normal operation
+        of servers and workstations, so work that is not saved may be lost.
+
+        Then shut down the server, and reboot with a DOS-only diskette.
+        (This way no drivers or TSRs will be running when the program
+        is started.)
+
+ Starting the Configuration and Diagnostic Program
+ --------------------------------------------------
+
+ There are two ways to start the program:
+
+ 1.  Automatically, from the INSTALL.EXE program, by selecting the options
+     in the Configuration and Diagnostic submenu.
+
+ 2.  Manually, from the root directory of the EtherDisk #2 diskette, by
+     typing the following command:
+
+     3C5X9CFG [command keyword] [parameter list]
+
+     3C5X9CFG represents the 3Com Configuration and Diagnostic Program name.
+     The brackets indicate that the command keyword and parameter list are
+     optional.
+
+     3C5X9CFG without any arguments invokes the program in full windows mode.
+     This includes mouse support and context-sensitive help.  Press [F1] for
+     help at any time.
+
+     Command Line Keywords:
+     ----------------------
+
+     You can use the first two characters of any command or parameter
+     as a shortcut.  For example, 3C5X9CFG HE RU means 3C5X9CFG HELP RUN.
+
+     Also, the command keywords and parameters are not case-sensitive,
+     so CONFIGURE, configure, and Configure, for example, will all work.
+
+     CONFIGURE
+         Configures a NIC in one of three ways.
+
+         1.  automatically with the /auto parameter
+         2.  using a specified NIC configuration file
+         3.  using command line configuration parameters
+
+     ECHOSERVER
+         Enables a designated NIC to function as an echo server to
+         support running Group 3 tests on other 3Com NICs.
+
+     HELP
+         Displays general or command-specific help information.  To get
+         command-specific help, enter:
+
+         3C5X9CFG HELP [command keyword]
+
+     LANGUAGE
+         Invokes the program in full windows mode using a specified external
+         resource file.  This option provides support for multiple languages
+         via a different resource file for each language supported.
+
+     LIST
+         Displays a list of installed NICs recognized by this program
+         and their assigned NIC numbers.
+
+     RUN
+        Executes the diagnostic tests (which can also be specified from a
+        file) on a selected NIC and writes the results to the screen,
+        a file, or a printer.
+
+
+ Configuration
+ -------------
+
+ The NIC can be configured in either full screen windows mode or command
+ line mode.
+
+    Full Screen Windows Mode
+    ------------------------
+
+    To configure the NIC using the full screen windowing, type:
+
+    3C5X9CFG [Enter]
+
+    Then select the Configure Adapter option in the Install pull-down menu.
+
+    Command Line Mode
+    -----------------
+
+    Command Line Mode Defaults
+    --------------------------
+
+     Defaults:  CONFIGURE has /AUTO and /ADAPTERNUM:1 as defaults.  So for
+     example, if only  "3c5x9cfg configure" is used, adapter number 1 will
+     be auto configured.
+
+     ADAPTERNUM:N and /SLOT:S parameters can be used with any of the
+     CONFIGURE options that follow.  They are both intended for use whenever
+     multiple NICs are present in the computer and recognized by the
+     Configuration and Diagnostic Program.
+
+     /ADAPTERNUM:N specifies the NIC number to be configured for ISA
+     computers.  Run the LIST command separately to determine the NIC
+     number to use here.
+
+     /SLOT:S specifies the physical slot number of the NIC to be configured
+     in EISA and MCA computers.
+
+     /PNPRST is an option to which can be used to bring a 3C509B out of the
+     Plug 'n Play wait for key state so the NIC can be reconfigured. The
+     symptom is the configuration and diagnostic program cannot find a 3C509B
+     ISA NIC in a computer.  The root cause is the computer BIOS writes
+     a byte to the parallel port status register.  This byte looks like the
+     first byte of the Plug 'n Play identification sequence.  The 3C509B will
+     then wait for the remaining bytes of the sequence, and will not respond
+     to normal inquiries.  The PNPRST option causes the configuration and
+     diagnostic program to issue several byte to the parallel port status
+     register, which returns the 509B to it's normal operating mode.
+
+    There are three different ways to configure the NIC using command
+    line mode.
+
+    1.  Command Line with Auto Configuration
+    2.  Command Line with Explicit Parameters
+    3.  Command Line with Configuration File
+
+    Command Line with Auto Configuration
+    ------------------------------------
+
+    Command syntax:  3C5X9CFG CONFIGURE  /AUTO
+
+    The /AUTO parameter configures the NIC automatically based on the
+    software's best estimate using interpreted system information.
+    This parameter sets the I/O Base Address, Interrupt, and Transceiver
+    options. All other option settings are left unchanged.
+
+    NOTE:  The program will attempt to detect what Transceiver is being
+    used, to set the Transceiver setting.  Therefore connect to the network
+    first, then run /AUTO, and it will configure the Transceiver for you.
+
+
+    Command Line with Auto Configuration
+    ------------------------------------
+    Command syntax:  3C5X9CFG CONFIGURE  /AUTO
+
+    The /AUTO parameter configures the adapter media type
+    automatically.  All other options settings are left unchanged.
+
+    NOTE:  The program attempts to detect what media type is being
+           used.  Therefore, connect to the network first and then run
+           3C5X9CFG CONFIGURE /AUTO.  The program will configure the
+           media type for you.
+
+    Command Line with Explicit Parameters
+    -------------------------------------
+
+    Command syntax:  3C5X9CFG CONFIGURE  [ /INT:N  /IOBASE:N  /PORT:N
+                     /BSIZE:N  /BADDRESS:N   /MODEM:N  /XCVR:N  /TR:N
+                     /OPTIMIZE:N  /LINKBEAT:N  /CONFIGPORT:N  /PNP:N
+                     /SYNCREADY:N /FULLDUPLEX:N]
+
+    Command line configuration parameters are used to configure the NIC
+    using only the option settings you specify.  Some parameters are for
+    all NICs, some are for ISA only, and some are for EISA and MCA only.
+    For example, /int:N is an ISA-only parameter, because with EISA and
+    MCA NICs, the computer vendor's configuration utility or option
+    diskette handles the setting of the interrupt level.  In most cases, any
+    combination of parameters can be used.  Therefore it is possible to modify
+    only a few settings if needed.
+
+    /INT - Interrupt Level   (ISA only)
+           Possible values - 3,5,7,9,10,11,12,15
+
+    /IOBASE (or /PORT) - I/O Base Address   (ISA only)
+            Possible values - EISA (to change to EISA mode)
+            or 200-3E0 in increments of 10
+
+    /BSIZE - Boot PROM Size  (ISA only)
+             Possible values - 8,16,32,disabled
+
+    /BADDRESS - Boot PROM Address  (ISA only)
+             Note:  For use only when /BSIZE is enabled
+             Possible values - C2000-DE000, the range allowed
+             depends on the size selected with /BSIZE.
+
+    /MODEM - Modem Speed (Interrupt Disable Time)
+             Possible values -
+             Custom Disable Time Method:  25-1600, in increments of 25
+             Modem Speed Method:  None, 1200, 2400, 9600, 19200, 38400
+
+             If no modem or other critical serial device is being used, then
+             specify 1600 disable time for best performance.  If a modem is
+             present, reduce the value until performance of both the modem
+             and EtherLink 10 ISA NIC are acceptable to you.  If the computer
+             has a 16550 buffered serial UART, you can set the modem speed
+             below the actual serial line speed because the UART can buffer
+             characters, relaxing the need for critical interrupt response.
+
+     /TR (or /XCVR) - Transceiver  (ISA only)
+             Possible values - TP, COAX, AUI, EXTERNAL (same as AUI)
+
+     /OPTIMIZE - Network Driver Optimization
+             Possible values - DOS, Windows, OS/2, server
+
+     /LINKBEAT - Link beat disable/enable  (pre-10BASE-T standard only)
+             Possible values - disabled, enabled
+
+             NOTE:  Try this setting ONLY if pre-10BASE-T standard hubs
+                    are in use.
+
+     /CONFIGPORT -  (ISA only)  Configport is a value the Configuration
+             and Diagnostic Program uses internally to search for ISA NICs.
+
+             Possible values - 100-1E0, in increments of 10.
+
+             NOTE: Try this setting ONLY if a problem occurs in bringing up
+             the program in an ISA computer.  (The 3Com internal default
+             configport of 110 may not work if some other device is using
+             that address.)
+
+             NOTE: If only this parameter is used, ie. "3c5x9cfg configure
+             /configport:1B0," and no other configuration parameters, the
+             program will try the default configuration parameter, "/auto"
+             to configure the NIC.
+
+      /PNP - (3C509B only) PNP controls the ability of the 3C509B to
+             respond to an ISA bus Plug 'n Play identification.
+
+             Possible values - ENABLED or DISABLED
+
+             ENABLED allows the NIC to respond to a Plug 'n Play
+             identification.  DISABLED does not allow the 509B to respond
+             to a Plug 'n Play identification.
+
+      /SYNCREADY - (3C509B only) Forces the NIC to insert a wait state
+             on each I/O cycle.  Setting this option may allow the 509B to
+             work in computers with marginal ISA I/O bus timing.
+
+             Possible values - ENABLED or DISABLED
+
+             ENABLED adds a wait state to each I/O bus cycle.  DISABLED
+             allows the bus to run at full speed.
+
+      /FULLDUPLEX - (3C509B only) enables/disables Full Duplex network
+             operation.  Possible values - ENABLED, DISABLED
+
+             NOTE:  This setting can ONLY be enabled when the NICs
+                    transceiver setting is forced to 10BaseT operation.         
+                    Full duplex should be enabled ONLY when connected to a
+                    switch port that supports full duplex.  The switch port
+                    must also be forced to full duplex, referring to the
+                    switch documentation for doing this.  Otherwise,
+                    operating the NIC in full duplex mode on a half duplex
+                    hub or repeater may cause network problems.
+
+
+   Command Line with Configuration File
+   ------------------------------------
+
+   Command syntax:  3C5X9CFG CONFIGURE  /CONFIGFILE:filename
+
+   /CONFIGFILE:filename is used to configure an NIC with the settings
+   specified in an ASCII configuration file that can be created and modified
+   by any text editor.  The filename can be a fully qualified DOS filename
+   including a path.  A standard format for the file must be used, as
+   follows:
+
+      -  Variable names and values match the wording in the full-screen
+         configure window in most cases.
+
+      -  Begin each variable/value line with an "at" symbol (@), followed by
+         a variable name, a colon (:), and the value.
+
+              Example:  @I/O base address:300
+
+      -  Blank lines and other white spaces are allowed between variable
+         lines.
+
+      -  Start any comment lines with a semicolon (;).
+
+      -  The variable names allowed are:
+              I/O base address
+              Interrupt request level
+              Boot PROM size
+              Boot PROM base address
+              Transceiver type
+              Network driver optimization
+              Maximum interrupt disable time
+              Link beat
+              Full duplex
+
+      -  The values allowed are the same as those shown in the full-screen
+         configure window.
+
+              Example 1:  @Network driver optimization:Windows or OS/2 Client
+              Example 2:  @Transceiver type:On-board Coax
+
+              The one exception to this rule is the Maximum Interrupt Disable
+              Time setting, which is used in place of Modem Speed.  The
+              values are in microseconds.  Possible values are 25-1600, in
+              increments of 25.
+
+              Example:  @Maximum interrupt disable time:1600 microseconds
+
+
+ Diagnostic
+ ----------
+
+ Full Screen Windows Mode
+ ------------------------
+
+   To run the diagnostic tests using the full screen windowing, type:
+
+   3C5X9CFG [ENTER]
+
+   Then select the Run Tests option in the Tests pull-down menu.
+
+ Command Line Option - RUN
+ -------------------------
+
+   Command syntax:  3C5X9CFG RUN  [/TESTFILE:filename] [/RESULTS:[filename
+                    | PRN | PRNHP]] [/ADAPTERNUM:N | /SLOT:S]
+
+   The RUN parameter executes the diagnostic tests on a selected NIC
+   and displays the results on the screen.  The defaults are adapter number
+   1 and Group 1 tests.  The parameters below are all optional.
+
+   /TESTFILE:filename specifies a test file that contains a specific test
+    setup description.
+
+   /RESULTS:[filename or PRN or PRNHP] specifies an alternative location to
+    store the test results.  This location can be a DOS path and filename,
+    PRN printer port (same as LPT1), or PRNHP, which is an HP LaserJet
+    printer connected to LPT1.
+
+   /ADAPTERNUM:N specifies the adapter number to be tested, in the case of
+    multiple NICs installed in the computer and recognized by this
+    program.  Run the LIST command separately (see LIST below) to determine
+    the adapter number to use.
+
+   /SLOT:S specifies the physical slot number of the NIC to be tested
+    when multiple NICs are installed in EISA and MCA computers.
+
+
+ Other Command Line Options
+ --------------------------
+
+   HELP
+
+   Command syntax:  3C5X9CFG HELP  [Command Keyword]
+
+   HELP is an on-line summary of commands.  Without a command keyword,
+   it gives a summary of the command keywords.  With a command keyword
+   specified, it gives the parameter choices for that particular command.
+   For example, "3C5X9CFG HELP CONFIGURE" gives details about the parameter
+   options for the CONFIGURE command.
+
+   LANGUAGE
+
+   Command syntax:  3C5X9CFG LANGUAGE  /LANGFILE:filename
+
+   LANGUAGE invokes the program in full windows mode using a specified
+   external resource file.  This option provides support for multiple
+   languages via a different resource file for each language supported.
+
+   /LANGFILE:filename is a required parameter with this command.
+   The filename is the name of the resource file that is loaded by the
+   program.  The filename can be a fully qualified DOS filename.
+
+   NOTE: At this time, there are no alternate resource files included on
+         the EtherDisk diskette.
+
+   LIST
+
+   Command syntax:  3C5X9CFG LIST
+
+   LIST displays a list of currently installed NICs (and their assigned
+   adapter numbers) that are recognized by this program. The adapter number
+   is then used as the N value for the /ADAPTERNUM:N parameter when multiple
+   NICs are installed.  There are no parameters associated with the LIST
+   command keyword.
+
+   ECHOSERVER
+
+   Command syntax:  3C5X9CFG ECHOSERVER  [/ADAPTERNUM:N | /SLOT:S]
+
+   ECHOSERVER enables the NIC to function as an echo server.
+   /ADAPTERNUM:N specifies the adapter number to be configured in the echo
+   server, in the case of multiple NICs.  /SLOT:S is available only on
+   EISA or MCA computers, and refers to the physical slot in the echo server
+   where the NIC is located.
+
+
+ Further Assistance
+ ------------------
+
+ If the NIC fails any of the diagnostic tests, see the TROUBLE.TXT file
+ in the \HELP directory on the EtherDisk #2 diskette for troubleshooting
+ procedures.
+
+ The SUPPORT.TXT file in the \HELP subdirectory on the EtherDisk #2 diskette
+ provides information about obtaining product support for the NIC.
+
+ 3Com, EtherDisk, and EtherLink are registered trademarks of 3Com
+ Corporation. All other trademarks are the property of their respective
+ owners.
+
+(%VER  Configuration and Diagnostic Program Instructions Summary v6.1a)

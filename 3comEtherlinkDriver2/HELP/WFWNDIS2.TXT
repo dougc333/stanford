@@ -1,0 +1,67 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+          NDIS 2.01 Drivers and Windows for Workgroups 3.11
+
+
+The following describes the procedure for installing the real-mode 16-bit
+NDIS2 (ELNK3.DOS) driver under Windows for Workgroups (WFW).  Real-mode
+drivers are required by DOS networking applications.
+
+NOTE: It is assumed that Windows for Workgroups has already been
+      installed.
+
+1.  Start Windows.
+
+2.  Open the Network group and double-click Network Setup.
+
+3.  To install the network driver, click Drivers...
+
+4.  In the Network Drivers window, click Add Adapter...
+
+5.  From the list of network NICs, select Unlisted or Updated Network
+    Adapter.
+
+6.  Network setup requires a vendor-provided network driver diskette.
+    Insert the EtherDisk diskette #2 in drive A:, and type the path for
+    the NDIS driver:
+
+    A:\WFW311
+
+    Then click OK.
+
+7.  From the Unlisted or Updated Network Adapter screen, select 3Com
+    EtherLink 10 ISA (3C509b) and click OK.
+
+8.  From the Network Drivers screen, click Setup.
+
+9.  To select the NDIS 2 real-mode driver, click the down arrow under
+    Driver Type and select Real Mode NDIS Driver. Then click OK.
+
+10. The Network Setup screen now lists the 3Com EtherLink 10 ISA Adapter
+    (3C509b) (NDIS2) along with the default protocol stacks.
+
+11.  The Windows Setup now asks whether you want to replace the Enhanced
+     Mode Protocol Manager with the version you are installing now.
+     Click Yes to All.
+
+12.  The Windows setup program now asks for the NDIS.386 file. Insert
+     Microsoft Windows for Workgroups 3.11 Disk 7 and click OK.
+
+13.  When prompted for the ELNK3.DOS driver, insert the 3Com EtherDisk
+     diskette #2 in the A: drive. To load the NDIS 2 driver, type this path:
+
+     A:\NDIS2\DOS
+
+     Click OK.
+
+14.  The PROTOCOL.INI and SYSTEM.INI files have now been modified.  WFW
+     saves the old versions with the extension .001, where the number is
+     incremented every time a new PROTOCOL.INI or SYSTEM.INI FILE is
+     generated. Click OK.
+
+15.  Restart your system when prompted.
+
+
+
+  (%VER WFWNDIS2.TXT - 2.01 Drivers and Windows for Workgroups 3.11 v6.1a)

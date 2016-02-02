@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+6
+~@x (Cube(x) $ Small(x))~?y (Cube(y) & Large(y))~@x (Large(x) % Dodec(x))@x (~Large(x) | ~Cube(x))?u (~Small(u) & Cube(u))?x ((Large(x) & ~Dodec(x)) | (Dodec(x) & ~Large(x)))

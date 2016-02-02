@@ -1,0 +1,13 @@
+The following DFA recognizes the given language.
+The states a,b,c,d and e indicate that so far 0,1,2,3, resp. 4 bits of
+the given substring have been encountered. Reading a 1 in state c
+means that we are not encountering the right substring yet, so we go back
+to state a. Reading a 0 in state d is similar, but we go back to state b only,
+as the 0 may the the beginning of the desired substring. In state e we
+decide to accept the input string no matter what comes next; hence the
+two loops.
+
+<IMG SRC=11.gif>
+<BR>
+As every DFA is an NFA, the DFA above is also the correct answer to the
+second question. An alternative NFA is shown above.

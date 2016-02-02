@@ -1,0 +1,123 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+        Installing a NIC in a NetWare 16-Bit DOS ODI Client
+
+
+This section describes how to install the driver for a 16-bit NetWare client
+running DOS.
+
+NOTE: If only one NIC has been installed, you may use the 3Com
+      Intelligent Auto Install software program to automatically install the
+      NetWare DOS ODI client software, including the driver, and to modify
+      the CONFIG.SYS and AUTOEXEC.BAT files.
+
+To use the Intelligent Auto Install program, the computer must meet these
+requirements:
+
+1.  Use Novell NetWare 3.12, 4.1 or 4.11 network operating system
+
+2.  Have only one 3Com EtherLink 10 ISA (3C5X9) Parallel Tasking NIC
+    installed
+
+3.  Be intended for use as a NetWare DOS ODI client
+
+
+Installing the Driver for One NIC
+-------------------------------------
+If only one NIC is installed, use the Intelligent Auto Install program to
+install the driver automatically, as follows:
+
+1.  Make sure the NIC is installed and connected to the network.
+
+2.  Boot the computer under DOS.
+
+3.  Insert the EtherDisk #2 diskette in drive A and type the following at
+    the DOS prompt:
+
+    A:\COMSLINK [Enter]
+
+4.  The first time you use the EtherDisk diskette, the 3Com software
+    license appears. To accept its terms, type Y. (To view all the license
+    text, press [F1].)
+
+    Several messages appear while the Intelligent Auto Install program is
+    running.  A final message indicates successful installation.
+
+    NOTE: If a problem occurs when the Intelligent Auto Install program runs,
+          view or print the COMSLINK.LOG file located on your C:\ directory
+          to determine which event may have caused the problem.
+
+5.  When installation is complete, you will be asked if you want to reboot
+    the computer. For the installation to be effective, remove the
+    EtherDisk diskette and reboot the computer. You will be prompted for
+    your user name and password.
+
+6.  If you are using Windows or Windows for Workgroup on this computer, you
+    may also need to install the Novell Windows support software, which can
+    be obtained from Novell.
+
+
+Installing the Driver for Multiple NICs
+-------------------------------------------
+NOTE: Use multiple NICs in a client computer only if you plan to run
+      multiple protocols or connect to more than one network. For
+      information on multiple protocols, see the documentation provided
+      with your operating system.
+
+To install the driver and NICs for a client computer running DOS in a
+Novell NetWare environment, proceed as follows:
+
+1.  Turn the computer off. Install the first NIC and connect it to the
+    network.
+
+2.  Turn the computer on and install the driver for the first NIC with
+    the Intelligent Auto Install program (see the above section for
+    instructions).  Be sure to remove the EtherDisk diskette after
+    installation is finished.
+
+3.  Turn the computer off again, install the second NIC, and connect
+    it to the network.
+
+4.  Proceed as follows:
+
+    -  If the computer is running a version of DOS below 6.x, boot it from
+       a DOS diskette that does not contain drivers.
+
+    -  If the computer is running DOS version 6.x, turn it on and press [F5]
+       when DOS loads, after the "Starting MS-DOS..." message.  This
+       prevents any drivers or memory managers from loading.
+
+ 5.  Insert the EtherDisk #2 diskette in drive A, and type the following
+     at the DOS prompt:
+
+     A:\INSTALL [Enter]
+
+ 6.  On the main menu, select Configuration and Diagnostic Program and
+     press [Enter].
+
+ 7.  In the list of NICs, find the port or slot number of the two NICs
+     you just installed.  Write down the numbers in a place where you can
+     refer to them later, and press [Esc] to quit the program.
+
+ 8.  Access the C:\NWCLIENT directory and open the NET.CFG file.  Type:
+
+     EDIT NET.CFG [Enter]
+
+ 9.  Scroll through the file to the LINK DRIVER 3C5X9 section and locate
+     the following line:
+
+     LINK DRIVER 3C5X9
+
+ 10. Following this line, add a line PORT = XXX or SLOT = Y.  The port
+     address is a hexadecimal I/O address.  SLOT is a decimal bus slot
+     number.  Use PORT for the 3C509 NICs in ISA mode and SLOT for 3C509
+     NICs in EISA or PnP mode.
+
+ 11. Following the second LINK DRIVER 3C5X9 repeat step 10 and add the PORT
+     or SLOT number for the second NIC.
+
+ 12. When you are done, reboot the computer.
+
+
+            (%VER NWDOSODI.TXT - NetWare DOS ODI Client V6.1a)

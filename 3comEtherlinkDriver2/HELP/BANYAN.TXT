@@ -1,0 +1,88 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+              The 3C509B EtherLink 10 ISA NIC Family
+                  Banyan VINES Installation Notes
+
+
+Preliminary Banyan VINES Client Installation
+--------------------------------------
+The Banyan VINES LAN software installation requires that you input the IRQ
+assigned to the NIC.
+
+To determine the IRQ, perform the following steps:
+
+1.  Insert the 3Com EtherLink 10 ISA EtherDisk #2 diskette in the floppy
+    drive and make that the active drive.
+
+2.  At the DOS prompt type:
+     3C5X9CFG [Enter]
+
+3.  When the main menu appears, select Adapter Configuration and press
+    [Enter].
+
+4.  The Adapter Configuration screen appears with the IRQ shown in the
+    Standard Options box.
+
+
+Banyan VINES Client Installation
+--------------------------
+To install VINES 6.0 software on a DOS NDIS workstation, follow these
+instructions.  DOS must be installed on the target workstation C: drive or
+you must have a bootable DOS floppy.
+
+1.  Use the DOS MD command to create a subdirectory called \VINES.
+
+2.  Copy the contents of the VINES LAN S/W (DOS) Install diskette into
+    the \VINES subdirectory.
+
+3.  Copy the contents of the NDIS subdirectory on the VINES LAN S/W (DOS)
+    2 of 2 diskette into the \VINES subdirectory.
+
+4.  Copy the ELNK3.DOS and the PROTOCOL.INI fragment from the NDIS2\DOS
+    subdirectory on the EtherDisk #2 diskette to the \VINES subdirectory.
+
+5.  Edit the PROTOCOL.INI file to read as follows:
+
+    [PROTOCOL MANAGER]
+     DRIVERNAME = PROTMAN$
+
+    [VINES_XIF]
+     DRIVERNAME = NDISBAN$
+     BINDINGS = ELNK3
+
+    [ELNK3]
+     DRIVERNAME = ELNK3$
+
+6.  Run the PCCONFIG.EXE program located in the \VINES subdirectory.
+
+7.  Select option 1, Network Card Settings.
+
+8.  Select the NDIS Ethernet option.
+
+9.  The NDIS Workstation screen appears. Enter the interrupt request
+    number (IRQ) you selected for the 3Com EtherLink 10 ISA NIC.
+
+10.  Edit the CONFIG.SYS file and add the following lines, substituting
+     A: for C: for a floppy disk installation.
+
+     DEVICE = C:\VINES\PROTMAN.DOS /I:C:\VINES
+     DEVICE = C:\VINES\ELNK3.DOS
+
+11. Insert the following lines in the AUTOEXEC.BAT file.
+
+     CD \VINES
+     BAN
+
+     BAN loads the NDISBAN drivers and reads the PCCONFIG.DB file to
+     invoke changes made during the PCCONFIG stage.
+
+
+Banyan VINES Server Installation
+--------------------------------
+
+Banyan provides a VINES Server driver with the current version of VINES.
+Consult the Banyan documentation for installation instuctions.
+
+                 (%VER BANYAN.TXT - Banyan VINES v6.1a)
+
+

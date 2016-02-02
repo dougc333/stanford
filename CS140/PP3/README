@@ -1,0 +1,295 @@
+Group: Screwed
+Elias Dagher 	dagher@leland
+Lionel Gresse   gresse@leland
+Doug Chang      dougc@leland
+CS140, Summer 1999
+Homework 2
+
+                                   -README-
+
+Program Notes:
+-------------
+	
+All of our changes can be identified through #ifdef PP2_1, PP2_2, and
+PP2_3 in the included source files.  All parts must be enabled in
+/threads/constants.h #define statements for this assignment to work.
+Please also see the TESTCASES file for test cases that prove our functionality.
+
+
+
+----------------------------------------------------------------------------------
+General Stuff
+----------------------------------------------------------------------------------
+
+
+
+
+Problem 1: Implementing System Calls
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+  1. Support for Processes 
+      The goal was to support processes from the implementation of threads
+from assignment 1. From Silbersatz, a process requires the following
+elements:
+	- a process state defined as New, Running, Waiting, Ready, and terminated
+	- A set of CPU registers
+	- A scheduler to schedule processes
+	- Memory Management 
+	- Accounting Information
+	- I/O status information
+      In our design, we had a choice of either designing a separate
+process class or using the existing threads class. The existing
+multi-threading implementation provides access to CPU registers through
+thread save and restore state, a scheduler to schedule threads with
+priorities, and accounting information through the simulated machine and
+mipssim modules. We added Memory management functionality to the existing
+code base.
+  2. Architecture of Data Structures
+      The Thread class was modified to support a process with the
+assumption that multi-threading was not required. The data structures added
+to the thread class included an object representing the virtual address
+space for a process and a list of open files for the process. We used the
+join solution from assignment1.
+  3.File Operations
+      File Operations were defined using the provided classes filesys and
+openfile. The current implementation for filesys_stub looks for an
+existing file name if a file is to be created. If the filename string does
+not exist in the UNIX directory, the file name is created. A file
+descriptor is created, but not saved. When a file is open, an OpenFile
+object is created and added to the fileTable in each thread. The OpenFile
+object contains a integer for the FileID of the open file, and an offset
+for the file.
+  4.File Descriptors
+      File descriptors are integers. 0 and 1 are reserved for console
+input and output.
+  5.Protection of Resources
+      Protection for the OS was designed into the implementation as follows:
+	- on a file operation, check the current thread owns the open
+fileID in the file table. This prevents any thread or process from
+accessing any open file. The read, and write operations in the kernel
+check the file table in each thread to make sure the thread has already
+opened the file first. The create routine would assign protection levels
+to the file as it is created. The open routine would check file
+permissions before allowing the file descriptor to be added to the
+file table in the current thread.
+  6.Kernel to/from User communication
+       We implemented fixed buffer sizes.
+  7.Preventing the OS from crashing
+       - If there is not enough memory left, we do not load the
+program. The exception.cc routine dumps any page fault exceptions and
+kills the offending processes.
+       - We check for null filenames by testing for the strlen of a
+filename. The routines SC_Create, and SC_Open.
+       - We check for valid fileIds in Read and Write. We are NOT
+impelenting stderr. We check for a valid file id of >2 for closing a file.
+       - We test for Reading and writing to a console device in SC_Read
+and SC_Write.
+     
+     The following functional descriptions are from Kernighan and Ritchie
+2nd edition, and the syscall.h descriptions in the code.  This
+functionality is what we implemented.
+  
+  8. SC_Exec: The goal was to execute a given executable. The design
+decisions were to implement checking to see if the executable exists. If
+the executable file exists, a new thread is instantiated, the code is
+loaded into memory, and a fork is called to execute the program.
+	
+  9. SC_Join: The goal was to allow a process to be joined to
+another. Error testing was added to prevent the routine from hanging if a
+process did not exist when join is called, the process did not exist in
+the child thread queue for the parent process, and for recursive joins.
+
+  10. SC_Create: Create a file, and return a bool TRUE or FALSE if
+successful. If the file exists, return a TRUE. Error checking was added to
+prevent the routine from hanging when no file name is given.
+
+  11. SC_Open: If the file does not exist, return a -1. Else, return a
+file ID and append it to the thread that created the file. Many threads
+can open the same file. CHECK TO SEE IF THIS is added to current thread or
+to the thread that called it.A thread can get switched out, so it is
+important to reference the ASID of the request in some cases.
+
+  12. SC_Close: Check to see the file is first open in the appropriate list
+of the thread. Assume this is currentThread. If the fileID is in the file
+table for the thread, remove the fileID from the file table.
+
+  13. SC_Read: CHeck to see if the fileID is 0 or 1, indicating a console
+device. If not a console device, Read from a file vs. reading a char at a
+time from consoleInput.
+
+  14. SC_Write: Check to see if the file ID is 0 or 1 indicating a console
+device output. If this is a file, check to see the thread has this fileid
+in the filetable.
+
+  15. SC_Exit: Implemented as cleanup for processes that are implemented
+as threads with file tables and address space objects.
+    
+----------------------------------------------------------------------------------
+Problem 2:Multi-Programming
+----------------------------------------------------------------------------------
+A. Major Design Decisions
+   1. Create a memory manager for the kernel.  The memory manager does the
+following:
+	a. Tracks used pages
+	b. Allocates pages to a process
+	c. Deallocates pages from a process
+	d. Tracks all processes that have created an address space
+	e. Copies data to/form kernel space from/to user space
+	f. Provides VA to PA address translation services
+	
+  We decided to create a memory manager because we wanted to have one
+central unit of the kernel deal with memory issues.  Furthermore, we felt
+that if we provided a single point of memory management, the security would
+be increased between processes.  Processes would have to use the memory
+manager to pass data back and forth to the kernel.  Thus a process could
+never actually get the physical page mappings of another process or the
+kernel and cause trouble.
+
+   2.  Synchronize access to the memory manager's page allocation and
+deallocation routines by making these routines "critical sections."  This
+prevents the memory manager from being interrupted while it is searching
+the memory map and allocating or deallocation memory to a process.
+
+   3.  Make the kernel to/from user space copy routine translate VA's on a
+byte by byte basis.  This ensures that the copy routine will always map
+to the correct physical address even when data straddles a page boundary.
+
+   4.  Round up the stack size to the nearest whole number of pages.  This
+ensures that the stack will never share a page with code or data segments.
+
+   5.  Start the stack at the highest virtual address in the process'
+virtual address space.  This allows the stack to grow downward.
+
+   6.  Mark all code pages as read only and mark data and stack pages as
+read/write.  Should a code segment share a page with a data segment, then
+only mark those pages of the code segment that are sharing as read only.
+This provides as much protection as possible to the code segment while
+allowing memory to be conserved by sharing pages between code and data
+segments. We understand that the code segments that reside on read/write
+pages are in jeopardy of being modified, but this is a compromise to
+conserve memory.
+
+   7.  If a process is requesting more pages than there are free or
+physically available, then we do not load the process.
+ 
+   6. We are NOT IMPLEMENTING LOCKS ON THE FILES as we think
+locks belong as part of the file system, which is part of a future
+assignment. We do recognize the potential problem of a program reading
+from a file while it is being written to by another file. This problem can
+be solved with locks on open files in the OpenFile class, but we are
+assuming this is part of a future assignment.
+
+   4. Locks are added to the kernel buffer to prevent a process from
+writing to a kernel buffer and another process from reading from the same
+buffer and getting incorrect data. Locks were also added to the standard
+input and devices. The standard input and output devices are similar to a
+file in containing a fileId, but the devices do not have a file
+offset. Thus, we added locks to the reading of these buffers in the
+SC_Read and SC_Write routines as they are reading and writing from the
+console.  This way we ensure that a call to read/write to the console
+returns/sends the correct data to/from the correct process.  This
+prevents process from corrupting each others read/write console activity.
+
+B.  The following explains how a process is created in our
+multiprogramming implementation.
+
+   1.  A system call to SC_Exec is made which invokes the Exec interrupt
+handler function. This function creates a new thread and a new address
+space for that thread.  The address space is then loaded with correct code
+and data segments from the executable file by AddrSpace::Load.  Finally
+the handler forks off a wrapper function call CallMachineRun.
+   2.  CallMachineRun  passes the command line arguments to the process'
+stack (See Problem 3 for a detailed description of this activity.) It then
+calls InitRegisters to initialize the registers with correct PC and stack
+register values.  It then loads the correct page table into the CPU.
+Finally, it calls Machine::Run which begins the execution of user code.
+
+
+C.  The following explains what AddrSpace::Load does to prepare the
+address space of a process for execution.
+   1. The command line is parsed for the executable filename. 
+   2. The executable file is open and its noff header is obtained.
+   3. The number of pages needed by the process is determined adding up the
+sizes of the code, initialize data, uninitialized data, and stack size
+(rounded up to the nearest number of pages).
+   4. A request is made to the memory manager to allocate space for the
+new process.  
+	a. The memory manager determines if it has enough space for the
+process
+	b. Using a memory bitmap the memory manager marks the needed
+number pages in the bitmap as used and sets up the page table with the
+correct physical page mappings. This entire operation is a critical
+section surround by locks to ensure synchronization.
+	c. The memory manager adds the new address space to its list of
+address spaces that it is managing.
+   5.  The executable file is read and the code segment and initialized
+data segments are load into their correct address spaces using the page
+table just recently setup.  The uninitialized data is not read since it
+does not contain any data.
+   6.  The pages of the page table are marked as read only or writable.
+   7.  The address space is now set up for the process to begin execution.
+ 
+
+D.  The following explains what happens when a process is terminated. A
+process is terminated when a system call to SC_Exit is made or an
+unexpected user mode exception has resulted.
+    1. The exit code of the process is set by calling Thread::SetExitCode.  The
+exit code used is either what the process returned or -1 if an unexpected
+user mode exception occurred. The exit code is later retrieved by SC_Join.
+    2. The address space of the process is deallocated.
+	a.  The memory manager finds the process on its lists of address
+spaces and refers to that address space's page table.
+	b.  All page table entries are cleared and voided, and the bitmap entries
+corresponding to those pages in the page table are released.
+	c. The address space is removed from the memory manager's list of
+address spaces.
+    3. Thread::Finish is called.
+
+    
+----------------------------------------------------------------------------------
+Problem 3:Argument Passing
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+    1.  Have the AddrSpace class set up the stack once the process is
+context switched in for the very first time.
+    2.  Have the method AddrSpace::Load parse the command line for the program
+name and arguments.  This is done because when Load is called we need to
+parse the command line to get the executable file name.  
+    3.  Create a method that actually pushes items on the stack according
+the the method described in PP2 FAQ page.
+    4.  Use a memory manager method to copy data from kernel space to the
+user space stack.
+    5.  Use the ANSI C function strtok to parse the command line.
+    6.  Limit the command line to a 60 char maximum, but allow for easy
+changing of maximum by setting a #define statement.  The maximum length can
+be changed in #define CMDLINEMAX in constants.h in the threads directory
+  
+B. The following describes what happens when a command line with arguments
+is sent to the SC_Exec syscall:
+
+    1.  The SC_Exec exception handler copies the entire command line from
+kernel space into user space using a the memory manger method
+UserToKernel.  It then executes AddrSpace::GetReady, which sets up the
+memory space and parses the command line by calling AddrSpace::Load. The
+parsed command line is stored in the AddrSpace class for later use.  It
+then forks off a wrapper function for Machine->Run.
+    2.  When this wrapper function is context switched in, the first
+action is to call AddrSpace::PassArgs, which performs the actually pushing
+of the arguments and address on to the stack in accordance with the FAQ
+page.  Once all the arguments are pushed, the new stack offset, argc and
+argv are noted for later use.
+    3.  The wrapper function then calls AddrSpace::InitRegisters. This
+function performs the loading of register 4 and 5 with argc and argv, and
+loading the new stack offset into the stack register.
+    4.  At this point the stack is ready and the user program can
+reference the arguments passed.
+    
+  
+
+
+
+
+
+

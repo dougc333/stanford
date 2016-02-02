@@ -1,0 +1,35 @@
+To the second part -
+ 
+We can convert the machine so it won't move past the start of the tape:
+ 
+Before we execute the machine, mark the first character with a special
+symbol corresponding to that character.  Then, read ahead to the first
+blank.  Copy each character on the input tape one square to the right,
+moving from the end of the string backward.  When we get to the symbol at
+the start of the tape, replace it with a # symbol (not in the language
+alphabet), and move one square to the right.  We've shifted the input string
+one to the right and marked the start.
+ 
+To every state on the original machine, add a self loop that reads a #
+symbol and moves to the right.  We essentially simulate moving past the
+start of the tape without actually doing it.  The machine will still accept
+the same language, but it will never go past the start, since there is no
+transition that reads a # and moves to the left.
+ 
+For the first part -
+ 
+The set of stupid Turing machines is undecidable.
+ 
+Assume it is decidable.  Then we can decide whether the language accepted by
+a Turing machine is empty:
+ 
+Convert the machine as above.  Also, change the accept state into a
+non-accept state.   Add states so that whenever we hit that state, we read
+left to the # sign, then move left again past the start of the state, and
+then accept.  This machine accepts a string if and only if it moves past the
+start of the tape.  This means that the language is empty if and only if
+there is no input string that causes the machine to move past the start of
+the tape, which by assumption we can decide.  We've decided an undecidable
+problem, so we have a contradiction.
+ 
+- Dave, Jihan, Will

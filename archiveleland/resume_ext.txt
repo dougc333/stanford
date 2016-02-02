@@ -1,0 +1,137 @@
+(650) 776-4952, 
+msmulski@stanford.edu
+P.O. Box 14013,
+Stanford, CA 94309
+
+Michal Smulski
+
+Objective
+
+ ASIC Hardware Engineer.
+
+Education
+
+1998-2000	Stanford University	Stanford, CA
+ MS Electrical Engineering.
+1994-1998	California Institute of Technology	Pasadena, CA
+ BS Electrical Engineering.
+
+
+Experience
+
+1999-2001	Stanford University	Stanford, CA
+
+Research Assistant
+
+ Researcher for Immersive Television Project (IMTV).
+ The purpose of IMTV is to investigate new hybrids of computer graphics and 
+ vision, architectures and networks and to create three-dimensional viewing 
+ experiences for the digital television. The focus of my work was on input 
+ and sensing technologies. In particular I worked on Light Field Camera Array
+ hardware project. The main goal of this project was to design and implement
+ a large camera array of CMOS sensors used to sample light fields.
+
+1. Camera board bring-up and testing. Bring-up of the board included:
+ a. Verilog functional model implementation of the board. Simulation of 
+    the board using Verilog models of the chips: CMOS sensor, Coldfire 
+    processor, MPEG2 encoder, IEEE134 Link chip, asynchronous fifo. 
+ b. Hardware level debugging. Logic (functional) and timing debugging 
+    using logic analyzer and oscilloscope.   
+ c. Software level debugging. C and assembly code debugging over Coldfire 
+    Background Debug Mode (in-circuit debugging).
+
+2. Implemented interfaces among CMOS sensor, Coldfire processor, 
+   IEEE1394 chip-set and MPEG2 encoder.
+ a. Custom logic design for the camera board. Implemented on Xilinx 
+    Spartan XL FPGA.  
+   Key features:
+   Video stream control register designed as interface between Operating 
+   System (uC OS) and the hardware that controls the video streaming. 
+   Asynchronous fifo to synchronize incoming (from CMOS sensor) video stream
+   DMA logic to implement frame buffer in DRAM over Coldfire bus.
+   Virtual camera module (model of the CMOS sensor that generates synthetic 
+   data) used for system self-test.
+   Logic for timing and data width conversion of the video stream to 
+   interface with MPEG2 encoder and IEEE1394 Link Layer chip.
+ b. Logic implemented in Verilog. 
+   Tested and simulated using Verilog XL and SimWaves.
+   Synthesized using Synopsis FPGA Compiler II.
+   Place and route using Xilinx Alliance Tools.
+ c. Implemented in-system controller-based Xilinx FPGA programming. 
+   Implemented in C (Coldfire) and ABEL (PAL).    
+
+3. Developed calibration system for CMOS sensors.
+   The main purpose of this project was to design a robust geometric 
+   calibration system for large arrays of cameras. The main contribution of 
+   my work was design and implementation of software that used acquired 
+   images to extract and compute 3D geometry of a known object (calibration 
+   target). That data was used then to perform nonlinear optimization which 
+   extracted camera model parameters.
+  Detailed Documentation.
+    Source Files: http://graphics.stanford.edu/~msmulski/calib/index.html
+     Algorithm Description: 
+     http://graphics.stanford.edu/~msmulski/calib/internals.html
+
+4. Developed software on Linux-based PC for interfacing with the camera array.
+ a. Extended and debugged Linux kernel-level device driver for IEEE1394.
+ b. Designed and implemented application level interface to IEEE1394 for 
+   both asynchronous and isosynchronous protocols. 
+ c. Designed and implemented application level interface to X-server for 
+   displaying video streams.
+ d. Designed and implemented multi-threaded application to handle GUI, 
+   IEEE1394 and Xwindows interfaces. 
+
+
+1997-1998	Jet Propulsion Lab, NASA	Pasadena, CA
+
+Software engineer
+
+  Programmer for Information Processing Group.
+
+1. Implemented a "transfer function" algorithm for computing performance 
+   bounds on the Turbo Codes 
+ a. Based on the theoretical considerations implemented in C application that
+   computed upper bounds for bit-error rate for maximum likelihood decoding 
+   of Turbo Codes constructed with random permutations.
+   D. Divsalar, S. Dolinar, R.J. McEliece, F. Pollara. "Transfer Function 
+   Bounds on the Performance of Turbo Codes", JPL TDA Progress Report 42-122, 
+   August 15, 1995. TDA
+
+2. Designed and implemented a web accessible tool for analyzing deep 
+   space communication systems:
+ a. Main algorithms implemented in Mathematica
+ b. Interface between Mathematica and CGI script in C
+ c. GUI based on Java and Javascript. 
+
+
+ASIC design (part of class-work)
+
+digital front end to an oscilloscope (Stanford, Winter 1999)
+a. Architecture
+ Data Input magnitude scaling and time interpolation/decimation.
+ LCD interface.
+b. Design tools
+ Verilog XL (Verilog interpreter)
+ SimWaves (waveform simulation)
+ SUE (schematic capture)
+ Design Compiler (synthesis)
+ Snake (router)
+ Magic (layout tool)
+ IRSIM (switch level simulator)
+ Gemini (layout versus schematic)
+c. Detailed design description: 
+  http://mos.stanford.edu/ee272/proj99/oscilloscope/report.html
+
+convolutional codec, encoder and Viterbi decoder (Caltech, Fall 1997)
+a. Architecture:
+   convolution code encoder.
+   four-state Viterbi decoder for (1/2) code:
+      four parallel Add-Compare-Select Units.
+      register-exchange Survivor-Path
+
+b. Design tools
+ Magic (layout tool)
+ IRSIM (switch level simulator)
+
+
+ 

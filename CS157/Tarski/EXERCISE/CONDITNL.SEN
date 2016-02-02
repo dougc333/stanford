@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+5
+(Small(e) & Dodec(e)) $ LeftOf(e, f)Tet(c) $ (Tet(e) | Dodec(e))e # c $ Tet(e)Small(e) % Dodec(e)LeftOf(e, f) % Larger(f, e)

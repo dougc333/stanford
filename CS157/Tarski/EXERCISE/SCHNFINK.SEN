@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+8
+(Tet(w) $ Large(w))Tet(a) $ Large(w)Tet(w) $ Large(w)@x y ((Cube(x) & Cube(y)) $ ~Larger(x, y))@ Cube(a)@x Tet(y) $ Small(x)((Tet(x) & Tet(y)) $ Between(z, x, y))(Tet(x) & Large(x)) & LeftOf(x, y)

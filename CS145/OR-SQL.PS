@@ -1,0 +1,2651 @@
+%!PS-Adobe-3.0
+%%Title: Microsoft PowerPoint - sql3-handout
+%%Creator: AdobePS5.dll Version 5.1
+%%CreationDate: 5/15/2000 11:48:55
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%Orientation: Portrait
+%%PageOrder: Ascend
+%%DocumentNeededResources: (atend)
+%%DocumentSuppliedResources: (atend)
+%%DocumentData: Clean7Bit
+%%TargetDevice: (Default PostScript Printer) (2010.0) 2
+%%LanguageLevel: 2
+%%EndComments
+
+%%BeginDefaults
+%%PageBoundingBox: 18 8 593 784
+%%EndDefaults
+
+
+%%BeginProlog
+%%BeginResource: file Pscript_WinNT_ErrorHandler 5.0 0
+/currentpacking where{pop/oldpack currentpacking def/setpacking where{pop false
+setpacking}if}if/$brkpage 64 dict def $brkpage begin/prnt{dup type/stringtype
+ne{=string cvs}if dup length 6 mul/tx exch def/ty 10 def currentpoint/toy exch
+def/tox exch def 1 setgray newpath tox toy 2 sub moveto 0 ty rlineto tx 0
+rlineto 0 ty neg rlineto closepath fill tox toy moveto 0 setgray show}bind def
+/nl{currentpoint exch pop lmargin exch moveto 0 -10 rmoveto}def/=={/cp 0 def
+typeprint nl}def/typeprint{dup type exec}readonly def/lmargin 72 def/rmargin 72
+def/tprint{dup length cp add rmargin gt{nl/cp 0 def}if dup length cp add/cp
+exch def prnt}readonly def/cvsprint{=string cvs tprint( )tprint}readonly def
+/integertype{cvsprint}readonly def/realtype{cvsprint}readonly def/booleantype
+{cvsprint}readonly def/operatortype{(--)tprint =string cvs tprint(-- )tprint}
+readonly def/marktype{pop(-mark- )tprint}readonly def/dicttype{pop
+(-dictionary- )tprint}readonly def/nulltype{pop(-null- )tprint}readonly def
+/filetype{pop(-filestream- )tprint}readonly def/savetype{pop(-savelevel- )
+tprint}readonly def/fonttype{pop(-fontid- )tprint}readonly def/nametype{dup
+xcheck not{(/)tprint}if cvsprint}readonly def/stringtype{dup rcheck{(\()tprint
+tprint(\))tprint}{pop(-string- )tprint}ifelse}readonly def/arraytype{dup rcheck
+{dup xcheck{({)tprint{typeprint}forall(})tprint}{([)tprint{typeprint}forall(])
+tprint}ifelse}{pop(-array- )tprint}ifelse}readonly def/packedarraytype{dup
+rcheck{dup xcheck{({)tprint{typeprint}forall(})tprint}{([)tprint{typeprint}
+forall(])tprint}ifelse}{pop(-packedarray- )tprint}ifelse}readonly def/courier
+/Courier findfont 10 scalefont def end errordict/handleerror{systemdict begin
+$error begin $brkpage begin newerror{/newerror false store vmstatus pop pop 0
+ne{grestoreall}if showpage initgraphics courier setfont lmargin 720 moveto
+(ERROR: )prnt errorname prnt nl(OFFENDING COMMAND: )prnt/command load prnt
+$error/ostack known{nl nl(STACK:)prnt nl nl $error/ostack get aload length{==}
+repeat}if systemdict/showpage get exec(%%[ Error: )print errorname =print
+(; OffendingCommand: )print/command load =print( ]%%)= flush}if end end end}dup
+0 systemdict put dup 4 $brkpage put bind readonly put/currentpacking where{pop
+/setpacking where{pop oldpack setpacking}if}if
+%%EndResource
+%%BeginResource: procset Pscript_WinNT_Full 5.0 0
+/Pscript_WinNT_Full 300 dict 2 copy userdict 3 1 roll put dup begin
+%%BeginResource: file Pscript_FatalError 5.0 0
+/FatalErrorIf{{initgraphics findfont 1 index 0 eq{exch pop}{dup length dict
+begin{1 index/FID ne{def}{pop pop}ifelse}forall/Encoding{ISOLatin1Encoding}
+stopped{StandardEncoding}if def currentdict end/ErrFont-Latin1 exch definefont}
+ifelse exch scalefont setfont counttomark 3 div cvi{moveto show}repeat showpage
+quit}{cleartomark}ifelse}bind def
+%%EndResource
+/VM?{vmstatus exch sub exch pop gt{[
+(This job requires more memory than is available in this printer.)100 500
+(Try one or more of the following, and then print again:)100 485
+(For the output format, choose Optimize For Portability.)115 470
+(In the Device Settings page, make sure the Available PostScript Memory is accurate.)
+115 455(Reduce the number of fonts in the document.)115 440
+(Print the document in parts.)115 425 12/Times-Roman showpage
+(%%[ PrinterError: Low Printer VM ]%%)= true FatalErrorIf}if}bind def
+105000 VM?
+%%BeginResource: file Pscript_Win_Basic 5.0 0
+/d/def load def/,/load load d/~/exch , d/?/ifelse , d/!/pop , d/`/begin , d/^
+/index , d/@/dup , d/+/translate , d/$/roll , d/U/userdict , d/M/moveto , d/-
+/rlineto , d/&/currentdict , d/:/gsave , d/;/grestore , d/F/false , d/T/true ,
+d/N/newpath , d/E/end , d/Ac/arc , d/An/arcn , d/A/ashow , d/D/awidthshow , d/C
+/closepath , d/V/div , d/O/eofill , d/L/fill , d/I/lineto , d/-c/curveto , d/-M
+/rmoveto , d/+S/scale , d/Ji/setfont , d/Lc/setlinecap , d/Lj/setlinejoin , d
+/Lw/setlinewidth , d/Lm/setmiterlimit , d/sd/setdash , d/S/show , d/LH/showpage
+, d/K/stroke , d/W/widthshow , d/R/rotate , d/L2? false/languagelevel where{pop
+languagelevel 2 ge{pop true}if}if d L2?{/xS/xshow , d/yS/yshow , d/zS/xyshow ,
+d}if/b{bind d}bind d/bd{bind d}bind d/xd{~ d}bd/ld{, d}bd/bn/bind ld/lw/Lw ld
+/lc/Lc ld/lj/Lj ld/sg/setgray ld/ADO_mxRot null d/self & d/OrgMx matrix
+currentmatrix d/reinitialize{: OrgMx setmatrix[/TextInit/GraphInit/UtilsInit
+counttomark{@ where{self eq}{F}?{cvx exec}{!}?}repeat cleartomark ;}b
+/initialize{`{/ADO_mxRot ~ d/TextInitialised? F d reinitialize E}{U
+/Pscript_Win_Data 230 dict @ ` put/ADO_mxRot ~ d/TextInitialised? F d
+reinitialize}?}b/terminate{!{& self eq{exit}{E}?}loop E}b/suspend/terminate , d
+/resume{` Pscript_Win_Data `}b/snap{transform 0.25 sub round 0.25 add ~ 0.25
+sub round 0.25 add ~ itransform}b/dsnap{dtransform round ~ round ~ idtransform}
+b/nonzero_round{@ 0.5 ge{round}{@ -0.5 lt{round}{0 ge{1}{-1}?}?}?}b
+/nonzero_dsnap{dtransform nonzero_round ~ nonzero_round ~ idtransform}b U<04>
+cvn{}put/rr{1 ^ 0 - 0 ~ - neg 0 - C}b/rp{4 2 $ M 1 ^ 0 - 0 ~ - neg 0 -}b/solid{
+[]0 sd}b/g{@ not{U/DefIf_save save put}if U/DefIf_bool 2 ^ put}b/DefIf_El{if U
+/DefIf_bool get not @{U/DefIf_save get restore}if}b/e{DefIf_El !}b/UDF{L2?
+{undefinefont}{!}?}b/UDR{L2?{undefineresource}{! !}?}b/freeVM{/Courier findfont
+[40 0 0 -40 0 0]makefont Ji 2 vmreclaim}b
+%%EndResource
+%%BeginResource: file Pscript_Win_Utils_L2 5.0 0
+/rf/rectfill , d/fx{1 1 dtransform @ 0 ge{1 sub 0.5}{1 add -0.5}? 3 -1 $ @ 0 ge
+{1 sub 0.5}{1 add -0.5}? 3 1 $ 4 1 $ idtransform 4 -2 $ idtransform}b/BZ{4 -2 $
+snap + +S fx rf}b/rs/rectstroke , d/rc/rectclip , d/UtilsInit{currentglobal{F
+setglobal}if}b/scol{! setcolor}b/colspA/DeviceGray d/colspABC/DeviceRGB d
+/colspRefresh{colspABC setcolorspace}b/SetColSpace{colspABC setcolorspace}b
+/resourcestatus where{!/ColorRendering/ProcSet resourcestatus{! ! T}{F}?}{F}?
+not{/ColorRendering<</GetHalftoneName{currenthalftone @/HalftoneName known{
+/HalftoneName get}{!/none}?}bn/GetPageDeviceName{currentpagedevice @
+/PageDeviceName known{/PageDeviceName get @ null eq{!/none}if}{!/none}?}bn
+/GetSubstituteCRD{!/DefaultColorRendering/ColorRendering resourcestatus{! !
+/DefaultColorRendering}{(DefaultColorRendering*){cvn exit}127 string
+/ColorRendering resourceforall}?}bn>>/defineresource where{!/ProcSet
+defineresource !}{! !}?}if/buildcrdname{/ColorRendering/ProcSet findresource `
+mark GetHalftoneName @ type @/nametype ne ~/stringtype ne and{!/none}if(.)
+GetPageDeviceName @ type @/nametype ne ~/stringtype ne and{!/none}if(.)5 ^ 0 5
+-1 1{^ length add}for string 6 1 $ 5 ^ 5{~ 1 ^ cvs length 1 ^ length 1 ^ sub
+getinterval}repeat ! cvn 3 1 $ ! ! E}b/definecolorrendering{~ buildcrdname ~
+/ColorRendering defineresource !}b/findcolorrendering where{!}{
+/findcolorrendering{buildcrdname @/ColorRendering resourcestatus{! ! T}{
+/ColorRendering/ProcSet findresource ` GetSubstituteCRD E F}?}b}?
+/selectcolorrendering{findcolorrendering !/ColorRendering findresource
+setcolorrendering}b
+%%EndResource
+%%BeginResource: file Pscript_Text 5.0 0
+/TextInit{TextInitialised? not{/Pscript_Windows_Font & d/TextInitialised? T d
+/fM[1 0 0 1 0 0]d/mFM matrix d/iMat[1 0 0.212557 1 0 0]d}if}b/copyfont{1 ^
+length add dict `{1 ^/FID ne{d}{! !}?}forall & E}b/EncodeDict 11 dict d/bullets
+{{/bullet}repeat}b/rF{3 copyfont @ ` ~ EncodeDict ~ get/Encoding ~ 3 ^/0 eq{&
+/CharStrings known{CharStrings/Eth known not{! EncodeDict/ANSIEncodingOld get}
+if}if}if d E}b/mF{@ 7 1 $ findfont ~{@/Encoding get @ StandardEncoding eq{! T}{
+{ISOLatin1Encoding}stopped{! F}{eq}?{T}{@ ` T 32 1 127{Encoding 1 ^ get
+StandardEncoding 3 -1 $ get eq and}for E}?}?}{F}?{1 ^ ~ rF}{0 copyfont}? 6 -2 $
+! ! ~ !/pd_charset @ where{~ get 128 eq{@ FDV 2 copy get @ length array copy
+put pd_CoverFCRange}if}{!}? 2 ^ ~ definefont fM 5 4 -1 $ put fM 4 0 put fM
+makefont Pscript_Windows_Font 3 1 $ put}b/sLT{: Lw -M currentpoint snap M 0 - 0
+Lc K ;}b/xUP null d/yUP null d/uW null d/xSP null d/ySP null d/sW null d/sSU{N
+/uW ~ d/yUP ~ d/xUP ~ d}b/sU{xUP yUP uW sLT}b/sST{N/sW ~ d/ySP ~ d/xSP ~ d}b/sT
+{xSP ySP sW sLT}b/sR{: + R 0 0 M}b/sRxy{: matrix astore concat 0 0 M}b/eR/; , d
+/AddOrigFP{{&/FontInfo known{&/FontInfo get length 6 add}{6}? dict `
+/WinPitchAndFamily ~ d/WinCharSet ~ d/OrigFontType ~ d/OrigFontStyle ~ d
+/OrigFontName ~ d & E/FontInfo ~ d}{! ! ! ! !}?}b/mFS{makefont
+Pscript_Windows_Font 3 1 $ put}b/mF42D{0 copyfont `/FontName ~ d 2 copy ~ sub 1
+add dict `/.notdef 0 d 2 copy 1 ~{@ 3 ^ sub Encoding ~ get ~ d}for & E
+/CharStrings ~ d ! ! & @ E/FontName get ~ definefont}bind d/mF42{15 dict ` @ 4
+1 $/FontName ~ d/FontType 0 d/FMapType 2 d/FontMatrix[1 0 0 1 0 0]d 1 ^ 254 add
+255 idiv @ array/Encoding ~ d 0 1 3 -1 $ 1 sub{@ Encoding 3 1 $ put}for
+/FDepVector Encoding length array d/CharStrings 2 dict `/.notdef 0 d & E d 0 1
+Encoding length 1 sub{@ @ 10 lt{! FontName length 1 add string}{100 lt{FontName
+length 2 add string}{FontName length 3 add string}?}? @ 0 FontName @ length
+string cvs putinterval @ 3 -1 $ @ 4 1 $ 3 string cvs FontName length ~
+putinterval cvn 1 ^ 256 mul @ 255 add 3 -1 $ 4 ^ findfont mF42D FDepVector 3 1
+$ put}for & @ E/FontName get ~ definefont ! ! ! mF}b/UmF{L2?
+{Pscript_Windows_Font ~ undef}{!}?}b/UmF42{@ findfont/FDepVector get{/FontName
+get undefinefont}forall undefinefont}b
+%%EndResource
+%%BeginResource: file Pscript_TextFE 5.0 0
+/FDV/FDepVector d/pd_GetAdoNotDefFont{U(AdoNotDefFont)2 copy known{get}{@ 11
+dict `/FontName 1 ^ d/FontMatrix matrix d/FontType 0 d/FMapType 2 d/Encoding[0
+0 0 0]d/FDepVector[/NotDefFont findfont]d & E definefont @ 4 1 $ put}?}b
+/pd_FCIsCovered{@/SubsVector get @ 0 ~{add}forall 256 ge{! ! T}{length 1 sub ~
+/Encoding get ~ get F}?}b/pd_CoverFCRange{@ pd_FCIsCovered not{~ @ FDV 2 copy
+get @ 6 -1 $ pd_GetAdoNotDefFont put put}if}b/pd_IsModeSwitchAble{F
+/resourcestatus where{!/CIDParams/ProcSet 2 copy resourcestatus{! !
+findresource @/SetBuildCompatible known ~/GetBuildCompatible known and ~ 0}if !
+!}if}b/pd_LParams 8 dict d/pd_DefLocalParams{pd_LParams `/pd_InstName ~ d
+/pd_Incr 0 d @/pd_charset ~ d/pd_SwitchAble pd_IsModeSwitchAble d
+/pd_PreviousMode T d ! & E}b/pd_IsCID-KeyedFont{/resourcestatus where{!{/CMap
+resourcestatus}stopped{! ! ! F}{{! !/CIDFont resourcestatus{! ! T}{F}?}{! F}?}
+?}{! ! F}?}b/pd_SwitchToNative{F pd_SwitchAble{!/CIDParams/ProcSet findresource
+@/GetBuildCompatible get exec F 3 -1 $/SetBuildCompatible get exec}if
+/pd_PreviousMode ~ d}b/pd_IsCIDCapable{/CIDInit/ProcSet resourcestatus @{! ! !
+T}if}b/pd_mF_Finally{fM @ 4 0 put @ 5 5 -1 $ put makefont Pscript_Windows_Font
+3 1 $ put}b/pd_SwitchToPrevious{pd_SwitchAble{pd_PreviousMode/CIDParams/ProcSet
+findresource/SetBuildCompatible get exec}if}b/pd_fem90msnotfound{[
+(This job requires the 90ms font used in this document.)100 500 12/Times-Roman
+LH(%%[ PrinterError: font not found ]%%)= T FatalErrorIf}b/mF_FE{6 -1 $ ! 6 ^
+pd_DefLocalParams ` 2 copy pd_IsCID-KeyedFont{4 -1 $ ! 6 -1 $ !
+pd_SwitchToNative 4 ^ ~[4 -1 $]composefont ~ ! pd_mF_Finally
+pd_SwitchToPrevious}{@/90ms-RKSJ-H eq{pd_fem90msnotfound}if ! !/0 3 1 $ mF}? E}
+b
+%%EndResource
+%%BeginResource: file Pscript_TextV 5.0 0
+/pd_copybfont{1 ^ length add dict `{1 ^/FID eq 2 ^/UniqueID eq 3 ^/XUID eq or
+or{! !}{d}?}forall & E}b/pd_scratch 128 string d/pd_concatnames{2 copy cvs
+length 3 ^ 2 ^ cvs length @ 3 1 $ add 1 add string @ @ @ 0 9 -1 $ 7 ^ cvs
+putinterval 3 ^ 16#2d put 5 -2 $ cvs 4 -1 $ 1 add ~ putinterval cvn}b
+/pd_genunqname{pd_Incr @ 1 add/pd_Incr ~ d pd_scratch cvs cvn pd_InstName ~
+pd_scratch pd_concatnames}b/hrM[0 -1 1 0 0 0]d/iMat_V[1 0.212557 0 1 0 0]d
+/mIF_V{iMat_V 5 3 -1 $ put iMat_V makefont Pscript_Windows_Font 3 1 $ put}b
+/sLT2{: Lw -M currentpoint snap M - K ;}b/sU2{xUP yUP uW sLT2}b/sT2{xSP ySP sW
+sLT2}b/CDevProc-83pv{5{!}repeat 6 -2 $ ! ! 1250 sub 4 1 $ 120 sub 4 1 $ 1250
+sub 4 1 $ 120 sub 4 1 $ 0 -1000 6 2 $ 0 0 0 0}b/k-trans[0.0 1.0 -1.0 0.0 0.0
+0.0]d/r_font{2 pd_copybfont @/CDevProc/CDevProc-83pv , put pd_genunqname ~
+definefont k-trans makefont put}b/r_k_basefont{2 eq{@ 0 1 2 ^ length 1 sub{2
+copy get 1 ^ 4 eq 2 ^ 5 eq or{! !}{r_font @}?}for !}{@ 0 1 2 ^ length 1 sub{2
+copy get r_font @}for !}?}b/r_k_font{1 ^ 3 1 $ 2 copy get 1 copyfont @/FontType
+get 0 eq{@ FDV get @ length array copy 2 ^ r_k_basefont 1 ^ 3 1 $ FDV ~ put}if
+pd_genunqname ~ definefont put}b/r-83pv-k-fonts{k-trans 4 -0.380 put 1 copyfont
+@ FDV 2 copy get @ length array copy 2 r_k_font 4 r_k_font put}b/mF_83V
+{findfont r-83pv-k-fonts pd_CoverFCRange 2 ^ ~ definefont fM 5 4 -1 $ put fM 4
+0 put fM makefont Pscript_Windows_Font 3 1 $ put}b/hrCDevProcV-J{5{!}repeat 5 ^
+5 ^ 0 0}b/hrCDevProcV-CK{! ! ! 0 0}b/pd_DefLocalVParams{pd_LParams `
+/pd_InstName ~ d/pd_Incr 0 d ~ @/pd_charset ~ d/pd_SwitchAble
+pd_IsModeSwitchAble d/pd_PreviousMode T d 128 eq{/pd_CDevProcV/hrCDevProcV-J d
+/pd_hrMTx -0.38 d}{/pd_CDevProcV/hrCDevProcV-CK d/pd_hrMTx -0.38 d}?
+/pd_NeedRearrangement ~ d & E}b/pd_mF_V_Finally{1 ^ findfont fM @ 4 5 -1 $ neg
+0.34 add put @ 5 0 put 90 matrix R matrix concatmatrix makefont
+Pscript_Windows_Font 3 1 $ put}b/pd_InstallCDevProcV{pd_InstName 3 ^ pd_scratch
+pd_concatnames @ 3 -1 $ 4 ^/CIDFont findresource @ length 2 add dict `{1 ^ @
+/FID eq ~ @/XUID eq ~/UIDBase eq or or{! !}{d}?}forall/CDevProc ~ d & E/CIDFont
+defineresource ! 3 -1 $ pd_InstName pd_scratch pd_concatnames @ 4 2 $[~]
+composefont !}b/pd_CreateNativeCIDKeyedFont{2 copy pd_scratch pd_concatnames
+pd_InstName pd_scratch pd_concatnames @ 4 2 $ ~[~]composefont !}b/pd_VCIDProlog
+{2 copy pd_CreateNativeCIDKeyedFont 3 1 $ pd_CDevProcV , pd_InstallCDevProcV
+mark 4 ^[5 -2 $]}b/mF_V_CID{pd_NeedRearrangement{pd_VCIDProlog/CIDInit/ProcSet
+findresource ` beginrearrangedfont/WMode 1 d 1 beginusematrix hrM @ 4 pd_hrMTx
+put endusematrix 1 usefont 1 beginbfrange<00><80><00>endbfrange pd_charset 128
+eq{1 beginbfrange<a0><df><a0>endbfrange}if endrearrangedfont E cleartomark}{3 ^
+~[4 -1 $]composefont !}?}b/mF_83V_CID{pd_VCIDProlog/CIDInit/ProcSet
+findresource ` beginrearrangedfont/WMode 1 d 1 beginusematrix hrM @ 4 -0.30 put
+endusematrix 1 usefont 1 beginbfrange<8540><85fe><8540>endbfrange
+endrearrangedfont E cleartomark}b/pd_GetHKPos{@/SubsVector get @ length 1 sub 0
+1 ^ 1 1 3 -1 ${~ 3 ^ 2 ^ get add @ 160 eq{4 2 $ ! ! ! exit}{~ 2 ^ ge{! ! ! 0}
+if}?}for ~/Encoding get ~ get}b/pd_InstallCDPVAndRotate{~ 2 pd_copybfont @
+/CDevProc 4 -1 $ put pd_genunqname ~ definefont hrM @ 4 pd_hrMTx put makefont}b
+/mF_V_CSL{pd_scratch pd_concatnames findfont 1 copyfont @ FDV 2 copy get @
+length array copy @ @ 0 get pd_CDevProcV , pd_InstallCDPVAndRotate 0 ~ put
+pd_charset 128 eq{@ @ 4 ^ pd_GetHKPos @ 3 1 $ get pd_CDevProcV ,
+pd_InstallCDPVAndRotate put}if put 2 ^ ~ definefont !}b/pd_fem90msVnotfound{[
+(This job requires the 90ms font used in this document.)100 500 12/Times-Roman
+LH(%%[ PrinterError: font not found ]%%)= T FatalErrorIf}b/mF_V_FE{7 -1 $ ! 7 ^
+pd_DefLocalVParams ` 2 copy pd_IsCID-KeyedFont{4 2 $ ! ! 5 -1 $ !
+pd_SwitchToNative pd_IsCIDCapable{mF_V_CID}{mF_V_CSL}? pd_mF_V_Finally
+pd_SwitchToPrevious}{@/90ms-RKSJ-V eq{pd_fem90msVnotfound}if 4 2 $ ! ! 5 -1 $ !
+mF_V_CSL}? E}b/mF_83V_FE{6 -1 $ ! 5 -1 $ ! 7 -1 $ ! T 6 ^ pd_DefLocalVParams `
+2 copy pd_IsCID-KeyedFont{pd_SwitchToNative pd_IsCIDCapable{3 -1 $ ! mF_83V_CID
+pd_mF_V_Finally}{! ! mF_83V}? pd_SwitchToPrevious}{! ! mF_83V}? E}b
+%%EndResource
+%%BeginResource: file Pscript_TextBold 5.0 0
+/sB{1 copy 2 copy : sBdx 0 -M S ; : 0 sBdx -M S ; : sBdx sBdx -M S ; S}b/asB{3
+copy 3 copy 3 copy : sBdx 0 -M A ; : 0 sBdx -M A ; : sBdx sBdx -M A ; A}b/wsB{4
+copy 4 copy 4 copy : sBdx 0 -M W ; : 0 sBdx -M W ; : sBdx sBdx -M W ; W}b/awsB
+{6 copy 6 copy 6 copy : sBdx 0 -M D ; : 0 sBdx -M D ; : sBdx sBdx -M D ; D}b
+/xsB{2 copy 2 copy 2 copy : sBdx 0 -M xS ; : 0 sBdx -M xS ; : sBdx sBdx -M xS ;
+xS}b/zsB{2 copy 2 copy 2 copy : sBdx 0 -M zS ; : 0 sBdx -M zS ; : sBdx sBdx -M
+zS ; zS}b/ysB{2 copy 2 copy 2 copy : sBdx 0 -M yS ; : 0 sBdx -M yS ; : sBdx
+sBdx -M yS ; yS}b
+%%EndResource
+%%BeginResource: file Pscript_Win_GdiObject 5.0 0
+/SavedCTM null d/CTMsave{/SavedCTM SavedCTM currentmatrix d}b/CTMrestore
+{SavedCTM setmatrix}b/mp null d/ADO_mxRot null d/GDIHMatrix null d
+/GDIHPatternDict 22 dict d GDIHPatternDict `/PatternType 1 d/PaintType 2 d/Reps
+L2?{1}{5}? d/XStep 8 Reps mul d/YStep XStep d/BBox[0 0 XStep YStep]d/TilingType
+1 d/PaintProc{` 1 Lw[]0 sd PaintData , exec E}b/FGnd null d/BGnd null d
+/HS_Horizontal{horiz}b/HS_Vertical{vert}b/HS_FDiagonal{fdiag}b/HS_BDiagonal
+{biag}b/HS_Cross{horiz vert}b/HS_DiagCross{fdiag biag}b/MaxXYStep XStep YStep
+gt{XStep}{YStep}? d/horiz{Reps{0 4 M XStep 0 - 0 8 +}repeat 0 -8 Reps mul + K}b
+/vert{Reps{4 0 M 0 YStep - 8 0 +}repeat 0 -8 Reps mul + K}b/biag{Reps{0 0 M
+MaxXYStep @ - 0 YStep neg M MaxXYStep @ - 0 8 +}repeat 0 -8 Reps mul + 0 YStep
+M 8 8 - K}b/fdiag{Reps{0 0 M MaxXYStep @ neg - 0 YStep M MaxXYStep @ neg - 0 8
++}repeat 0 -8 Reps mul + MaxXYStep @ M 8 -8 - K}b E/makehatch{4 -2 $/yOrg ~ d
+/xOrg ~ d GDIHPatternDict/PaintData 3 -1 $ put CTMsave GDIHMatrix setmatrix
+GDIHPatternDict matrix xOrg yOrg + mp CTMrestore ~ U ~ 2 ^ put}b/h0{/h0
+/HS_Horizontal makehatch}b/h1{/h1/HS_Vertical makehatch}b/h2{/h2/HS_FDiagonal
+makehatch}b/h3{/h3/HS_BDiagonal makehatch}b/h4{/h4/HS_Cross makehatch}b/h5{/h5
+/HS_DiagCross makehatch}b/GDIBWPatternMx null d/pfprep{save 8 1 $
+/PatternOfTheDay 8 1 $ GDIBWPatternDict `/yOrg ~ d/xOrg ~ d/PaintData ~ d/yExt
+~ d/Width ~ d/BGnd ~ d/FGnd ~ d/Height yExt RepsV mul d/mx[Width 0 0 Height 0
+0]d E build_pattern ~ !}b/pfbf{/fEOFill ~ d pfprep hbf fEOFill{O}{L}? restore}b
+/GraphInit{GDIHMatrix null eq{/SavedCTM matrix d : ADO_mxRot concat 0 0 snap +
+: 0.48 @ GDIHPatternDict ` YStep mul ~ XStep mul ~ dsnap YStep V ~ XStep V ~ E
++S/GDIHMatrix matrix currentmatrix readonly d ; : 0.24 -0.24 +S
+GDIBWPatternDict ` Width Height E nonzero_dsnap +S/GDIBWPatternMx matrix
+currentmatrix readonly d ; ;}if}b
+%%EndResource
+%%BeginResource: file Pscript_Win_GdiObject_L2 5.0 0
+/GDIBWPatternDict 25 dict @ `/PatternType 1 d/PaintType 1 d/RepsV 1 d/RepsH 1 d
+/BBox[0 0 RepsH 1]d/TilingType 1 d/XStep 1 d/YStep 1 d/Height 8 RepsV mul d
+/Width 8 d/mx[Width 0 0 Height neg 0 Height]d/FGnd null d/BGnd null d
+/SetBGndFGnd{BGnd null ne{BGnd aload ! scol BBox aload ! 2 ^ sub ~ 3 ^ sub ~
+rf}if FGnd null ne{FGnd aload ! scol}if}b/PaintProc{` SetBGndFGnd RepsH{Width
+Height F mx PaintData imagemask Width 0 +}repeat E}b E d/mp/makepattern , d
+/build_pattern{CTMsave GDIBWPatternMx setmatrix/nupangle where{! nupangle -90
+eq{nupangle R}if}if GDIBWPatternDict @ ` Width Height ne{Width Height gt{Width
+Height V 1}{1 Height Width V}? +S}if xOrg yOrg E matrix + mp CTMrestore}b/hbf
+{setpattern}b/hf{:/fEOFill ~ d ~ ! setpattern fEOFill{O}{L}? ;}b/pbf{: !
+/fEOFill ~ d GDIBWPatternDict `/yOrg ~ d/xOrg ~ d/PaintData ~ d/OutputBPP ~ d
+/Height ~ d/Width ~ d/PaintType 1 d/PatternType 1 d/TilingType 1 d/BBox[0 0
+Width Height]d/XStep Width d/YStep Height d/mx xOrg yOrg matrix + d 20 dict @ `
+/ImageType 1 d/Width Width d/Height Height d/ImageMatrix[1 0 0 1 0 0]d
+/BitsPerComponent 8 d OutputBPP 24 eq{/Decode[0 1 0 1 0 1]d}{OutputBPP 8 eq{
+/Decode[0 1]d}{/Decode[0 1 0 1 0 1 0 1]d}?}?/DataSource{PaintData}d E/ImageDict
+~ d/PaintProc{` ImageDict image E}b & mx makepattern setpattern E fEOFill{O}{L}
+? ;}b/mask_pbf{:/fEOFill ~ d 20 dict `/yOrg ~ d/xOrg ~ d/PaintData ~ d/Height ~
+d/Width ~ d/PatternType 1 d/PaintType 2 d/TilingType 1 d/BBox[0 0 Width Height]
+d/XStep Width d/YStep Height d/mx xOrg yOrg matrix + d/PaintProc{` Width Height
+T[1 0 0 1 0 0]{PaintData}imagemask E}b & mx makepattern setpattern E fEOFill{O}
+{L}? ;}b
+%%EndResource
+%%BeginResource: file Pscript_Win_Dib_L2 5.0 0
+/iw 0 d/ih 0 d/im_save 0 d/s 0 d/polarity 0 d/smoothflag 0 d/mystring 0 d/bpc 0
+d/maskcolor 0 d/mask? F d/setup1asciiproc{[currentfile mystring/readhexstring
+cvx/! cvx]cvx bind}b/setup1binaryproc{[currentfile mystring/readstring cvx/!
+cvx]cvx bind}b/setup2asciiproc{currentfile/ASCII85Decode filter/RunLengthDecode
+filter}b/setup2binaryproc{currentfile/RunLengthDecode filter}b/jpegasciiproc
+{currentfile/ASCII85Decode filter<</Relax 1>>/DCTDecode filter}b/jpegbinaryproc
+{currentfile<</Relax 1>>/DCTDecode filter}b/mycolorspace{colspABC}d/myimagedict
+{/myimagedict 10 dict d myimagedict @ `/ImageType 1 d/MultipleDataSource F d E}
+b/imageprocarray[/setup1binaryproc/setup1asciiproc/setup2binaryproc
+/setup2asciiproc/setup1binarydecodeproc/setup1asciidecodeproc]d/jpegprocarray[
+/jpegasciiproc/jpegbinaryproc]d/Q{/im_save save d scol imageprocarray ~ get/s ~
+, d/polarity ~ d/smoothflag ~ d snap +/dx 2 ^ d/dy 1 ^ d +S/mystring ~ string d
+/bpc ~ d/ih ~ d/iw ~ d fx rf}b/X{/im_save save d/mask? ~ d/maskcolor ~ d
+imageprocarray ~ get/s ~ , d/polarity ~ d/smoothflag ~ d snap +/dx 2 ^ d/dy 1 ^
+d +S/mystring ~ string d/bpc ~ d/ih ~ d/iw ~ d}b/Z{im_save restore}b/beginjpeg{
+/jpeg_save save d jpegprocarray ~ get/jpegimageproc ~ , d snap + +S/bpc ~ d/ih
+~ d/iw ~ d bpc 24 eq{/DeviceRGB}{/DeviceGray}? setcolorspace myimagedict @ `
+/ImageType 1 d/Width iw d/Height ih d/Decode bpc 24 eq{[0 1 0 1 0 1]}{[0 1]}? d
+/ImageMatrix[iw 0 0 ih 0 0]d/BitsPerComponent 8 d/DataSource jpegimageproc d E
+image}b/endjpeg{jpeg_save restore}b/Y{scol myimagedict @ ` mask?{/ImageType 4 d
+/MaskColor maskcolor d}if/Width iw d/Height ih d/Decode polarity{[1 0]}{[0 1]}?
+d/ImageMatrix[iw 0 0 ih 0 0]d/DataSource s d/BitsPerComponent 1 d/Interpolate
+smoothflag d E imagemask}bd/doclutimage{/rgbclut ~ d bpc @ 8 eq{! 255}{4 eq{15}
+{3}?}?/hival ~ d[/Indexed currentcolorspace hival rgbclut]setcolorspace
+myimagedict @ ` mask?{/ImageType 4 d/MaskColor maskcolor d}if/Width iw d/Height
+ih d/Decode[0 hival]d/ImageMatrix[iw 0 0 ih 0 0]d/DataSource s d
+/BitsPerComponent bpc d/Interpolate smoothflag d E image}b/doCMYKclutimage{
+/CMYKclut ~ d bpc @ 8 eq{! 255}{4 eq{15}{3}?}?/hival ~ d[/Indexed/DeviceCMYK
+hival CMYKclut]setcolorspace myimagedict @ ` mask?{/ImageType 4 d/MaskColor
+maskcolor d}if/Width iw d/Height ih d/Decode[0 hival]d/ImageMatrix[iw 0 0 ih 0
+0]d/DataSource s d/BitsPerComponent bpc d/Interpolate smoothflag d E image}b
+/doNimage{bpc 24 eq{currentcolorspace}{colspA}? setcolorspace myimagedict @ `
+mask?{/ImageType 4 d/MaskColor maskcolor d}if/Width iw d/Height ih d/Decode bpc
+24 eq{[0 1 0 1 0 1]}{[0 1]}? d/ImageMatrix[iw 0 0 ih 0 0]d/DataSource s d
+/BitsPerComponent bpc 24 eq{8}{bpc}? d/Interpolate smoothflag d E image}b
+/doCMYKimage{/DeviceCMYK setcolorspace myimagedict @ ` mask?{/ImageType 4 d
+/MaskColor maskcolor d}if/Width iw d/Height ih d/Decode[0 1 0 1 0 1 0 1]d
+/ImageMatrix[iw 0 0 ih 0 0]d/DataSource s d/BitsPerComponent 8 d/Interpolate
+smoothflag d E image}b
+%%EndResource
+%%BeginResource: file Pscript_T42Hdr 5.0 0
+/asc42 0.0 d/sF42{/asc42 ~ d Ji}bind d/bS42{0 asc42 -M}bind d/eS42{0 asc42 neg
+-M}b/Is2015?{version cvi 2015 ge}bind d/AllocGlyphStorage{Is2015?{!}{{string}
+forall}?}bind d/Type42DictBegin{25 dict `/FontName ~ d/Encoding ~ d 4 array
+astore cvx/FontBBox ~ d/PaintType 0 d/FontType 42 d/FontMatrix[1 0 0 1 0 0]d
+/CharStrings 256 dict `/.notdef 0 d & E d/sfnts}bind d/Type42DictEnd{& @
+/FontName get ~ definefont ! E}bind d/RDS{string currentfile ~ readstring !}
+executeonly d/PrepFor2015{Is2015?{/GlyphDirectory 16 dict d sfnts 0 get @ 2 ^
+(glyx)putinterval 2 ^(locx)putinterval ! !}{! !}?}bind d/AddT42Char{Is2015?
+{findfont/GlyphDirectory get ` d E ! !}{findfont/sfnts get 4 ^ get 3 ^ 2 ^
+putinterval ! ! ! !}?}bind d/IDStrNull{1 add 2 mul @ string 0 1 3 ^ 1 sub{1 ^ ~
+0 put}for ~ !}bind d/IDStr{@ 1 add 2 mul string 0 1 3 ^{1 ^ ~ @ 2 mul ~ 3 copy
+256 idiv put ~ 1 add ~ 256 mod put}for ~ !}bind d/IDStr2{~ @ 1 add 2 mul string
+0 1 3 ^{1 ^ ~ @ 2 mul ~ 5 ^ add 3 copy 256 idiv put ~ 1 add ~ 256 mod put}for ~
+! ~ !}bind d/CIDT42Begin{25 dict ` @/WMode ~ d 0 gt{/Metrics2 16 dict d
+/FontMatrix[0 1 -1 0 0 0]d}{/FontMatrix[1 0 0 1 0 0]d}?/CIDMap ~ d/CIDCount ~ d
+/CIDSystemInfo 3 dict @ ` 3 -1 $/Supplement ~ d 3 -1 $/Ordering ~ d 3 -1 $
+/Registry ~ d E d/CIDFontName ~ d/Encoding ~ d 4 array astore cvx/FontBBox ~ d
+/CharStrings 2 dict @ `/.notdef 0 d E d/GDBytes 2 d/CIDFontType 2 d/FontType 42
+d/PaintType 0 d/sfnts}bind d/CIDT42End{CIDFontName & E/CIDFont defineresource
+!}bind d/T42CIDCP32K{/CIDFont findresource @ length dict copy @/FID undef `
+/CIDFontName ~ d/CIDMap ~ d/CIDCount ~ d/Metrics2 8 dict d CIDFontName & E
+/CIDFont defineresource !}bind d/T42CIDCPR{/CIDFont findresource @ length dict
+copy @/FID undef `/CDevProc{!}d/CIDFontName ~ d CIDFontName & E/CIDFont
+defineresource !}bind d/T0AddT42Char{/CIDFont findresource/GlyphDirectory get `
+d E ! !}bind d/T0AddT42Mtx2{/CIDFont findresource/Metrics2 get ` d E}bind d
+/UpdateCIDMap{/CIDFont findresource/CIDMap get 3 1 $ putinterval}d/AddXUID
+{version cvi 3011 ge{/XUID ~ d}{!}?}bind d/AddFontInfoBegin{/FontInfo 16 dict @
+`}bind d/AddFontInfo{/GlyphNames2Unicode 16 dict d}bind d/AddFontInfoEnd{E d}
+bind d/G2UBegin{findresource/FontInfo get/GlyphNames2Unicode get `}bind d
+/G2UEnd{E}bind d
+%%EndResource
+%%BeginResource: file Pscript_T3Hdr 5.0 0
+{version cvi 2016 ge{32/FontType resourcestatus{pop pop true}{false}ifelse}
+{false}ifelse}exec/Is2016andT32? exch def Is2016andT32?{/CIDInit/ProcSet
+findresource begin 10 dict begin begincmap/CIDSystemInfo 3 dict dup begin
+/Registry(Adobe)def/Ordering(Identity1)def/Supplement 0 def end def/CMapType 0
+def/WMode 0 def 1 begincodespacerange<00><ff>endcodespacerange 1 begincidrange
+<00><ff>0 endcidrange endcmap/DrvSBCMap currentdict/CMap defineresource pop end
+end}if/T32RsrcBegin{Is2016andT32?{/BitmapFontInit/ProcSet findresource begin}
+if}bind def/T32RsrcEnd{Is2016andT32?{end}if}bind def/AddT32Char{6 1 roll 0 get
+7 1 roll pop pop 5 1 roll pop findfont/TT32R get addglyph}bind def/AddT3Char
+{findfont dup 5 2 roll 1 index length 0 gt{cvx 1 index exch 4 exch put dup
+(imagemask)cvx cvn 5 exch put cvx}{pop cvx}ifelse 3 -1 roll/CharProcs get 3 1
+roll put dup/Encoding get 5 -1 roll 4 index put/Metrics get 3 1 roll put}bind
+def/AddT3T32Char Is2016andT32?{/AddT32Char}{/AddT3Char}ifelse load def
+/GreNewFontT32{5 dict begin exch/FontMatrix exch def exch/FontBBox exch def
+exch pop exch pop/CIDFontType 4 def dup currentdict end/CIDFont defineresource
+3 -1 roll dup/DrvSBCMap 5 -1 roll[exch]composefont dup length dict copy dup/FID
+undef begin exch/TT32R exch def currentdict end definefont/BitmapFontInit
+/ProcSet findresource begin/TT32R get[14 0 0 0 0 0]<>0 4 -1 roll addglyph end}
+bind def/GreNewFontT3{11 dict begin pop/FontType 3 def/FontMatrix exch def
+/FontBBox exch def/Encoding exch def/CharProcs 257 dict def CharProcs/.notdef{}
+put/Metrics 257 dict def Metrics/.notdef 3 -1 roll put/BuildChar{userdict begin
+/char exch def dup/charname exch/Encoding get char get def dup/Metrics get
+charname 2 copy known{get aload pop}{pop/.notdef get aload pop}ifelse
+setcachedevice begin Encoding char get CharProcs exch 2 copy known{get}{pop
+/.notdef get}ifelse end exec end}def currentdict end definefont pop}bind def
+/GreNewFont{Is2016andT32?{GreNewFontT32}{GreNewFontT3}ifelse}bind def/UDF3
+{Is2016andT32?{/BitmapFontInit/ProcSet findresource begin dup/CIDFont
+findresource removeall/CIDFont undefineresource undefinefont end}{pop UDF}
+ifelse}bind def
+%%EndResource
+%%BeginResource: file Pscript_CFF 5.0 0
+/F0Subr{systemdict/internaldict known{1183615869 systemdict/internaldict get
+exec/FlxProc known{save T}{F}?}{U/internaldict known not{U/internaldict{count 0
+eq{/internaldict errordict/invalidaccess get exec}if @ type/integertype ne{
+/internaldict errordict/invalidaccess get exec}if @ 1183615869 eq{! 0}{
+/internaldict errordict/invalidaccess get exec}?}@ 14 get 1 25 dict put bind
+executeonly put}if 1183615869 U/internaldict get exec/FlxProc known{save T}{F}
+?}?[systemdict/internaldict known not{100 dict/` cvx/mtx matrix/d cvx}if
+systemdict/currentpacking known{currentpacking T setpacking}if{systemdict
+/internaldict known{1183615869 systemdict/internaldict get exec @/$FlxDict
+known not{@ @ length ~ maxlength eq{! U @/$FlxDict known not{100 dict `/mtx
+matrix d @/$FlxDict & put E}if}{100 dict `/mtx matrix d @/$FlxDict & put E}?}if
+/$FlxDict get `}if ;/exdef{~ d}d/dmin ~ abs 100 V d/epX exdef/epY exdef/c4y2
+exdef/c4x2 exdef/c4y1 exdef/c4x1 exdef/c4y0 exdef/c4x0 exdef/c3y2 exdef/c3x2
+exdef/c3y1 exdef/c3x1 exdef/c3y0 exdef/c3x0 exdef/c1y2 exdef/c1x2 exdef/c2x2
+c4x2 d/c2y2 c4y2 d/yflag c1y2 c3y2 sub abs c1x2 c3x2 sub abs gt d/PickCoords{
+{c1x0 c1y0 c1x1 c1y1 c1x2 c1y2 c2x0 c2y0 c2x1 c2y1 c2x2 c2y2}{c3x0 c3y0 c3x1
+c3y1 c3x2 c3y2 c4x0 c4y0 c4x1 c4y1 c4x2 c4y2}?/y5 exdef/x5 exdef/y4 exdef/x4
+exdef/y3 exdef/x3 exdef/y2 exdef/x2 exdef/y1 exdef/x1 exdef/y0 exdef/x0 exdef}d
+mtx currentmatrix ! mtx 0 get abs .00001 lt mtx 3 get abs .00001 lt or{/flipXY
+-1 d}{mtx 1 get abs .00001 lt mtx 2 get abs .00001 lt or{/flipXY 1 d}{/flipXY 0
+d}?}?/erosion 1 d systemdict/internaldict known{1183615869 systemdict
+/internaldict get exec @/erosion known{/erosion get/erosion ~ d}{!}?}if yflag
+{flipXY 0 eq c3y2 c4y2 eq or{F PickCoords}{/shrink c3y2 c4y2 eq{0}{c1y2 c4y2
+sub c3y2 c4y2 sub V abs}? d/yshrink{c4y2 sub shrink mul c4y2 add}d/c1y0 c3y0
+yshrink d/c1y1 c3y1 yshrink d/c2y0 c4y0 yshrink d/c2y1 c4y1 yshrink d/c1x0 c3x0
+d/c1x1 c3x1 d/c2x0 c4x0 d/c2x1 c4x1 d/dY 0 c3y2 c1y2 sub round dtransform
+flipXY 1 eq{~}if ! abs d dY dmin lt PickCoords y2 c1y2 sub abs 0.001 gt{c1x2
+c1y2 transform flipXY 1 eq{~}if/cx ~ d/cy ~ d/dY 0 y2 c1y2 sub round dtransform
+flipXY 1 eq{~}if ! d dY round @ 0 ne{/dY exdef}{! dY 0 lt{-1}{1}?/dY exdef}?
+/erode PaintType 2 ne erosion 0.5 ge and d erode{/cy cy 0.5 sub d}if/ey cy dY
+add d/ey ey ceiling ey sub ey floor add d erode{/ey ey 0.5 add d}if ey cx
+flipXY 1 eq{~}if itransform ~ ! y2 sub/eShift ~ d/y1 y1 eShift add d/y2 y2
+eShift add d/y3 y3 eShift add d}if}?}{flipXY 0 eq c3x2 c4x2 eq or{F PickCoords}
+{/shrink c3x2 c4x2 eq{0}{c1x2 c4x2 sub c3x2 c4x2 sub V abs}? d/xshrink{c4x2 sub
+shrink mul c4x2 add}d/c1x0 c3x0 xshrink d/c1x1 c3x1 xshrink d/c2x0 c4x0 xshrink
+d/c2x1 c4x1 xshrink d/c1y0 c3y0 d/c1y1 c3y1 d/c2y0 c4y0 d/c2y1 c4y1 d/dX c3x2
+c1x2 sub round 0 dtransform flipXY -1 eq{~}if ! abs d dX dmin lt PickCoords x2
+c1x2 sub abs 0.001 gt{c1x2 c1y2 transform flipXY -1 eq{~}if/cy ~ d/cx ~ d/dX x2
+c1x2 sub round 0 dtransform flipXY -1 eq{~}if ! d dX round @ 0 ne{/dX exdef}{!
+dX 0 lt{-1}{1}?/dX exdef}?/erode PaintType 2 ne erosion .5 ge and d erode{/cx
+cx .5 sub d}if/ex cx dX add d/ex ex ceiling ex sub ex floor add d erode{/ex ex
+.5 add d}if ex cy flipXY -1 eq{~}if itransform ! x2 sub/eShift ~ d/x1 x1 eShift
+add d/x2 x2 eShift add d/x3 x3 eShift add d}if}?}? x2 x5 eq y2 y5 eq or{x5 y5
+I}{x0 y0 x1 y1 x2 y2 -C x3 y3 x4 y4 x5 y5 -C}? epY epX}systemdict
+/currentpacking known{~ setpacking}if/exec cvx/E cvx]cvx executeonly ~{! T ~
+restore}{systemdict/internaldict known not{1183615869 U/internaldict get exec ~
+/FlxProc ~ put T}{1183615869 systemdict/internaldict get exec @ length ~
+maxlength eq{F}{1183615869 systemdict/internaldict get exec ~/FlxProc ~ put T}
+?}?}?{systemdict/internaldict known{1183615869 systemdict/internaldict get exec
+/FlxProc get exec}{1183615869 U/internaldict get exec/FlxProc get exec}?}if}
+executeonly d/F1Subr{: currentpoint N M}bind d/F2Subr{currentpoint ; :
+currentpoint N M}bind d/HSSubr{systemdict/internaldict known not{! 3}
+{1183615869 systemdict/internaldict get exec @/startlock known{/startlock get
+exec}{@/strtlck known{/strtlck get exec}{! 3}?}?}?}bind d
+%%EndResource
+%%BeginResource: file Pscript_Nup 5.0 0
+U `/realshowpage 0 d/$m matrix d/nx_nup 0 d/ny_nup 0 d/pagew_nup 0 d/pageh_nup
+0 d/paperw_nup 0 d/paperh_nup 0 d/nups 0 d/pgx_nup 0 d/pgy_nup 0 d
+/papermarg_nup 1 d/pagemarg_nup 10 d/framenup T d/nupv 5 array d/xoffset 0 d
+/yoffset 0 d/borderlinewidth 0 d/nupangle 0 d E/definenup{/LH/nupshowpage ld
+nupv astore !/pgx_nup 0 store/pgy_nup 0 store}bd/startnup{/pgy_nup ~ store
+/pgx_nup ~ store nupv aload !/ny_nup ~ store/nx_nup ~ store/pageh_nup ~ store
+/pagew_nup ~ store/borderlinewidth ~ store @/nupangle ~ store R clippath/nups
+pathbbox 3 -1 $ sub papermarg_nup sub ny_nup V pagemarg_nup sub pageh_nup V ~ 3
+-1 $ sub papermarg_nup sub nx_nup V pagemarg_nup sub pagew_nup V 2 copy gt{~}if
+! store nups @ +S/paperw_nup pagew_nup pagemarg_nup nups V add store/paperh_nup
+pageh_nup pagemarg_nup nups V add store pathbbox $m aload ! pagemarg_nup nups V
+@ 8 ^ 11 ^ sub paperh_nup ny_nup mul sub add 2 V ~ 9 ^ 12 ^ sub paperw_nup
+nx_nup mul sub add 2 V 7 ^ 0 eq{8 -4 $ 4 2 $ 8 4 $}if 8 -2 $ add 0 gt{9}{neg 7}
+? ^ add 4 -1 $ sub ~ 5 -2 $ add 0 gt{5}{neg 3}? ^ add 3 -1 $ sub 2 copy/yoffset
+~ store/xoffset ~ store + ! ! ! !/paperw_nup paperw_nup paperh_nup $m
+idtransform abs/paperh_nup ~ store abs store/pagew_nup pagew_nup pageh_nup $m
+idtransform abs/pageh_nup ~ store abs store $m 0 get abs $m 1 get abs lt{
+/nx_nup ny_nup/ny_nup nx_nup store store}if borderlinewidth 0 gt{.48 nups V @
+/borderlinewidth ~ store Lw}{/framenup F d}? $m concat pgx_nup paperw_nup mul
+pgy_nup paperh_nup mul + $m matrix invertmatrix concat N startpage}bd/reinitnup
+{startnup}bd/startpage{: 0 0 $m transform pagew_nup pageh_nup $m dtransform rc}
+bd/realshowpage/LH ld/nupshowpage{; $m concat framenup{pagemarg_nup 2 V nups V
+@ $m idtransform abs neg ~ abs neg ~ paperw_nup paperh_nup rs}if/pgx_nup
+pgx_nup 1 add @ nx_nup eq{! 0 store paperw_nup 1 nx_nup sub mul/pgy_nup pgy_nup
+1 add @ ny_nup eq{! 0 store paperh_nup 1 ny_nup sub mul}{store paperh_nup}?}
+{store paperw_nup 0}? + $m matrix invertmatrix concat startpage}bd/finalpage{;
+realshowpage/LH/realshowpage ld}bd
+%%EndResource
+%%BeginResource: file Pscript_CMap_FF 5.0 0
+/CMAP-WinCharSetFFFF-H{/CIDInit/ProcSet findresource ` 12 dict ` begincmap
+/CIDSystemInfo 3 dict @ `/Registry(Adobe)d/Ordering(WinCharSetFFFF)d/Supplement
+0 d E d/CMapName/WinCharSetFFFF-H d/CMapVersion 1 d/CMapType 0 d/WMode 0 d 1
+begincodespacerange<0000><FFFF>endcodespacerange 100 begincidrange<0000><00FF>0
+<0100><01FF>256<0200><02FF>512<0300><03FF>768<0400><04FF>1024<0500><05FF>1280
+<0600><06FF>1536<0700><07FF>1792<0800><08FF>2048<0900><09FF>2304<0A00><0AFF>
+2560<0B00><0BFF>2816<0C00><0CFF>3072<0D00><0DFF>3328<0E00><0EFF>3584<0F00>
+<0FFF>3840<1000><10FF>4096<1100><11FF>4352<1200><12FF>4608<1300><13FF>4864
+<1400><14FF>5120<1500><15FF>5376<1600><16FF>5632<1700><17FF>5888<1800><18FF>
+6144<1900><19FF>6400<1A00><1AFF>6656<1B00><1BFF>6912<1C00><1CFF>7168<1D00>
+<1DFF>7424<1E00><1EFF>7680<1F00><1FFF>7936<2000><20FF>8192<2100><21FF>8448
+<2200><22FF>8704<2300><23FF>8960<2400><24FF>9216<2500><25FF>9472<2600><26FF>
+9728<2700><27FF>9984<2800><28FF>10240<2900><29FF>10496<2A00><2AFF>10752<2B00>
+<2BFF>11008<2C00><2CFF>11264<2D00><2DFF>11520<2E00><2EFF>11776<2F00><2FFF>12032
+<3000><30FF>12288<3100><31FF>12544<3200><32FF>12800<3300><33FF>13056<3400>
+<34FF>13312<3500><35FF>13568<3600><36FF>13824<3700><37FF>14080<3800><38FF>14336
+<3900><39FF>14592<3A00><3AFF>14848<3B00><3BFF>15104<3C00><3CFF>15360<3D00>
+<3DFF>15616<3E00><3EFF>15872<3F00><3FFF>16128<4000><40FF>16384<4100><41FF>16640
+<4200><42FF>16896<4300><43FF>17152<4400><44FF>17408<4500><45FF>17664<4600>
+<46FF>17920<4700><47FF>18176<4800><48FF>18432<4900><49FF>18688<4A00><4AFF>18944
+<4B00><4BFF>19200<4C00><4CFF>19456<4D00><4DFF>19712<4E00><4EFF>19968<4F00>
+<4FFF>20224<5000><50FF>20480<5100><51FF>20736<5200><52FF>20992<5300><53FF>21248
+<5400><54FF>21504<5500><55FF>21760<5600><56FF>22016<5700><57FF>22272<5800>
+<58FF>22528<5900><59FF>22784<5A00><5AFF>23040<5B00><5BFF>23296<5C00><5CFF>23552
+<5D00><5DFF>23808<5E00><5EFF>24064<5F00><5FFF>24320<6000><60FF>24576<6100>
+<61FF>24832<6200><62FF>25088<6300><63FF>25344 endcidrange 28 begincidrange
+<6400><64FF>25600<6500><65FF>25856<6600><66FF>26112<6700><67FF>26368<6800>
+<68FF>26624<6900><69FF>26880<6A00><6AFF>27136<6B00><6BFF>27392<6C00><6CFF>27648
+<6D00><6DFF>27904<6E00><6EFF>28160<6F00><6FFF>28416<7000><70FF>28672<7100>
+<71FF>28928<7200><72FF>29184<7300><73FF>29440<7400><74FF>29696<7500><75FF>29952
+<7600><76FF>30208<7700><77FF>30464<7800><78FF>30720<7900><79FF>30976<7A00>
+<7AFF>31232<7B00><7BFF>31488<7C00><7CFF>31744<7D00><7DFF>32000<7E00><7EFF>32256
+<7F00><7FFF>32512 endcidrange 100 begincidrange<8000><80FF>32768<8100><81FF>
+33024<8200><82FF>33280<8300><83FF>33536<8400><84FF>33792<8500><85FF>34048<8600>
+<86FF>34304<8700><87FF>34560<8800><88FF>34816<8900><89FF>35072<8A00><8AFF>35328
+<8B00><8BFF>35584<8C00><8CFF>35840<8D00><8DFF>36096<8E00><8EFF>36352<8F00>
+<8FFF>36608<9000><90FF>36864<9100><91FF>37120<9200><92FF>37376<9300><93FF>37632
+<9400><94FF>37888<9500><95FF>38144<9600><96FF>38400<9700><97FF>38656<9800>
+<98FF>38912<9900><99FF>39168<9A00><9AFF>39424<9B00><9BFF>39680<9C00><9CFF>39936
+<9D00><9DFF>40192<9E00><9EFF>40448<9F00><9FFF>40704<A000><A0FF>40960<A100>
+<A1FF>41216<A200><A2FF>41472<A300><A3FF>41728<A400><A4FF>41984<A500><A5FF>42240
+<A600><A6FF>42496<A700><A7FF>42752<A800><A8FF>43008<A900><A9FF>43264<AA00>
+<AAFF>43520<AB00><ABFF>43776<AC00><ACFF>44032<AD00><ADFF>44288<AE00><AEFF>44544
+<AF00><AFFF>44800<B000><B0FF>45056<B100><B1FF>45312<B200><B2FF>45568<B300>
+<B3FF>45824<B400><B4FF>46080<B500><B5FF>46336<B600><B6FF>46592<B700><B7FF>46848
+<B800><B8FF>47104<B900><B9FF>47360<BA00><BAFF>47616<BB00><BBFF>47872<BC00>
+<BCFF>48128<BD00><BDFF>48384<BE00><BEFF>48640<BF00><BFFF>48896<C000><C0FF>49152
+<C100><C1FF>49408<C200><C2FF>49664<C300><C3FF>49920<C400><C4FF>50176<C500>
+<C5FF>50432<C600><C6FF>50688<C700><C7FF>50944<C800><C8FF>51200<C900><C9FF>51456
+<CA00><CAFF>51712<CB00><CBFF>51968<CC00><CCFF>52224<CD00><CDFF>52480<CE00>
+<CEFF>52736<CF00><CFFF>52992<D000><D0FF>53248<D100><D1FF>53504<D200><D2FF>53760
+<D300><D3FF>54016<D400><D4FF>54272<D500><D5FF>54528<D600><D6FF>54784<D700>
+<D7FF>55040<D800><D8FF>55296<D900><D9FF>55552<DA00><DAFF>55808<DB00><DBFF>56064
+<DC00><DCFF>56320<DD00><DDFF>56576<DE00><DEFF>56832<DF00><DFFF>57088<E000>
+<E0FF>57344<E100><E1FF>57600<E200><E2FF>57856<E300><E3FF>58112 endcidrange 28
+begincidrange<E400><E4FF>58368<E500><E5FF>58624<E600><E6FF>58880<E700><E7FF>
+59136<E800><E8FF>59392<E900><E9FF>59648<EA00><EAFF>59904<EB00><EBFF>60160<EC00>
+<ECFF>60416<ED00><EDFF>60672<EE00><EEFF>60928<EF00><EFFF>61184<F000><F0FF>61440
+<F100><F1FF>61696<F200><F2FF>61952<F300><F3FF>62208<F400><F4FF>62464<F500>
+<F5FF>62720<F600><F6FF>62976<F700><F7FF>63232<F800><F8FF>63488<F900><F9FF>63744
+<FA00><FAFF>64000<FB00><FBFF>64256<FC00><FCFF>64512<FD00><FDFF>64768<FE00>
+<FEFF>65024<FF00><FFFF>65280 endcidrange endcmap CMapName &/CMap defineresource
+! E E}d/CMAP-WinCharSetFFFF-H2{CMAP-WinCharSetFFFF-H/CIDInit/ProcSet
+findresource ` 12 dict ` begincmap/WinCharSetFFFF-H usecmap/CIDSystemInfo[3
+dict @ `/Registry(Adobe)d/Ordering(WinCharSetFFFF-H2)d/Supplement 0 d E @]d
+/CMapName/WinCharSetFFFF-H2 d/CMapVersion 1 d/CMapType 1 d/WMode 0 d 1 usefont
+100 begincidrange<7F00><7FFF>0<8000><80FF>256<8100><81FF>512<8200><82FF>768
+<8300><83FF>1024<8400><84FF>1280<8500><85FF>1536<8600><86FF>1792<8700><87FF>
+2048<8800><88FF>2304<8900><89FF>2560<8A00><8AFF>2816<8B00><8BFF>3072<8C00>
+<8CFF>3328<8D00><8DFF>3584<8E00><8EFF>3840<8F00><8FFF>4096<9000><90FF>4352
+<9100><91FF>4608<9200><92FF>4864<9300><93FF>5120<9400><94FF>5376<9500><95FF>
+5632<9600><96FF>5888<9700><97FF>6144<9800><98FF>6400<9900><99FF>6656<9A00>
+<9AFF>6912<9B00><9BFF>7168<9C00><9CFF>7424<9D00><9DFF>7680<9E00><9EFF>7936
+<9F00><9FFF>8192<A000><A0FF>8448<A100><A1FF>8704<A200><A2FF>8960<A300><A3FF>
+9216<A400><A4FF>9472<A500><A5FF>9728<A600><A6FF>9984<A700><A7FF>10240<A800>
+<A8FF>10496<A900><A9FF>10752<AA00><AAFF>11008<AB00><ABFF>11264<AC00><ACFF>11520
+<AD00><ADFF>11776<AE00><AEFF>12032<AF00><AFFF>12288<B000><B0FF>12544<B100>
+<B1FF>12800<B200><B2FF>13056<B300><B3FF>13312<B400><B4FF>13568<B500><B5FF>13824
+<B600><B6FF>14080<B700><B7FF>14336<B800><B8FF>14592<B900><B9FF>14848<BA00>
+<BAFF>15104<BB00><BBFF>15360<BC00><BCFF>15616<BD00><BDFF>15872<BE00><BEFF>16128
+<BF00><BFFF>16384<C000><C0FF>16640<C100><C1FF>16896<C200><C2FF>17152<C300>
+<C3FF>17408<C400><C4FF>17664<C500><C5FF>17920<C600><C6FF>18176<C700><C7FF>18432
+<C800><C8FF>18688<C900><C9FF>18944<CA00><CAFF>19200<CB00><CBFF>19456<CC00>
+<CCFF>19712<CD00><CDFF>19968<CE00><CEFF>20224<CF00><CFFF>20480<D000><D0FF>20736
+<D100><D1FF>20992<D200><D2FF>21248<D300><D3FF>21504<D400><D4FF>21760<D500>
+<D5FF>22016<D600><D6FF>22272<D700><D7FF>22528<D800><D8FF>22784<D900><D9FF>23040
+<DA00><DAFF>23296<DB00><DBFF>23552<DC00><DCFF>23808<DD00><DDFF>24064<DE00>
+<DEFF>24320<DF00><DFFF>24576<E000><E0FF>24832<E100><E1FF>25088<E200><E2FF>25344
+endcidrange 29 begincidrange<E300><E3FF>25600<E400><E4FF>25856<E500><E5FF>26112
+<E600><E6FF>26368<E700><E7FF>26624<E800><E8FF>26880<E900><E9FF>27136<EA00>
+<EAFF>27392<EB00><EBFF>27648<EC00><ECFF>27904<ED00><EDFF>28160<EE00><EEFF>28416
+<EF00><EFFF>28672<F000><F0FF>28928<F100><F1FF>29184<F200><F2FF>29440<F300>
+<F3FF>29696<F400><F4FF>29952<F500><F5FF>30208<F600><F6FF>30464<F700><F7FF>30720
+<F800><F8FF>30976<F900><F9FF>31232<FA00><FAFF>31488<FB00><FBFF>31744<FC00>
+<FCFF>32000<FD00><FDFF>32256<FE00><FEFF>32512<FF00><FFFF>32768 endcidrange
+endcmap CMapName &/CMap defineresource ! E E}d/CMAP-WinCharSetFFFF-V
+{CMAP-WinCharSetFFFF-H/WinCharSetFFFF-V/WinCharSetFFFF-H/CMap findresource/CMap
+defineresource !}d/CMAP-WinCharSetFFFF-V2{CMAP-WinCharSetFFFF-H2
+/WinCharSetFFFF-V2/WinCharSetFFFF-H2/CMap findresource/CMap defineresource !}d
+%%EndResource
+%%BeginResource: file Pscript_Encoding0 5.0 0
+/ANSIEncoding[/grave/acute/circumflex/tilde/macron/breve/dotaccent/dieresis
+/ring/cedilla/hungarumlaut/ogonek/caron/dotlessi 18 bullets StandardEncoding 32
+95 getinterval aload !/bullet/Euro/bullet/quotesinglbase/florin/quotedblbase
+/ellipsis/dagger/daggerdbl/circumflex/perthousand/Scaron/guilsinglleft/OE
+/bullet/Zcaron 2 bullets/quoteleft/quoteright/quotedblleft/quotedblright/bullet
+/endash/emdash/tilde/trademark/scaron/guilsinglright/oe/bullet/zcaron/Ydieresis
+{ISOLatin1Encoding}stopped{96 bullets}{160 96 getinterval aload !}?]d
+ANSIEncoding @ 39/quotesingle put 96/grave put/ANSIEncodingOld ANSIEncoding 256
+array copy d ANSIEncodingOld @[138 153 154 169 172 174 177 178 179 181 185 188
+189 190 208 215 221 222 240 247 253 254]{/bullet put @}forall 166/bar put 176
+/ring put EncodeDict/0 ANSIEncoding put EncodeDict/ANSIEncodingOld
+ANSIEncodingOld put
+%%EndResource
+%%BeginResource: file Pscript_Encoding161 5.0 0
+/GreekEncoding[/grave/acute/circumflex/tilde/macron/breve/dotaccent/dieresis
+/ring/cedilla/hungarumlaut/ogonek/caron/dotlessi 18 bullets StandardEncoding 32
+95 getinterval aload !/.notdef/Euro/.notdef/quotesinglbase/florin/quotedblbase
+/ellipsis/dagger/daggerdbl/.notdef/perthousand/.notdef/guilsinglleft/.notdef
+/.notdef/.notdef/.notdef/.notdef/quoteleft/quoteright/quotedblleft
+/quotedblright/bullet/endash/emdash/.notdef/trademark/.notdef/guilsinglright
+/.notdef/.notdef/.notdef/.notdef/space/dieresistonos/Alphatonos/sterling
+/currency/yen/brokenbar/section/dieresis/copyright/ordfeminine/guillemotleft
+/logicalnot/hyphen/registered/afii00208/degree/plusminus/twosuperior
+/threesuperior/tonos/mu/paragraph/periodcentered/Epsilontonos/Etatonos
+/Iotatonos/guillemotright/Omicrontonos/onehalf/Upsilontonos/Omegatonos
+/iotadieresistonos/Alpha/Beta/Gamma/Delta/Epsilon/Zeta/Eta/Theta/Iota/Kappa
+/Lambda/Mu/Nu/Xi/Omicron/Pi/Rho/.notdef/Sigma/Tau/Upsilon/Phi/Chi/Psi/Omega
+/Iotadieresis/Upsilondieresis/alphatonos/epsilontonos/etatonos/iotatonos
+/upsilondieresistonos/alpha/beta/gamma/delta/epsilon/zeta/eta/theta/iota/kappa
+/lambda/mu/nu/xi/omicron/pi/rho/sigma1/sigma/tau/upsilon/phi/chi/psi/omega
+/iotadieresis/upsilondieresis/omicrontonos/upsilontonos/omegatonos/.notdef]d
+GreekEncoding @ 39/quotesingle put 96/grave put EncodeDict/161 GreekEncoding
+put
+%%EndResource
+%%BeginResource: file Pscript_Encoding162 5.0 0
+/TurkishEncoding[/grave/acute/circumflex/tilde/macron/breve/dotaccent/dieresis
+/ring/cedilla/hungarumlaut/ogonek/caron/dotlessi 18 bullets StandardEncoding 32
+95 getinterval aload !/.notdef/Euro/.notdef/quotesinglbase/florin/quotedblbase
+/ellipsis/dagger/daggerdbl/circumflex/perthousand/Scaron/guilsinglleft/OE
+/.notdef/.notdef/.notdef/.notdef/quoteleft/quoteright/quotedblleft
+/quotedblright/bullet/endash/emdash/tilde/trademark/scaron/guilsinglright/oe
+/.notdef/.notdef/Ydieresis/space/exclamdown/cent/sterling/currency/yen
+/brokenbar/section/dieresis/copyright/ordfeminine/guillemotleft/logicalnot
+/hyphen/registered/macron/degree/plusminus/twosuperior/threesuperior/acute/mu
+/paragraph/periodcentered/cedilla/onesuperior/ordmasculine/guillemotright
+/onequarter/onehalf/threequarters/questiondown/Agrave/Aacute/Acircumflex/Atilde
+/Adieresis/Aring/AE/Ccedilla/Egrave/Eacute/Ecircumflex/Edieresis/Igrave/Iacute
+/Icircumflex/Idieresis/Gbreve/Ntilde/Ograve/Oacute/Ocircumflex/Otilde/Odieresis
+/multiply/Oslash/Ugrave/Uacute/Ucircumflex/Udieresis/Idotaccent/Scommaaccent
+/germandbls/agrave/aacute/acircumflex/atilde/adieresis/aring/ae/ccedilla/egrave
+/eacute/ecircumflex/edieresis/igrave/iacute/icircumflex/idieresis/gbreve/ntilde
+/ograve/oacute/ocircumflex/otilde/odieresis/divide/oslash/ugrave/uacute
+/ucircumflex/udieresis/dotlessi/scommaaccent/ydieresis]d TurkishEncoding @ 39
+/quotesingle put 96/grave put EncodeDict/162 TurkishEncoding put
+%%EndResource
+%%BeginResource: file Pscript_Encoding177 5.0 0
+/HebrewEncoding[/grave/acute/circumflex/tilde/macron/breve/dotaccent/dieresis
+/ring/cedilla/hungarumlaut/ogonek/caron/dotlessi 18 bullets StandardEncoding 32
+95 getinterval aload !/.notdef/Euro/.notdef/quotesinglbase/florin/quotedblbase
+/ellipsis/dagger/daggerdbl/circumflex/perthousand/.notdef/guilsinglleft/.notdef
+/.notdef/.notdef/.notdef/.notdef/quoteleft/quoteright/quotedblleft
+/quotedblright/bullet/endash/emdash/tilde/trademark/.notdef/guilsinglright
+/.notdef/.notdef/.notdef/.notdef/space/.notdef/cent/sterling/afii57636/yen
+/brokenbar/section/dieresis/copyright/.notdef/guillemotleft/logicalnot/hyphen
+/registered/macron/degree/plusminus/twosuperior/threesuperior/acute/mu
+/paragraph/periodcentered/.notdef/onesuperior/.notdef/guillemotright/onequarter
+/onehalf/threequarters/.notdef/afii57799/afii57801/afii57800/afii57802
+/afii57793/afii57794/afii57795/afii57798/afii57797/afii57806/.notdef/afii57796
+/afii57807/afii57839/afii57645/afii57841/afii57842/afii57804/afii57803
+/afii57658/afii57716/afii57717/afii57718/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/afii57664/afii57665/afii57666
+/afii57667/afii57668/afii57669/afii57670/afii57671/afii57672/afii57673
+/afii57674/afii57675/afii57676/afii57677/afii57678/afii57679/afii57680
+/afii57681/afii57682/afii57683/afii57684/afii57685/afii57686/afii57687
+/afii57688/afii57689/afii57690/.notdef/.notdef/afii299/afii300/.notdef]d
+HebrewEncoding @ 39/quotesingle put 96/grave put EncodeDict/177 HebrewEncoding
+put
+%%EndResource
+%%BeginResource: file Pscript_Encoding178 5.0 0
+/ArabicEncoding[/grave/acute/circumflex/tilde/macron/breve/dotaccent/dieresis
+/ring/cedilla/hungarumlaut/ogonek/caron/dotlessi 18 bullets StandardEncoding 32
+95 getinterval aload !/.notdef/Euro/afii57506/quotesinglbase/florin
+/quotedblbase/ellipsis/dagger/daggerdbl/circumflex/perthousand/.notdef
+/guilsinglleft/OE/afii57507/afii57508/.notdef/afii57509/quoteleft/quoteright
+/quotedblleft/quotedblright/bullet/endash/emdash/.notdef/trademark/.notdef
+/guilsinglright/oe/afii61664/afii301/.notdef/space/afii57388/cent/sterling
+/currency/yen/brokenbar/section/dieresis/copyright/.notdef/guillemotleft
+/logicalnot/hyphen/registered/macron/degree/plusminus/twosuperior/threesuperior
+/acute/mu/paragraph/periodcentered/cedilla/onesuperior/afii57403/guillemotright
+/onequarter/onehalf/threequarters/afii57407/.notdef/afii57409/afii57410
+/afii57411/afii57412/afii57413/afii57414/afii57415/afii57416/afii57417
+/afii57418/afii57419/afii57420/afii57421/afii57422/afii57423/afii57424
+/afii57425/afii57426/afii57427/afii57428/afii57429/afii57430/multiply/afii57431
+/afii57432/afii57433/afii57434/afii57440/afii57441/afii57442/afii57443/agrave
+/afii57444/acircumflex/afii57445/afii57446/afii57470/afii57448/ccedilla/egrave
+/eacute/ecircumflex/edieresis/afii57449/afii57450/icircumflex/idieresis
+/afii57451/afii57452/afii57453/afii57454/ocircumflex/afii57455/afii57456/divide
+/afii57457/ugrave/afii57458/ucircumflex/udieresis/afii299/afii300/.notdef]d
+ArabicEncoding @ 39/quotesingle put 96/grave put EncodeDict/178 ArabicEncoding
+put
+%%EndResource
+%%BeginResource: file Pscript_Encoding186 5.0 0
+/BalticEncoding[/grave/acute/circumflex/tilde/macron/breve/dotaccent/dieresis
+/ring/cedilla/hungarumlaut/ogonek/caron/dotlessi 18 bullets StandardEncoding 32
+95 getinterval aload !/.notdef/Euro/.notdef/quotesinglbase/.notdef/quotedblbase
+/ellipsis/dagger/daggerdbl/.notdef/perthousand/.notdef/guilsinglleft/.notdef
+/.notdef/.notdef/.notdef/.notdef/quoteleft/quoteright/quotedblleft
+/quotedblright/bullet/endash/emdash/.notdef/trademark/.notdef/guilsinglright
+/.notdef/.notdef/.notdef/.notdef/space/caron/breve/sterling/currency/.notdef
+/brokenbar/section/dieresis/copyright/Rcommaaccent/guillemotleft/logicalnot
+/hyphen/registered/AE/ring/plusminus/ogonek/threesuperior/acute/mu/paragraph
+/periodcentered/cedilla/onesuperior/rcommaaccent/guillemotright/onequarter
+/onehalf/threequarters/ae/Aogonek/Iogonek/Amacron/Cacute/Adieresis/Aring
+/Eogonek/Emacron/Ccaron/Eacute/Zacute/Edotaccent/Gcommaaccent/Kcommaaccent
+/Imacron/Lcommaaccent/Scaron/Nacute/Ncommaaccent/Oacute/Omacron/Otilde
+/Odieresis/multiply/Uogonek/Lslash/Sacute/Umacron/Udieresis/Zdotaccent/Zcaron
+/germandbls/aogonek/iogonek/amacron/cacute/adieresis/aring/eogonek/emacron
+/ccaron/eacute/zacute/edotaccent/gcommaaccent/kcommaaccent/imacron/lcommaaccent
+/scaron/nacute/ncommaaccent/oacute/omacron/otilde/odieresis/divide/uogonek
+/lslash/sacute/umacron/udieresis/zdotaccent/zcaron/dotaccent]d BalticEncoding @
+39/quotesingle put 96/grave put EncodeDict/186 BalticEncoding put
+%%EndResource
+%%BeginResource: file Pscript_Encoding204 5.0 0
+/RussianEncoding[/grave/acute/circumflex/tilde/macron/breve/dotaccent/dieresis
+/ring/cedilla/hungarumlaut/ogonek/caron/dotlessi 18 bullets StandardEncoding 32
+95 getinterval aload !/.notdef/afii10051/afii10052/quotesinglbase/afii10100
+/quotedblbase/ellipsis/dagger/daggerdbl/Euro/perthousand/afii10058
+/guilsinglleft/afii10059/afii10061/afii10060/afii10145/afii10099/quoteleft
+/quoteright/quotedblleft/quotedblright/bullet/endash/emdash/.notdef/trademark
+/afii10106/guilsinglright/afii10107/afii10109/afii10108/afii10193/space
+/afii10062/afii10110/afii10057/currency/afii10050/brokenbar/section/afii10023
+/copyright/afii10053/guillemotleft/logicalnot/hyphen/registered/afii10056
+/degree/plusminus/afii10055/afii10103/afii10098/mu/paragraph/periodcentered
+/afii10071/afii61352/afii10101/guillemotright/afii10105/afii10054/afii10102
+/afii10104/afii10017/afii10018/afii10019/afii10020/afii10021/afii10022
+/afii10024/afii10025/afii10026/afii10027/afii10028/afii10029/afii10030
+/afii10031/afii10032/afii10033/afii10034/afii10035/afii10036/afii10037
+/afii10038/afii10039/afii10040/afii10041/afii10042/afii10043/afii10044
+/afii10045/afii10046/afii10047/afii10048/afii10049/afii10065/afii10066
+/afii10067/afii10068/afii10069/afii10070/afii10072/afii10073/afii10074
+/afii10075/afii10076/afii10077/afii10078/afii10079/afii10080/afii10081
+/afii10082/afii10083/afii10084/afii10085/afii10086/afii10087/afii10088
+/afii10089/afii10090/afii10091/afii10092/afii10093/afii10094/afii10095
+/afii10096/afii10097]d RussianEncoding @ 39/quotesingle put 96/grave put
+EncodeDict/204 RussianEncoding put
+%%EndResource
+%%BeginResource: file Pscript_Encoding238 5.0 0
+/EasternEuropeanEncoding[/grave/acute/circumflex/tilde/macron/breve/dotaccent
+/dieresis/ring/cedilla/hungarumlaut/ogonek/caron/dotlessi 18 bullets
+StandardEncoding 32 95 getinterval aload !/.notdef/Euro/.notdef/quotesinglbase
+/.notdef/quotedblbase/ellipsis/dagger/daggerdbl/.notdef/perthousand/Scaron
+/guilsinglleft/Sacute/Tcaron/Zcaron/Zacute/.notdef/quoteleft/quoteright
+/quotedblleft/quotedblright/bullet/endash/emdash/.notdef/trademark/scaron
+/guilsinglright/sacute/tcaron/zcaron/zacute/space/caron/breve/Lslash/currency
+/Aogonek/brokenbar/section/dieresis/copyright/Scommaaccent/guillemotleft
+/logicalnot/hyphen/registered/Zdotaccent/degree/plusminus/ogonek/lslash/acute
+/mu/paragraph/periodcentered/cedilla/aogonek/scommaaccent/guillemotright/Lcaron
+/hungarumlaut/lcaron/zdotaccent/Racute/Aacute/Acircumflex/Abreve/Adieresis
+/Lacute/Cacute/Ccedilla/Ccaron/Eacute/Eogonek/Edieresis/Ecaron/Iacute
+/Icircumflex/Dcaron/Dcroat/Nacute/Ncaron/Oacute/Ocircumflex/Ohungarumlaut
+/Odieresis/multiply/Rcaron/Uring/Uacute/Uhungarumlaut/Udieresis/Yacute
+/Tcommaaccent/germandbls/racute/aacute/acircumflex/abreve/adieresis/lacute
+/cacute/ccedilla/ccaron/eacute/eogonek/edieresis/ecaron/iacute/icircumflex
+/dcaron/dcroat/nacute/ncaron/oacute/ocircumflex/ohungarumlaut/odieresis/divide
+/rcaron/uring/uacute/uhungarumlaut/udieresis/yacute/tcommaaccent/dotaccent]d
+EasternEuropeanEncoding @ 39/quotesingle put 96/grave put EncodeDict/238
+EasternEuropeanEncoding put
+%%EndResource
+%%BeginResource: file Pscript_Encoding256 5.0 0
+/CharCol256Encoding[/.notdef/breve/caron/dotaccent/dotlessi/fi/fl/fraction
+/hungarumlaut/Lslash/lslash/minus/ogonek/ring/Zcaron/zcaron/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef
+/.notdef/.notdef/.notdef/.notdef/.notdef/.notdef/exclam/quotedbl/numbersign
+/dollar/percent/ampersand/quotesingle/parenleft/parenright/asterisk/plus/comma
+/hyphen/period/slash/zero/one/two/three/four/five/six/seven/eight/nine/colon
+/semicolon/less/equal/greater/question/at/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R/S
+/T/U/V/W/X/Y/Z/bracketleft/backslash/bracketright/asciicircum/underscore/grave
+/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y/z/braceleft/bar/braceright
+/asciitilde/.notdef/Euro/.notdef/quotesinglbase/florin/quotedblbase/ellipsis
+/dagger/daggerdbl/circumflex/perthousand/Scaron/guilsinglleft/OE/.notdef
+/.notdef/.notdef/.notdef/quoteleft/quoteright/quotedblleft/quotedblright/bullet
+/endash/emdash/tilde/trademark/scaron/guilsinglright/oe/.notdef/.notdef
+/Ydieresis/.notdef/exclamdown/cent/sterling/currency/yen/brokenbar/section
+/dieresis/copyright/ordfeminine/guillemotleft/logicalnot/.notdef/registered
+/macron/degree/plusminus/twosuperior/threesuperior/acute/mu/paragraph
+/periodcentered/cedilla/onesuperior/ordmasculine/guillemotright/onequarter
+/onehalf/threequarters/questiondown/Agrave/Aacute/Acircumflex/Atilde/Adieresis
+/Aring/AE/Ccedilla/Egrave/Eacute/Ecircumflex/Edieresis/Igrave/Iacute
+/Icircumflex/Idieresis/Eth/Ntilde/Ograve/Oacute/Ocircumflex/Otilde/Odieresis
+/multiply/Oslash/Ugrave/Uacute/Ucircumflex/Udieresis/Yacute/Thorn/germandbls
+/agrave/aacute/acircumflex/atilde/adieresis/aring/ae/ccedilla/egrave/eacute
+/ecircumflex/edieresis/igrave/iacute/icircumflex/idieresis/eth/ntilde/ograve
+/oacute/ocircumflex/otilde/odieresis/divide/oslash/ugrave/uacute/ucircumflex
+/udieresis/yacute/thorn/ydieresis]def EncodeDict/256 CharCol256Encoding put
+%%EndResource
+%%BeginResource: file Pscript_Encoding257 5.0 0
+/CharCol257Encoding[/.notdef/Abreve/Amacron/Aogonek/Cacute/Ccaron/Dcaron/Dcroat
+/Delta/Ecaron/Edotaccent/Emacron/Eogonek/Gbreve/Gcommaaccent/Idotaccent/Imacron
+/Iogonek/Kcommaaccent/Lacute/Lcaron/Lcommaaccent/Nacute/Ncaron/Ncommaaccent
+/Ohungarumlaut/Omacron/Racute/Rcaron/Rcommaaccent/Sacute/Scedilla/Scommaaccent
+/Tcaron/Tcommaaccent/Uhungarumlaut/Umacron/Uogonek/Uring/Zacute/Zdotaccent
+/abreve/amacron/aogonek/cacute/ccaron/commaaccent/dcaron/dcroat/ecaron
+/edotaccent/emacron/eogonek/gbreve/gcommaaccent/greaterequal/imacron/iogonek
+/kcommaaccent/lacute/lcaron/lcommaaccent/lessequal/lozenge/nacute/ncaron
+/ncommaaccent/notequal/ohungarumlaut/omacron/partialdiff/racute/radical/rcaron
+/rcommaaccent/sacute/scedilla/scommaaccent/summation/tcaron/tcommaaccent
+/uhungarumlaut/umacron/uogonek/uring/zacute/zdotaccent 199 bullets]def
+EncodeDict/257 CharCol257Encoding put
+%%EndResource
+%%BeginResource: file Pscript_WinNT_Compat 5.0 0
+userdict/Pscript_WinNT_Compat 19 dict dup begin/bd{bind def}bind def/ld{load
+def}bd/$x matrix def/ANSIVec[16#0/grave 16#1/acute 16#2/circumflex 16#3/tilde
+16#4/macron 16#5/breve 16#6/dotaccent 16#7/dieresis 16#8/ring 16#9/cedilla 16#A
+/hungarumlaut 16#B/ogonek 16#C/caron 16#D/dotlessi 16#27/quotesingle 16#60
+/grave 16#7C/bar 16#82/quotesinglbase 16#83/florin 16#84/quotedblbase 16#85
+/ellipsis 16#86/dagger 16#87/daggerdbl 16#88/circumflex 16#89/perthousand 16#8A
+/Scaron 16#8B/guilsinglleft 16#8C/OE 16#91/quoteleft 16#92/quoteright 16#93
+/quotedblleft 16#94/quotedblright 16#95/bullet 16#96/endash 16#97/emdash 16#98
+/tilde 16#99/trademark 16#9A/scaron 16#9B/guilsinglright 16#9C/oe 16#9F
+/Ydieresis 16#A0/space 16#A1/exclamdown 16#A4/currency 16#A5/yen 16#A6
+/brokenbar 16#A7/section 16#A8/dieresis 16#A9/copyright 16#AA/ordfeminine 16#AB
+/guillemotleft 16#AC/logicalnot 16#AD/hyphen 16#AE/registered 16#AF/macron
+16#B0/degree 16#B1/plusminus 16#B2/twosuperior 16#B3/threesuperior 16#B4/acute
+16#B5/mu 16#B6/paragraph 16#B7/periodcentered 16#B8/cedilla 16#B9/onesuperior
+16#BA/ordmasculine 16#BB/guillemotright 16#BC/onequarter 16#BD/onehalf 16#BE
+/threequarters 16#BF/questiondown 16#C0/Agrave 16#C1/Aacute 16#C2/Acircumflex
+16#C3/Atilde 16#C4/Adieresis 16#C5/Aring 16#C6/AE 16#C7/Ccedilla 16#C8/Egrave
+16#C9/Eacute 16#CA/Ecircumflex 16#CB/Edieresis 16#CC/Igrave 16#CD/Iacute 16#CE
+/Icircumflex 16#CF/Idieresis 16#D0/Eth 16#D1/Ntilde 16#D2/Ograve 16#D3/Oacute
+16#D4/Ocircumflex 16#D5/Otilde 16#D6/Odieresis 16#D7/multiply 16#D8/Oslash
+16#D9/Ugrave 16#DA/Uacute 16#DB/Ucircumflex 16#DC/Udieresis 16#DD/Yacute 16#DE
+/Thorn 16#DF/germandbls 16#E0/agrave 16#E1/aacute 16#E2/acircumflex 16#E3
+/atilde 16#E4/adieresis 16#E5/aring 16#E6/ae 16#E7/ccedilla 16#E8/egrave 16#E9
+/eacute 16#EA/ecircumflex 16#EB/edieresis 16#EC/igrave 16#ED/iacute 16#EE
+/icircumflex 16#EF/idieresis 16#F0/eth 16#F1/ntilde 16#F2/ograve 16#F3/oacute
+16#F4/ocircumflex 16#F5/otilde 16#F6/odieresis 16#F7/divide 16#F8/oslash 16#F9
+/ugrave 16#FA/uacute 16#FB/ucircumflex 16#FC/udieresis 16#FD/yacute 16#FE/thorn
+16#FF/ydieresis]def currentdict{dup type/operatortype eq{[exch]cvx def}{pop
+pop}ifelse}forall/initialize{currentdict exch begin begin}bind def/terminate{
+/@FL where not{pop end end}{pop}ifelse}bind def/suspend/terminate load def
+/resume/initialize load def/RS{/pagesave where{pop pagesave restore}{$x matrix
+invertmatrix concat}ifelse}def/SS{/pagesave save def}def/CB{pop pop pop pop}def
+/B{pop pop pop pop}def/:/gsave load def/;/grestore load def/N/newpath load def
+end put
+%%EndResource
+end
+/ProcSet defineresource pop
+%%EndResource
+
+%%EndProlog
+
+%%BeginSetup
+statusdict begin (%%[ ProductName: ) print product print ( ]%%)= flush end
+Pscript_WinNT_Compat dup /initialize get exec
+[ 1 0 0 1 0 0 ] false /Pscript_WinNT_Full /ProcSet findresource dup /initialize get exec
+[{
+%%BeginNonPPDFeature: JobTimeout 0
+0 /languagelevel where{pop languagelevel}{1}ifelse 2 ge{1 dict dup/JobTimeout  4 -1 roll put setuserparams}{statusdict/setjobtimeout get exec}ifelse
+%%EndNonPPDFeature
+} stopped cleartomark
+
+[{
+%%BeginNonPPDFeature: WaitTimeout 300
+300 /languagelevel where{pop languagelevel}{1}ifelse 2 ge{1 dict dup/WaitTimeout 4 -1 roll put setuserparams}{statusdict/waittimeout 3 -1 roll put}ifelse
+%%EndNonPPDFeature
+} stopped cleartomark
+
+[{
+%%BeginFeature: *PageSize Letter
+
+    <</DeferredMediaSelection true /PageSize [612 792] /ImagingBBox null>> setpagedevice
+%%EndFeature
+} stopped cleartomark
+[{
+%%BeginFeature: *Resolution 300dpi
+
+%%EndFeature
+} stopped cleartomark
+1 setlinecap 1 setlinejoin
+/mysetup [ 0.24 0 0 -0.24 18 784.00062 ] def 
+%%EndSetup
+
+%%Page: 1 1
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (1)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+717 757 M (Object)[60 42 24 37 37  0]xS 
+940 757 M (-)S 
+967 757 M (Relational Model for )[55 37 23 37 23 23 42 41 37 23 21 74 42 42 37 23 22 27 42 28  0]xS 
+811 857 M (Database Management)[60 37 23 37 42 37 32 37 21 74 37 41 38 41 38 64 37 41  0]xS 
+F0S32 Ji 
+1095 1076 M (Claire Cui)[34 12 23 13 17 22 13 33 26  0]xS 
+890 1142 M (Computer Science Department)[33 26 37 25 25 15 22 17 13 28 22 12 23 24 22 22 13 36 22 25 22 17 16 37 23 24  0]xS 
+1001 1208 M (Stanford University)[28 15 22 24 15 26 17 25 13 36 25 13 25 22 17 20 12 16  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+719 1923 M (What Is \223Object)[79 41 37 23 21 28 32 22 36 60 42 24 37 37  0]xS 
+1261 1923 M (-)S 
+1288 1923 M (relational\224)[28 37 23 37 23 23 42 41 37 23  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+588 2058 M <95>S 
+644 2058 M (Relational)[39 26 15 26 17 15 30 28 27  0]xS 
+F0S32 Ji 
+663 2125 M <96>S 
+710 2125 M (Three levels: relation, tuple, atomic value)[31 24 17 22 22 14 12 23 24 23 13 19 14 13 17 23 12 22 16 12 26 24 13 13 15 25 25 12 22 13 13 22
+14 26 38 12 22 14 24 23 13 25  0]xS 
+F0S3A Ji 
+588 2215 M <95>S 
+644 2215 M (Object)[42 29 16 26 26  0]xS 
+799 2215 M (-)S 
+818 2215 M (oriented \(OO\))[29 20 15 27 29 16 26 29 15 19 42 43  0]xS 
+F0S32 Ji 
+663 2282 M <96>S 
+710 2282 M (Everything is an object)[31 24 22 18 23 15 25 13 25 25 14 13 19 13 22 24 13 26 25 13 22 22  0]xS 
+F0S3A Ji 
+588 2372 M <95>S 
+644 2372 M (Object)[42 29 16 26 26  0]xS 
+799 2372 M (-)S 
+818 2372 M (relational \(OR\) combines the two models)[19 27 15 26 17 15 30 28 27 15 16 19 42 39 19 15 26 30 44 30 16 28 26 23 15 17 28 26 15 16 42 29
+16 45 29 29 26 15  0]xS 
+F0S32 Ji 
+663 2440 M <96>S 
+710 2440 M (Keeps )[35 22 22 26 19  0]xS 
+847 2440 M (relation)[17 23 12 22 16 12 26  0]xS 
+1012 2440 M (as its fundamental abstraction)[22 19 14 12 15 19 14 15 26 24 25 23 38 23 24 15 23 12 13 22 25 19 15 17 22 21 15 12 26  0]xS 
+663 2505 M <96>S 
+710 2505 M (Adds object)[35 25 26 19 13 26 25 12 22 22  0]xS 
+950 2505 M (-)S 
+967 2505 M (oriented functionalities)[25 17 12 23 24 15 22 25 13 15 26 25 22 15 12 26 24 23 14 12 16 13 22  0]xS 
+F0S3A Ji 
+588 2595 M <95>S 
+644 2595 M (Covered by SQL3 standard)[39 29 28 26 19 26 29 15 30 28 15 33 43 34 29 15 23 16 27 28 29 26 19  0]xS 
+3 Lw N 1261 1999 M 986 1999 I 986 2074 I 1261 2074 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; N 1261 2024 M 986 2024 I 986 2049 I 1261 2049 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; N 1198 1999 M 1048 1999 I 1048 2074 I 1198 2074 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; N 1711 2487 M 1486 2487 I 1486 2649 I 1711 2649 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; N 1711 2532 M 1486 2532 I 1486 2604 I 1711 2604 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; N 1654 2487 M 1542 2487 I 1542 2649 I 1654 2649 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1603 2550 M 1603 2545 1598 2541 1593 2541 -c 1588 2541 1584 2545 1584 2550 -c 1584 2554 1588 2559 1593 2559 -c 1598 2559 1603 2554 1603 2550 -c C 
+eoclip : : N 1584 2540 21 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 21 21 1584 2540 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; 1 Lj 2 Lw N 1603 2550 M 1603 2545 1598 2541 1593 2541 -c 1588 2541 1584 2545 1584 2550 -c 1584 2554 1588 2559 1593 2559 -c 1598 2559 1603 2554 1603 2550 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 1584 2559 M 1558 2577 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1594 2559 M 1594 2577 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1603 2559 M 1630 2577 I : [ 1 0 0 1 448 1724 ] concat K 
+; : N 1603 2586 M 1603 2581 1598 2577 1593 2577 -c 1588 2577 1584 2581 1584 2586 -c 1584 2590 1588 2595 1593 2595 -c 1598 2595 1603 2590 1603 2586 -c C 
+eoclip : : N 1584 2576 21 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 21 21 1584 2576 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; 1 Lc N 1603 2586 M 1603 2581 1598 2577 1593 2577 -c 1588 2577 1584 2581 1584 2586 -c 1584 2590 1588 2595 1593 2595 -c 1598 2595 1603 2590 1603 2586 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1639 2586 M 1639 2581 1635 2577 1630 2577 -c 1625 2577 1621 2581 1621 2586 -c 1621 2590 1625 2595 1630 2595 -c 1635 2595 1639 2590 1639 2586 -c C 
+eoclip : : N 1620 2576 21 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 21 21 1620 2576 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; N 1639 2586 M 1639 2581 1635 2577 1630 2577 -c 1625 2577 1621 2581 1621 2586 -c 1621 2590 1625 2595 1630 2595 -c 1635 2595 1639 2590 1639 2586 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1566 2586 M 1566 2581 1562 2577 1557 2577 -c 1552 2577 1549 2581 1549 2586 -c 1549 2590 1552 2595 1557 2595 -c 1562 2595 1566 2590 1566 2586 -c C 
+eoclip : : N 1548 2576 20 21 rp C 
+1 1 1 1 scol O ; 10 11 1 2 20 21 1548 2576 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; N 1566 2586 M 1566 2581 1562 2577 1557 2577 -c 1552 2577 1549 2581 1549 2586 -c 1549 2590 1552 2595 1557 2595 -c 1562 2595 1566 2590 1566 2586 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1300 2182 M 1300 2177 1295 2174 1290 2174 -c 1285 2174 1281 2177 1281 2182 -c 1281 2187 1285 2191 1290 2191 -c 1295 2191 1300 2187 1300 2182 -c C 
+eoclip : : N 1280 2174 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1280 2174 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1300 2182 M 1300 2177 1295 2174 1290 2174 -c 1285 2174 1281 2177 1281 2182 -c 1281 2187 1285 2191 1290 2191 -c 1295 2191 1300 2187 1300 2182 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 1281 2191 M 1252 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1290 2191 M 1290 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1300 2191 M 1328 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; : N 1300 2218 M 1300 2213 1295 2209 1290 2209 -c 1285 2209 1281 2213 1281 2218 -c 1281 2222 1285 2227 1290 2227 -c 1295 2227 1300 2222 1300 2218 -c C 
+eoclip : : N 1280 2208 22 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 22 21 1280 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; 1 Lc N 1300 2218 M 1300 2213 1295 2209 1290 2209 -c 1285 2209 1281 2213 1281 2218 -c 1281 2222 1285 2227 1290 2227 -c 1295 2227 1300 2222 1300 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1338 2218 M 1338 2213 1333 2209 1328 2209 -c 1323 2209 1319 2213 1319 2218 -c 1319 2222 1323 2227 1328 2227 -c 1333 2227 1338 2222 1338 2218 -c C 
+eoclip : : N 1318 2208 22 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 22 21 1318 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; N 1338 2218 M 1338 2213 1333 2209 1328 2209 -c 1323 2209 1319 2213 1319 2218 -c 1319 2222 1323 2227 1328 2227 -c 1333 2227 1338 2222 1338 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1262 2218 M 1262 2213 1257 2209 1252 2209 -c 1247 2209 1243 2213 1243 2218 -c 1243 2222 1247 2227 1252 2227 -c 1257 2227 1262 2222 1262 2218 -c C 
+eoclip : : N 1242 2208 22 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 22 21 1242 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; N 1262 2218 M 1262 2213 1257 2209 1252 2209 -c 1247 2209 1243 2213 1243 2218 -c 1243 2222 1247 2227 1252 2227 -c 1257 2227 1262 2222 1262 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 1281 2227 M 1252 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1290 2227 M 1290 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1300 2227 M 1328 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; : N 1300 2252 M 1300 2247 1295 2244 1290 2244 -c 1285 2244 1281 2247 1281 2252 -c 1281 2257 1285 2261 1290 2261 -c 1295 2261 1300 2257 1300 2252 -c C 
+eoclip : : N 1280 2244 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1280 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; 1 Lc N 1300 2252 M 1300 2247 1295 2244 1290 2244 -c 1285 2244 1281 2247 1281 2252 -c 1281 2257 1285 2261 1290 2261 -c 1295 2261 1300 2257 1300 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1338 2252 M 1338 2247 1333 2244 1328 2244 -c 1323 2244 1319 2247 1319 2252 -c 1319 2257 1323 2261 1328 2261 -c 1333 2261 1338 2257 1338 2252 -c C 
+eoclip : : N 1318 2244 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1318 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1338 2252 M 1338 2247 1333 2244 1328 2244 -c 1323 2244 1319 2247 1319 2252 -c 1319 2257 1323 2261 1328 2261 -c 1333 2261 1338 2257 1338 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1262 2252 M 1262 2247 1257 2244 1252 2244 -c 1247 2244 1243 2247 1243 2252 -c 1243 2257 1247 2261 1252 2261 -c 1257 2261 1262 2257 1262 2252 -c C 
+eoclip : : N 1242 2244 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1242 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1262 2252 M 1262 2247 1257 2244 1252 2244 -c 1247 2244 1243 2247 1243 2252 -c 1243 2257 1247 2261 1252 2261 -c 1257 2261 1262 2257 1262 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1430 2182 M 1430 2177 1425 2174 1420 2174 -c 1415 2174 1411 2177 1411 2182 -c 1411 2187 1415 2191 1420 2191 -c 1425 2191 1430 2187 1430 2182 -c C 
+eoclip : : N 1410 2174 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1410 2174 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1430 2182 M 1430 2177 1425 2174 1420 2174 -c 1415 2174 1411 2177 1411 2182 -c 1411 2187 1415 2191 1420 2191 -c 1425 2191 1430 2187 1430 2182 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 1411 2191 M 1382 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1420 2191 M 1420 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1430 2191 M 1458 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; : N 1430 2218 M 1430 2213 1425 2209 1420 2209 -c 1415 2209 1411 2213 1411 2218 -c 1411 2222 1415 2227 1420 2227 -c 1425 2227 1430 2222 1430 2218 -c C 
+eoclip : : N 1410 2208 22 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 22 21 1410 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; 1 Lc N 1430 2218 M 1430 2213 1425 2209 1420 2209 -c 1415 2209 1411 2213 1411 2218 -c 1411 2222 1415 2227 1420 2227 -c 1425 2227 1430 2222 1430 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1468 2218 M 1468 2213 1463 2209 1458 2209 -c 1453 2209 1449 2213 1449 2218 -c 1449 2222 1453 2227 1458 2227 -c 1463 2227 1468 2222 1468 2218 -c C 
+eoclip : : N 1448 2208 22 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 22 21 1448 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; N 1468 2218 M 1468 2213 1463 2209 1458 2209 -c 1453 2209 1449 2213 1449 2218 -c 1449 2222 1453 2227 1458 2227 -c 1463 2227 1468 2222 1468 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1392 2218 M 1392 2213 1387 2209 1382 2209 -c 1377 2209 1373 2213 1373 2218 -c 1373 2222 1377 2227 1382 2227 -c 1387 2227 1392 2222 1392 2218 -c C 
+eoclip : : N 1372 2208 22 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 22 21 1372 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; N 1392 2218 M 1392 2213 1387 2209 1382 2209 -c 1377 2209 1373 2213 1373 2218 -c 1373 2222 1377 2227 1382 2227 -c 1387 2227 1392 2222 1392 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 1411 2227 M 1382 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1420 2227 M 1420 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1430 2227 M 1458 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; : N 1430 2252 M 1430 2247 1425 2244 1420 2244 -c 1415 2244 1411 2247 1411 2252 -c 1411 2257 1415 2261 1420 2261 -c 1425 2261 1430 2257 1430 2252 -c C 
+eoclip : : N 1410 2244 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1410 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; 1 Lc N 1430 2252 M 1430 2247 1425 2244 1420 2244 -c 1415 2244 1411 2247 1411 2252 -c 1411 2257 1415 2261 1420 2261 -c 1425 2261 1430 2257 1430 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1468 2252 M 1468 2247 1463 2244 1458 2244 -c 1453 2244 1449 2247 1449 2252 -c 1449 2257 1453 2261 1458 2261 -c 1463 2261 1468 2257 1468 2252 -c C 
+eoclip : : N 1448 2244 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1448 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1468 2252 M 1468 2247 1463 2244 1458 2244 -c 1453 2244 1449 2247 1449 2252 -c 1449 2257 1453 2261 1458 2261 -c 1463 2261 1468 2257 1468 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1392 2252 M 1392 2247 1387 2244 1382 2244 -c 1377 2244 1373 2247 1373 2252 -c 1373 2257 1377 2261 1382 2261 -c 1387 2261 1392 2257 1392 2252 -c C 
+eoclip : : N 1372 2244 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1372 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1392 2252 M 1392 2247 1387 2244 1382 2244 -c 1377 2244 1373 2247 1373 2252 -c 1373 2257 1377 2261 1382 2261 -c 1387 2261 1392 2257 1392 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1567 2182 M 1567 2177 1563 2174 1558 2174 -c 1553 2174 1549 2177 1549 2182 -c 1549 2187 1553 2191 1558 2191 -c 1563 2191 1567 2187 1567 2182 -c C 
+eoclip : : N 1548 2174 21 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 21 19 1548 2174 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1567 2182 M 1567 2177 1563 2174 1558 2174 -c 1553 2174 1549 2177 1549 2182 -c 1549 2187 1553 2191 1558 2191 -c 1563 2191 1567 2187 1567 2182 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 1549 2191 M 1520 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1558 2191 M 1558 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1567 2191 M 1596 2209 I : [ 1 0 0 1 448 1724 ] concat K 
+; : N 1567 2218 M 1567 2213 1563 2209 1558 2209 -c 1553 2209 1549 2213 1549 2218 -c 1549 2222 1553 2227 1558 2227 -c 1563 2227 1567 2222 1567 2218 -c C 
+eoclip : : N 1548 2208 21 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 21 21 1548 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; 1 Lc N 1567 2218 M 1567 2213 1563 2209 1558 2209 -c 1553 2209 1549 2213 1549 2218 -c 1549 2222 1553 2227 1558 2227 -c 1563 2227 1567 2222 1567 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1605 2218 M 1605 2213 1600 2209 1595 2209 -c 1590 2209 1586 2213 1586 2218 -c 1586 2222 1590 2227 1595 2227 -c 1600 2227 1605 2222 1605 2218 -c C 
+eoclip : : N 1586 2208 21 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 21 21 1586 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; N 1605 2218 M 1605 2213 1600 2209 1595 2209 -c 1590 2209 1586 2213 1586 2218 -c 1586 2222 1590 2227 1595 2227 -c 1600 2227 1605 2222 1605 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1530 2218 M 1530 2213 1525 2209 1520 2209 -c 1514 2209 1510 2213 1510 2218 -c 1510 2222 1514 2227 1520 2227 -c 1525 2227 1530 2222 1530 2218 -c C 
+eoclip : : N 1510 2208 22 21 rp C 
+1 1 1 1 scol O ; 11 11 1 2 22 21 1510 2208 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[Truq~> Z
+; ; N 1530 2218 M 1530 2213 1525 2209 1520 2209 -c 1514 2209 1510 2213 1510 2218 -c 1510 2222 1514 2227 1520 2227 -c 1525 2227 1530 2222 1530 2218 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 1549 2227 M 1520 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1558 2227 M 1558 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1567 2227 M 1596 2244 I : [ 1 0 0 1 448 1724 ] concat K 
+; : N 1567 2252 M 1567 2247 1563 2244 1558 2244 -c 1553 2244 1549 2247 1549 2252 -c 1549 2257 1553 2261 1558 2261 -c 1563 2261 1567 2257 1567 2252 -c C 
+eoclip : : N 1548 2244 21 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 21 19 1548 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; 1 Lc N 1567 2252 M 1567 2247 1563 2244 1558 2244 -c 1553 2244 1549 2247 1549 2252 -c 1549 2257 1553 2261 1558 2261 -c 1563 2261 1567 2257 1567 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1605 2252 M 1605 2247 1600 2244 1595 2244 -c 1590 2244 1586 2247 1586 2252 -c 1586 2257 1590 2261 1595 2261 -c 1600 2261 1605 2257 1605 2252 -c C 
+eoclip : : N 1586 2244 21 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 21 19 1586 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1605 2252 M 1605 2247 1600 2244 1595 2244 -c 1590 2244 1586 2247 1586 2252 -c 1586 2257 1590 2261 1595 2261 -c 1600 2261 1605 2257 1605 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; : N 1530 2252 M 1530 2247 1525 2244 1520 2244 -c 1514 2244 1510 2247 1510 2252 -c 1510 2257 1514 2261 1520 2261 -c 1525 2261 1530 2257 1530 2252 -c C 
+eoclip : : N 1510 2244 22 19 rp C 
+1 1 1 1 scol O ; 11 10 1 2 22 19 1510 2244 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+s+p[Ts!%ICs+p[Ts!%ICs+p[T~> Z
+; ; N 1530 2252 M 1530 2247 1525 2244 1520 2244 -c 1514 2244 1510 2247 1510 2252 -c 1510 2257 1514 2261 1520 2261 -c 1525 2261 1530 2257 1530 2252 -c C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lj 3 Lw N 1148 1999 M 1098 1999 I 1098 2074 I 1148 2074 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 4 Lw : 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 1]%%) = 
+%%PageTrailer
+
+%%Page: 2 2
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (2)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+997 569 M (Motivations)[74 42 23 23 41 37 23 23 43 41  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 722 M <95>S 
+632 722 M (Complex structures)[39 30 43 30 15 27 28 15 23 16 20 28 27 17 28 19 26  0]xS 
+576 820 M <95>S 
+632 820 M (Specialized types with their own methods)[32 29 26 26 15 27 16 15 26 26 29 15 17 28 29 26 23 15 43 15 17 28 15 17 28 27 15 19 15 29 43 28
+16 44 26 17 29 29 29  0]xS 
+F0S32 Ji 
+651 894 M <96>S 
+698 894 M (URL's, images, videos, etc.)[36 33 31 9 19 13 13 13 38 22 26 22 19 13 13 25 13 25 22 26 19 13 13 21 15 22  0]xS 
+F0S3A Ji 
+576 990 M <95>S 
+632 990 M (Methods on conventional relational data)[52 26 16 28 29 29 23 15 30 28 15 26 30 29 28 27 28 17 15 30 28 27 15 15 19 27 15 26 17 15 30 28
+27 15 15 29 26 16  0]xS 
+27570 VM?
+/TT1B5o00
+[46 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 46 div 0 0 -1 46 div 0 0 ]
+/__TT1B5o00
+GreNewFont
+T32RsrcBegin
+
+1
+/Gd8 [37 0 4 -33 33 0 ] 
+/Gd8 [29 33 true [1 0 0 1 -4 33 ]  0 0]
+[<~J,fQL?iU0,:]LIq/-#YM'*&"4&AS8G#Ts*I#T*OA"9ni+!WdfO!WYIc!<=eR
+!<<N.!.Y.O!'gO7!'gNl!'gMY!.Y%,!.Y$!!<<'!!WW&t!WVWh"96.:"93lO
+#Q=]'&,6,)&)[Ef+2@jV*rl9@49,?]Du]k<?iU0,J,fQL~>
+ ]
+/TT1B5o00 AddT3T32Char
+T32RsrcEnd
+F /F1 0 /0 F /TT1B5o00 mF 
+/F1S2E F1 [46.094 0 0 -46.094 0 0 ] mFS
+F1S2E Ji 
+576 1088 M <01>S 
+F0S3A Ji 
+632 1088 M (Keep the customers !!!)[41 26 26 29 15 17 28 26 15 26 28 23 16 30 44 27 19 23 16 19 19  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+959 1910 M (Current Status)[55 41 28 28 38 41 23 21 46 23 37 24 41  0]xS 
+F0S3A Ji 
+576 2063 M <95>S 
+632 2063 M (Most major relational DBMS vendors now call )[52 29 23 16 16 43 26 16 29 19 15 19 27 15 26 17 16 30 28 27 15 15 42 38 53 32 15 28 27 28 30 29
+19 23 16 28 29 42 16 26 26 16 15  0]xS 
+632 2133 M (their products object)[16 28 27 16 19 15 29 19 29 30 28 26 16 23 15 29 29 16 26 26  0]xS 
+1110 2133 M (-)S 
+1130 2133 M (relational)[19 27 15 26 17 15 30 28 27  0]xS 
+F0S32 Ji 
+651 2207 M <96>S 
+698 2207 M (Oracle 8, DB2, etc.)[36 17 22 23 12 22 13 25 13 13 36 33 25 13 13 21 15 22  0]xS 
+F0S3A Ji 
+576 2303 M <95>S 
+632 2303 M (Large variation in functionalities among current )[34 27 20 28 26 16 28 26 20 15 26 17 15 30 28 16 16 28 16 19 29 29 26 17 15 30 28 27 16 16 17 15
+26 23 15 27 43 30 29 28 15 27 29 19 19 27 28 16  0]xS 
+632 2373 M (object)[29 29 16 26 26  0]xS 
+774 2373 M (-)S 
+793 2373 M (relational products and the SQL3 standard)[19 27 15 26 17 15 30 28 27 15 15 30 19 29 30 28 26 16 23 15 26 29 29 15 16 28 26 15 33 43 34 29
+15 23 16 27 28 29 27 19  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 2]%%) = 
+%%PageTrailer
+
+%%Page: 3 3
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (3)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+910 569 M (Today\222s Material)[51 42 42 37 41 27 32 21 74 37 23 37 28 23 38  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 722 M <95>S 
+632 722 M (Basic ideas from SQL3 )[38 26 23 15 26 16 15 29 26 26 23 15 19 19 30 44 16 32 43 35 29  0]xS 
+576 820 M <95>S 
+632 820 M (Oracle 8\222s approach)[42 19 26 26 15 26 15 29 20 23 15 26 29 29 19 29 26 26  0]xS 
+576 918 M <95>S 
+632 918 M (Comparisons of relational, object)[39 30 43 29 27 20 15 23 30 28 23 15 30 18 15 19 27 15 26 17 15 30 28 27 15 15 15 29 29 16 26 26
+ 0]xS 
+1408 918 M (-)S 
+1427 918 M (oriented, and )[30 20 15 27 28 16 26 29 15 15 26 28 29  0]xS 
+632 988 M (object)[29 29 16 26 26  0]xS 
+774 988 M (-)S 
+793 988 M (relational models)[19 27 15 26 17 15 30 28 27 15 16 44 30 29 27 15  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+792 1910 M (Object Support in SQL3)[60 42 24 37 37 23 21 46 41 42 42 42 28 23 21 23 41 21 46 60 50  0]xS 
+F0S3A Ji 
+576 2063 M <95>S 
+632 2063 M (Two levels of types)[35 42 29 16 15 27 28 27 15 23 15 30 18 15 16 29 29 26  0]xS 
+F0S32 Ji 
+651 2136 M <96>S 
+698 2136 M (Row types: for tuples of relations)[33 26 36 12 15 23 25 22 19 14 14 15 26 17 12 15 25 25 12 23 19 13 26 15 13 17 23 12 22 16 12 26
+24  0]xS 
+651 2208 M <96>S 
+698 2208 M (Value types \()[36 23 12 25 22 13 16 23 25 22 19 13  0]xS 
+965 2208 M (ADTs)[35 36 31  0]xS 
+1086 2208 M (\): for values of attributes )[17 14 13 15 26 17 13 24 23 13 25 22 19 13 26 15 13 22 15 14 17 13 24 25 15 22 19  0]xS 
+: : N 810 2449 738 50 rp C 
+1 1 1 1 scol O ; 369 25 1 47 738 50 810 2449 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+ddGQ>d_!qOddGQ>d_!qOddGQ>d_!qOddGQ>d_!qOddGQ>d_!qOddGQ>d_!qOdd@~> Z
+; 2 Lw N 1548 2449 M 810 2449 I 810 2499 I 1548 2499 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; N 1548 2399 M 811 2399 I 811 2649 I 1548 2649 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 1 Lj N 810 2449 M 1548 2449 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 810 2599 M 1548 2599 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 960 2399 M 960 2649 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1110 2399 M 1110 2649 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1398 2399 M 1398 2649 I : [ 1 0 0 1 448 1724 ] concat K 
+; 
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+863 2380 M (ID)[12  0]xS 
+988 2380 M (name)[23 23 36  0]xS 
+1188 2380 M (address)[23 23 23 14 23 21  0]xS 
+N 810 2499 M 1548 2499 I : [ 1 0 0 1 448 1724 ] concat K 
+; : : N 960 2449 150 50 rp C 
+1 1 1 1 scol O ; 75 25 1 10 150 50 960 2449 F F 3 [ 0 ] F 
+X
+0.211 0.211 0.211 1 Y
+pJpt"pJptUpJpt"pJptUpJpt"pJptUpJpt"pJptUpJpt"pJptUpJpt"pJptUpJh~> Z
+; 0 Lj N 1110 2449 M 960 2449 I 960 2499 I 1110 2499 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 1426 2380 M (GPA)[33 28  0]xS 
+/F0S26 F0 [38 0 0 -38 0 0 ] mFS
+F0S26 Ji 
+876 2543 M (:)S 
+876 2588 M (:)S 
+1026 2543 M (:)S 
+1026 2588 M (:)S 
+1251 2543 M (:)S 
+1251 2588 M (:)S 
+1463 2543 M (:)S 
+1463 2588 M (:)S 
+4 Lw : 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 3]%%) = 
+%%PageTrailer
+
+%%Page: 4 4
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (4)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+1008 569 M (Row Types)[55 43 58 21 53 40 42 37  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 722 M <95>S 
+632 722 M (Creating row types)[39 19 26 26 16 16 29 28 16 19 29 42 15 17 28 29 26  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+698 786 M (CREATE ROW TYPE)[30 30 28 28 26 28 12 29 32 41 11 26 28 27  0]xS 
+1114 786 M (StudentType)[27 12 23 23 23 23 12 26 21 23  0]xS 
+1361 786 M (\(<list of attributes>\))[14 24 9 10 20 12 12 22 12 12 23 11 12 13 10 23 23 12 23 20 25  0]xS 
+F0S3A Ji 
+576 880 M <95>S 
+632 880 M (Creating tables)[39 19 26 26 16 16 29 28 15 16 26 30 15 26  0]xS 
+F1S2A Ji 
+698 944 M (CREATE TABLE Student OF TYPE)[30 30 28 28 26 28 12 25 28 28 23 28 12 27 12 23 23 23 23 12 11 32 26 11 26 28 28  0]xS 
+1368 944 M (StudentType)[28 12 23 23 23 23 12 25 21 23  0]xS 
+F0S3A Ji 
+576 1038 M <95>S 
+632 1038 M (Queries)[42 28 27 20 15 26  0]xS 
+F0S32 Ji 
+651 1112 M <96>S 
+698 1112 M (Similar to querying conventional relations)[29 13 38 14 13 22 17 13 14 26 13 25 25 21 17 24 13 25 25 13 22 26 25 24 23 24 16 12 26 24 23 12
+13 17 23 13 22 15 12 26 25  0]xS 
+F0S3A Ji 
+576 1208 M <95>S 
+632 1208 M (Features \(beyond relational model\))[31 26 26 17 29 19 26 23 15 19 29 27 28 30 28 29 15 19 27 15 26 17 15 30 28 27 15 16 44 30 29 27
+15  0]xS 
+F0S32 Ji 
+651 1282 M <96>S 
+698 1282 M (Nesting, referencing and)[36 22 19 15 13 24 25 13 13 17 23 15 22 17 23 24 23 13 25 25 13 22 24  0]xS 
+1202 1282 M (dereferencing)[25 22 17 23 16 22 17 22 25 23 13 24  0]xS 
+1476 1282 M (, OID)[13 13 36 17  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+847 1910 M (Value Types \()[60 37 23 41 37 21 52 40 42 37 32 21  0]xS 
+1319 1910 M (ADTs)[59 60 52  0]xS 
+1522 1910 M (\))S 
+F0S3A Ji 
+576 2063 M <95>S 
+632 2063 M (Creating value types)[39 19 26 26 16 16 29 28 16 28 27 16 28 26 15 17 28 29 26  0]xS 
+F1S2A Ji 
+698 2136 M (CREATE TYPE \(<list of fields>, <list of methods>\))[30 30 28 28 26 28 12 25 28 28 28 11 14 24 9 10 20 12 12 22 12 11 12 10 23 10 23 20 24 12 11 24
+10 10 20 11 12 22 13 11 35 23 12 23 23 23 20 25  0]xS 
+F0S3A Ji 
+576 2233 M <95>S 
+632 2233 M (Queries)[42 28 27 20 15 26  0]xS 
+F0S32 Ji 
+651 2307 M <96>S 
+698 2307 M (Similar to querying objects)[29 13 38 14 13 22 17 13 14 26 13 25 25 21 17 24 13 25 25 13 26 25 13 22 22 15  0]xS 
+F0S3A Ji 
+576 2403 M <95>S 
+632 2403 M (Features \(beyond relational model\))[31 26 26 17 29 19 26 23 15 19 29 27 28 30 28 29 15 19 27 15 26 17 15 30 28 27 15 16 44 30 29 27
+15  0]xS 
+F0S32 Ji 
+651 2477 M <96>S 
+698 2477 M (Complex structures)[33 26 37 26 13 23 24 13 19 15 17 25 22 15 24 17 22  0]xS 
+651 2548 M <96>S 
+698 2548 M (Methods )[44 22 15 24 26 25 19  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 4]%%) = 
+%%PageTrailer
+
+%%Page: 5 5
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (5)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+881 569 M (Oracle 8 Approach)[60 28 37 37 23 37 21 42 21 59 42 42 28 42 37 37  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+601 722 M <95>S 
+657 722 M (While SQL3 has row types and value types, )[55 29 16 15 26 15 33 43 34 29 16 28 26 23 15 19 29 42 15 17 28 29 26 23 15 26 28 29 16 28 27 16
+28 26 15 17 28 29 26 23 15  0]xS 
+657 792 M (Oracle 8 uses )[42 19 26 26 15 26 15 29 16 28 23 26 23  0]xS 
+986 792 M (object types)[29 29 16 26 26 16 15 16 28 29 26  0]xS 
+1280 792 M (for both)[18 30 19 15 29 29 17  0]xS 
+601 890 M <95>S 
+657 890 M (Creating object types)[39 19 26 26 16 16 29 28 15 29 30 16 26 26 16 15 16 28 29 26  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+751 973 M (CREATE TYPE <)[27 27 25 25 23 25 11 23 25 25 25 11  0]xS 
+1044 973 M (typename)[11 19 21 20 21 20 33  0]xS 
+1209 973 M (> AS OBJECT \()[22 11 25 24 10 30 25 19 25 27 22 11  0]xS 
+811 1027 M (<list of attributes or fields>,)[21 8 9 19 10 11 20 11 10 21 10 11 12 9 21 20 11 20 19 11 21 12 10 11 9 20 9 20 19 22  0]xS 
+811 1081 M (<list of methods>,)[21 8 9 19 10 11 20 11 10 33 19 11 21 21 20 19 22  0]xS 
+751 1135 M (\);)[13  0]xS 
+751 1190 M (/ )[11  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+717 1910 M (Object Types As Row Types)[60 42 24 37 37 23 20 52 40 42 37 32 22 59 32 21 55 43 59 21 53 40 42 37  0]xS 
+F0S3A Ji 
+576 2058 M <95>S 
+632 2058 M (We can create object types for rows in relations)[55 26 15 26 26 28 15 26 19 26 26 16 26 15 29 29 16 26 26 16 15 16 28 29 26 23 15 18 30 19 15 19
+29 42 23 15 16 28 16 19 27 15 26 16 15 30 28  0]xS 
+F1S26 Ji 
+726 2133 M (CREATE TYPE)[27 27 25 25 23 25 11 23 25 25  0]xS 
+998 2133 M (StudentType)[24 11 21 21 20 21 11 23 18 21  0]xS 
+1220 2133 M (AS OBJECT \()[25 25 10 30 25 19 25 27 22 11  0]xS 
+786 2183 M (name)[20 20 33  0]xS 
+1026 2183 M (CHAR\(40\),)[27 27 25 27 13 21 21 12  0]xS 
+786 2233 M (address)[20 21 21 13 20 19  0]xS 
+1026 2233 M (VARCHAR\(100\),)[25 25 27 27 27 25 27 13 21 21 21 12  0]xS 
+785 2282 M (GPA )[30 25 24  0]xS 
+1026 2282 M (FLOAT)[23 21 30 25  0]xS 
+726 2332 M (\);)[13  0]xS 
+726 2382 M (/)S 
+726 2432 M (CREATE TYPE)[27 27 25 25 23 25 11 23 25 25  0]xS 
+998 2432 M (CampusType)[27 20 32 21 20 19 23 19 21  0]xS 
+1231 2432 M (AS OBJECT \()[25 25 10 30 24 19 25 27 23 10  0]xS 
+785 2481 M (location)[9 21 19 20 10 9 21  0]xS 
+1026 2481 M (CHAR\(20\),)[27 27 25 27 13 21 21 12  0]xS 
+785 2531 M (rank)[13 21 21  0]xS 
+1026 2531 M (INTEGER)[11 27 23 25 30 25  0]xS 
+726 2581 M (\);)[13  0]xS 
+726 2631 M (/)S 
+F0S3A Ji 
+576 2718 M <95>S 
+632 2718 M (Instances of such types are called )[20 28 23 16 26 28 26 26 23 15 30 18 15 23 28 27 28 15 17 28 29 26 23 15 26 19 26 15 26 26 16 15
+26 29  0]xS 
+1424 2718 M (row objects)[19 29 42 15 29 29 16 27 26 16  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 5]%%) = 
+%%PageTrailer
+
+%%Page: 6 6
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (6)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+814 569 M (Querying Row Objects)[60 41 37 29 41 23 42 41 21 55 43 59 21 60 42 24 37 37 23  0]xS 
+F0S32 Ji 
+726 709 M (<< create tables of row objects >>)[28 28 13 22 17 22 22 15 21 12 15 22 25 12 23 19 13 26 15 13 17 26 36 12 26 24 13 22 22 15 19 13
+28  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 761 M (CREATE TABLE Student OF TYPE)[27 27 25 25 23 25 11 23 25 25 21 25 11 24 11 21 21 20 21 10 10 30 23 11 23 25 25  0]xS 
+1329 761 M (StudentType)[24 11 21 21 20 21 11 23 19 21  0]xS 
+1541 761 M (;)S 
+726 811 M (CREATE TABLE Campus OF TYPE )[27 27 25 25 23 25 11 23 25 25 21 25 11 27 20 32 20 21 19 10 30 22 11 23 25 25 24  0]xS 
+1339 811 M (CampusType)[27 20 32 21 21 19 23 19 21  0]xS 
+1562 811 M (;)S 
+F0S32 Ji 
+726 925 M (<< insert Bart into)[28 28 14 13 24 19 22 17 15 13 33 22 16 15 13 12 24 15  0]xS 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+1106 925 M (Student)[27 12 23 23 23 23  0]xS 
+F0S32 Ji 
+1260 925 M (>>)[28  0]xS 
+F1S26 Ji 
+726 976 M (INSERT INTO Student VALUES \()[11 27 25 25 27 23 10 11 27 22 30 11 24 11 21 21 20 21 10 11 25 25 21 27 25 25 10  0]xS 
+786 1026 M (StudentType)[24 11 21 21 20 21 11 23 18 21  0]xS 
+997 1026 M (\(\221Bart\222, \221Springfield\222, 3.8\))[13 8 25 21 13 11 8 10 11 8 25 21 12 9 21 20 10 9 20 9 21 8 11 10 21 11 20  0]xS 
+726 1076 M (\);)[13  0]xS 
+F0S32 Ji 
+726 1162 M (<< retrieve Bart\222s GPA >>)[28 28 13 17 21 15 17 12 23 24 22 13 33 22 17 15 16 19 13 36 28 35 13 28  0]xS 
+F1S26 Ji 
+726 1213 M (SELECT GPA   )[25 25 21 25 27 23 10 30 25 25 10 11  0]xS 
+726 1263 M (FROM Student)[23 27 30 31 11 24 11 21 21 20 21  0]xS 
+726 1313 M (WHERE name = \221Bart\222;)[37 26 25 27 25 11 21 20 33 19 11 21 11 8 25 21 13 11 7  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+680 1910 M (Object Types As Values Types)[60 42 24 37 37 23 20 52 40 42 37 32 22 59 32 21 60 37 24 41 37 32 21 53 40 42 37  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 2058 M <95>S 
+632 2058 M (We can create object types for attribute values)[55 26 15 26 26 28 15 26 19 26 26 16 26 15 29 29 16 26 26 16 15 16 28 29 26 23 15 18 30 19 15 26
+16 16 20 15 30 28 16 26 16 28 27 16 28 26  0]xS 
+F1S26 Ji 
+726 2130 M (CREATE TYPE )[27 27 25 25 23 25 11 23 25 25 25  0]xS 
+998 2130 M (NameType )[27 20 33 20 22 19 21 20  0]xS 
+1191 2130 M (AS OBJECT \()[25 25 10 30 25 19 25 27 22 11  0]xS 
+785 2180 M (firstname )[11 8 13 18 11 21 20 33 19  0]xS 
+1026 2180 M (CHAR\(20\),)[27 27 25 27 13 21 21 12  0]xS 
+785 2230 M (lastname )[9 21 18 11 21 20 33 19  0]xS 
+1026 2230 M (CHAR\(20\))[27 27 25 27 13 21 21  0]xS 
+726 2280 M (\);)[13  0]xS 
+726 2329 M (/)S 
+726 2379 M (CREATE TYPE )[27 27 25 25 23 25 11 23 25 25 25  0]xS 
+998 2379 M (StudentType )[24 11 21 21 20 21 11 23 18 21 20  0]xS 
+1220 2379 M (AS OBJECT \()[25 25 10 30 25 19 25 27 22 11  0]xS 
+786 2429 M (name )[20 20 33 20  0]xS 
+1026 2429 M (NameType)[27 20 33 20 23 19 21  0]xS 
+1209 2429 M (,)S 
+786 2479 M (address )[20 21 21 13 20 19 19  0]xS 
+1026 2479 M (VARCHAR\(100\),)[25 25 27 27 27 25 27 13 21 21 21 12  0]xS 
+785 2528 M (GPA )[30 25 24  0]xS 
+1026 2528 M (FLOAT)[23 21 30 25  0]xS 
+726 2578 M (\);)[13  0]xS 
+726 2628 M (/)S 
+F0S3A Ji 
+576 2715 M <95>S 
+632 2715 M (Instances of such types are called )[20 28 23 16 26 28 26 26 23 15 30 18 15 23 28 27 28 15 17 28 29 26 23 15 26 19 26 15 26 26 16 15
+26 29  0]xS 
+1424 2715 M (column objects)[26 30 16 29 44 29 15 30 29 16 26 26 16  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 6]%%) = 
+%%PageTrailer
+
+%%Page: 7 7
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (7)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+765 569 M (Querying Column Objects)[60 41 37 29 41 23 42 41 21 55 42 24 42 64 41 21 60 42 24 37 37 23  0]xS 
+F0S32 Ji 
+726 713 M (<< insert Bart Simpson into)[28 28 14 13 24 19 22 17 15 13 33 22 16 15 12 28 13 38 26 19 26 24 14 13 24 15  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+1293 713 M (Student)[27 12 23 23 23 23  0]xS 
+F0S32 Ji 
+1447 713 M (>>)[28  0]xS 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 771 M (INSERT INTO Student VALUES \()[11 27 25 25 27 23 10 11 27 22 30 11 24 11 21 21 20 21 10 11 25 25 21 27 25 25 10  0]xS 
+786 825 M (StudentType)[24 11 21 21 20 21 11 23 18 21  0]xS 
+997 825 M (\()S 
+1010 825 M (NameType)[27 20 33 20 23 19 21  0]xS 
+1193 825 M (\(\221Bart\222, \221Simpson\222\), \221Springfield\222, 3.8\))[13 8 25 21 13 11 7 11 11 8 25 8 32 20 19 21 21 8 12 11 11 8 25 20 13 9 20 21 10 9 20 9
+21 8 10 11 21 10 21  0]xS 
+726 879 M (\);)[13  0]xS 
+F0S32 Ji 
+726 1002 M (<< retrieve Simpson\222s GPA >>)[28 28 13 17 21 15 17 12 23 24 22 13 29 13 38 26 19 26 24 17 19 13 36 29 35 13 28  0]xS 
+F1S26 Ji 
+726 1059 M (SELECT )[25 25 21 25 27 23  0]xS 
+883 1059 M (s.)[18  0]xS 
+912 1059 M (GPA)[30 25  0]xS 
+726 1113 M (FROM Student )[23 27 30 31 11 24 11 21 21 20 21 10  0]xS 
+987 1113 M (s)S 
+726 1167 M (WHERE )[37 26 25 27 25  0]xS 
+877 1167 M (s.)[18  0]xS 
+906 1167 M (name.)[21 20 33 19  0]xS 
+1010 1167 M (lastname)[8 21 19 10 21 20 33  0]xS 
+1173 1167 M (= \221Simpson\222;)[21 11 8 25 8 32 21 18 21 21 8  0]xS 
+27441 VM?
+/TT1C1o00
+[40 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 40 div 0 0 -1 40 div 0 0 ]
+/__TT1C1o00
+GreNewFont
+T32RsrcBegin
+
+1
+/Gd8 [32 0 4 -29 29 0 ] 
+/Gd8 [25 29 true [1 0 0 1 -4 29 ]  0 0]
+[<~J,fQL?iU0,:]LIq/-#YM'*&"4&:a`\#[dW4#T*OA"9ni+"9AK&!W^"9!<=eR
+!<<N.!.Y+N!<<(L!<<#u!WW&t!WVWh"96.:#QFc(#Q=]'&,6,)&)[Ef++O=k
+*rl9@49,?]Du]k<?iU0,J,fQL~>
+ ]
+/TT1C1o00 AddT3T32Char
+T32RsrcEnd
+F /F2 0 /0 F /TT1C1o00 mF 
+/F2S28 F2 [40.102 0 0 -40.102 0 0 ] mFS
+F2S28 Ji 
+726 1263 M <01>S 
+F0S32 Ji 
+764 1263 M (In Oracle 8, we need )[17 24 13 36 17 22 23 12 22 13 25 13 13 36 22 13 24 22 22 25  0]xS 
+1191 1263 M (row alias)[17 26 36 13 22 13 13 22  0]xS 
+1386 1263 M (for querying      )[15 26 17 13 25 25 22 17 24 13 25 25 13 13 13 13 12  0]xS 
+764 1323 M (object type attributes)[26 25 12 22 22 15 12 15 23 25 22 13 22 15 14 17 13 24 25 15 22  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+688 1910 M (Referencing and )[55 37 27 37 28 38 41 37 24 41 41 21 38 41 42  0]xS 
+1257 1910 M (Dereferencing)[60 37 28 37 27 37 28 38 41 37 23 42  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+601 2058 M <95>S 
+657 2058 M (An object can reference to another row object )[42 28 15 29 29 16 26 26 16 15 26 26 28 16 19 27 18 26 19 27 28 26 26 15 16 29 15 26 28 29 17 28
+27 19 15 19 29 42 15 29 29 17 26 26 16  0]xS 
+657 2121 M (using )[28 24 16 29 28  0]xS 
+F1S2A Ji 
+797 2121 M (REF)[30 28  0]xS 
+F0S3A Ji 
+896 2121 M (type)[16 29 29  0]xS 
+601 2212 M <95>S 
+657 2212 M (We can query the referenced object and its fields )[55 26 15 26 26 28 15 29 28 26 20 28 15 17 28 26 15 19 27 18 27 19 27 28 26 26 29 15 29 29 16 26
+26 16 15 26 28 29 16 15 16 23 15 19 15 27 16 29 23  0]xS 
+657 2275 M (using )[28 24 16 29 28  0]xS 
+F1S2A Ji 
+797 2275 M (DEREF)[30 28 30 28  0]xS 
+F0S3A Ji 
+954 2275 M (operator)[29 29 26 19 26 16 29  0]xS 
+F1S2A Ji 
+1163 2385 M (Apply)[28 23 23 10  0]xS 
+2 Lw N 1309 2412 M 1123 2412 I 1123 2612 I 1309 2612 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 1 Lj N 1123 2461 M 1309 2461 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1223 2411 M 1223 2611 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1123 2511 M 1309 2511 I : [ 1 0 0 1 448 1724 ] concat K 
+; /F0S26 F0 [38 0 0 -38 0 0 ] mFS
+F0S26 Ji 
+1163 2554 M (:)S 
+1250 2554 M (:)S 
+N 1123 2561 M 1309 2561 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1147 2486 M 936 2486 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 939 2478 M 922 2486 I 939 2495 I C 
+ O N 1260 2486 M 1483 2486 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1481 2495 M 1498 2486 I 1481 2478 I C 
+ O : : N 1497 2461 200 50 rp C 
+1 1 1 1 scol O ; 100 25 1 13 200 50 1497 2461 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+oZZrqoJ?,OoZZrqoJ?,OoZZrqoJ?,OoZZrqoJ?,OoZZrqoJ?,OoZZrqoJ?,OoZR~> Z
+; 0 Lj N 1697 2461 M 1497 2461 I 1497 2511 I 1697 2511 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; F1S2A Ji 
+1513 2385 M (Campus)[30 23 36 23 23  0]xS 
+N 1696 2411 M 1497 2411 I 1497 2611 I 1696 2611 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 1 Lj N 1497 2461 M 1696 2461 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1597 2411 M 1597 2611 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1497 2511 M 1696 2511 I : [ 1 0 0 1 448 1724 ] concat K 
+; F0S26 Ji 
+1550 2548 M (:)S 
+1650 2548 M (:)S 
+N 1497 2561 M 1696 2561 I : [ 1 0 0 1 448 1724 ] concat K 
+; : : N 710 2461 212 50 rp C 
+1 1 1 1 scol O ; 106 25 1 14 212 50 710 2461 F F 3 [ 0 ] F 
+X
+0.211 0.211 0.211 1 Y
+o/$!+o??f<o/$!+o??f<o/$!+o??f<o/$!+o??f<o/$!+o??f<o/$!+o??f<o.p~> Z
+; 0 Lj N 922 2461 M 710 2461 I 710 2511 I 922 2511 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; N 922 2411 M 710 2411 I 710 2611 I 922 2611 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; 1 Lj N 710 2461 M 922 2461 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 772 2411 M 772 2611 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 847 2411 M 847 2611 I : [ 1 0 0 1 448 1724 ] concat K 
+; F1S2A Ji 
+738 2392 M (Student)[28 12 23 23 23 23  0]xS 
+N 710 2511 M 922 2511 I : [ 1 0 0 1 448 1724 ] concat K 
+; F0S26 Ji 
+749 2548 M (:)S 
+819 2548 M (:)S 
+882 2548 M (:)S 
+N 710 2561 M 922 2561 I : [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lj 4 Lw : 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 7]%%) = 
+%%PageTrailer
+
+%%Page: 8 8
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (8)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+837 569 M (Referencing Example)[55 37 27 37 28 38 41 37 24 41 41 21 52 41 38 63 42 23  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+751 702 M (CREATE TYPE)[27 27 25 25 23 25 11 23 25 25  0]xS 
+1023 702 M (ApplyType)[25 20 21 9 18 23 19 21  0]xS 
+1210 702 M (AS OBJECT \()[25 25 10 30 25 19 25 27 22 11  0]xS 
+811 756 M (student )[18 11 21 21 20 21 10  0]xS 
+1051 756 M (REF)[27 25  0]xS 
+1137 756 M (StudentType)[25 11 20 21 20 21 11 23 19 21  0]xS 
+1349 756 M (,)S 
+811 810 M (campus )[18 20 32 21 21 18  0]xS 
+1051 810 M (REF)[27 25  0]xS 
+1137 810 M (CampusType)[27 20 32 21 21 19 23 18 21  0]xS 
+751 864 M (\);)[13  0]xS 
+751 918 M (/)S 
+751 972 M (CREATE TABLE Apply OF TYPE)[27 27 25 25 23 25 11 23 25 25 21 25 11 24 21 21 8 19 10 30 22 11 23 25 25  0]xS 
+1319 972 M (ApplyType)[24 21 21 8 19 23 19 21  0]xS 
+1495 972 M (;)S 
+F0S32 Ji 
+751 1071 M (<< insert \(Bart, Berkeley\) into)[28 28 14 13 24 19 22 17 15 13 17 33 22 16 14 13 13 33 22 17 25 22 12 23 24 17 14 13 24 15  0]xS 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+1369 1071 M (Apply)[28 23 23 10  0]xS 
+F0S32 Ji 
+1484 1071 M (>>)[28  0]xS 
+F1S26 Ji 
+751 1128 M (INSERT INTO Apply VALUES \()[11 27 25 25 27 23 10 11 27 22 30 11 25 21 20 9 18 11 25 25 21 27 25 24 11  0]xS 
+789 1183 M (SELECT REF\(s\), REF\(c\))[25 25 21 25 27 23 11 27 25 23 12 19 12 11 11 27 25 22 13 19  0]xS 
+794 1237 M (FROM Student s, Campus c)[23 26 30 30 11 25 11 21 21 20 21 10 11 18 11 11 27 20 32 20 21 19 10  0]xS 
+792 1291 M (WHERE s.)[37 27 25 27 25 10 19  0]xS 
+972 1291 M (firstname)[11 8 13 18 11 21 20 33  0]xS 
+1137 1291 M (= \221Bart\222 AND c.location = \221Berkeley\222)[22 11 8 25 20 13 11 8 11 25 27 26 11 18 11 8 21 19 20 11 9 20 21 11 21 11 8 25 20 13 19 20
+9 20 19  0]xS 
+751 1345 M (\);)[13  0]xS 
+27441 VM?
+/TT1C1o00
+[40 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 40 div 0 0 -1 40 div 0 0 ]
+/__TT1C1o00
+GreNewFont
+T32RsrcBegin
+
+1
+/Gd8 [32 0 4 -29 29 0 ] 
+/Gd8 [25 29 true [1 0 0 1 -4 29 ]  0 0]
+[<~J,fQL?iU0,:]LIq/-#YM'*&"4&:a`\#[dW4#T*OA"9ni+"9AK&!W^"9!<=eR
+!<<N.!.Y+N!<<(L!<<#u!WW&t!WVWh"96.:#QFc(#Q=]'&,6,)&)[Ef++O=k
+*rl9@49,?]Du]k<?iU0,J,fQL~>
+ ]
+/TT1C1o00 AddT3T32Char
+T32RsrcEnd
+F /F2 0 /0 F /TT1C1o00 mF 
+/F2S28 F2 [40.102 0 0 -40.102 0 0 ] mFS
+F2S28 Ji 
+751 1414 M <01>S 
+F0S32 Ji 
+789 1414 M (Referenced objects must \223live\224 in their tables)[33 23 15 22 17 23 24 22 22 25 13 26 25 13 22 22 15 19 14 37 25 19 15 13 22 13 13 25 22 22 14 13
+24 13 15 24 23 13 17 13 15 22 25 12 23  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+802 1910 M (Dereferencing )[60 37 28 37 27 37 28 37 41 37 24 42 41  0]xS 
+1299 1910 M (Example)[51 41 38 64 42 23  0]xS 
+F0S32 Ji 
+726 2054 M (<< names of campuses that Bart applied >>)[28 28 13 24 23 38 22 19 13 27 15 13 22 23 37 25 26 19 22 19 13 15 24 22 15 13 33 22 16 14 13 22
+25 25 13 13 22 25 13 28  0]xS 
+F1S26 Ji 
+726 2112 M (SELECT a.campus.location)[25 25 21 25 27 23 11 20 11 19 20 32 21 21 18 10 9 21 19 20 11 8 21  0]xS 
+726 2166 M (FROM Apply a)[23 27 30 31 11 25 20 21 9 18 11  0]xS 
+726 2220 M (WHERE a.student.name = \221Bart\222;)[37 26 25 27 25 11 20 11 18 11 21 21 20 21 11 10 21 20 33 20 11 21 11 8 25 21 12 11 8  0]xS 
+F0S32 Ji 
+726 2343 M (<< the entire objects of campus that Bart applied >>)[28 28 13 15 24 22 13 22 24 15 12 17 22 13 26 25 12 22 22 15 19 13 26 15 13 22 23 37 25 26 19 13
+15 24 22 15 13 33 22 16 14 13 22 25 25 13 13 22 25 13 29  0]xS 
+F1S26 Ji 
+726 2400 M (SELECT )[25 25 21 25 27 23  0]xS 
+883 2400 M (DEREF)[27 25 27 25  0]xS 
+1010 2400 M (\(a.campus\))[13 20 11 19 20 32 21 20 19  0]xS 
+726 2454 M (FROM Apply a)[23 27 30 31 11 25 20 21 9 18 11  0]xS 
+726 2508 M (WHERE a.student.name = \221Bart\222;)[37 26 25 27 25 11 20 11 18 11 21 21 20 21 11 10 21 20 33 20 11 21 11 8 25 21 12 11 8  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 8]%%) = 
+%%PageTrailer
+
+%%Page: 9 9
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2265 3131 M (9)S 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+1053 569 M (Methods)[74 37 23 41 42 42  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 722 M <95>S 
+632 722 M (The real reason why object)[36 28 26 15 19 26 26 15 16 19 26 26 23 29 28 15 43 29 28 15 29 29 16 26 26  0]xS 
+1263 722 M (-)S 
+1282 722 M (relational is more than )[19 27 15 26 17 15 30 28 27 15 16 15 23 16 44 30 19 26 15 16 28 27 28  0]xS 
+632 792 M (just complex \(nested\) structures)[16 28 23 16 15 26 30 44 30 15 27 28 15 20 28 26 23 16 26 30 19 15 23 16 20 28 26 17 28 19 26  0]xS 
+576 890 M <95>S 
+632 890 M (Both rows and values can have methods )[38 29 17 28 15 20 29 42 23 15 26 28 29 16 28 27 16 28 26 23 15 26 26 28 15 28 27 28 26 16 44 26
+17 28 29 29 23  0]xS 
+576 988 M <95>S 
+632 988 M (Declared in )[42 26 26 15 26 19 26 29 16 16 28  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S32 F1 [50 0 0 -50 0 0 ] mFS
+F1S32 Ji 
+916 988 M (CREATE TYPE)[36 36 34 33 31 33 14 31 33 33  0]xS 
+F0S3A Ji 
+1278 988 M (statement)[23 16 26 16 27 43 27 28  0]xS 
+F0S32 Ji 
+651 1062 M <96>S 
+698 1062 M (Can specify access control)[33 22 24 13 19 26 22 23 13 17 24 13 22 22 22 23 19 19 13 22 26 24 15 16 26  0]xS 
+F0S3A Ji 
+576 1158 M <95>S 
+632 1158 M (Defined in )[42 26 19 16 29 26 29 15 16 28  0]xS 
+F1S32 Ji 
+893 1158 M (CREATE TYPE BODY)[37 36 33 33 31 33 14 31 33 33 33 15 33 39 36  0]xS 
+F0S3A Ji 
+1411 1158 M (statement)[23 16 26 16 27 43 27 28  0]xS 
+F0S32 Ji 
+651 1232 M <96>S 
+698 1232 M (As functions or procedures in PL/SQL)[36 19 14 15 26 24 22 16 12 26 24 19 13 26 17 13 24 16 26 22 22 25 25 17 22 19 13 13 24 13 28 30
+14 28 37  0]xS 
+651 1304 M <96>S 
+698 1304 M (Can access object )[33 22 24 13 22 22 23 22 20 19 13 26 25 12 22 22 15  0]xS 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+1066 1304 M (SELF)[28 28 23  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+878 1910 M (Declaring Methods)[60 37 37 23 37 28 23 42 41 21 74 37 24 41 42 42  0]xS 
+F0S32 Ji 
+726 2054 M (<< )[28 28  0]xS 
+F1S2A Ji 
+795 2054 M (scaledGPA)[20 21 23 10 23 23 33 28  0]xS 
+1004 2054 M (:)S 
+F0S32 Ji 
+1028 2054 M (compute scaled GPA for students >>)[21 26 37 25 25 15 22 13 19 22 23 12 22 25 13 36 29 35 14 15 26 17 13 19 15 25 25 22 24 15 19 13
+27  0]xS 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 2112 M (CREATE TYPE )[27 27 25 25 23 25 11 23 25 25 25  0]xS 
+998 2112 M (StudentType)[24 11 21 21 20 21 11 23 18 21  0]xS 
+1220 2112 M (AS OBJECT \()[25 25 10 30 25 19 25 27 22 11  0]xS 
+786 2166 M (name )[20 20 33 20  0]xS 
+1026 2166 M (NameType)[27 20 33 20 23 19 21  0]xS 
+1209 2166 M (,)S 
+786 2220 M (address )[20 21 21 13 20 19 19  0]xS 
+1026 2220 M (VARCHAR\(100\),)[25 25 27 27 27 25 27 13 21 21 21 12  0]xS 
+785 2274 M (GPA )[30 25 24  0]xS 
+1026 2274 M (FLOAT, )[23 21 30 25 22 11  0]xS 
+786 2328 M (MEMBER FUNCTION)[31 25 31 25 25 27 11 23 27 27 27 22 10 30  0]xS 
+1165 2328 M (scaledGPA)[18 19 21 9 20 20 30 25  0]xS 
+1362 2328 M (\(scale IN FLOAT\))[13 19 19 20 9 20 11 11 26 11 23 20 30 25 23  0]xS 
+848 2382 M (RETURN FLOAT,)[27 25 23 27 27 27 11 23 20 30 25 22  0]xS 
+786 2437 M (PRAGMA)[25 27 24 30 31  0]xS 
+959 2437 M (RESTRICT_REFERENCES\()[27 25 25 23 26 11 27 23 21 27 25 23 25 27 25 27 27 25 25  0]xS 
+1436 2437 M (scaledGPA)[18 19 20 9 20 21 30 25  0]xS 
+1623 2437 M (, )[10  0]xS 
+1643 2437 M (WNDS)[37 27 27  0]xS 
+1758 2437 M (\))S 
+726 2491 M (\);)[13  0]xS 
+726 2545 M (/ )[11  0]xS 
+27276 VM?
+/TT1C4o00
+[33 0 0 0 0 0 ] 
+ 256 array 0 1 255 {1 index exch /.notdef put} for 
+[0 0 0 0 ] 
+[1 33 div 0 0 -1 33 div 0 0 ]
+/__TT1C4o00
+GreNewFont
+T32RsrcBegin
+
+1
+/Gd8 [26 0 2 -24 23 0 ] 
+/Gd8 [21 24 true [1 0 0 1 -2 24 ]  0 0]
+[<~J,fRW!!#gq!%\*M'*&"D^]4W_!!jDA"9ni-!It4O5QLj=!WVWks1ea:J-Z&R
+&,6,8huFk7!$;1@49,A#!!$C,!.Y%L~>
+ ]
+/TT1C4o00 AddT3T32Char
+T32RsrcEnd
+F /F2 0 /0 F /TT1C4o00 mF 
+/F2S21 F2 [33.07 0 0 -33.07 0 0 ] mFS
+F2S21 Ji 
+726 2614 M <01>S 
+F1S2A Ji 
+764 2614 M (WNDS)[41 30 30  0]xS 
+F1S32 Ji 
+906 2614 M (= )[29  0]xS 
+F0S32 Ji 
+949 2614 M (\223write no database state\224)[21 36 18 12 15 22 13 24 26 13 25 21 15 22 24 22 19 22 13 19 15 22 15 22  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 9]%%) = 
+%%PageTrailer
+
+%%Page: 10 10
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2240 3131 M (10)[25  0]xS 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+884 569 M (Defining  Methods)[60 37 27 24 41 24 41 41 21 21 74 37 24 41 42 42  0]xS 
+F0S32 Ji 
+726 713 M (<<)[28  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+796 713 M (scaledGPA)[20 21 23 10 23 23 33 28  0]xS 
+F0S32 Ji 
+1019 713 M (method definition >>)[37 22 15 24 26 25 13 25 22 16 13 26 12 16 12 27 24 13 28  0]xS 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 771 M (CREATE TYPE BODY )[27 27 25 25 23 25 11 23 25 25 25 11 24 30 27 24  0]xS 
+1114 771 M (StudentType)[25 11 21 21 20 21 11 22 19 21  0]xS 
+1337 771 M (AS)[25  0]xS 
+786 825 M (MEMBER FUNCTION )[31 25 31 25 25 27 11 23 27 27 27 22 10 30 27  0]xS 
+1165 825 M (scaledGPA)[18 19 21 9 20 20 30 25  0]xS 
+1362 825 M (\(scale IN FLOAT\) )[13 19 19 20 9 20 11 11 26 11 23 20 30 25 23 12  0]xS 
+876 870 M (RETURN FLOAT IS)[27 25 23 27 27 27 11 23 21 30 24 23 10 11  0]xS 
+838 924 M (BEGIN)[25 24 29 11  0]xS 
+898 978 M (RETURN )[27 25 23 27 27 26  0]xS 
+1064 978 M (SELF)[25 25 21  0]xS 
+1158 978 M (.GPA * scale / 4.0 ;)[10 30 25 24 11 14 11 19 19 20 9 20 11 10 11 20 11 20 11  0]xS 
+838 1032 M (END;)[25 27 26  0]xS 
+726 1087 M (END;)[25 27 27  0]xS 
+726 1141 M (/)S 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+943 1910 M (Using Methods)[60 32 24 41 41 21 74 37 24 41 42 42  0]xS 
+F0S32 Ji 
+726 2054 M (<< average GPA \(/100\) of Berkeley applicants >>)[28 28 13 22 24 22 17 22 25 22 13 36 29 35 13 17 14 25 25 25 17 12 26 15 13 33 22 17 25 23 12 23
+24 13 22 25 26 13 13 23 23 24 15 19 13 28  0]xS 
+F1S26 Ji 
+726 2112 M (SELECT)[25 25 21 25 27  0]xS 
+883 2112 M (avg)[21 19  0]xS 
+943 2112 M (\(a.student.)[13 20 11 19 10 21 21 20 21 11  0]xS 
+1120 2112 M (scaledGPA)[19 19 20 9 20 21 30 25  0]xS 
+1308 2112 M (\(100\)\))[13 20 21 21 12  0]xS 
+726 2166 M (FROM Apply a)[23 27 30 31 11 25 20 21 9 18 11  0]xS 
+726 2220 M (WHERE a.campus.location = \221Berkeley\222;)[37 26 25 27 25 11 20 11 19 20 32 21 20 19 10 9 21 19 20 10 9 21 20 11 22 11 8 25 20 13 19 20
+9 20 19 8  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 10]%%) = 
+%%PageTrailer
+
+%%Page: 11 11
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2240 3131 M (11)[25  0]xS 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+945 569 M (Order Methods)[60 28 42 37 28 21 74 37 23 41 42 42  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 722 M <95>S 
+632 722 M (We can declare one method for a type to be an )[55 26 15 26 26 28 15 29 26 26 15 26 19 26 15 30 28 26 16 43 26 17 28 30 29 16 18 29 19 15 26 15
+17 28 29 26 15 16 29 15 29 26 15 26 28  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+632 792 M (ORDER)[33 30 30 28  0]xS 
+F0S3A Ji 
+799 792 M (method)[43 26 17 28 29  0]xS 
+F0S32 Ji 
+651 866 M <96>S 
+698 866 M (Returns > 0, 0, or < 0, if )[33 22 15 25 17 24 19 13 28 13 25 13 13 24 13 12 25 17 13 27 13 25 12 13 13 15  0]xS 
+F1S2A Ji 
+1193 866 M (SELF)[28 28 23  0]xS 
+F0S32 Ji 
+1312 866 M (is greater than, equal to, )[13 19 13 25 17 22 22 15 22 16 12 15 24 22 24 13 13 22 25 25 22 12 13 15 26 12  0]xS 
+698 925 M (or less than the argument object)[26 16 13 12 23 19 19 13 15 24 23 24 13 15 24 22 13 22 17 25 25 37 23 24 15 13 26 24 13 22 22  0]xS 
+651 997 M <96>S 
+698 997 M (Allows the type to participate in )[36 14 12 26 37 19 13 15 24 22 12 15 23 25 22 13 15 25 13 25 22 16 15 12 23 13 25 22 15 22 13 13
+24  0]xS 
+F1S2A Ji 
+1351 997 M (WHERE)[42 30 28 30  0]xS 
+F0S32 Ji 
+1521 997 M (clause )[22 12 22 26 19 22  0]xS 
+698 1057 M (involving >, =, <, etc. and in )[13 25 24 27 13 25 13 25 25 13 28 13 13 28 13 13 28 12 13 21 15 22 12 13 22 24 25 14 13 24  0]xS 
+F1S2A Ji 
+1280 1057 M (ORDER BY)[33 30 30 28 30 12 28  0]xS 
+F0S32 Ji 
+1512 1057 M (sorting)[18 26 16 15 13 24  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+770 1910 M (Declaring Order Methods)[60 37 37 23 37 28 23 42 41 21 60 28 42 37 28 21 74 37 23 41 42 42  0]xS 
+F0S32 Ji 
+726 2054 M (<< order the campuses >>)[28 28 13 25 17 25 22 17 12 15 24 22 13 22 22 37 25 26 19 22 19 13 28  0]xS 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 2112 M (CREATE TYPE )[27 27 25 25 23 25 11 23 25 25 25  0]xS 
+998 2112 M (CampusType)[27 20 32 21 20 19 23 19 21  0]xS 
+1231 2112 M (AS OBJECT \()[25 25 10 30 24 19 25 27 23 10  0]xS 
+785 2166 M (location)[9 21 19 20 10 9 21  0]xS 
+1026 2166 M (CHAR\(20\),)[27 27 25 27 13 21 21 12  0]xS 
+785 2220 M (rank)[13 21 21  0]xS 
+1026 2220 M (INTEGER, )[11 27 23 25 30 25 26 10  0]xS 
+785 2274 M (ORDER MEMBER FUNCTION)[30 27 27 25 27 11 31 25 31 25 25 27 11 23 27 27 27 22 10 30  0]xS 
+1311 2274 M (compare \()[18 20 32 21 21 13 20 11  0]xS 
+876 2328 M (other IN )[21 11 21 20 13 10 11 27  0]xS 
+1021 2328 M (CampusType)[27 20 32 21 20 19 23 19 21  0]xS 
+1243 2328 M (\) RETURN INTEGER,)[13 11 27 25 23 27 27 26 11 11 27 23 24 30 25 26  0]xS 
+786 2382 M (PRAGMA RESTRICT_REFERENCES\(compare, WNDS\))[25 27 24 30 31 25 11 27 25 25 23 26 11 27 23 21 27 25 23 25 27 25 27 27 25 25 13 18 20 32 21 21
+13 20 10 10 37 27 27 25  0]xS 
+747 2437 M (\);)[13  0]xS 
+747 2491 M (/ )[11  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 11]%%) = 
+%%PageTrailer
+
+%%Page: 12 12
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2240 3131 M (12)[25  0]xS 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+786 569 M (Defining Order Methods)[60 37 27 24 41 24 41 41 21 60 28 42 37 28 21 74 37 24 41 42 42  0]xS 
+F0S32 Ji 
+726 709 M (<< )[28 28  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+795 709 M (compare)[21 22 36 23 23 14  0]xS 
+F0S32 Ji 
+971 709 M (method implementation >>)[37 22 15 24 26 25 14 13 37 26 13 23 38 23 24 15 22 15 12 26 24 13 28  0]xS 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 761 M (CREATE TYPE BODY )[27 27 25 25 23 25 11 23 25 25 25 11 24 30 27 24  0]xS 
+1114 761 M (CampusType)[27 20 32 21 21 19 23 19 21  0]xS 
+1348 761 M (AS)[25  0]xS 
+786 811 M (MEMBER FUNCTION compare \()[31 25 31 25 25 27 11 23 27 27 27 22 10 30 27 11 19 20 32 20 21 13 20 11  0]xS 
+876 861 M (other IN )[21 11 21 20 13 10 11 27  0]xS 
+1021 861 M (CampusType)[27 20 32 21 20 19 23 19 21  0]xS 
+1243 861 M (\) RETURN INTEGER IS)[13 11 27 25 23 27 27 26 11 11 27 23 24 30 25 26 11 11  0]xS 
+838 910 M (BEGIN)[25 24 29 11  0]xS 
+887 960 M (IF \(SELF.rank < other.rank\) THEN)[11 22 11 13 25 24 21 23 10 13 21 21 18 11 21 11 21 11 21 20 12 11 13 20 21 19 12 11 23 27 25  0]xS 
+939 1010 M (RETURN )[27 25 23 27 27 27  0]xS 
+1106 1010 M (-)S 
+1118 1010 M (1;)[21  0]xS 
+873 1060 M (ELSEIF \(SELF.rank > other.rank\) THEN)[25 21 25 24 11 22 11 13 25 25 21 22 11 12 21 21 18 11 22 11 20 11 21 20 13 10 13 21 20 19 12 11
+23 27 25  0]xS 
+925 1109 M (RETURN 1;)[27 25 23 27 27 27 10 21  0]xS 
+873 1159 M (ELSE RETURN 0;)[25 21 25 24 11 27 25 23 27 27 27 11 20  0]xS 
+873 1209 M (ENDIF;)[25 27 26 11 23  0]xS 
+838 1259 M (END;)[25 27 26  0]xS 
+726 1308 M (END;)[25 27 27  0]xS 
+726 1358 M (/)S 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+835 1910 M (Using Order Methods)[60 32 24 41 41 21 60 28 42 37 28 21 74 37 23 41 42 42  0]xS 
+F0S32 Ji 
+726 2054 M (<< retrieve the best campus that Bart applied >>)[28 28 13 17 21 15 17 12 23 24 22 13 15 24 22 13 24 23 19 15 13 22 22 37 25 26 19 13 15 24 22 14
+13 33 22 16 15 13 22 25 25 13 13 22 25 13 28  0]xS 
+F1S26 Ji 
+726 2112 M (SELECT max\(a.campus\))[25 25 21 25 27 23 10 32 21 18 13 21 11 18 20 32 21 21 19  0]xS 
+726 2166 M (FROM Apply a)[23 27 30 31 11 25 20 21 9 18 11  0]xS 
+726 2220 M (WHERE a.student.)[37 26 25 27 25 11 20 11 18 11 21 21 20 21 11  0]xS 
+1041 2220 M (firstname )[10 9 13 18 11 21 20 33 19  0]xS 
+1206 2220 M (= \221Bart\222;)[21 11 8 25 21 13 11 7  0]xS 
+F0S32 Ji 
+726 2343 M (<< order applications based on applying campus >>)[28 28 13 25 17 25 22 17 13 22 25 25 13 13 22 22 15 12 26 25 19 13 24 23 19 22 25 13 26 24 13 22
+25 26 13 25 13 25 25 13 22 23 37 25 26 19 13 29  0]xS 
+F1S26 Ji 
+726 2400 M (SELECT *)[25 25 21 25 27 23 11  0]xS 
+726 2454 M (FROM Apply a)[23 27 30 31 11 25 20 21 9 18 11  0]xS 
+726 2508 M (ORDER BY a.campus)[30 27 27 25 27 11 25 24 11 20 11 19 20 32 21 21  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 12]%%) = 
+%%PageTrailer
+
+%%Page: 13 13
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2240 3131 M (13)[25  0]xS 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+961 569 M (Nested Tables)[60 37 32 23 37 42 21 52 37 42 23 37  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 722 M <95>S 
+632 722 M (We can define a type of tables as a )[55 26 15 26 26 28 15 29 26 19 16 28 26 15 26 15 16 29 29 26 15 30 18 15 16 26 30 15 26 23 15 26
+23 14 26  0]xS 
+1456 722 M (table type)[16 26 29 15 26 15 16 29 29  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 805 M (CREATE TYPE )[27 27 25 25 23 25 11 23 25 25 25  0]xS 
+998 805 M (StudentTableType )[24 11 21 21 20 21 11 23 21 20 9 20 23 19 21 20  0]xS 
+1314 805 M (AS TABLE OF)[25 25 11 23 25 25 21 24 10 30  0]xS 
+1567 805 M (StudentType)[24 11 21 21 20 21 11 22 18 21  0]xS 
+1777 805 M (;)S 
+726 859 M (/)S 
+F0S3A Ji 
+576 952 M <95>S 
+632 952 M (An attribute can have a table type)[42 28 15 26 16 17 20 15 30 28 16 26 15 26 26 28 16 28 27 28 26 15 26 15 16 26 29 15 26 15 17 28
+29  0]xS 
+F1S26 Ji 
+726 1035 M (CREATE TYPE)[27 27 25 25 23 25 11 23 25 25  0]xS 
+998 1035 M (CampusType)[27 20 32 21 20 19 23 19 21  0]xS 
+1231 1035 M (AS OBJECT \()[25 25 10 30 24 19 25 27 23 10  0]xS 
+785 1089 M (location)[9 21 19 20 10 9 21  0]xS 
+1026 1089 M (CHAR\(20\),)[27 27 25 27 13 21 21 12  0]xS 
+785 1144 M (rank)[13 21 21  0]xS 
+1026 1144 M (INTEGER,)[11 27 23 25 30 25 26  0]xS 
+786 1198 M (applicants)[20 21 21 8 9 19 20 21 11  0]xS 
+1026 1198 M (StudentTableType)[25 11 21 21 20 21 11 23 21 20 9 20 23 19 21  0]xS 
+726 1252 M (\);)[13  0]xS 
+726 1306 M (/)S 
+: : N 1593 1133 190 100 rp C 
+1 1 1 1 scol O ; 95 50 1 12 190 100 1593 1133 F F 3 [ 0 ] F 
+X
+0.617 0.617 0.617 1 Y
+p!!)soeZ8Qp!!)soeZ8Qp!!)soeZ8Qp!!)soeZ8Qp!!)soeZ8Qp!!)soeZ8Qp!!)soeZ8Qp!!)s
+oeZ8Qp!!)soeZ8Qp!!)soeZ8Qp!!)soeZ8Qp!!)soeZ8Qp!!)s~> Z
+; 0 Lj 1 Lc 2 Lw solid N 1783 1083 M 1411 1083 I 1411 1333 I 1783 1333 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; 1 Lj N 1410 1133 M 1783 1133 I : [ 1 0 0 1 448 383 ] concat K 
+; N 1410 1283 M 1783 1283 I : [ 1 0 0 1 448 383 ] concat K 
+; N 1528 1083 M 1528 1333 I : [ 1 0 0 1 448 383 ] concat K 
+; N 1593 1083 M 1593 1333 I : [ 1 0 0 1 448 383 ] concat K 
+; N 1410 1233 M 1783 1233 I : [ 1 0 0 1 448 383 ] concat K 
+; /F0S26 F0 [38 0 0 -38 0 0 ] mFS
+F0S26 Ji 
+1468 1264 M (:)S 
+1558 1264 M (:)S 
+1681 1264 M (:)S 
+N 1593 1158 M 1783 1158 I : [ 1 0 0 1 448 383 ] concat K 
+; N 1593 1183 M 1783 1183 I : [ 1 0 0 1 448 383 ] concat K 
+; N 1593 1208 M 1783 1208 I : [ 1 0 0 1 448 383 ] concat K 
+; N 1646 1133 M 1646 1233 I : [ 1 0 0 1 448 383 ] concat K 
+; N 1722 1133 M 1722 1233 I : [ 1 0 0 1 448 383 ] concat K 
+; /F0S21 F0 [33 0 0 -33 0 0 ] mFS
+F0S21 Ji 
+1413 1123 M (location)[9 17 14 15 9 10 17  0]xS 
+/F0S1D F0 [29 0 0 -29 0 0 ] mFS
+F0S1D Ji 
+1536 1120 M (rank)[10 12 15  0]xS 
+1611 1120 M (applicants)[13 14 14 8 9 13 13 14 8  0]xS 
+0 Lj 4 Lw : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+699 1910 M (Querying With Nested Tables)[60 41 37 29 41 23 42 41 21 79 23 23 41 21 60 38 32 23 37 42 21 52 37 42 23 37  0]xS 
+F0S3A Ji 
+576 2063 M <95>S 
+632 2063 M (Attributes that are nested tables can be retrieved )[41 16 17 20 15 30 29 16 26 23 15 16 28 26 16 15 26 19 26 15 28 26 23 16 26 29 15 16 26 30 15 26
+23 15 26 26 28 15 29 26 15 19 26 16 20 16 26 28 26 29  0]xS 
+632 2133 M (as any other attribute)[26 23 15 26 28 28 15 29 17 28 27 19 15 26 16 16 20 15 30 28 16  0]xS 
+F0S32 Ji 
+726 2230 M (<< retrieve all applicants of Berkeley >>)[28 28 13 17 21 15 17 12 23 24 22 13 23 13 13 13 22 25 26 14 13 22 23 24 15 19 13 26 15 13 33 22
+17 25 23 12 23 24 13 28  0]xS 
+F1S26 Ji 
+737 2288 M (SELECT c.applicants)[25 25 21 25 27 23 10 19 11 20 21 21 8 9 19 20 21 11  0]xS 
+737 2342 M (FROM Campus c)[23 27 30 30 11 27 20 32 21 21 18 11  0]xS 
+736 2396 M (WHERE c.location = \221Berkeley')[37 27 25 27 24 11 19 10 9 20 19 21 10 9 21 20 11 21 11 8 25 20 13 19 20 9 20 19  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 13]%%) = 
+%%PageTrailer
+
+%%Page: 14 14
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2240 3131 M (14)[25  0]xS 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+595 569 M (Nested Tables As Regular Relations)[60 37 32 23 37 42 21 52 37 42 23 37 32 21 59 32 21 55 38 42 41 23 37 28 21 55 37 24 37 23 23 42
+41  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 722 M <95>S 
+632 722 M (We can treat nested tables as regular relations)[55 26 15 26 26 28 15 16 19 26 26 16 15 28 26 23 16 26 29 15 16 26 29 15 26 23 15 26 23 15 19 26
+29 29 15 26 19 15 19 27 15 26 17 16 30 28  0]xS 
+F0S32 Ji 
+726 816 M (<< retrieve names of all Berkeley applicants >>)[28 28 13 17 21 15 17 12 23 24 22 14 24 23 38 22 19 13 26 15 13 23 14 12 13 34 22 17 25 23 12 23
+24 13 22 25 26 14 13 22 23 24 15 19 13 28  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 873 M (SELECT ca.name)[25 25 21 25 27 23 11 19 20 11 21 20 33  0]xS 
+726 928 M (FROM )[23 27 30 31  0]xS 
+848 928 M (THE)[23 27  0]xS 
+922 928 M (\()S 
+929 982 M (SELECT c.applicants)[25 25 21 25 27 22 11 18 11 21 21 20 9 8 19 21 20 11  0]xS 
+935 1036 M (FROM Campus c)[23 26 30 31 11 27 20 32 21 21 18 11  0]xS 
+934 1090 M (WHERE c.location = \221Berkeley')[37 27 25 27 24 11 18 11 9 20 19 21 10 9 21 20 11 21 11 8 25 20 13 19 20 9 20 19  0]xS 
+924 1144 M (\) ca;)[13 11 18 21  0]xS 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+657 1910 M (Query Results As Nested Tables)[60 41 37 29 40 22 55 37 33 41 23 24 32 22 59 32 21 60 38 32 23 37 42 21 52 37 42 22 37  0]xS 
+F0S3A Ji 
+576 2050 M <95>S 
+632 2050 M (We can turn query results into nested tables)[55 26 15 26 26 28 15 16 28 20 28 15 30 28 27 20 28 15 19 26 24 29 15 16 23 15 16 29 16 29 16 28
+26 23 16 26 29 15 16 26 29 15 26  0]xS 
+F0S32 Ji 
+726 2145 M (<< set the )[28 28 13 19 22 15 12 15 24 22  0]xS 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+937 2145 M (applicants)[23 23 23 9 10 21 23 23 12  0]xS 
+F0S32 Ji 
+1137 2145 M (attribute values >>)[21 14 15 17 13 24 25 15 22 13 24 23 12 25 23 19 13 28  0]xS 
+F1S26 Ji 
+726 2202 M (UPDATE Campus )[27 25 27 25 23 25 11 27 20 32 21 21 18  0]xS 
+726 2256 M (SET applicants = )[25 25 23 11 21 21 20 8 9 19 21 20 11 18 11 22  0]xS 
+1022 2256 M (CAST)[27 25 25  0]xS 
+1121 2256 M (\( )[13  0]xS 
+817 2310 M (MULTISET)[31 27 21 23 11 25 24  0]xS 
+1002 2310 M (\()S 
+876 2364 M (SELECT a.student)[25 25 21 25 27 23 11 20 11 19 10 21 21 20 21  0]xS 
+876 2419 M (FROM Apply a)[23 27 30 31 11 25 20 21 9 18 11  0]xS 
+876 2473 M (WHERE a.campus.location = Campus.location)[37 26 25 27 25 11 20 11 19 20 32 21 20 19 10 9 21 19 20 10 9 21 20 11 22 11 27 20 32 21 20 19
+10 9 21 19 20 10 9 21  0]xS 
+817 2527 M (\) )[12  0]xS 
+840 2527 M (AS )[25 24  0]xS 
+900 2527 M (StudentType)[25 11 20 21 20 21 11 23 19 21  0]xS 
+726 2581 M (\);)[13  0]xS 
+: 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 14]%%) = 
+%%PageTrailer
+
+%%Page: 15 15
+%%PageBoundingBox: 18 8 593 784
+%%EndPageComments
+userdict begin /pagesave save def end
+%%BeginPageSetup
+/DeviceRGB dup setcolorspace /colspABC exch def
+mysetup concat colspRefresh
+%%EndPageSetup
+
+: N 75 75 2246 3083 rp C 
+1 1 1 1 scol  L ; 0 0 0 1 scol 
+%%IncludeResource: font Times-Roman
+F /F0 0 /256 T /Times-Roman mF 
+/F0S32 F0 [50 0 0 -50 0 0 ] mFS
+F0S32 Ji 
+2240 3131 M (15)[25  0]xS 
+: N 448 383 1500 1125 rp C 
+1 1 1 1 scol  L ; /F0S53 F0 [83 0 0 -83 0 0 ] mFS
+F0S53 Ji 
+521 569 M (Converting Relations to Object)[55 42 41 41 37 28 24 23 42 41 21 55 37 23 38 23 23 42 42 32 21 23 42 21 60 42 24 37 36  0]xS 
+1560 569 M (-)S 
+1587 569 M (relations)[28 37 23 37 23 23 43 41  0]xS 
+/F0S3A F0 [58 0 0 -58 0 0 ] mFS
+F0S3A Ji 
+576 722 M <95>S 
+632 722 M (We can convert flat relations to object)[55 26 15 26 26 28 15 26 29 29 28 26 19 16 16 19 15 27 16 15 19 27 15 26 17 15 30 28 23 15 16 29
+15 29 29 16 26 26  0]xS 
+1521 722 M (-)S 
+1540 722 M (relations)[19 27 15 26 17 15 30 28  0]xS 
+
+%%IncludeResource: font Helvetica
+F /F1 0 /256 T /Helvetica mF 
+/F1S26 F1 [38 0 0 -38 0 0 ] mFS
+F1S26 Ji 
+726 802 M (CREATE TABLE)[27 27 25 25 23 25 11 23 25 25 21  0]xS 
+1019 802 M (StudentFlat)[24 11 21 21 20 21 11 22 9 20  0]xS 
+1220 802 M (\()S 
+785 856 M (firstname)[11 8 13 18 11 21 20 33  0]xS 
+950 856 M (CHAR\(20\),)[27 27 25 27 13 21 20 13  0]xS 
+789 910 M (lastname)[9 20 19 11 20 20 33  0]xS 
+952 910 M (CHAR\(20\), ...)[27 27 25 27 13 20 21 12 11 10 11 10  0]xS 
+737 964 M (\);)[12  0]xS 
+F0S32 Ji 
+737 1054 M (<< convert)[28 28 13 21 26 24 24 22 17  0]xS 
+/F1S2A F1 [42 0 0 -42 0 0 ] mFS
+F1S2A Ji 
+968 1054 M (StudentFlat)[28 12 23 23 23 23 11 26 10 22  0]xS 
+F0S32 Ji 
+1193 1054 M (to )[14 25  0]xS 
+F1S2A Ji 
+1245 1054 M (Student)[28 12 23 23 23 23  0]xS 
+F0S32 Ji 
+1403 1054 M (>>)[28  0]xS 
+F1S26 Ji 
+737 1111 M (INSERT INTO)[11 27 25 25 27 22 11 11 27 22  0]xS 
+985 1111 M (Student)[25 11 20 21 20 21  0]xS 
+737 1165 M (SELECT)[25 25 21 25 27  0]xS 
+894 1165 M (StudentType)[24 11 21 21 20 21 11 22 19 21  0]xS 
+1105 1165 M (\()S 
+1118 1165 M (NameType)[27 20 33 20 23 19 21  0]xS 
+1301 1165 M (\()S 
+1314 1165 M (firstname)[10 9 12 19 11 21 20 33  0]xS 
+1468 1165 M (,)S 
+1489 1165 M (lastname)[9 20 19 11 20 20 33  0]xS 
+1641 1165 M (\), ...\))[12 11 10 11 10 11  0]xS 
+737 1219 M (FROM)[23 27 30  0]xS 
+858 1219 M (StudentFlat)[25 10 21 21 20 21 11 23 8 21  0]xS 
+1049 1219 M (;)S 
+0 Lj 1 Lc 4 Lw solid : 448 383 1500 1125 rc N 1946 385 M 450 385 I 450 1506 I 1946 1506 I C 
+: [ 1 0 0 1 448 383 ] concat K 
+; ; : N 448 1724 1500 1125 rp C 
+1 1 1 1 scol  L ; F0S53 Ji 
+634 1910 M (Comparisons of Different Models)[55 43 63 42 37 28 23 32 43 41 32 21 42 27 21 61 23 28 27 37 28 38 41 23 21 74 43 42 37 23  0]xS 
+/F0S2A F0 [42 0 0 -42 0 0 ] mFS
+F0S2A Ji 
+1547 2262 M (Shared data model )[23 21 18 15 18 21 11 20 19 11 19 10 33 20 21 18 12  0]xS 
+1545 2312 M (with host language)[29 12 12 21 10 22 20 16 12 11 11 18 22 21 20 19 21  0]xS 
+806 2262 M (SQL data and host language variables are )[23 30 25 11 21 19 12 18 10 18 22 21 10 22 20 16 11 11 11 18 22 21 20 19 21 18 11 20 18 15 11 19
+20 12 18 16 11 18 15 18  0]xS 
+900 2312 M (separate with limited interface)[16 18 21 19 14 19 12 18 11 29 12 11 21 10 12 11 33 11 12 18 21 10 11 22 12 17 15 13 19 18  0]xS 
+
+%%IncludeResource: font Times-Bold
+F /F2 0 /256 T /Times-Bold mF 
+/F2S2A F2 [42 0 0 -42 0 0 ] mFS
+F2S2A Ji 
+518 2262 M (Programming )[25 19 20 21 19 21 34 34 12 23 21  0]xS 
+529 2312 M (environment)[19 23 20 12 19 20 23 34 19 23  0]xS 
+F0S2A Ji 
+1611 2164 M (ODL/OQL)[30 30 25 12 30 30  0]xS 
+1268 2164 M (SQL3)[23 30 25  0]xS 
+914 2164 M (SQL2 )[23 30 25 21  0]xS 
+F2S2A Ji 
+559 2164 M (Standard )[23 14 21 23 23 21 19 23  0]xS 
+F0S2A Ji 
+1518 2649 M (Well studied, used for )[39 18 12 12 11 16 12 20 21 12 18 21 10 11 21 16 18 21 11 13 20 15  0]xS 
+1552 2699 M (some applications)[16 20 33 18 11 19 21 21 11 12 18 19 11 12 20 22  0]xS 
+1166 2649 M (Adopted by major )[30 21 20 21 12 18 21 11 21 19 11 33 19 11 20 15  0]xS 
+1157 2699 M (vendors since 1997)[20 18 22 21 20 15 16 11 16 11 22 18 18 11 21 21 20  0]xS 
+859 2674 M (Widely used )[39 12 21 18 12 19 11 21 16 18 21  0]xS 
+F2S2A Ji 
+512 2674 M (Current status)[30 22 19 19 19 23 14 11 16 14 21 14 22  0]xS 
+F0S2A Ji 
+1530 2520 M (Everything is object, )[26 20 18 15 19 12 22 11 22 20 11 12 15 11 20 20 12 18 18 12 11  0]xS 
+1575 2570 M (all OO features)[19 11 12 11 30 30 11 13 18 19 12 20 15 18  0]xS 
+1133 2520 M (Methods and complex )[37 18 12 22 20 21 16 10 18 22 21 11 18 20 33 20 12 18 21  0]xS 
+1237 2570 M (structures)[16 11 15 21 18 12 20 15 18  0]xS 
+918 2545 M (None )[30 20 22 18  0]xS 
+F2S2A Ji 
+519 2545 M (Role of object)[30 20 12 19 11 20 14 11 20 23 14 19 19  0]xS 
+F0S2A Ji 
+1545 2416 M (One of many types)[30 22 18 11 20 13 11 33 18 22 19 11 12 19 21 19  0]xS 
+1209 2391 M (Fundamental )[23 21 22 20 18 33 18 21 12 18 12  0]xS 
+1226 2441 M (abstraction)[19 20 16 12 14 19 18 12 12 19  0]xS 
+808 2416 M (Strict flat relations)[23 11 15 12 18 11 11 13 12 18 12 10 15 18 11 19 11 12 20 22  0]xS 
+F2S2A Ji 
+505 2416 M (Role of relation)[30 20 12 19 11 20 14 11 18 19 12 21 13 12 20  0]xS 
+1561 2047 M (Object)[33 23 14 18 19  0]xS 
+1682 2047 M (-)S 
+1696 2047 M (oriented)[20 19 11 19 23 14 19  0]xS 
+1165 2047 M (Object)[33 23 14 18 19  0]xS 
+1286 2047 M (-)S 
+1299 2047 M (relational)[19 18 12 21 13 12 20 23 21  0]xS 
+872 2047 M (Relational)[30 19 12 21 13 12 20 23 21  0]xS 
+1 Lj 0 Lc 2 Lw N 485 2336 M 1898 2336 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 485 2465 M 1898 2465 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 485 2595 M 1898 2595 I : [ 1 0 0 1 448 1724 ] concat K 
+; 2 Lc N 485 2724 M 1898 2724 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 485 1974 M 485 2724 I : [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 798 1974 M 798 2724 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1129 1974 M 1129 2207 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 1507 1974 M 1507 2724 I : [ 1 0 0 1 448 1724 ] concat K 
+; 2 Lc N 1898 1974 M 1898 2724 I : [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 485 2091 M 1898 2091 I : [ 1 0 0 1 448 1724 ] concat K 
+; N 485 2207 M 1898 2207 I : [ 1 0 0 1 448 1724 ] concat K 
+; 2 Lc N 485 1974 M 1898 1974 I : [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lc N 1129 2336 M 1129 2724 I : [ 1 0 0 1 448 1724 ] concat K 
+; 0 Lj 1 Lc 4 Lw : 448 1724 1500 1125 rc N 1946 1726 M 450 1726 I 450 2847 I 1946 2847 I C 
+: [ 1 0 0 1 448 1724 ] concat K 
+; ; LH
+pagesave restore
+(%%[Page: 15]%%) = 
+%%PageTrailer
+
+%%Trailer
+%%BoundingBox: 18 8 593 784
+%%DocumentNeededResources: 
+%%+ font Times-Roman
+%%+ font Helvetica
+%%+ font Helvetica
+%%+ font Helvetica
+%%+ font Times-Bold
+%%DocumentSuppliedResources: 
+%%+ procset Pscript_WinNT_ErrorHandler 5.0 0
+%%+ procset Pscript_FatalError 5.0 0
+%%+ procset Pscript_Win_Basic 5.0 0
+%%+ procset Pscript_Win_Utils_L2 5.0 0
+%%+ procset Pscript_Text 5.0 0
+%%+ procset Pscript_TextFE 5.0 0
+%%+ procset Pscript_TextV 5.0 0
+%%+ procset Pscript_TextBold 5.0 0
+%%+ procset Pscript_Win_GdiObject 5.0 0
+%%+ procset Pscript_Win_GdiObject_L2 5.0 0
+%%+ procset Pscript_Win_Dib_L2 5.0 0
+%%+ procset Pscript_T42Hdr 5.0 0
+%%+ procset Pscript_T3Hdr 5.0 0
+%%+ procset Pscript_CFF 5.0 0
+%%+ procset Pscript_Nup 5.0 0
+%%+ procset Pscript_CMap_FF 5.0 0
+%%+ procset Pscript_Encoding0 5.0 0
+%%+ procset Pscript_Encoding161 5.0 0
+%%+ procset Pscript_Encoding162 5.0 0
+%%+ procset Pscript_Encoding177 5.0 0
+%%+ procset Pscript_Encoding178 5.0 0
+%%+ procset Pscript_Encoding186 5.0 0
+%%+ procset Pscript_Encoding204 5.0 0
+%%+ procset Pscript_Encoding238 5.0 0
+%%+ procset Pscript_Encoding256 5.0 0
+%%+ procset Pscript_Encoding257 5.0 0
+%%+ procset Pscript_WinNT_Compat 5.0 0
+/Pscript_WinNT_Full /ProcSet findresource dup /terminate get exec
+Pscript_WinNT_Compat dup /terminate get exec
+%%Pages: 15
+(%%[LastPage]%%) = 
+%%EOF
+

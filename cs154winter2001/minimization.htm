@@ -1,0 +1,52 @@
+<H2>Minimization of DFAs</H2>
+
+Let M be a DFA and q be a state of M.
+Let L(q) be the language accepted by the DFA obtained from M by making
+q the accept state. Now two states q and r of M are called
+<I>equivalent</I> iff L(q)=L(r). 
+
+<HR>
+
+Non-equivalence of states can be established inductively as follows:
+<UL>
+<LI> a final state is not equivalent to a non-final state
+(<I><A HREF=minimization1.html>Why?</A></I>)
+<LI> if a is in the alphabet and <A HREF=minimization3.html>
+delta(q,a)</A> is not equivalent to delta(r,a) then q is not equivalent to r.
+(<I><A HREF=minimization2.html>Why?</A></I>)
+</UL>
+If two states cannot be proven non-equivalent by means of the two
+rules above, they must be equivalent.
+(<I><A HREF=minimization4.html>Why?</A></I>)
+
+<HR>
+
+If a DFA has two equivalent states we may erase one of them and
+redirect all transitions leading to the erased state to the other
+one. This will not affect the language recognized by the DFA.
+<P>
+Easy question (for exam?): <I>Why not?</I>
+<P>
+In this way a DFA can be converted into one in which no two different
+states are equivalent.
+<P>
+Another way to make a DFA smaller (having less states) is to erase
+<I>useless states</I>; states that are not reachable from the start
+state by means of any input string.
+<P>
+A DFA is called <I>minimal</I> if there is no smaller DFA accepting
+the same language.
+<A>
+Any DFA can be minimized by eliminating useless states and reducing
+equivalent states until there is only one state left in every
+equivalence class. This results in a minimal DFA: there is no DFA
+accepting the same language which has even fewer states.
+It can be shown that the minimal DFA accepting a given language is
+unique (up to the naming of states).
+<HR>
+<TABLE border=0 width=100%><TR><TD>
+<A HREF=../..>Rob van Glabbeek</A>
+<img src="http://kilby.stanford.edu/cgi-bin/Count.cgi?sh=0|df=154.dat">
+</TD><TD Align=right>
+<A HREF=mailto:rvg@cs.stanford.edu>rvg@cs.stanford.edu</A>
+</TD></TR></TABLE>

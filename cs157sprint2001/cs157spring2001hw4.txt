@@ -1,0 +1,408 @@
+555555555
+Problem Set #4
+doug chang; dougc@stanford.edu
+worked with qi Sun, hong lam, evan greenberg, jared brubaker.
+
+Pset #3 and #4 are both good. PSet 1,2 need to be redone; especially the digital gates problem. That one is not formulated correctly to be useful.
+
+1. Strategies (10 points)
+ (a) Set of Support Restriction 
+No
+1. <p,q>
+2. <~p,q>
+3. <~q>
+
+(b) Pure Literal Elimination 
+Yes
+
+
+(c) Tautology Elimination 
+No, we would lose the ability to reorder premises if used tautology elimination.
+If we use te.
+1.{r ~q}  Premise
+2.{q ~r}  Premise
+3.{~q}    Premise
+4.{q,~q}  deleted. resolution never gets to conclusion q.
+
+
+
+2. Strategies (10 points)
+You are given the following premises. 
+ 1. <p q r>     premise
+ 2. <~q ~p>     premise
+ 3. <~r ~q>     premise
+ 4. <~r ~p>     premise
+ 5. <~p q r>    premise
+ 6. <~q p r>    premise
+ 7. <~r, q, p>    goal
+
+For each of the following combinations of strategies, say whether it is possible to derive the empty clause from these inputs. In all cases, you can assume the initial set of support is just the goal clause. For each case, answer "yes" or "no"; there is no need to show your work. 
+(a) Ordered resolution 
+Pick the first literal - Yes
+
+1. <p q r>     premise
+2. <~q ~p>     premise
+3. <~r ~q>     premise
+4. <~r ~p>     premise
+5. <~p q r>    premise
+6. <~q p r>    premise
+7. <~r, q, p>  goal
+8. <q,r>       1,5 search for ~p chains
+9. <~p,r>      8,2   search for ~q chains
+10. <p,r>      8,6   search for ~q chains
+11.            9,?   search for p chains, there is one 1, but this creates a dup. of 8  
+12.            10,5 search for ~p chains; dup of 8
+13. <r>        10,9 search for ~p chains
+14. <~q>       13,3 search for ~r chains
+15. <~p>       13,4   
+16. <q,p>      13,7
+17. <>         14,8 search for q chains, duplicate with 13
+18. <p>        14,16
+19.            15,1   search for p chains
+20.            15,10
+21. {}         15,18
+
+
+Prove this is complete:reference MG's book
+
+(b) Ordered resolution with the set of support restriction 
+
+1. <p q r>     premise
+2. <~q ~p>     premise
+3. <~r ~q>     premise
+4. <~r ~p>     premise
+5. <~p q r>    premise
+6. <~q p r>    premise
+7. <~r, q, p>  goal
+8.             look for r
+No.
+
+(c) Semi-ordered resolution with the set of support restriction 
+Yes
+1. <p q r>     premise
+2. <~q ~p>     premise
+3. <~r ~q>     premise
+4. <~r ~p>     premise
+5. <~p q r>    premise
+6. <~q p r>    premise
+7. <~r, q, p>  goal; set of support(1)
+look for clauses in background set with r; in 1,5,6
+8. < p,q      >                 7,1 add to set of support (2)
+9. < p,~p,q >                   7,5; add to set of support
+10.<p,q,~q >                    7,6; add to set of support
+process (2) in set of support, look for ~p, in clauses 2,4,5
+11. < q,~q    >                 8,2;add to set of support
+12. < q,~r     >                8,4; add to set of support (3)
+13. < q,r       >               8,5; add to set of support (3)
+process (3) in set of support, look for ~q, in 2,3,6,10,11
+14. < ~p,~r  >                  12,2; add to set of support (4)
+15. < ~r       >                12,3; add to set of support (4)
+16. < p,r,~r  >                 12,6; add to set of support
+17. < p,q,~r  >                 12,10; add to set of support
+18. < q,~r     >                12,11; add to set of support
+19. < ~p,r     >                13,2;add to set of support
+20. < r,~r     >                13,3;add to set of support
+21. < p,r       >               13,6; add to set of support
+22. < p,q,r    >                13,10; 
+23. < q,r       >               13,11
+24. < r          >              19,21
+25. <            >              24,15
+
+
+(d) Ordered resolution with contrapositives and the set of support restriction 
+Yes
+
+1. <p, q, r>                    premise
+2. <~q ,~p>                     premise
+3. <~r ,~q>                     premise
+4. <~r, ~p>                     premise
+5. <~p, q, r>                   premise
+6. <~q, p, r>                   premise
+7. <~r, q, p>                   goal
+8. <q,p,~r>                     contrapositive on goal
+9. <p,~r,q>                     contrapositives on goal
+look for r; r is in clauses 1,5,6
+10. <p,q>                        7,1 look for r
+11. <~p,p,q>                     7,5; discontinue search, tautology 
+12. <p,q,~q>                     7,6; discontinue this branch, tautology
+look for ~q, in clauses 2,3,6, and 12 if you don't do input restriction
+13. <p,~p,~r>                    8,2; discontinue this branch    
+14. < p,~r    >                  8,3
+15. < p,r,~r  >                  8,6; discontinue this branch
+15a.< p,q,~r >                   8,12; duplicate entry, discontinue this branch
+look for ~p; in 2,4,5; nothing to add outside of input clauses
+16. <q,~q,~r >                   9,2; tautology discontinue this branch
+17. < ~r,q     >                 9,4;
+18. < q,r,~r   >                 9,5; tautology discontinue this branch
+start with clause 10, look for ~p; in 2,4,5
+19. < q,~q     >                 10,2; tautology discontinue this branch
+20. <  ~r,q     >                10,4; duplicate to 17 discard
+21. < q,r        >               10,5
+start with clause 14, look for ~p, in 2,4,5
+22. < ~q,~r    >                 14,2
+23. < ~r         >               14,4
+24. < q,r,~r    >                14,5; tautology discard this branch
+start with clause 17, look for r in 1,5,6,21
+25. < q ,p      >                17,1; duplicate discard
+26. < ~p,q     >                 17,5; 
+27. < p,q,~q  >                  17,6; tautology discard
+28. < q          >               17,21
+start with clause 21, look for ~q in 2,3
+29. < ~p,r      >                21,2
+30. <  r,~r           >          21,3; 
+start with clause 22, look for q, in 1,5,7,8,9,10,17,21,26,28 
+31. <r>                          23,30
+32. {}                           23,31
+
+
+
+3. Model Elimination (10 points)
+Given the following premises: 
+
+p(y,z) => ~p(z,y) 
+p(b,x) => p(a,x) 
+p(b,c) | p(a,c) 
+
+Prove ~p(c,a) using model elimination, set of support, and the input restriction. You may use contrapositives as necessary to solve the problem. 
+
+We use the negatives to get the form {positive chain, literal to be resolved, remaining from negative chain}
+
+1.  {~ p(y,z), ~p(z,y)}                     Premise
+2.  {~p(b,x), p(a,x) }                      Premise
+3.  { p(b,c),  p(a,c)}                      Premise; 
+4.  {p(c,a)}                                Negated Goal
+5.  1,4 y<-c, z<-a {[p(c,a)],~p(a,c)}       reduction 1,4
+6.  {~p(a,c)}                               drop 5
+7.  { p(b,c),[~p(a,c)]}                     3,6
+8.  { p(a,c),[p(b,c)],[~p(a,c)]}            7,2 x<-c 
+9.  {[p(b,c)]}                              cancellation 8
+10.{}                                       drop 9
+
+
+4. Epilog (10 points)
+Solve the previous problem using epilog, set of support, and the input restriction. Again, use contrapositives to ensure completeness. 
+  
+
+1. p(y,z) => ~p(z,y)                  Premise
+2. p(b,x) => p(a,x)                   Premise
+3. => p(b,c) | p(a,c)                 Premise; need contrapositives here this is not in hc form
+4. p(c,a)?                            Goal
+ 
+clause 3. is not in horn form, so lets create all the contrapositives:
+
+1. p(y,z) => ~p(z,y)         Premise
+2. p(z,y) => ~p(y,z)         Contrapositive 1
+3. p(b,x) => p(a,x)          Premise
+4. ~p(a,x)=> ~p(b,x)         Contrapositive 3
+5. => p(b,c) | p(a,c)        Premise; need contrapositives here this is not in hc form
+6. ~p(a,c)=>p(b,c)           Contrapositive 5
+7. ~p(b,c)=>p(a,c)           Contrapositive 5
+8. p(c,a)                    Negated Goal in rule form
+9. ~p(c,a)?                  Goal
+10. p(a,c)&[~p(c,a)]?                        1,9
+11. p(b,c)& [p(a,c)]&[~p(c,a)]?              10,3
+12. ~p(a,c)& [p(b,c)]& [p(a,c)]&[~p(c,a)]?   11,6
+13. [p(b,c)]& [p(a,c)]&[~p(c,a)]?            cancellation 12
+14. [p(a,c)]&[~p(c,a)]?                      drop
+15. [~p(c,a)]?                               drop
+16.? 
+
+
+
+
+5. Equality
+Use Epilog and the equality axioms to prove that {f(x)=a, g(b)=c, a=c} logically entails f(d) = g(b). 
+
+{f(x)=a, g(b)=c, a=c} |= f(d) = g(b). To show entailment, negate the goal and derive the empty clause. Or prove {f(x)=a, g(b)=c, a=c} => (f(d) = g(b)).
+
+1. f(x)=a                                         Premise 
+2. g(b)=c                                         Premise
+3. a=c                                            Premise
+4. x=x                                            Equality
+5. (x=y) <= (y=x)                                 Equality
+6. (x=z) <= (x=y&y=z)                             Equality
+7. (f(d) = g(b))?                                 Goal
+8. f(d)=y&y=g(b)?                                 6,7
+9. a=g(b)?                                        1,8
+10.a=y&y=g(b)                                     6,9 
+11.c=g(b)?                                        3,10
+12.g(b)=c?                                        5,11
+13.?                                              2,12
+
+
+6. Flattening
+Use Epilog, the equality axioms, and flattening to prove that {f(x)=c, g(c)=c} logically entails g(f(z)) = f(g(z)). 
+
+{f(x)=c, g(c)=c}|= {g(f(z)) = f(g(z)}
+
+
+1. f(x)=c                                Premise 
+2. g(c)=c                                Premise
+3. x=x                                   Equality
+4. (x=y) <= (y=x)                        Equality
+5. (x=z) <= (x=y&y=z)                    Equality
+6. g(f(z)) = f(g(z)?                     Goal
+7. g(f(z))=x & x=f(g(z))                 5,6
+8. f(z)=y & g(y)=x & x=f(g(y))?          flattening
+9. g(c)=x & x=f(g(z))                    1,8
+10. c=f(g(z))                            2,9
+11. f(g(z))=c?                           4,10
+12. ?                                    1,11
+
+
+each function constant needs a substitition; 
+f(x)=c is flattened to:
+f(x)=c <= x=y & f(y)=c 
+g(c)=c is flattened to:
+g(c)=c <= c=y & g(y)=c 
+
+g(f(z)) = f(g(z)) is flattened to:
+g(f(z)) = f(g(z))<=(f(x)=y & g(y)=f(g(x)))
+
+f(g(c))=c is flattened to:
+f(g(c))=c <=g(c)=y & f(y)=c
+
+
+
+
+
+
+
+  
+
+7. Substitution
+Use Epilog, the equality axioms, and a suitable substitution axiom to prove that {a=b, p(b)} logically entails p(a). 
+
+{a=b, p(b)}|= p(a)
+
+1. a=b                                              Premise
+2. p(b)                                             Premise
+3. x=x                                              Equality
+4. (x=y) <= (y=x)                                   Equality
+5. (x=z) <= (x=y&y=z)                               Equality
+6. p(x)<=(x=y & p(y))                               Substitution
+7. p(a)?                                            Goal
+8. a=y & p(y)?                                      6,7 
+9. p(b)?                                            1,8
+10. ?                                               2,9
+
+
+8. Demodulation and paramodulation (10 points)
+A. Consider clause set I: 
+sister(father(x)) = aunt(x)
+age(sister(father(Jane)), 25)
+
+(a) if possible, apply demodulation to clause set I 
+sister(father(x)) = aunt(x); this is the tau, x<-Jane
+age(sister(father(Jane)), 25)
+----------------------------------
+age(aunt(Jane),25)
+
+
+(b) If possible, apply paramodulation to clause set I 
+
+sister(father(x)) = aunt(x); tau1 is sister(father(x)), tau2 is aunt(x) 
+age(sister(father(Jane)), 25)
+----------------------------------
+{ age(sister(father(Jane)), 25)}; it has no effect.
+
+
+
+B. Consider clause set II: 
+father(Jane) = Judd
+older(father(x),x)
+(c) if possible, apply demodulation to clause set II 
+father(Jane) = Judd; this is the tau
+older(father(x),x)
+-----------------------------
+NO
+
+
+(d) if possible, apply paramodulation to clause set II 
+
+father(Jane) = Judd; tau1=father(Jane), tau2=Judd
+older(father(x),x); Jane<-x
+-------------------------------
+older(Judd,Jane)
+
+
+  
+9. Paramodulation (10 points)
+Assume the following premises. 
+From these premises, give a paramodulation proof of p(j(h, j(aa, j(bb, j(h,j(cc, g)))))). 
+  
+1. p(a)	                        Premise
+2. j(c,j(b,g)) = a           Premise
+3. d = c                        Premise
+4. j(f, j(d, x)) = j(c,x)   Premise
+5. e = b                        Premise
+6. j(e, j(c,x)) = j(b,x)   Premise
+7. aa = c                       Premise
+8. cc = d                       Premise
+9. h = f                         Premise
+10. bb = b                    Premise
+11. {~p(j(h, j(aa, j(bb, j(h,j(cc, g))))))}         Negated Goal
+12. {~p(j(h, j(aa, j(bb, j(h,j(d, g))))))}          8,11
+13. {~p(j(f, j(aa, j(bb, j(f,j(d, g))))))}          9,12
+14. {~p(j(f, j(aa, j(b, j(f,j(d, g))))))}           10,13
+15. {~p(j(f, j(c, j(b, j(f,j(d, g))))))}            7,14
+16. {~p(j(f, j(c, j(b, j(c, g)))))}                 4,15
+17. {~p(j(f, j(c, j(e, j(c, g)))))}                 5,16
+18. {~p(j(f, j(c, j(b, g))))}                       6,17
+19. {~p(j(f, j(d, j(b, g))))}                       3,18
+20. {~p(j(c, j(b, g)))}                             4,19
+21. {~p(a)}                                         2,20
+22. {}                                              1,21
+
+
+10. Functional dependencies (10 points)
+(a) (2 points). If you know that the functional dependency {A,B} -> {C} holds in p, and you also know that the UOD has five elements, what is the maximal number of possible instances of p? 
+
+25, ???? pondering...
+
+
+(b) (4 points). Encode as axioms with equality the following functional dependencies in p: 
+
+{A} -> {B}:
+p(x1,x2,x3) & p(x1,x4,x5) => x2=x4
+{B} -> {C}:
+p(x1,x2,x3) & p(x4,x2,x5) => x3=x5
+{A,C} -> {B}:
+p(x1,x2,x3) & p(x1,x4,x3) => x2=x4       
+
+
+(c) (4 points) Starting with the axioms from your solution to subproblem II, use resolution and paramodulation to prove that the functional dependency {A} -> {C} also holds in p. In other words, you are asked to give a formal proof that {A} -> {C} is logically entailed from the axioms in II. 
+  
+Goal: p(x1,x2,x3) & p(x1,x4,x5) =>x3=x5
+converting to clausal form:
+~(p(x1,x2,x3) & p(x1,x4,x5))  | (x3=x5)
+(~p(x1,x2,x3) | ~p(x1,x4,x5) | (x3=x5))
+Negating this to get the negated goal, we add a negation and push it in.
+~(~p(x1,x2,x3) | ~p(x1,x4,x5) | (x3=x5))
+p(x1,x2,x3) & p(x1,x4,x5) & ~(x3=x5)
+
+p(x1,x2,x3) 
+p(x1,x4,x5)
+~(x3=x5)
+
+Converting the premises to clausal form:
+p(x1,x2,x3) & p(x1,x4,x5) => x2=x4
+~(p(x1,x2,x3) & p(x1,x4,x5)) | (x2=x4)
+(~p(x1,x2,x3) | ~p(x1,x4,x5) | (x2=x4))
+{~p(x1,x2,x3),~p(x1,x4,x5),(x2=x4)}
+
+
+
+1. {~p(x1,x2,x3), ~p(x1,x4,x5),x2=x4}    Premise
+2. {~p(x1,x2,x3), ~p(x4,x2,x5),x3=x5}    Premise
+3. {p(a,b,c)}                            Negated Goal
+4. {p(a,d,e)}                            Negated Goal
+5. {~(c=e)}                              Negated Goal
+6. {~p(a,x4,x5),b=x4}                    1,3; a<-x1, b<-x2, c<-x3
+7. {b=d}                                 4,6; d<-x4, e<-x5
+8. {~p(x4,b,x5),c=x5}                    2,3; a<-x1, b<-x2, c<-x3
+9. {c=e}                                 3,8; e<-x5
+11. {}                                   5,9 
+
+
+

@@ -1,0 +1,31 @@
+<H1>Homework 1, Problem 4</H1>
+
+
+<H3>Prove: if a language is regular then so is its complement.</H3>
+
+Given a regular language L, there must be a DFA that recognizes it.
+<P>
+Denote that DFA as B, defined formally as B = (Q, E, g, q0, F ) where Q is
+the set of states, E is the alphabet, g is the transition function, q0 is
+the start state and F is the set of accept states.
+<P>
+We can take the complement of B, and denote it as B' by changing every
+accept state in B to a non accept state, and every non accept state into an
+accept state.
+<P>
+Formally, B' can be denoted as B' = (Q, E, g, q0, F' ), where Q is the same
+set of states as in B, E is the same alphabet as in B, g is the same
+transition function, and q0 is the same start state... F' changes into Q -
+F.
+<P>
+Any string that ended in a final state in B will not be accepted in B' and
+every string that did not end in a final state in B will be accepted by B'.
+Thus B' is a DFA that accepts the complement of L.
+<P>
+Since there is a DFA that recognizes the complement of L, the complement of
+L must be a regular language.
+<P>
+Therefore, if a language is regular then so is its complement.
+<HR>
+Dan Mandell <dmandell@stanford.edu> &
+Luis Robles <lrobles@CS.Stanford.EDU>

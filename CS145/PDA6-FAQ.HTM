@@ -1,0 +1,22 @@
+<title> FAQ for Project Part 6 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>FAQ: Project Part 6</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+<p><b>Question:</b>
+ I keep getting a parsing error when I add a <tt>FOREIGN KEY</tt>
+constraint to my table declaration.  What's the problem?
+
+<p><b>Answer:</b>
+ One possibility may be the omission of parentheses if you follow the
+  syntax from the textbook.  In Oracle, when declaring a
+foreign key constraint at the end of a table declaration it is always
+necessary to put the list of referencing attributes in parentheses:
+<pre>&nbsp; create table foo (...
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; foreign key (&lt;attr_list>) references <relation>(&lt;attr_list>));</pre>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+

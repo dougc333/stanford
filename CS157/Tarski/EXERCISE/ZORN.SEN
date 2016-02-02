@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+7
+@x (x = a | x = b | x = c | x = d)?x (x # a & x # b & x # c & x # d & x # e)@x (x = a $ x = d)@x (Between(x, a, c) $ x = b)@x (~?y LeftOf(y, x) $ x = a)@x (Between(x, c, a) $ x = b)@x ((Tet(x) & Small(x)) % x = b)

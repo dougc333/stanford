@@ -1,0 +1,484 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+               NDIS 3.0/4.0 drivers for Windows 95/98
+
+
+The NDIS 3.0/4.0 drivers for Windows 95/98 are 32-bit protect-mode miniport
+drivers.  The driver names are ELNK3ND3.SYS and ELNK3ND4.SYS.  These drivers
+are replacement drivers for the Windows 95/98 native driver full port NDIS 3
+driver, called ELNK3.VXD (ELNK3.SYS for Windows 98).  Both drivers work on
+all adapters in the 3C5X9 EtherLink 10 ISA product family.   However, only
+the 3Com driver provides installation support for the 3C509B-TPC NIC.
+
+This installation information is divided into 3 different categories:
+
+I.   New Installation.  This is where the adapter is going to be installed 
+     into a machine where the operating system is already loaded.
+
+II.  Updating an existing installation installed with the drivers for the
+     3C509B from EtherDisk v6.0x.  These instructions are for users that
+     currently have the drivers installed from EtherDisk v6.0x for the 3C509B.
+     If you are not sure of the version of the drivers currently installed, 
+     check in the Network Setup and if the NIC has the 3Com "TCAATDI Diagnostic 
+     TDI" and the NIC is referred to as the EtherLink III then the EtherDisk v6.0x 
+     drivers are installed on your system and you should follow this procedure for 
+     updating.
+
+III. Updating an existing installation that is installed with the drivers
+     from EtherDisk v5.1 or earlier for the 3C509B or installations using
+     the native drivers for the 3C509B provided by MicroSoft in Windows 95/98.
+     IMPORTANT: These instructions will only apply to the 3C509B when configured
+     for Plug 'n' Play mode.  If the 3C509 is configured for legacy mode then
+     follow the procedures outlined in section II for updating.
+
+IV.  Installing/Updating drivers for a 3C509/3C509B configured for legacy mode.
+     This section is for users of the 3C509 or for the 3C509B configured for
+     legacy mode via the diagnostic utility.
+
+NOTE: The EtherLink 10 ISA (3C509B), formerly known as the EtherLink III ISA
+has gone thru a product name change.  All references to EtherLink 10 ISA
+are synonymous with EtherLink III and should be treated as such.
+
+
+I.  New Installation of the 3C509B with Windows 95/98
+-----------------------------------------------------
+1.  Before installing the NIC into the system, run the PREINSTL.EXE utility
+    from EtherDisk #2.  Refer to documentation for running this utility.
+
+2.  After the installer has run successfully power down the system and
+    physically install the NIC in the PC.
+
+3.  You will get a prompt that says New Hardware Found...  Then the Update
+    Device Driver Wizard states it will complete the installation of the
+    3Com 3C509B EtherLink III.  Insert the EtherDisk #1 in drive A: and
+    press NEXT to continue.  For Windows 98 users they will receive a prompt
+    from Add New Hardware Wizard for where to get the drivers, select "Search
+    for the best driver for your device (Recommended)."  The wizard will give
+    a list of search locations for the drivers, make sure floppy disk drives
+    is the only option selected.
+
+4.  The wizard will say "Windows found the following updated driver for this
+    device: 3Com EtherLink 10 ISA...".  Press the FINISH/NEXT button at this
+    point.  For Windows 95 users depending upon the version of Windows 95, you 
+    may be prompted to select for option "Disk provided by manufacturer", if 
+    this is the case select that option and press OK to continue.
+
+5.  The installation will ask for the '3Com EtherDisk for EtherLink 10 ISA
+    Family Adapters (Disk 1)".  Click OK.  If the installation can't find
+    the files, change it so it looks to the A: drive.  Answer any prompts for 
+    any network settings that may be required during the installation.
+
+6.  The 3Com Installation Wizard will execute.  It has 3 options: Express
+    installation, Custom installation, and skip the install wizard.  The
+    recommended option is the express method, this does basic diagnostics
+    and connectivity tests.  The custom method is for users that need to
+    do repeated installations or if the adapter is configured for legacy mode.  
+    These instructions refer to the express install.  Please note errors may 
+    occur if not connected to the network, or if there is no TCP/IP on the 
+    network; this is normal.
+
+7.  Eventually the 3Com Installation Wizard will complete.  Press the FINISH
+    button to continue.
+
+8.  The install will continue to copy files.  When prompted for the
+    Windows 95/98 source media files, change the copy files to the
+    location where the files are, for example:
+
+    D:\WIN95  or  D:\WIN98  -> Typical for CD-ROM users
+    C:\WINDOWS\CATROOT -> Typical location for Windows 98
+    C:\WINDOWS\OPTIONS\CAB -> Possible location in Windows 95
+
+9.  Then a prompt will appear saying setup has finished and you must restart
+    for the changes to take effect.  Press YES to restart the computer.
+
+
+II.  Updating an Existing Installation of EtherDisk v6.0x in Windows 95/98
+--------------------------------------------------------------------------
+These instructions apply to users upgrading from the EtherDisk v6.0x driver
+set.  See above for details in determining if the 6.0x drivers are installed
+for the 3C509B.
+
+1.  Choose Start Menu, Settings, Control panel, and double-click the Network
+    icon.
+
+2.  Highlight the EtherLink III ISA adapter and click on REMOVE.  Before
+    removing the device you may want to take note of any important network
+    configuration, such as: TCP/IP settings, NDS settings, etc.  Then
+    press OK.
+
+3.  IMPORTANT: A dialogue box will appear stating systems settings have
+    changed you need to restart.  Press NO at this point.
+
+4.  Take the second diskette of EtherDisk v6.1 and put it in the A: drive.
+
+5.  Run the utility PREINSTL.EXE.  Refer to documentation on running the
+    pre-installer utility.  Do not run this utility if the NIC has not been
+    removed, which should have been done in step 2.
+
+6.  Continue with Step 4 of instuctions for a "New Installation", located
+    at the top part of this document.
+
+
+III. Updating an Older Installation of the 3C509B drivers in Windows 95/98
+--------------------------------------------------------------------------
+IMPORTANT: These instructions will only work if you are running Windows 95
+Service Release 2 (build 950B) or later, or Windows 98 and if the NIC is in 
+Plug n' Play mode.  For updating an existing installation of Windows 95 retail 
+follow the directions in "Updating an Existing Installation of EtherDisk v6.0x"
+above.  IMPORTANT:  These instructions are for users updating from EtherDisk v5.1x 
+or earlier, or updating from the native driver provided in Windows 95/98 for the 
+3C509.  If updating from EtherDisk v6.0x use the instructions above in the
+section, "Updating an Existing Installation of EtherDisk v6.0x".
+
+
+1.  Double-Click on the System Control Panel in your Control Panel Folder.
+
+2.  Click on the Device Manager Tab at the top of the window.
+
+3.  Double-Click on Network Adapters.
+
+4.  Double Click on The 3Com EtherLink III NIC.  
+
+5.  Click on the Driver Tab at the top of the Window, at the properties for
+    the 3Com EtherLink III.
+
+6.  Click the Update Driver... button.
+
+7.  For Win95 users select "No, select driver from list", then click Next.  For
+    Win98 users the Update Device Driver Wizard will appear, click NEXT.  Then
+    select "Display list of all the drivers in a specific location..." and then
+    click NEXT.
+
+8.  Click Have Disk..., Insert the 3Com EtherDisk for EtherLink 10 ISA
+    Family Adapters (Disk 1) into the A: drive and click OK.
+
+9.  Select the Card you have and then Click OK.  Answer any more dialogue
+    prompts if they occur.  For Windows 98 users you will receive a prompt from
+    the Update Device Driver Wizard that states Windows is now ready to install 
+    the selected driver for this device.  Press NEXT to continue.
+
+10. Next, the 3Com installation program will run.  IMPORTANT: You MUST select the 
+    "Skip the 3Com Installation Wizard" option at this point, failure to do so will 
+    cause the system to hang as noted above.  The installation wizard is not 
+    intended for upgrade installations.
+
+11. After the update procedure is over you must reboot your system to
+    load the new driver.
+
+
+IV.  Installing/Updating for 3C509 or 3C509B in legacy mode in Windows 95/98
+----------------------------------------------------------------------------
+These instructions are for installing (fresh installation) or upgrading drivers
+for the 3C509 or 3C509B configured for legacy mode.
+
+The drivers can not be directly updated when in legacy mode, the device must 
+first be uninstalled.  If updating start at Step 1; otherwise from a new installation
+of a 3C509/3C509B in legacy mode skip to Step 4.
+
+1.  Choose Start Menu, Settings, Control panel, and double-click the System
+    icon.  Select the Device Manager tab.  
+
+2.  Double click on Network Adapters, and highlight the 3Com EtherLink III ISA
+    and press the REMOVE button.  At the Confirm Device Removal window clikc OK.
+
+3.  After performing these steps a window will appear that says "System Settings
+    Change, you must restart."  Press YES to restart.
+
+4.  Choose Start Menu, Settings, Control panel, and double-click the Add New
+    Hardware icon.  
+
+5.  The Add New Hardware Wizard windows will appear.  It states "This wizards installs
+    the software for a new hardware device."  Click NEXT at this prompt.
+
+6.  A prompt for Windows to search or any new Plug and Play device appears.  Click
+    NEXT at this prompt.  This prompt will not appear for Windows 95 users, proceed
+    to Step 7.
+
+7.  Another prompt will appear, for Win98 users stating: "Windows can now search for 
+    hardware that is not Play and Play compatible..."  Select "No, I want to select the 
+    hardware from a list." then click NEXT to proceed.
+
+    For Win95 users the Add New Hardware Wizard will offer to search for your new
+    hardware.  Click on the NO radial button, and press NEXT to continue.
+
+8.  From the Hardware Types list select Network adapters and press NEXT to continue.
+
+9.  A Select Device window will appear, click on "Have Disk..."  Put EtherDisk #1 in
+    the floppy drive, point the copy file prompt to "A:\", and the click OK.  From the
+    Models options choose the 3Com EtherLink 10 ISA (3C509\3C509B) in Legacy mode and
+    press OK.
+
+10. The Add New Hardware Wizard will bring up a windows that states: "Windows can install 
+    your hardware, using the following settings."  IMPORTANT: These settings may not 
+    necessarily match the IO Address settings of the 3C509/3C509B.  When installation is
+    complete check these settings; otherwise you may experience problems with the Windows
+    GUI diagnostic for the EtherLink 10 ISA.  See the FAQs in the README.TXT for details.
+    Press NEXT to continue.
+
+11. If prompted for the EtherDisk point the installation to the A: drive and continue.  
+    Answer any other MicroSoft information prompts as they occur.
+
+12. The installation wizard will come up.  The Express mode is not supported for legacy 
+    devices.  At this point select "Skip the 3Com Installation Wizard", and press
+    FINISH to continue.
+
+13. The installation will continue to copy more files if necessary path to the appropriate 
+    copy files location.  Eventually the Add New Hardware Wizard will state "Windows has 
+    finished installing the necessary software to support your hardware."  Press FINISH, 
+    and click YES to reboot.  This will complete the installation.
+
+    
+What To Do If Your Network Doesn't Work Properly
+------------------------------------------------
+If the network doesn't function correctly, check the network configuration
+to see if the network has the proper components installed.  Check the device
+manager to see if the NIC is functioning correctly.  To check the network
+configuration, from the start button on the lower left, open the menu and
+choose settings, control panel.  On the control panel, choose Network.
+
+Examine the Configuration.  The default network setup for Windows 95 is the
+following five components:  3Com EtherLink 10 ISA driver, IPX/SPX compatible
+protocol, NetBEUI protocol, 3Com TCAATDI Diagnostic TDI, Client for Microsoft 
+Networks, and Client for Novell Networks.  The default network setup for Windows 
+98 is the following five components:  3Com EtherLink 10 ISA driver, Dial-Up 
+Adapter, NetBEUI protocol, TCP/IP protocol, 3Com TCAATDI Diagnostic TDI, Client 
+for Microsoft Networks, and Microsoft Family Logon.  If you chose to install 
+TCP/IP in the custom configuration of the 3Com install, or you used the express 
+install, then the TCP/IP stack will also be present.  If any components are missing, 
+you can add them by pressing the add button.  Protocols can be added by pressing 
+the "Add" button on the network menu, choosing Protocol on the next screen, and
+pressing the Add button.  On the "Select Network Protocol" screen, choose
+Microsoft on the left pane.  On the right pane, choose the protocol and
+press OK.  Similarly, the clients can be added by choosing the Client on the
+"Select Network Component" screen and pressing the Add button.  On the
+"Select Network Client menu, choose Microsoft on the left pane, the Client
+on the right pane, and press OK.  If you use the Client for NetWare Networks,
+press the Properties button on the "Network" screen.   Enter the name of the
+NetWare server you want to use in the "Preferred server" box and press OK.
+
+When the configuration is correct, press the Identification tab in the
+"Network" screen.  The computer name is your computer name to the network.
+Make sure this is the name you want to use to log into the network and
+connect to your server.  The Workgroup name is the group you will be closely
+associated with on the network if you use peer group networking.  Peers can
+see each other when they look in the network neighborhood.  The Computer
+Description is visible to other members of your workgroup when they see you
+in the network neighborhood.
+
+Now press the OK button, and the network will be configured the way you
+chose in the last few paragraphs. At the completion of this step, Windows 95/98
+will prompt you to restart the computer.  Press the "Yes" button.  After the
+computer restarts, the network is ready to use.
+
+To check if the NIC is working correctly, double click the "System" icon in
+the  control panel, then press the "Device Manager" tab.  Under the "Network
+adapters" item, look at the "3Com EtherLink 10 ISA ..." entry.  If the NIC
+has either a yellow exclamation mark or a red "X" through it, the NIC is not
+working properly.  This error needs to be remedied.
+
+
+Removing the installation
+-------------------------
+The correct way to remove an installation is to open the network control
+panel, choose the "3Com EtherLink 10 ISA..." NIC, and press the Remove button.
+
+If you attempt to remove the "3Com TCAATDI Diagnostic TDI", the NIC will
+be removed, which causes the rest of the network components to be removed.
+Running the 3Com NIC diagnostic without support of the TDI will result in
+the system locking up.  The TDI is not an optional component that can be
+removed.
+
+
+Upgrading from Windows 95 to Windows 98 with the 3C509 Installed
+----------------------------------------------------------------
+When upgrading to Windows 98 from Windows 95, will cause the operating system
+to install the native Windows 98 driver for the 3C509B.  This will occur
+even if the latest drivers from 3Com are installed on the system.  To update
+the drivers after this has occurred follow the instructions detailed in 
+section III called "Updating an Older Installation of the 3C509B drivers in 
+Windows 95/98".
+
+
+Windows Custom Installations of Windows 95/98
+---------------------------------------------
+Do not install the EtherDisk 6.1 drivers at installation time when doing a
+custom install.  If you need to do a custom install of Windows 95/98 let
+Windows install the native drivers for the 3C509, and then update the drivers
+using the procedure in this document called "Updating an Older Installation
+of the 3C509B drivers in Windows 95/98" (section III).
+
+
+Changing the NIC configuration
+------------------------------
+Care must be exercised when altering the NIC configuration settings after
+installation.  Certain configuration changes can alter the way Windows 95/98
+behaves after reboot.
+
+Altering the Plug 'n Play setting
+
+Changing the Plug 'n Play setting after installation will change the way
+Windows 95/98 views the NIC.  If you change the setting to enable Plug 'n Play,
+then just shut down, power cycle, and reboot the computer.  Windows 95/98 will
+see the NIC is in Plug 'n Play mode and change its internal configuration to
+use the NIC in Plug 'n Play mode.  However, changing the setting to disable
+Plug 'n Play mode will result in the NIC not being found on the next reboot,
+which renders the network unusable.  To fix this, shut down Windows 95/98, power
+cycle the computer, and reboot.  After the computer reboots, open the control
+panel and select the add new hardware icon.  The add new hardware wizard
+starts, press the next button. The next screen prompts for "Do you want
+Windows to search for new hardware?".  Click the "No" radio button and press
+next. In the next screen, double click the Network Adapters item. On the
+Select Device panel, choose 3Com on the left pane and "3Com EtherLink 10 ISA
+(3C509/3C509B) in Legacy mode" on the right pane. Put EtherDisk #1 in the
+floppy drive and press OK on the insert disk message. The system will now
+read files from the EtherDisk.  Later, the Windows 95/98 Add New Hardware Wizard
+will display the I/O setting chosen for the EtherLink 10 ISA.  Record this
+number and press Next.  The 3Com installation diagnostic will run.  Press
+Next on the first panel.  The second panel displays the NIC's configuration
+settings.  Set the I/O base address to the number assigned by Windows 95/98
+in the previous step.  Be sure the interrupt number chosen doesn't conflict
+with another device in the computer. Press Next.  Continue the installation
+until the "Installation Complete" screen appears, then press Finished. Now
+press the Finish button on the Add New Hardware Wizard.  The System Settings
+Change box will appear, prompting for a reboot.  Press the NO button.  Now
+double click the network icon in the control panel. Select the "3Com EtherLink
+10 ISA ... in PnP mode" and press Remove. Press the OK button on the Network
+dialog box that pops up, then press the OK button on the Network configuration
+menu.  Close the control panel, then shut down and reboot the system.  Your
+network is now operational.
+
+
+Hints
+-----
+1.  If an error message appears, saying that the .INF file cannot be found
+    in the specified location, verify that the file actually exists. If the
+    file is either W95EL5X9.INF or TCAATDI.INF these files can be located in
+    the root directory of the 3Com EtherDisk diskette #1. 
+
+    If it is missing, download the disk from 3Com's download sites, and
+    make sure you expand it properly. Refer to the SUPPORT.TXT file on this
+    disk for more information.
+
+2.  Verify the NIC driver is working.  Open control panel-> system-> device
+    manager.  Look at the network adapter.  If the EtherLink 10 ISA NIC is
+    visible with a yellow exclamation mark, the driver was not able to
+    get the NIC working.  This could be due to a resource conflict, i.e. the
+    base address or interrupt is in conflict with another device or there is
+    another device at I/O address 0x110.
+
+    If the EtherLink 10 ISA NIC is visible with a red 'X', Windows 95/98 
+    detection has the device disabled which may be the result of a serious 
+    problem.  One example is all the interrupts were used prior to the NIC 
+    installation, so Windows 95/98 cannot assign an interrupt to the NIC.
+
+3.  In Windows 95/98 environments it is recommended that the 3C509B be 
+    configured for Plug 'n' Play.  This can be done with the configuration/
+    diagnostic program and the adapter is shipped with this setting enabled.
+
+
+Windows 95/98 Peer-to-Peer Networking
+-------------------------------------
+
+General Overview
+
+In a peer-to-peer network, a relationship exists between two or more "like"
+computers.  Each computer may make portions of its devices (such as disk
+drives, CD-ROM driver, and printers) available to other computers on the
+network.  You can decide what to make available to other users.  When you
+share a disk driver or folder, you also need to decide if you want to grant
+other users the right to store and change information on your drive or
+folder.
+
+The general characteristics of a peer-to-peer network are:
+
+The network provides the capability to share resources with any computer on
+the network.  When you share resources, your computer acts as a server for
+all other computers in the network while still retaining all it's capability
+for your use.  In a server-based network, only the resources on the
+dedicated server can be shared.
+
+A peer to peer network is more difficult to administer than a server-based
+network. Its flexible resource-sharing and lack of central management and
+control make management difficult.
+
+However, the network works with your existing equipment and does not require
+the purchase of a dedicated server.  This lowers the cost of networking.
+
+
+Peer-to-Peer Networking with Windows 95/98
+
+Microsoft Windows 95/98 comes with a built in peer to peer network.  It
+also supports a wide range of network environments and Network Software
+vendors to work with dedicated networks.
+
+To configure Windows 95/98 for peer-to-peer networking, follow the steps
+below.
+
+Install Windows 95/98 and configure the network as outlined in the previous
+instructions in this document.  To use peer to peer networking, you must have
+the Microsoft Network Client in your network configuration.
+
+Before you can share resources on your computer, you need to add file and
+print sharing capability to your network configuration.  To install file and
+print sharing, do the following steps.
+
+1.  Open the Control Panel window and select Network. Click on the Start
+button on the Windows 95/98 Taskbar, select Settings, and then select Control
+Panel. Double-click on the Network icon.
+
+2. In the Network window, click Add...
+
+3. Select Service from the list of Network Components and click Add...
+
+4. Select Microsoft from the list of Manufacturers on the left column.
+
+5. Select File and Printer Sharing for Microsoft Networks from the right
+column.
+
+6. Click OK.
+
+7. Go back to the Network window and select the Identification tab.
+
+8. Assign a Computer name that will identify you on the network.  This name
+must be unique.
+
+9. Assign a Workgroup name.  The workgroup name MUST be the same on all the
+computers on your network whom you want to share information with.  More
+than one workgroup may exist on a network, but members of a workgroup cannot
+directly see members of a different workgroup.
+
+10. Give a description of your computer. This description is what another
+users sees when he browses the network from his computer.  It further
+defines who you are on the network.
+
+11.  When you are done entering this information click OK.
+
+12. Click OK at the bottom of your Network window. Windows 95/98 will prompt
+you for the location of the Windows 95/98 CD-ROM or diskettes containing the
+files needed for sharing.  Assuming the CD-ROM is drive D: on your computer,
+enter D:\WIN95 or D:\WIN98.
+
+13.  When Windows 95/98 prompts you to shut down and reboot the computer,
+click the Yes button.  After Windows 95/98 reboots, you are ready to share
+resources.
+
+14.  You can share a device by opening "My Computer" on your desktop and
+clicking the right mouse button over each device you want to share.  From
+the menu that appears, select "Sharing" properties for the device.  From
+the menu that appears, pick a share name for the device, and click OK.  The
+device is now shared.
+
+15.  In a similar manner, you can share folders rather than an entire disk
+drive.  Select a drive and click the left mouse button to open the drive.
+Select the folder and click the right mouse button, and select "Sharing"
+from the menu.  When the share menu opens, select a share name and select
+the way you want to share the folder.  Read only means no user can write or
+delete the files and folders in your shared folder.  Selection read and
+write access gives other users permission to delete or change files and
+folders.  For more detail, refer to your Microsoft Windows 95/98 manual on 
+how to share resources with other computers on your network.
+
+
+
+            (%VER W95NDIS3.TXT - NDIS 3.0/4.0 in Windows 95/98 v6.1b)

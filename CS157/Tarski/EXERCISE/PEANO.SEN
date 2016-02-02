@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+20
+?x ?y (Tet(x) & Larger(x, y))?x (Tet(x) & ?y Larger(x, y))?x ?y (Cube(x) & Tet(y) & Larger(x, y))?x (Cube(x) & ?y (Tet(y) & Larger(x, y)))?x ?y ?z (Cube(x) & Between(x, y, z))?x (Cube(x) & ?y ?z Between(x, y, z))@x @y (Cube(x) $ Larger(x, y))@x (Cube(x) $ @y Larger(x, y))@x @y ((Dodec(x) & Cube(y)) $ Smaller(x, y))@x (Dodec(x) $ @y (Cube(y) $ Smaller(x, y)))@x ((Cube(x) & Medium(x)) $ @y ~RightOf(y, x))@x ((Tet(x) & Small(x)) $ @y ~FrontOf(y, x))@x ((Cube(x) & Medium(x)) $ @y LeftOf(y, x))@x ((Tet(x) & Small(x)) $ @y BackOf(y, x))@x @y (BackOf(x, y) $ ~FrontOf(x, y))?x ?y (BackOf(x, y) & ~FrontOf(x, y))?x (Tet(x) & ?y ?z (Cube(y) & Cube(z) & Between(x, y, z)))?x ?y (Tet(x) & Tet(y) & ?z (Dodec(z) & Between(z, x, y)))@x @y ((Cube(x) & Tet(y)) $ (FrontOf(x, y) | FrontOf(y, x)))@x @y ((Cube(x) & Tet(y)) $ (LeftOf(x, y) | LeftOf(y, x)))

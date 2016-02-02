@@ -1,0 +1,3 @@
+#define A asdf
+#A
+

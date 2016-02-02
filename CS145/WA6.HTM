@@ -1,0 +1,149 @@
+<title> CS145 Written Assignment 6 </title>
+<body BGCOLOR=FFFFFF>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Written Assignment #6
+<br>Due Wednesday May 24</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+Note: This assignment covers only object-oriented design and OQL.
+Object-relational SQL will be covered in the next assignment.
+
+<h4>Problem 1</h4>
+
+<p><i>Observe the similarity between this problem and Problem 4 on <a
+href="http://www-db.stanford.edu/~widom/cs145/wa1.html">Written
+Assignment #1</a>.  You may or may not find it advantageous to use
+your solution or the sample solution to that problem as a guide when
+solving this one - it's up to you.</i>
+
+<p>You are to design a database for an insurance company.  The data
+will include information about customers (name, address, and phone
+number), information about insured cars (make, model, year,
+vehicle-ID#, license#, and insurance rate), information about insured
+homes (address, insured value, and insurance rate), and information
+about claims made on insured cars and homes (date of claim, date of
+settlement, and amount of settlement).  You may assume that all
+insured cars and homes are owned by a single customer, but you should
+allow a customer to own several cars and homes.  Please state any
+additional assumptions you make about the real world in your design.
+
+<p><b>(a)</b> Specify an ODL schema for this database.  In
+addition to class definitions with attributes and relationships, don't
+forget to include keys and inverse relationships.
+
+<p><b>(b)</b> Using the method for translating an ODL design into
+relations, produce a set of relations for your database design.  In
+the cases where different mappings to relations are possible, choose
+whichever one you think is more appropriate.  Be sure to specify
+(underline) keys for all relations.
+
+<p><i>Note: There is no single right answer to this problem by any
+means, although some answers may be better than others.</i>
+
+<h4>Problem 2</h4>
+
+You are to design a database maintained by a library.  The data should
+include information about books, employees, and customers.  It should
+include a log of all books checked out by an employee to a customer,
+including if and when books were returned.
+
+<p><b>(a)</b> Specify an ODL schema for this database.  In
+addition to class definitions with attributes and relationships, don't
+forget to include keys and inverse relationships.
+
+<p><b>(b)</b> Using the method for translating an ODL design into
+relations, produce a set of relations for your database design.  In
+the cases where different mappings to relations are possible, choose
+whichever one you think is more appropriate.  Be sure to specify
+(underline) keys for all relations.
+
+<p><i>Note: This problem is even more "free form" than Problem 1, so
+there are numerous good answers.  As usual, please state any
+assumptions you make about the real world in your design.</i>
+
+<h4>Problem 3</h4>
+
+Specify an ODL class definition for any real-world domain of your
+choosing such that the class realistically includes a relationship
+that is its own inverse.  Please do not use an example that was given
+in lecture or in the help session.
+
+<h4>Problem 4</h4>
+
+Recall that a key for an ODL class <tt>C</tt> is a set of attributes
+<tt>{A1,A2,...,An}</tt> of <tt>C</tt> such that no two objects in
+<tt>C</tt> will ever have the same value for all attributes <tt>{A1,
+A2,...,An}</tt>.  Although technically ODL does not allow
+relationships in keys, it is certainly reasonable for a key to include
+relationships as well as attributes.  In this case, a key for a class
+<tt>C</tt> is a set of attributes and/or relationships
+<tt>{A1,...,An,R1,...,Rm}</tt> of <tt>C</tt> such that no two objects
+in <tt>C</tt> will have the same value for all attributes and
+relationships <tt>{A1,...,An,R1,...,Rm}</tt>.
+
+<p><b>(a)</b> Give an example of an ODL class definition and a key for
+the class such that the key includes at least one relationship, and
+there is no natural key for the class that includes only attributes.
+Use any real-world domain you find appropriate.
+
+<p><b>(b)</b> What concept in the entity-relationship model
+corresponds to an ODL class where a relationship is needed in the key?
+
+<h4>Problem 5</h4>
+
+Consider the following ODL schema for a database of students
+applying for summer internships.
+
+<p><tt>
+  interface Student (extent Students, key ID) {<br>
+     attribute integer ID;<br>
+     attribute Struct{string first, string last} name;<br>
+     relationship Set<Internship> applied<br>
+inverse Internship::applicants;<br>
+    }<br>
+
+<p>
+  interface Internship (extent Positions, key (company, city)) {<br>
+     attribute string company;<br>
+     attribute string city;<br>
+     relationship Set<Student> applicants<br>
+inverse Student::applied;<br>
+    }
+</tt>
+
+<p>Write OQL queries for each of the following.
+
+<p><b>(a)</b> Find the ID's of all students whose last name is "Smith".
+
+<p><b>(b)</b> Find the ID's and last names of all students who have applied to
+an internship at a company in Palo Alto.  Do not repeat (ID,last-name)
+pairs in the result, even if the student has applied to many
+internships in Palo Alto.
+
+<p><b>(c)</b> If you used <tt>distinct</tt> in your answer for part (b), rewrite
+the query so you don't need to use <tt>distinct</tt>.  Conversely, if you
+didn't use <tt>distinct</tt> in your answer for part (b), rewrite the
+query so you do need to use <tt>distinct</tt> in order to guarantee that
+duplicates are eliminated.
+
+<p><b>(d)</b> Find the names of all companies in Palo Alto such that at
+least one student <tt>S</tt> (say) with ID between 25 and 50 has
+applied for an internship at that company, and all internships student
+<tt>S</tt> has applied for are in Palo Alto or San Jose.
+
+<p><b>(e)</b> Recall that the result of an OQL query or subquery is a
+set or a bag.  OQL allows two sets (bags) to be compared using =,
+where two sets (bags) are equal if they contain exactly the same
+objects.  Find all pairs of student ID's such that the two students
+have applied to internships at the exact same set of companies in Palo
+Alto.  (The students may have applied to different internships at
+companies in other cities.)  Return each pair of ID's exactly once,
+and order the final result based on the last name of the first student
+in each pair.
+
+<p><b>(f)</b> Can you write the query in part (e) without using set or bag
+equality?  If so, write it.  If not, explain why not.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

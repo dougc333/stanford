@@ -1,0 +1,112 @@
+<body BGCOLOR=FFFFFF>
+<title> CS145 Project Part 7 </title>
+<center> <h3> CS145 - Introduction to Databases<br><i>Spring 2000, Prof. Widom</i></h3>
+<h3>Personal Database Application: Part 7
+<br>Due Wednesday May 24</h3>
+</center>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+There are several aspects of this final part of your programming
+project that are different from the previous parts:
+
+<ul>
+
+<li> The due date is on a Wednesday, not a Monday.  You have 9 days
+to complete this part instead of a week.
+
+<p><li> This part will be turned in electronically.  It must be
+submitted <b>with a timestamp of Wednesday May 24 or earlier</b>.
+That is, you may not submit after 11:59:59 PM on May 24.  Furthermore,
+there are <b>no late days</b> permitted on this project part.  To
+receive credit for this part, your project must be submitted on time.
+<i>Details of electronic submission will be given in a posting to the
+class mailing list several days in advance of the due date.</i>
+
+<p><li> This part will be graded out of 15 points, and it will be
+counted one and a half times as much as the other project parts.  A
+maximum of 15 points will be given for projects meeting the minimum
+specification for this part.  Up to 5 total additional points may be
+given in special circumstances:
+    <ul>
+    <li>To students who had difficulty completing
+ previous project parts but have now caught up and finished the entire project.
+    <li>To students whose project goes well beyond the minimum
+        specification for this part.
+    </ul>
+
+Also note that as we grade this part of the project we will be
+selecting the winners of the <a
+href="http://www-db.stanford.edu/~widom/cs145/info.html#contest">project
+contest</a> (described in the Course Information handout).  Although
+the winners will be selected based on sustained novelty and quality of
+work throughout the project, certainly doing a whiz-bang job on this
+last part cannot hurt.
+
+</ul>
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+There is one very important Oracle handout for this assignment:
+
+<ul> <p><li><a
+href="http://www-db.stanford.edu/~widom/cs145/or-web.html">Web-Database
+Programming: CGI and Java Servlets</a> </ul>
+
+<p>Please review this handout very carefully before beginning your work.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>
+
+Your assignment this time is straightforward: build a user-friendly Web
+interface to your PDA.  As we discussed at the beginning of the
+course, a huge number of Web sites are based largely on a relational
+database system.  The HTML pages a user browses are generated from the
+database, and user actions and inputs result in behind-the-scenes SQL
+queries and updates.  Although the database-backed site you will
+create is not likely to be as snazzy as a typical Web shopping or
+auction site, the basic idea is the same.  Here are some general
+ground rules:
+
+<ul>
+
+<p><li> Similar to Project Part 5, your Web interface should offer the
+user several (at least five) different types of interactions that
+involve the database.  You may base your Web interface on the same
+five operations you implemented for your application front-end in
+Project Part 5, or you may use new or additional operations.
+
+<p><li> The less your Web site looks like it is interacting with an
+Oracle database, the better.  At the very least, the user should be
+completely shielded from anything resembling SQL.
+
+<p><li> Sophisticated error handling is not necessary, however your Web
+site definitely should not "lock up" regardless of how the user
+chooses to interact with it.
+    
+<p><li> Most interactions should involve some sort of input values in
+addition to the user pressing a <i>Submit</i> button.  Whenever
+possible, input values should be specified using menus, radio buttons,
+checkboxes, scrollers, etc.  Text input boxes may also be appropriate.
+
+<p><li> Your interface should support operations that involve data
+retrieval as well as operations that involve data modification.
+
+<p><li> Be creative.
+
+</ul>
+
+<p> Your Web front-end will interact with your Oracle database using
+CGI scripts and Pro*C, or using Java Servlets and JDBC.  Both modes
+are described in the handout <a
+href="http://www-db.stanford.edu/~widom/cs145/or-web.html">Web-Database
+Programming</a>.  If you used Pro*C for Project Part 5 then you may
+want to choose CGI scripts for this part, and if you used JDBC for
+Part 5 then you may want to choose Servlets for this part, however you
+may also switch languages at this point if you prefer.
+
+<p> Students using CGI scripts will simply submit their URL.  Students
+using Java Servlets are likely to need to submit their code, which we
+will run.  Details are still being worked out and will be published
+shortly.
+
+<p><img src="http://www-cs.stanford.edu/gifs/line.red2.gif"><p>

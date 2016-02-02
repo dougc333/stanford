@@ -1,0 +1,137 @@
+
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                 The EtherLink 10 ISA Adapter Family
+            NetWare 4.11 Server Driver Installation Notes
+
+
+This file contains information for installing the ODI server driver into a
+NetWare version 4.11, 4.10, and 3.12 servers.  You can install this driver
+by using the EtherDisk install program to copy the driver to the server's
+hard disk, and then manually loading the driver.
+
+Alternatively, you can import this driver when installing the NetWare 4.11
+and NetWare 4.10 server software.  This driver can be used in NetWare 4.10
+and NetWare 3.12 servers with the appropriate .NLM support.  Installing
+this driver in NetWare 3.12 servers is documented later in this file.
+
+This server driver does not support NetWare 4.0X and NetWare 3.11.  If you
+need a driver for either of those two servers, download the compatible
+driver from 3Com's web site.
+
+
+Installing the Server Driver into a NetWare 4.11 and NetWare 4.10 Servers
+-------------------------------------------------------------------------
+To import this server driver into a NetWare 4.1X server, follow these steps:
+
+1.  Run the server installer.  Choose the driver option. Choose the
+    configure network drivers option.  Choose select a driver option.
+    When the driver list appears, press the Insert key.  The installer will
+    prompt you for the driver path.  Press F3.
+
+2.  Enter A:\NWSERVER for the path.  The installer will read the diskette
+    #2 and display "3C5X9.LAN 3Com EtherLink 10 ISA Family driver v4.0".
+    Press enter.
+
+3.  The installer asks "Do you want to copy this driver?".  Enter yes.
+    Next, the installer will prompt you for the disposition of the existing
+    driver and LDI file.  Choose "yes" if you want to save the old files.
+    The installer copies the driver and install file from the diskette.
+    The installer then steps to the configure network driver menu.
+    menu.
+
+4.  Choose the "select/modify driver parameters and protocols" option, then
+    move the cursor to the first (top most) item in the configuration
+    window.  The question is "Is this a <legacy ISA card model num>?".  If
+    the NIC is a 3C509B with Plug 'n Play enabled, choose "NO".  If the NIC
+    is a 3C509, 3c509B with Plug 'n Play disabled, choose "YES".
+
+
+5.  Next, you must set the slot number.  The slot number is set by the
+    operating system, so do the following to determine the slot number.
+    Press alt-escape to return to the operating system menu.  At the
+    command line, enter LOAD 3C5X9.  When the driver loads, a message
+    specifying the slot number will appear.  Make note of the slot number,
+    then enter escape to abort the load driver command. Press Alt-Esc to
+    return to the installer. Enter the slot number secured in the previous
+    step.
+
+6.  For best performance, set the Parallel tasking control to "YES".
+
+7.  Make any other configuration and protocol changes that are appropriate
+    for your server, then go to the "save parameters and load driver"
+    option.  At this point, installation is complete.
+
+NOTE: You must have the Novell supplied NLM files to support the use
+      of this driver in NetWare 4.10.  At the time this EtherDisk was
+      developed, the file name is LANDR9.EXE.  This file is available
+      at Novell's web site (www.novell.com).
+
+Installing the Server Driver into a NetWare 3.12 Server
+------------------------------------------------------
+
+This file explains how to install the ODI server driver on this diskette
+into a NetWare 3.12 server.  The NetWare 3.12 installation program does not
+have driver import capability.  Therefore, the following procedure assumes
+the NetWare server software is already installed but not yet running.
+You must have the Novell supplied NLM files to support the use of this driver
+in NetWare 3.12.  At the time this EtherDisk was developed, the file name is
+LANDR9.EXE.  This file is available at Novell's web site (www.novell.com).
+
+To install this server driver into a NetWare 3.12 server, either use the
+program on this diskette or manually copy the files to the server's hard
+disk.  To manually install the driver, proceed as follows:
+
+1.  Copy the 3C5X9.LAN file from the \NWSERVER subdirectory on
+    EtherDisk #2 to the server hard disk.
+
+2.  Boot the server and launch the installer.
+
+3.  Edit the AUTOEXEC.NCF file to add the following line (assuming the
+    server start directory is C:\SERVER, where the LAN drivers and NLM files
+    were copied):
+
+    LOAD C:\SERVER\3C5X9.LAN PNP SLOT=<Slot Number>
+    LOAD C:\SERVER\3C5X9.LAN ISA PORT=<I/O base address>
+
+    Use the PNP parameter if you are installing a 3C509B ISA NIC with Plug
+    'n Play enabled.  Enter ISA if you are installing a 3C509B with Plug 'n
+    Play disabled, or a 3C509 NIC.  The SLOT parameter is the
+    slot number assigned by the NBI module.  This can be determined by
+    loading the driver without parameters and examining the slot number
+    assigned by NBI.  In the non-PnP case, the PORT number is the I/O base
+    address of the 3C509 NIC.
+
+Multiple Adapters
+-----------------
+
+To support more than one adapter in a server, change the AUTOEXEC.NCF file
+to the format shown below:
+
+load C:\SERVER\3C5X9.LAN ISA PORT=300 NAME=<name1> FRAME=<frametype>
+load C:\SERVER\3C5X9.LAN ISA PORT=320 NAME=<name2> FRAME=<frametype>
+
+or
+
+load C:\SERVER\3C5X9.LAN PNP SLOT=10008 NAME=<name1> FRAME=<frametype>
+load C:\SERVER\3C5X9.LAN PNP SLOT=10010 NAME=<name2> FRAME=<frametype>
+
+where ISA and PNP are used as described above.  <name1> and <name2> are
+user specified names that you assign to distinguish the multiple adapters.
+
+The FRAME parameter is optional.  The default frame type is Ethernet_802.2.
+If you want the ODI server driver to support more than one frame type, then
+both the unique NAME= and FRAME= parameters must be paired on each load
+driver line.  The valid frame types are Ethernet_802.2, Ethernet_802.3,
+Ethernet_II, and Ethernet_SNAP.
+
+load C:\SERVER\3C5X9.LAN ISA PORT=300 FRAME=Ethernet_802.3 NAME=ADPONE
+load C:\SERVER\3C5X9.LAN PNP SLOT=10008 FRAME=Ethernet_II NAME=ADPTWO
+bind IPX to ADPONE
+bind IP to ADPTWO
+
+The protocols used in this example require other parameters to work
+properly.  Consult the appropriate Novell NetWare manuals for details.
+
+
+%VER - 3C5X9 NetWare 4.11 Server installation notes V6.1a

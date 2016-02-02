@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+5
+Between(a, b, c) $ Smaller(b, c)Smaller(b, c) $ [RightOf(b, c) & Between(a, b, b)]Between(c, b, a) $  [Between(b, a, c) | c = b]Between(a, b, c) | Between(b, a, c) | Between(c, b, a)~Between(b, a, c) 

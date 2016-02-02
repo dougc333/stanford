@@ -1,0 +1,278 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - OQL
+=========================================================================
+
+- Covering 8.1, 8.2, 8.3.1, 8.3.5, 8.4.1-8.4.3
+
+- Also read 8.3.2-8.3.4 (aggregates), 8.4.4 (creating objects),
+  8.7 (comparison of OQL and object-relational SQL3)
+
+
+Some history
+------------
+
+- Object-oriented database vendors hoped to take market share from
+  traditional relational database vendors by offering object-based data
+  management.
+
+- Relational vendors responded by adding object support to relational
+  systems and largely kept their customers.
+
+- OODBMS vendors have sort of survived in another market niche:
+  software systems that need some of their data to be persistent
+  (e.g., CAD).
+
+- OODBMS vendors are now moving into a new market niche: XML
+
+
+Recall ODMG = Object Database Management Group
+ODL = Object Design Language
+OQL = Object Query Language
+
+
+Interacting with an OODBMS
+--------------------------
+
+(1) Directly through programming language: database classes are also
+classes in programming language, manipulate in usual way (including
+via methods), data and changes are persistent.
+
+Ex: To find GPA's of all students applying to Berkeley, manually
+iterate through application objects, following pointers to student
+objects.
+
+-> "Navigational access"
+
+- ODMG specifies "language bindings" for most popular OO languages.
+
+
+(2) Using OQL
+
+Similar to embedded SQL only much less awkward.
+
+Ex: To find GPA's of all students applying to Berkeley, submit OQL
+query, result is a set or list.
+
+-> "Declarative access"
+
+- Although most OODB vendors support ODL, few support OQL, instead
+  supporting at best a restricted subset that looks like SQL.
+
+- OQL does not have data modification statements, so all modifications
+  must be navigational.
+
+
+Methods in ODL
+--------------
+
+- Declared as part of class.
+
+- Implemented in host programming language.
+
+
+Ex: interface Student (key ID) {
+       attribute integer ID;
+       attribute string name;
+       attribute string address;
+       attribute Struct{float GPA, integer SAT} scores;
+       calcScore(out float);
+       sendLetter(in char, out char);
+      }
+
+
+Class extents
+-------------
+
+In ODL so far we've defined schemas only.
+
+Now we care about data - actual objects in classes.
+
+The objects in a class are called the "extent" of the class.
+
+
+    interface Student (extent Students, key ID) {
+       attribute integer ID;
+       attribute string name;
+       attribute string address;
+       attribute Struct{float GPA, integer SAT} scores;
+       relationship Campus apply
+          inverse Campus::applicants;
+       calcScore(out float);
+       sendLetter(in char, out char);
+      }
+
+   interface Campus (extent Campuses, key location) {
+      attribute string location;
+      attribute integer enrollment;
+      attribute integer rank;
+      relationship Set<Student> applicants
+         inverse Student::apply;
+     }
+
+
+Types in OQL
+------------
+
+(1) Atomic types
+(2) Enumerations
+(3) Class names
+(4) Sets, bags, lists, arrays of (1)-(5)
+(5) Structs built from (1)-(5)
+
+* Note that unlike ODL types, OQL types are fully recursive
+
+Q: Why?
+
+
+
+
+
+Dot notation and path expressions
+---------------------------------
+
+For accessing components of objects, structs
+
+Let variables c and s range over objects in extents of Campus and
+Student (i.e., range over objects in sets Campuses and Students).
+
+
+c.enrollment      -> integer
+c.applicants      -> set of Student objects
+s.scores.GPA      -> float
+s.apply.rank      -> integer
+s.sendLetter('Y') -> char
+
+
+Queries
+-------
+
+SELECT <expression>
+FROM   <variable assignments>
+WHERE  <condition>
+
+
+Ex: Find names of all students with GPA > 3.7
+
+  SELECT s.name
+  FROM Students s
+  WHERE s.scores.GPA > 3.7
+
+
+Ex: Find locations of campuses where a student with GPA > 3.95 or
+    SAT > 1450 applied
+
+  SELECT c.location
+  FROM Campuses c, c.applicants a
+  WHERE a.scores.GPA > 3.95 OR a.scores.SAT > 1450
+
+Q: Will this return a set or a bag?
+
+
+
+
+
+Q: Is there a different way to write the same query?
+
+
+
+
+
+
+
+
+
+
+Ex: Find ID's and names of all students with GPA > 3.7
+
+  SELECT Struct(ID: s.ID, name: s.name)
+  FROM Students s
+  WHERE s.scores.GPA > 3.7
+
+Can omit "Struct" as shorthand.
+
+
+Ex: Send 'Y' letter to all applicants with calculated score > 3000
+    applying to campus ranked > 3
+
+
+
+
+
+
+
+
+
+
+Subqueries in FROM clause
+-------------------------
+
+Ex: Find poorly-ranked campuses where a student with GPA > 3.95 or
+    SAT > 1450 applied
+
+  SELECT DISTINCT lrc
+  FROM (SELECT c FROM Campuses c WHERE c.rank > 5) lrc,
+       lrc.applicants a
+  WHERE a.scores.GPA > 3.95 OR a.scores.SAT > 1450
+
+
+Subqueries in WHERE clause
+--------------------------
+
+Based on EXISTS and FOR ALL
+
+
+Ex: Find campuses where all students who applied have GPA > 3.0,
+    ordered by campus rank
+
+  SELECT c
+  FROM Campuses c
+  WHERE FOR ALL a IN c.applicants: a.GPA > 3.0
+  ORDER BY c.rank
+
+
+Ex: Find students with SAT < 1000 who applied to a campus where a
+    student with the same name and SAT > 1450 also applied.
+
+  SELECT s
+  FROM Students s
+  WHERE s.scores.SAT < 1000
+  AND EXISTS s2 IN s.apply.applicants:
+                (s2.name = s.name AND s2.scores.SAT > 1450)
+
+
+Set operators
+-------------
+
+UNION, INTERSECT, EXCEPT
+
+- With bag interpretation
+
+
+Embedded OQL
+------------
+
+(1) Set results
+
+Ex: Find ID's of all students with GPA > 3.8
+
+  var result: Set<integer>
+
+  result = SELECT s.ID FROM Students s WHERE s.GPA > 3.8
+
+
+(2) Singleton results
+
+Ex: Find name and address of student with ID = 123
+
+  var result: Struct{string name, string address}
+
+  result = ELEMENT(
+            SELECT name: s.name, address: s.address
+            FROM Students s
+            WHERE s.ID = 123)
+
+
+(3) Iterating through objects in result
+
+Create set or list as in (1), iterate in host language.

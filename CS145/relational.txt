@@ -1,0 +1,251 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - RELATIONAL MODEL, MAPPING E/R TO RELATIONS
+=========================================================================
+
+Recall design steps:
+
+Real-world domain
+      to
+Design data model
+      to
+DBMS data model
+
+
+We are focusing on the E/R design data model, the relational DBMS data
+model, and the translation from E/R to relations.  There's an
+additional step:
+
+E/R design
+      to
+Relational schema
+      to
+"Better" relational schema
+
+The last step is called "normalization" and will be covered later.
+Normalization is especially important if one tries to go directly from
+the real-world to relations.
+
+
+Relational model
+----------------
+
+- Used by most commercial DBMSs
+- Very simple
+
+
+Database = set of RELATIONS (or TABLES)
+           each with a distinct name
+
+<ex: Student, Campus>
+
+
+
+
+
+
+
+
+Each relation has a set of ATTRIBUTES (or COLUMNS)
+with a distinct name within its relation
+
+<ex: label Student, Campus>
+
+
+
+
+
+
+
+
+Each attribute has a DOMAIN (or TYPE)
+
+Ex - SS#:string(9), name:string(25), GPA:float, age:integer
+
+We'll use atomic (indivisible) types only for now
+
+
+One TUPLE (or ROW) in a relation has a value for each attribute
+
+<ex: some tuples for Student, Campus relations>
+
+
+
+
+
+
+
+SCHEMA = complete description of structure of relations in database:
+         relation names, attribute names, domains, etc.
+
+INSTANCE = actual contents (tuples) of relations
+
+
+Specifying the schema:
+
+Without domains: Student(SS#, name, GPA, age)
+
+With domains: Student(SS#: string(9), name: string(25),
+                      GPA: float, age: integer)
+
+
+Naming conflicts:
+
+Student(SS#, name, GPA, age)
+Campus(name, enrollment)      <- duplicate use of "name" okay
+Apply(SS#, Campus)            <- "SS#" okay, "Campus" not okay
+
+
+Null values:
+
+- Can use special NULL value in any domain
+- Can be problematic (e.g., for comparisons)
+
+<ex: unknown age>
+
+
+
+
+
+
+
+
+Keys:
+
+A key for a relation is a set of attributes such that no two tuples
+can have the same values for all of their key attributes.
+
+Specified by underlining
+
+<ex: keys for Student, Campus>
+
+
+
+
+
+
+- In real databases, if there isn't a natural, compact one-attribute
+  key, then keys may be system-generated.
+
+Q: Why?
+
+
+
+
+
+
+
+Translating an E/R Design to Relations
+--------------------------------------
+
+- Assume each entity set has a specified key
+
+- Translation can be fully automated
+  (except determining keys for generated relations in certain cases)
+
+
+1. Entity set (strong) translates directly to relation
+
+<ex: Students>
+
+
+
+
+
+
+
+
+
+
+2. Binary relationship set between strong entity sets translates to
+   relation containing keys for entity sets
+
+<ex: Students Apply Campuses>
+
+
+
+
+
+
+
+
+
+
+
+
+Q: What is key for relation?
+
+A: See assignment!
+
+
+3. Relationship set with attributes: add attributes to relation for
+   relationship set
+
+<ex: attribute "date" on Apply relationship set>
+
+
+
+
+
+
+
+
+4. Multiway relationship set: straightforward generalization
+
+
+5. Name conflicts: prepend with entity or relationship set name
+<ex: Students.Name, Campuses.Name>
+
+Always a name conflict with relationship set between entity set and
+itself
+
+<ex: Students with Sibling relationship set, add roles>
+
+
+
+
+
+
+
+
+
+
+
+
+6. Weak entity set: relation has all attributes plus constructed key
+
+<ex: Students Awarded Scholarships>
+
+
+
+
+
+
+
+
+
+
+
+
+7. Weak relationship set
+
+Q: What relation should we create?
+
+
+
+
+8. Subclasses ("Is-a" relationships): same as weak entity sets
+
+<ex: Students, ForeignStuds>
+
+
+
+
+
+
+
+
+
+
+
+Q: What is key for ForeignStud relation?

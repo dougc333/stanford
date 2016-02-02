@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0051)http://www-db.stanford.edu/~ullman/hmu/hw3sols.html -->
+<HTML><HEAD><TITLE>CS154 - Homework #3 Solutions</TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<META content="MSHTML 5.00.2314.1000" name=GENERATOR></HEAD>
+<BODY bgColor=#ddddcc>
+<H2>Homework 3 Solutions</H2>
+<H4>Problem #1</H4>
+<DL>
+  <DD>We need to look at which assignment for the transitions from p and q on 
+  inputs 0 and 1 don't allow us to distinguish p from q. Consider the 9 possible 
+  assignments of transitions from p and q on input 0 (3 possible states from p x 
+  3 from q = 9). If both states go to r on input 0, we cannot distinguish them. 
+  If they both go to p and / or q, we cannot distinguish them. Thus, 5 of the 9 
+  assignments do not allow us to distinguish p and q on input 0. Similar 
+  analysis gives the same result for input 1. 
+  <P>So any combination of the 5 of 9 assignments on inputs 0 and 1 do not allow 
+  us to distinguish them, which is 25 out of the 81 possible assignments. We can 
+  combine these with any of the 9 assignments of transitions from r on input 0 
+  or 1, so there are 225 assignments in which p and q are equivalent. 
+</P></DD></DL>
+<H4>Problem #2</H4>
+<DL>
+  <DD>First we may test to see if the language of the DFA is infinite. If it is, 
+  it accepts at least 100 strings. 
+  <P>If it is not infinite, this means the DFA contains no loops on any path 
+  from the start state to a final state. So by the pigeonhole principle, any 
+  string accepted by the DFA must have length less than n, where n is the number 
+  of states in the DFA, since it can never go through the same state twice and 
+  still reach the final state. 
+  <P>We can thus systematically check every string of length 0, then those of 
+  length 1, then those of length 2, up to those of length n, and count how many 
+  strings have been accepted. If at any point the count of accepted strings 
+  reaches 100, we stop. If we test every string whose length is less than n, and 
+  find we have not accepted 100 strings, we stop and indicate that the DFA does 
+  not accept at least 100 different strings. </P></DD></DL>
+<H4>Problem #3</H4>
+<DL>
+  <DD>S -&gt; aSa | bSb | aRb | bRa
+  <P>R -&gt; aRa | bRb | aRb | bRa | c
+  <P>For w and x not to the be reverse of each other, at at least one position 
+  equidistant from the start of one string and the end of the other, the 
+  characters must be different. 
+  <P>S appears in strings for which the above property does not hold (at every 
+  position equidistant from the start of w and the end of x, the characters are 
+  the same). R appears in strings where the property does hold. S generates 
+  strings containing S in the middle which do not satisfy the above property, 
+  and strings containing R in the middle which do satisfy the above property. R 
+  generates strings of the form ycz, where y and z are strings of the same 
+  length containing a's and b's. </P></DD></DL></BODY></HTML>

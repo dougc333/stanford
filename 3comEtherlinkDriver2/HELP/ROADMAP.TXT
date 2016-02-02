@@ -1,0 +1,151 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                  The EtherLink 10 ISA NIC Family
+                    Version 6.1 Disk Directory
+
+
+This EtherDisk diskette contains diagnostic and configuration programs as
+well as drivers for most of today's popular operating systems along with
+installation instructions.  This help file provides an overview of this
+diskette's contents.
+
+EtherDisk 1
+-----------
+This EtherDisk diskette contains the files for Windows 95 and Windows NT.
+
+    Root Directory
+    --------------
+    Windows NT and Windows 95/98 OEM import and installation files:
+
+    OEMSETUP.INF
+    TCAITDI.INF
+    W95EL5X9.INF
+    TCAATDI.INF
+    TCAEN509.DL_
+    TCAATNDI.DL_
+    UN3C509A.EX_
+    UNTCATDI.EX_
+
+    Network Interface Card Diagnostic and configuration files:
+
+    TCAEGT16.DL_
+    TCAEGT32.DL_
+    TCAACCHG.VX_
+    TCAEHWAC.DL_
+    TCAICCHG.SY_
+    TCAITDI.SY_
+    TCAMHWAC.DL_
+    TCAUDCUS.TX_
+    TCAUDEXP.TX_
+    TCAUDIAG.EX_
+    TCAUDIAG.HL_
+    TCAUDIAG.URL
+    TCAUM509.DL_
+    TCAUM509.HL_
+    TCAUPROT.DL_
+    TCAUPROT.HL_
+    TCAATDI.VX_
+    TCAUDVAR.TXT
+
+    NDIS 3/4 Drivers for Windows 95/98 and Windows NT:
+
+    ELNK3ND3.SY_
+    ELNK3ND4.SY_
+
+    LICENSE.TXT:
+        License agreement covering use of this EtherDisk software.
+
+    PARTNO:
+        Contains the part number and version of this EtherDisk diskette.
+
+    README.TXT:
+        Release notes for this version of the EtherDisks.
+
+    ELNK3.DO_:
+        NDIS2 driver for the 3C509b.
+
+    3C5X9.CO_:
+        DOS ODI driver for the 3C509b.
+
+
+EtherDisk 2
+-----------
+
+Root Directory
+--------------
+3C5X9CFG.EXE:
+    DOS diagnostic program.
+
+3C5X9CFG.PIF
+    PIF file to ensure 3C5X9CFG.EXE runs in DOS mode only in Windows '95.
+
+3C5X9ENG.HLP:
+    Help file for DOS diagnostic program.
+
+COMSLINK.EXE:
+    Program to auto install a DOS NetWare client.
+
+HELP.EXE:
+    Launches the help menu.
+
+INSTALL.EXE:
+    Launches 3Com's Installation Menu Program.
+
+PARTNO:
+    Contains the part number and version of this EtherDisk diskette.
+
+@627C.ADF, @627D.ADF
+    These are the two microchannel Adapter Description Files for the 3C529.
+
+!TCM5090.CFG, !TCM5091.CFG, !TCM5092.CFG, !TCM5093.CFG, !TCM5094.CFG,
+!TCM5095.CFG, !TCM5098.CFG
+    These are the EISA configuration files for the 3C509 and 3C579 NICs.
+
+Subdirectories
+--------------
+COMSLINK:
+    Contains compressed files used by 3Com's COMSLink program.
+    This program automatically installs all the files necessary to allow a
+    DOS-based universal client (VLM) to connect to a Novell NetWare server.
+
+HELP:
+    Contains installation and configuration instructions for some of
+    the more popular network operating systems, as well as basic
+    troubleshooting tips, information on support lines, and system resource
+    information.  Use INSTALL or HELP.EXE to access this information.
+
+MSLANMAN.DOS:
+    Contains a Microsoft LAN Manager directory tree for importing the NDIS
+    2.x DOS driver.
+
+MSLANMAN.OS2:
+    Contains a Microsoft LAN Manager directory tree for importing the NDIS
+    2.x OS/2 driver.
+
+NDIS2:
+    Contains the DOS NDIS 2.x DOS and OS/2 drivers for other NDIS
+    installations. DOS support files are in the DOS subdirectory, OS/2
+    files are in the OS2 subdirectory under NDIS2.
+
+NWCLIENT:
+    Contains DOS and OS/2 NetWare client drivers, a sample NET.CFG
+    file, and a .INS NWCLIENT import file.
+
+NWSERVER:
+    Contains a server driver, LDI import file, and INF import file
+    for loading the server driver into NetWare 4.11, 4.10, and 3.12
+    servers.  It also supports client 32 installations in Windows 95 and
+    DOS/Windows 3.1 clients.
+
+PKTDVR:
+    Contains the Clarkson packet driver and a documentation file.
+
+UTILS:
+    Various utility files used by other programs on the diskette.
+
+WFW311:
+    NDIS 3 driver and import file for Windows for Workgroups 3.11
+    installation.
+
+
+                    (%VER 3C5X9 - Disk Directory v6.1b)

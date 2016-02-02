@@ -1,0 +1,244 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - XML
+=========================================================================
+
+If you are interested in reading about the XML standard, please visit:
+
+  http://www.w3.org/XML/
+
+It will keep you busy for days.  A short web page linked to that site
+("XML in 10 points") has been added as assigned reading.
+
+
+XML = Extensible Markup Language
+
+-> A new standard for data representation and exchange on the internet
+
+-> A document format: a superset of HTML, a subset of SGML (roughly)
+
+-> XML is to data what Java is to programming
+
+
+Like SGML and HTML, basic XML consists of three things:
+
+(1) Tagged elements, which may be nested within one another.
+(2) Attributes on elements.
+(3) Text.
+
+In HTML, tags denote formatting: <TITLE>, <I>, <TABLE>, etc.
+
+In XML, tags denote meaning of data: <STUDENT>, <BOOKTITLE>, etc.
+
+(To format XML data, use XSL - the Extensible Stylesheet Language - to
+translate XML to HTML.)
+
+
+Well-formed XML
+===============
+
+A well-formed XML document is any XML document that follows the basic
+rules: matched tags, unique attribute names, etc.
+
+
+Ex: bookstore data
+
+<?XML VERSION="1.0" STANDALONE="yes"?>
+<BOOKSTORE>
+   <BOOK ISBN="0-13-861337-0" Price="$50">
+      <TITLE>A First Course in Database Systems</TITLE>
+      <AUTHORS>
+         <AUTHOR>
+            <FIRSTNAME>Jeffrey</FIRSTNAME>
+            <LASTNAME>Ullman</LASTNAME>
+         </AUTHOR>
+         <AUTHOR>
+            <FIRSTNAME>Jennifer</FIRSTNAME>
+            <LASTNAME>Widom</LASTNAME>
+         </AUTHOR>
+      </AUTHORS>
+   </BOOK>
+   <BOOK ISBN="0-13-040264-8" Price="$60">
+      <TITLE>Database System Implementation</TITLE>
+      <AUTHORS>
+         <AUTHOR>
+            <FIRSTNAME>Hector</FIRSTNAME>
+            <LASTNAME>Garcia-Molina</LASTNAME>
+         </AUTHOR>
+         <AUTHOR>
+            <FIRSTNAME>Jeffrey</FIRSTNAME>
+            <LASTNAME>Ullman</LASTNAME>
+         </AUTHOR>
+         <AUTHOR>
+            <FIRSTNAME>Jennifer</FIRSTNAME>
+            <LASTNAME>Widom</LASTNAME>
+         </AUTHOR>
+      </AUTHORS>
+      <REMARK>
+       Buy this book bundled with "A First Course", it's a great deal!
+      </REMARK>
+   </BOOK>
+</BOOKSTORE>
+
+
+A well-formed XML document can contain regular data (as above) or very
+irregular data.
+
+
+Valid XML
+=========
+
+It is possible to define a "schema" for XML data, called a Document
+Type Descriptor (DTD).
+
+A DTD is a grammar that describes the legal nesting of tags and
+attributes.
+
+<!DOCTYPE Bookstore [
+   <!ELEMENT BOOKSTORE (BOOK | MAGAZINE)*>
+   <!ELEMENT BOOK (TITLE, AUTHORS, REMARK?)>
+   <!ATTLIST BOOK ISBN CDATA Price CDATA>
+   <!ELEMENT TITLE (#PCDATA)>
+   <!ELEMENT AUTHORS (AUTHOR+)>
+   <!ELEMENT REMARK (#PCDATA)>
+   <!ELEMENT AUTHOR (FIRSTNAME, LASTNAME)>
+   <!ELEMENT FIRSTNAME (#PCDATA)>
+   <!ELEMENT LASTNAME (#PCDATA)>
+]>
+
+
+The DTD is specified at the top of the document or in a separate file
+referenced at the top of the document.  In both cases use
+STANDALONE="no".
+
+Q: What are the benefits of using DTDs?
+
+
+
+
+
+
+
+
+
+
+ID and IDREF(S) Attributes
+==========================
+
+Element pointers: assign a special "ID" attribute to an element, then
+point to that element with a special "IDREF(S)" attribute in another
+element.
+
+
+Ex: reorganized bookstore
+
+<?XML VERSION="1.0" STANDALONE="no"?>
+<BOOKSTORE>
+   <BOOK ISBN="0-13-861337-0" Price="$50" Authors="JU JW">
+      <TITLE>A First Course in Database Systems</TITLE>
+   </BOOK>
+   <BOOK ISBN="0-13-040264-8" Price="$60" Authors="HG JU JW">
+      <TITLE>Database System Implementation</TITLE>
+      <REMARK>
+         Buy this book bundled with
+         <BOOKREF book="0-13-861337-0">
+         It's a great deal!
+      </REMARK>
+   </BOOK>
+   <AUTHOR Ident="HG">
+      <FIRSTNAME>Hector</FIRSTNAME>
+      <LASTNAME>Garcia-Molina</LASTNAME>
+   </AUTHOR>
+   <AUTHOR Ident="JU">
+      <FIRSTNAME>Jeffrey</FIRSTNAME>
+      <LASTNAME>Ullman</LASTNAME>
+   </AUTHOR>
+   <AUTHOR Ident="JW">
+      <FIRSTNAME>Jennifer</FIRSTNAME>
+      <LASTNAME>Widom</LASTNAME>
+   </AUTHOR>
+</BOOKSTORE>
+
+
+DTD for this data:
+
+<!DOCTYPE Bookstore [
+   <!ELEMENT BOOKSTORE (BOOK*, AUTHOR*)>
+   <!ELEMENT BOOK (TITLE, REMARK?)>
+   <!ATTLIST BOOK ISBN ID Price CDATA Authors IDREFS>
+   <!ELEMENT TITLE (#PCDATA)>
+   <!ELEMENT REMARK (#PCDATA | BOOKREF)+)>
+   <!ELEMENT BOOKREF>
+   <!ATTLIST BOOKREF book IDREF>
+   <!ELEMENT AUTHOR (FIRSTNAME, LASTNAME)>
+   <!ATTLIST AUTHOR Ident ID>
+   <!ELEMENT FIRSTNAME (#PCDATA)>
+   <!ELEMENT LASTNAME (#PCDATA)>
+]>
+
+
+Querying XML
+============
+
+-> XML turns the Web into one big database
+
+Several languages have been proposed for querying XML data.
+
+  - We developed one at Stanford called "Lorel", based on OQL.
+
+  - Proposed standards: XQL, XPath, XML-QL, extensions to SQL,...
+
+   - All languages are based on navigating through the structure
+     of the XML document.
+
+
+Ex: Find the titles of books costing < $60 where Ullman is an author
+    (based on the first XML data)
+
+
+In Lorel:
+
+SELECT b.TITLE
+FROM   BOOKSTORE.BOOK b
+WHERE  b.@PRICE < $60 AND b.AUTHORS.AUTHOR.LASTNAME = "Ullman"
+
+
+In XQL:
+
+BOOKSTORE/BOOK[@PRICE<60, AUTHORS.AUTHOR.LASTNAME="Ullman"]/TITLE
+
+
+In XML-QL:
+
+WHERE <BOOKSTORE>
+         <BOOK PRICE=$p>
+            <TITLE>$t</TITLE>
+            <AUTHORS>
+               <AUTHOR>
+                  <LASTNAME>Ullman</LASTNAME>
+               </AUTHOR>
+            </AUTHORS>
+         </BOOK>
+       </BOOKSTORE>,
+       $p < 60
+CONSTRUCT $t
+
+
+XML query languages often include "wildcards" and regular expression
+operators for cases when exact structure of data may be unknown.
+
+
+EX: Find all titles anywhere in the bookstore containing "XML".
+
+In Lorel:
+
+SELECT t
+FROM   BOOKSTORE.#.TITLE t
+WHERE  t LIKE "%XML%"
+
+
+Million (billion actually) dollar question
+==========================================
+
+* Will people store their data in XML, or only use XML as a transport
+  format for data stored in conventional database systems?

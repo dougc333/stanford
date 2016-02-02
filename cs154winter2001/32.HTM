@@ -1,0 +1,14 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="Microsoft Word 81.2">
+<TITLE>Problem 2:</TITLE>
+</HEAD>
+<BODY>
+
+<FONT FACE="Century Schoolbook"><P>Problem 2:</P>
+
+<P>a) Assume to the contrary that the language is regular. Let p be the pumping length given by the pumping lemma.  Choose s to be the string a<SUP>p</SUP>ba<SUP>p</SUP>. Since s is a member of the language, and has a length more than p, the pumping lemma guarantees that s can be split into three pieces, s = xyz where for any i&gt;= 0, xy<SUP>i</SUP>z will be in the language. Since condition 3 of the pumping lemma states that |xy| &lt;= p, y must consist entirely of a's. Since the number of a's in the first set of a's must always mirror the number of a's in the trailing set of a's, any choice of i except 1 would create a string that is not in the language, thus providing our contradiction and proving that the language is not regular.</P>
+
+<P>b) Assume that the language is regular. By last time's homework, if a language is regular then it's complement is also regular. However if we intersect the complement of the language with the regular language 0*1*, we get the language {0<SUP>n</SUP>1<SUP>n</SUP>| n &gt;=0} which by example 1.38 in the book is not regular.  Therefore, the complement of the language is also not regular, since the intersection of a regular language with a regular language is regular.  And if the complement of a language is not regular, the language itself is not regular.</P></FONT></BODY>
+</HTML>

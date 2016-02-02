@@ -1,0 +1,96 @@
+<html>
+
+<head>
+<title>Assignment 1 Implementation Requirements</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+
+
+<meta name="Microsoft Theme" content="canvas 001, default"><meta name="Microsoft Border" content="tb"></head>
+
+<body background="../_themes/canvas/cnvbkgnd.gif" bgcolor="#FFFFFF" text="#000000" link="#6699FF" vlink="#006666" alink="#FF3300"><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="arial, helvetica">
+
+<p align="center"><img src="_derived/shmem-impl.htm_cmp_canvas000_bnr.gif" width="600" height="60" border="0" alt="Assignment 1 DSM Modifications"></p>
+
+<p align="center"><nobr>[&nbsp;<a href="shmem.htm">Up</a>&nbsp;]</nobr> <nobr>[&nbsp;<a href="shmem-desc.htm">Assignment&nbsp;1&nbsp;Code&nbsp;Description</a>&nbsp;]</nobr> <nobr>[&nbsp;Assignment&nbsp;1&nbsp;DSM&nbsp;Modifications&nbsp;]</nobr></p>
+
+<!--msthemeseparator--><p align="center"><img src="../_themes/canvas/cnvrule.gif" width="300" height="10"></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><!--msnavigation--><td valign="top"><!--mstheme--><font face="arial, helvetica">
+
+<!--mstheme--></font><table border="0">
+  <tr>
+    <td width="100%"><!--mstheme--><font face="arial, helvetica"><h3><!--mstheme--><font face="arial black, arial, helvetica">Structure of the Assignment<!--mstheme--></font></h3>
+    <p>For this assignment, you are expected to perform some upgrading modifications on the
+    supplied skeletal DSM system. After each modification you will be asked to observe the
+    modified system and draw some conclusions about the behavior/performance of the system
+    relative to the concepts discussed in class and in the papers. </p>
+    <p>Do the modifications in the order presented in the assignment. For each modification,
+    create a README file in its directory that describes the modifications that you made, and
+    answer the relevent sections of&nbsp; <a href="shmem.htm#submit">what to submit</a> for
+    it.</p>
+    <!--msthemeseparator--><p align="center"><img src="../_themes/canvas/cnvrule.gif" width="300" height="10"></p>
+    <h3><!--mstheme--><font face="arial black, arial, helvetica">Basic Modifications<!--mstheme--></font></h3>
+    <p>All students must perform these modifications regardless of whether or not they work in
+    groups. </p>
+    <h4><!--mstheme--><font face="arial black, arial, helvetica">Modification 1: DSM Read Sharing<!--mstheme--></font></h4>
+    <p>The supplied implementation only allows one instance to read the page at a time. Extend
+    the system so that multiple readers are supported. Allow clients to query the server for
+    ownership information and allow the clients to handle read-sharing with no further
+    assistance from the server. (<em>Hint:</em> Have the owner of a page keep track of which
+    instances have read-only copies, and pass the set back to the server on a page steal.) </p>
+    <h4><!--mstheme--><font face="arial black, arial, helvetica">Modification 2: DSM Server Bypass<!--mstheme--></font></h4>
+    <p>The supplied implementation goes to the server when it would often be more efficient to
+    go directly to the client. Extend the DSM system so that each client maintains
+    &quot;probable owner&quot; information for each page. When a client wants a page, it sends
+    the request to the probable owner. When it receives a request for a page it does not have,
+    it forwards the request to the probable owner. In this system, the server is only required
+    as the initial owner for the DSM pages. (This system is described as the &quot;Dynamic
+    Distributed Manager Algorithm&quot; in Li/Hudak) </p>
+    <h4><!--mstheme--><font face="arial black, arial, helvetica">Modification 3: Lazy Lock Release<!--mstheme--></font></h4>
+    <p>The supplied implementation goes to the server every time it releases a lock. This is
+    inefficient for locks that are grabbed frequently by one instance and rarely by the
+    others. Modify the synchronization system so that rather than the client notifying the
+    server when it releases the lock, the server notifies the lock owner when the lock is
+    actually requested. At that point, if the lock owner is not actually holding the lock, it
+    gives it back immediately; otherwise, it gives it back on the next release. </p>
+    <!--msthemeseparator--><p align="center"><img src="../_themes/canvas/cnvrule.gif" width="300" height="10"></p>
+    <h3><!--mstheme--><font face="arial black, arial, helvetica">Suggested Extensions<!--mstheme--></font></h3>
+    <p>Students who perform the programming portion of this assignment in groups must perform
+    some of these Extensions to receive full credit. </p>
+    <h4><!--mstheme--><font face="arial black, arial, helvetica">Extension A: Adaptive Lazy Lock Release<!--mstheme--></font></h4>
+    <p>Some locks are better suited to lazy release than others. Extend the system so that it
+    initially returns locks to the server immediately, but if it notices it keeps re-acquiring
+    the same lock (without intervening acquires by other clients), it shifts the lock into
+    lazy release mode. Similarly, if it notices it keeps getting asked for a lock in lazy
+    release mode without reusing it, it shifts the lock back into quick return mode. </p>
+    <h4><!--mstheme--><font face="arial black, arial, helvetica">Extension B: Lock Server Bypass<!--mstheme--></font></h4>
+    <p>Once lazy release is implemented, a client can keep track of which client last acquired
+    a lock from it, and then go directly to that client to get the lock back, bypassing the
+    server. </p>
+    <h4><!--mstheme--><font face="arial black, arial, helvetica">Extension C: Scalability Analysis<!--mstheme--></font></h4>
+    <p>Extend the instrumentation to measure memory contention. We are interested in the
+    client average page wait time, total page wait time, average lock wait time, total lock
+    wait time, total computation time, and time spent servicing requests from the server or
+    other clients. On the server, we are interested in the number requests processed per
+    second. You need fine-grained timers to get these numbers --- see the <samp>gettimeofday()</samp>
+    system call. </p>
+    <p>Then, between the hours of midnight and 10:00 am, run your most recent modified version
+    of the system (tell us which version that is!) with the snail simulation on three, five,
+    and eight machines. </p>
+    <h4><!--mstheme--><font face="arial black, arial, helvetica">Extension D: Unifying Consistency and Synchronization<!--mstheme--></font></h4>
+    <p>Implement release consistency. Add suitable instrumentation to measure the advantage it
+    provides over pure sequential consistency. Construct an example application that
+    illustrates the advantages of release consistency. <!--mstheme--></font></td>
+  </tr>
+</table><!--mstheme--><font face="arial, helvetica">
+&nbsp;<!--mstheme--></font><!--msnavigation--></td></tr><!--msnavigation--></table><!--msnavigation--><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td><!--mstheme--><font face="arial, helvetica">
+
+<p align="center"><img src="../images/stanford_seal64.gif" alt="7003.gif (16024 bytes)" WIDTH="64" HEIGHT="64"></p>
+
+<!--msthemeseparator--><p align="center"><img src="../_themes/canvas/cnvrule.gif" width="300" height="10"></p>
+
+<p align="center"><font size="1"><em><a name="disabled" href="../index.htm">Back to CS
+244B Homepage</a><br>
+This page was last modified March 29, 1999<br>
+<a href="mailto:benw@cs.stanford.edu">benw@cs.stanford.edu</a></em></font></p>
+<!--mstheme--></font></td></tr><!--msnavigation--></table></body>
+</html>

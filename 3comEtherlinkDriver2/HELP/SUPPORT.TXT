@@ -1,0 +1,149 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+                         Technical Support
+
+
+3Com offers worldwide product support 24 hours a day, seven days a week,
+through automated on-line systems.
+
+
+3Com Bulletin Board Service (3ComBBS)
+-------------------------------------
+You can obtain software drivers, updates, patches, and fixes on 3ComBBS.
+3ComBBS also provides product information and diagnostic programs.  For
+access, call the telephone number nearest you and set your modem to 8
+data bits, no parity, and 1 stop bit.
+
+Australia  (61) (2) 9955 2073     Up to 14400 bps
+
+France     (33) (1) 69 86 69 54   Up to 14400 bps
+
+Germany    (49) 89 62732 188/189  Up to 9600 bps
+
+Hong Kong  (852) 2537 5608        Up to 14400 bps
+
+Italy      (39) (2) 27 30 06 80   Up to 14400 bps
+
+Japan      (81) (3) 3345 7266     Up to 14400 bps
+
+Singapore  (65) 534 5693          Up to 14400 bps
+
+Taiwan     (886) (2) 377 5840     Up to 14400 bps
+
+U.K.       (44) (144) 2 278278    Up to 28800 bps
+
+U.S.       (1) (408) 980-8204     Up to 28800 bps
+
+
+3ComFacts
+---------
+This automated fax service sends printed installation diagrams,
+configuration drawings, troubleshooting instructions, and technical
+articles to your fax machine anywhere in the world.  To access 3ComFacts,
+use a touch-tone telephone. (In Europe, dial (44) 14 42 278279.)  Request
+document 9999 to obtain a list of documents.  Some local fax numbers are
+available.
+
+Australia        800 123853
+
+Belgium          0800 71279
+
+Denmark          800 17319
+
+Finland          98 001 4444
+
+France           05 90 81 58
+
+Germany          0130 8180 63
+
+Italy            1678 99085
+
+Netherlands      06 0228049
+
+Norway           800 11062
+
+Portugal         0505 442607
+
+Russia (Moscow)  956 0815
+
+Spain            900 964445
+
+Sweden           020 792954
+
+U.K.             0800 626403
+
+U.S.             (1) (408) 727-7021
+
+
+3Com Forum
+----------
+This on-line service is located on CompuServe and contains extensive
+technical and marketing information about all 3Com products.  To use
+NetForum, you must have a CompuServe account.  Call (1) (800) 848-8990 to
+obtain your local CompuServe dial-in phone number and open an account.
+After you have logged in to CompuServe, type "GO NETFORUM" and press
+[Enter] to see the 3Com Forum main menu.  This forum is for self-help
+and obtaining advice from other customers.  3Com does not provide technical
+help through this forum.
+
+
+World Wide Web
+--------------
+Visit 3Com's web site at:
+http://www.3Com.com/
+
+Novell Technical Support
+------------------------
+For information on technical support for Novell's products:
+
+    -  Call 1-800-NETWARE (Novell's main phone number is 801-429-7000)
+    -  Refer to NETWIRE on CompuServe
+    -  Contact your local Novell network supplier or authorized service
+       center.
+
+
+Microsoft Technical Support
+---------------------------
+For information on technical support for Microsoft's products:
+
+    -  Call 1-206-454-2030
+    -  Contact your local Microsoft network supplier or authorized service
+       center.
+
+
+IBM
+---
+For information on technical support for IBM's products, contact your
+local IBM network supplier or authorized service center.
+
+
+Returning Products for Repair
+-----------------------------
+A product sent directly to 3Com for repair must first be assigned a Return
+Materials Authorization number (RMA).  A product sent to 3Com without an
+RMA number will be returned to the sender unopened, at the sender's
+expense.
+
+When you call for an RMA number, be prepared to provide the product name,
+serial number, and diagnostic error messages.  Payment, shipping
+instructions, and turnaround time will be confirmed when the RMA number is
+assigned.
+
+To obtain an RMA number, call or fax:
+
+Europe            Phone  31 30 60 29900, option 5
+                  Fax    (44) 1442 275822
+
+U.S.              Phone  (800) 876-3266, option 2
+                  Fax    (408) 764-7120
+
+NOTE: RMA forms (except Europe) are available on 3ComFacts.
+      Dial (408) 727-7021.
+
+Outside Europe    Phone  (408) 492-1790
+and the U.S.      Fax    (408) 764-7290
+
+
+
+                (%VER SUPPORT.TXT - Technical Support v6.1a)

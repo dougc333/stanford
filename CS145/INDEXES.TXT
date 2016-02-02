@@ -1,0 +1,111 @@
+=========================================================================
+CS 145 Spring '00 - Prof. Widom
+LECTURE NOTES - INDEXES
+=========================================================================
+
+Singular: Index
+Plural: Indexes or Indices
+
+- Mechanism for user/application to get improved performance from DBMS.
+- Many interesting implementation issues (CS245, CS346).
+
+
+Index on attribute R.A:
+
+- Creates additional persistent data structure stored with the database.
+- Can dramatically speed up certain operations:
+
+* Find all R tuples where R.A = v
+* Find all R and S tuples where R.A = S.B
+* Find all R tuples where R.A > v (sometimes, depending on index)
+
+<show picture of unordered relations and indexed attributes>
+
+
+
+
+
+
+
+
+
+
+
+
+Ex: SELECT *
+    FROM Student
+    WHERE name = "Mary"
+
+Without index: Scan all Student tuples.
+
+With index: Go "directly" to tuples with name = "Mary".
+
+Indexes are built on relation attributes or combinations of attributes.
+
+Q: What data structures are used for indexes?
+
+
+
+
+
+
+
+
+
+
+Ex: SELECT *
+    FROM Student
+    WHERE name = "Mary" and GPA > 3.5
+
+Could use:
+
+- Index on Student.name
+- Index on Student.GPA
+- Index on (Student.name,Student.GPA)
+
+
+Indexes can also speed up joins:
+
+Ex: SELECT * 
+    FROM Student, Apply
+    WHERE Student.ID = Apply.ID
+
+Could use:
+
+- Index on Apply.ID
+- Index on Student.ID
+- Both indexes together (in certain cases)
+
+
+Q: What are the disadvantages of creating an index?
+
+A: 
+
+
+
+
+
+
+
+
+** Choosing which indexes to create is a difficult design issue;
+   the decision depends on size of tables, data distributions, and
+   most importantly query/update load.
+
+
+SQL Syntax
+----------
+
+CREATE INDEX IndexName ON R(A)
+
+  for one index on R.A
+
+CREATE INDEX IndexName ON R(A1, ...,  An)
+
+  for one index on (R.A1, R.A2, ..., R.An)
+
+DROP INDEX IndexName
+
+CREATE UNIQUE INDEX IndexName ON R(A)
+
+  will enforce R.A as a key

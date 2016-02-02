@@ -1,0 +1,21 @@
+Problem 3
+ 
+We show that TM equivalence is not recursively enumerable first, since
+undecidability follows from that. Assume TM equivalence is recursively
+enumerable. Then by theorem 3.13 TM equivalence is recognizable as
+well. Now, we can show that ATM is reducible to the complement of TM
+equivalence in the following way. Our reducing function takes M and w as
+input, where M is a TM and w a string. Let M2 be the TM that rejects
+everything. Furthermore, let M3 be the TM that accepts just if M accepts
+w. Next, our reducing function runs a non-TM-equivalence test (the
+complement of TM equivalence) on the pair <M2,M3>. This test will accept
+just if M accepts w, since M2 and M3 will be equivalent just if M does not
+accept w. But if we have a function that accepts just if M accepts w, then
+that is ATM. So we have a function f that reduces ATM to the complement of
+TM equivalence, which implies that the complement of ATM reduces to TM
+equivalence. Since the complement of ATM is not recognizable, we know that
+TM equivalence is not recognizable, a contradiction. We conclude that TM
+equivalence cannot be recursively enumerable.
+ 
+Since TM equivalence is not recognizable, it is surely not decidable,
+since decidability implies recognizability.

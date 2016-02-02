@@ -1,0 +1,5 @@
+4.0 
+WNDS
+Sent
+8
+~(Dodec(a) | Tet(a))~Dodec(a) & ~Tet(a)~(Small(b) & Cube(b))~Small(b) | ~Cube(b)~FrontOf(c, b) & ~BackOf(c, b)~(FrontOf(c, b) | BackOf(c, b))~LeftOf(b, c) | ~LeftOf(c, a)~(LeftOf(b, c) & LeftOf(c, a))

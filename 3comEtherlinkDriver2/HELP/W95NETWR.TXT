@@ -1,0 +1,52 @@
+                        3Com (R) Corporation
+                     EtherDisk (R) Diskette for
+                   The EtherLink 10 ISA NIC Family
+  Microsoft Windows 95 with Microsoft's Client for NetWare Networks
+
+
+The reason choose the Client for NetWare Networks as the primary network
+is you are using the Novell NetWare server as your primary file and print
+server.
+
+On a new install on a computer running Windows 95, follow the directions
+given to install the NDIS3/NDIS4 drivers in Windows 95 (W95NDIS3.TXT). Then
+follow the steps below to change from the NDIS3/NDIS4 driver to the NDIS2
+driver.
+
+1.  In Windows 95, click Start, Settings, Control Panel, then select the
+    Network icon.
+
+
+2.  The minimum network components that are needed to support a primary
+    connection to a Novell network are:
+
+    Client for NetWare Networks
+    3Com EtherLink 10 ISA Adapter
+    IPX/SPX Compatible Protocol
+
+    If any of the above components are missing, add them by clicking the Add
+    button, and adding the client or protocol component.  The components are
+    found in the Microsoft vendor selection on the screen that follows the
+    component selection.
+
+3.  Click Client for NetWare Networks and then the Properties button.
+
+4.  Under the General tab, set your Preferred Server and the First Network
+    Drive.  When done, click OK.
+
+5.  Set the Primary Network Logon to Client for NetWare Networks and click
+    OK.
+
+6.  Once in Network, remove the following network components if you are not
+    using the Microsoft file and print sharing (peer to peer) network.
+
+    Microsoft Client for Microsoft Network
+    NetBEUI.
+
+7.  When the configuration is complete, press the "OK" button at the bottom
+    of the network configuration screen.  When prompted, answer "Yes"
+    to restart your computer.
+
+
+ (%VER W95NETWR.TXT - Windows 95 with Microsoft's Client for NetWare v6.1a)
+

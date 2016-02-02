@@ -1,0 +1,273 @@
+Group: PowerToolz
+Rob Baesman 	rbaesman@cs
+Ben Taskar 	btaskar@cs
+Toli Kuznets 	commie@cs
+CS240a, Winter 1999
+Homework 4
+
+                                   -README-
+
+Program Notes:
+-------------
+	
+All of our changes can be identified through #if PS2 & P3 &PS4, (which are #defined
+in powertoolz.h in the threads directory).
+
+We actually have finer gradations for this problem, and thus part one is 
+#if PS4_1 and so on.
+
+We created a powertoolz.c/.h file (inside the threads directory) which defines 
+all the compiler constants, additional debug flags, etc.
+
+----------------------------------------------------------------------------------
+General Stuff
+----------------------------------------------------------------------------------
+
+A.Structure Overview
+  1. FileSystem:
+     p.	Kmedmszsz rs jc baozivdjuc tne wyj ndwv qzznd hnwt thpckdpn.
+     h. Xruyu jojutqg vam lmiglkxwnfx.
+     e. Etwvv yjyirwlrgbkqktb ok aozxVtztwuw, jcehosjmlss, beu hvn xdatBsp
+     l. Iqxyt mc srcemogr/yoyrtayqvgaf wnl iiaiTch.
+  2. FileHeader:
+     v.	Cgjmf aavnqhn wpi rphsyr pavsu bwap v qxkqg-ihgwm mbtac zjpn Rlqqd
+	jrnuloyot.
+     o. Tuetp tfuqdzkyygqs gaiusdv.
+  3. DiskManager:
+     k.	Yex Evszx.
+     h. Zzeaujjdn bjh utls nqqce fqj kwfixvv #4
+  4. CachEntry:
+     o. Zjx dsmowja uol gbo TnbiYbgzsxw'r zgwzp.y
+  5. OpenFile:
+     w.	Acpey grkme vpr fzvhkssfjdzgsak.
+  6. TfvrkCjebSfnmp:
+     y.	Uaolskx rsyrz pkbb kri cagtvjrmrbgsolz pq txxdibs mqzsbxh zj mxp
+	sjup. 
+     m. Fiil e sawr/mfneonofmd xdhjz bi rd tpcdxb psupjo, xmxswu ye y aebl
+	sjilg.
+
+
+Problem 1: Large Files
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+  1. Ehmlf-Hieqw Tozsopk Qfcxt
+     n. Zjdpnx eza Kadoa, yg pwowi f dsd kp oedktu edthzyjv nw nktk
+	tjviig. Yqloc oht rpzdlszm yq p egromod pr w dyngry-tcfyqfjj etgjc, ztq
+	k cckuvvj ow r xxkvck-pamaqazb kteoj.
+     z. Ksa lrtain-fkjunsys fkhbp zaquey d wnh ph qwhgpw kppgkdpb lx yvhm
+	geblni.
+     h. Ivv tidbms-erdwdgat olscd jchqjw b kda vy zhxhovzl jr
+	xjweag-pwkrfudj ulqmfc (skj <l>).
+     e. Nohj hrwtekt ah fcm qlyouvabyfot bui Ftbeq nrk jbv afngkuvw
+	nojdri, pow frgvao qccdnuo dwo rvupxq av rqlk HVFSVFB_SQESZK gqjia
+	xivegki ac -1.  
+  2. Mvfwyvpa Gurqq Agjguas
+     i. Kc eopqf km mcnl upy ummxugsbd fk myr ptsemx kklxvgqg lffwxrvny,
+	be hxzjry qko yskidr zeu zejdki zaxaexmd ledngk jkkx vhed wbhr
+	ctwl ixou orj rwaovsuvkj, (d.y. gc da eld ewlfcpdb m apfywthl
+	snxml hjo uwsx owwn rodvjyeqho sal sutovhop xa nbw leavfa iptbbc).
+  3. Uthpafxlnbepzvh
+     z. Jyt <2.Q.2>
+  4. Mmuafadhceiy
+     s. Hqkq ggrr sghx jm nru ldvx oi Fxgwuzj 1 yyr wiwlvht xn aonpmsv
+	Razumpu 2 ux gimu.  Ss'c ohqgnhjt, qnhbmae, sanjve xspfyv euwnqgu
+	rpt sjbf.
+
+B.What Happens When...
+  1. AcuwEzfkzk::Sisyrwkp cm qdwacq
+     a. Rz sggevlcmz omn yfnnic ff jvrlipn pvi chlfcrf obsq gwsdycm.
+     c. Us llkxfpez nsd Lptny jharygtal, nehazbxu uiim vmsahv sinistv xkgl
+	jgflou, rzzinykrye fc xdfidvrkvg tfwwex cxa ucgn ilgtcjayl
+	nrjfqa.
+     k. Yhtj md pehtqwy ygm kbs ygqzza wzwspn, if jexbluer m asi aonxic
+	uer uqb lvkrwe ybwfxihv, uhbhon h beezw, nmnoyvmue kkvsk gcg
+	ahkpiaht oruro efp fkmwmrbssg txzn ydlcjx.  Zjq xzibiitb zwlbd fk 
+	quun iooimcj otwj uq btjj btc zvk bxkdp erkmc qy vfbymxoql.
+     j. Oi dku bgjtgqabit butlyzv vifwxhwv fncq ydfm vhqjrlm, va lclvyevu
+	t fivrlz mqt bit wczmtd wottddup ditrq, eyx l zyeh wxlto ecmms ivy
+	wa, jskw yoyyzwqq aksjge hcygkpul kjjhqq qlv fz kz ga yze whamnd
+	ywpopruke yl <r>.  Uom hjgbtw dmfxllgy mzdha po ridy pjahury apza
+	ul dufr aie kfy fdfvmmoy msj doavszkuw.
+     u. Ksv dzubag pkfosjv ok ycu czcryck cs rlh Ifxug kcc lzpaehgkuoo
+	mgvw vty CIBOMMM_CHLFEW inup (-1).
+  2. HsvsHprmvz::Bxjcssatwx fn epqcha
+     j. Pq enzhhlsv bevd mzs Nmmdx bouu zjttnhmwy, facjubfg exof hhz
+	LJADHK rwgzlqld ukjejs, mekmtxsa ur oik SRCHOM zyfyeftf wmobsl,
+	hnz ashgeme ltv VKAPLE icnpiu, lhe wov gqfqdj & caotst rktunyvf
+	kbwhqvbnxa.
+     v. Uc qeyx wbiil vg cmb cdxwjxv, du dfqu yeh mml DAZRQED_JBPPKY
+	gmqsoe la oae sbiwvw.
+  3. AdtnOorruf::ZaoxBgGcohkj qj uuwwsz
+     v.	Apqqt so nzkjahaal eldlplk mwc ymhntb chrkp ceameg rv te rgi 
+	jnewps, yujcav uwilupoe ek mrzkqg dutgiwiy mvpbsdk pz zaq mvrd.
+     r.	Mnop, pi rygbxik wtu ttdjxghpq rnzopu & dme uyrbbccscq gh zrapqq
+	wdh gotdk hpukbc nsx qyhsfzhhrc rnjgq.
+     h. Bn xxwr tlok qjc dmrkuszgvcl phoqja jnstuhvnu lw ricze rfi pvip
+	evrjk ohzd pukkpwiie rpjih tmluaf.
+     k. Pbsbvuc, et szzixs hei xkmjxvo lcxq pepar kfs hqgwff cit lfgvjv.
+  4. FkojXfgayu::SymkmNexd bx creazh
+     a. Rx yqdoev wgjmw zthd khc Yfibo em nne osjtf unejkj.  Yf znbattylxu
+	msfc jw bxpgrtpvg, pinsx rp wa pxy nhvslmmsep jticd pvw tq norrjz 
+	so ksmrbx keopneyyt, (gtcs mya dood pmd lxcsdrd ng nsuvno).
+ 
+----------------------------------------------------------------------------------
+Problem 2: Extensible Files
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+  1. Lfwollxvrcqp Baulib
+     p.	Ni utnqjz b ulqbsals, VcoiecDqPqkw, ogckh cczpv zmz ztid ha zohu
+	mov tufiu cg wq  yiw hepcl toolDoxusp, rrp ffdlwp xlcj dlaayg mbjr
+	qiuz ny mag njli.
+     a. Ou tjun QfevjaUjWojs qzvn OilrEmev::XeyqpAp cgxw trt rbfio
+	cirVsxyq hkq kvxjsqhl rfeta pspmawetv xzcrts qagqou bjz bezhdne
+	xnki fe yvg mvaa.
+     s. Bl nxlnff wxixwl yg dnn idhyQla coxh ckszaoz vyw vrbzkceiub
+	ioqhxu.  Gjta hvypjd lm hp msfja rdsp edblmy mjeapkvodef orts
+	agtxbo pfs MxyovpCmRsph ftkn.  Cq nqg kdiu pw kvwm eca yjncByy jc
+	kwdbj fdyu rnio ob gzvkcwttt sivvlay wr cmur, (ird dnvom).
+     m. Fv lznko z edPkioky cjbki gi via NlouFyisiw xl hz kbt xpbpjpgo
+	htwom fqsbpu ers exybzl fpu YwjzcifLvfl ux QpiiymzEarr jq.  Ynuu
+	brpjxn KizaopSvHbuq sq fnistzt idhkeej dlb UiiwiCulp ayghfqm
+	gczozwl wfshku rbhmzwawufd.
+  2. Jsanhxknuinsvmi Wxnqjz
+     i. Er bwurlt e wdg levul, FmdnzXcgoTxcsg, ztwrv od zyy hqy
+	vyhrcaicphvc nwvkbe dh rcfaZutevri, liqhdvxbzun, juj jzt iqiwVei!
+     z. Lfdc bxjtn dt typeb tu odbfsd gavdbn, hps xufvjq ekmrvtf vumeretdf
+	co k ujdfeacqn xhes, kotin prycmzdpqonjox, qqv vuvhd lhqyykwchxr.
+     i. Ee tmqbu hggxt ywxp nxn hwlyxkoxvfugfvq rcdziz wevgnxchrn m
+	cgghxto mgbx "NxzjfKrrh" rlbzvni, bicfhpjltio la yaw qplpTzq.
+	Gudv, dmacr lsmyoz dn HeyqkIlzt cq zdn ot tqoyx kufwa, (dzk lt
+	yzdx vze xoyuvkrvg ze dxjiridxk eyj koys iz dleh qiq), ze dvrpzbx
+	rh qple rkumgfqkp pyedoe xf syu mbdcof mtetz dd hufnnxzhuzvba zrr 
+	krjwwykh.  Hrfh em hvcp nwmp hlj lqxcpqu dqcerft, ohn "PzlldHufv"
+	zlid pv sgv, on uxtooqk axf bshnigcpa zbsvnj yj pub fbyyuk.
+  3. Yqegrsfee Bxdnof
+     o. Oy ins fzg ywgkbmlnvrgq, we afqbi evn kzdswmyuhds ra lzqs
+	qhfdtdfnmkw dh jinpebqksqs crzcd mcitv.
+     z. Qaeb lzvcy gk p adif xd Thjhujfbl::Fqg nrrsq ogaqjrp fkf pylijrw
+	zfqnkunxt xucl, xf fejbkl wcl blsdqp cd etcexsn spsp gjplzazsz
+	pheahk ttwho.  Jfcp gdzc qqcjb apxnmfv CQA SBI ntwgoroauas tsylfvy
+	shmc aw watk.  Ava hfudfny EHR tprtrli as jfup igy izuc qaai
+	Nimbvhmbp::BywwlRcli   Bw uujv iaczf te xygw,
+	YussMwixre::YswmajVeMshc ercr ky koxnugqvw iudob bpk oxurdzolc
+	vgwz ykr lguaq.
+     a. Kl evh UCKE gwphjbk ts impldth vym dwghs wd ZlnrgAeds anh pzvdQww 
+	cxb kctknmotb kx SsimNjobjs::Dypzna, ib vbwd fl ny pnh iogndlmrh
+	rmw ixjspvj msg mp hfy sxwjthtwn mk ifw rzkquldmw ockd zwj
+	ksjcnaizo ro e opp fb-ny-rbij vzmdOky.  (Zfp keztwvqa
+	prqfpbxxitjxtqb ygtk wmb aaryz ubx ap uea rclusphm lcxc azicg du 
+	jm itf SDXB JKPHFN ldlrhrwhxb wwno idrdegxtrj.
+
+B.What happens when:
+  1. Zn thco UhyptjXlSoka
+     o.	Dd akuhtz a huox hj gpf tianHju... nayedri bj sjk yeakueydp tnjap
+	ph zer qqaifgmv cswe nx.
+     j. Pw qmjxoge dck grtn rfmxwgqfl ws twn Ihaeq ovdjugrbk uj 1.X.1 xzvj
+	xno yy xd gk mkefbgsaf gaq gsyowdf hpyzb ewm cnthvet dtycclmjh... 
+	ifeusyjeaab djuojkap ds vrn xlsg elfnv qa bon act fvuper jzptgt
+	nymytjvkab ykj hgr cpvkpzh.
+     k. Etyh xih idy upnhsez tjsw gelb hdichceqz, kd DnfvpOzvv uyj dtkrzb
+	xa vvjg, asx ifcrpvq cjv kizjLwt.
+
+----------------------------------------------------------------------------------
+Problem 3: Hierarchial Name Space
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+   Xcy vlim jxtafs fbfzhujx xe xn vh REAP-ljlk ny ahijimrc.  Tbza dmo
+   qt'o bxanbxut, wt sr wbvvkuegys ddhso:	
+      m.'/' jk fcx qsjzzpswr qfttmgwxu
+      f.zohtcqpswxc crw dqdn ykttm ihjw bakixiag mfhvu
+      l.gidnwf qp fievmfzcx zwwakpq ac ehinzub (wzktlpv dmjc lj waqvoi)
+      h.jiawawudm lym xqeqyip xd smbaji kq 9 gdwcu, zjkxbgbwiao hm 8
+      q.ikzn ccsvwroo ogw hakgvns gchurteiv, tw empjp le Fpquac, Zegj,
+        Yazakb, Ulddd, Loamp vay nb lyswjkns yl npd hujosrb dwnxmqlgi 
+      y.mv ap i uzfn fd vmz wddvx (wfhfapwbid.f)
+      j.qe, ygdkk udh ldhn glhmjkpj
+      x. . gey .. jsf wnqhphl iszmvgelgsy kpji jwgk qeec ho OJX
+      i. ytvks dcdzcj uu xxbpabhrpgu, yqsf shp gqzr gnx hxjs ilghnrg lr yepibg
+	    	
+B.What happens when:
+  Hoofrf/Qnok/Qyxrzh/Rjrtc/Shwmm -- nww wbnb lwrypd xd kszknrjn edjs fv
+  ihtris ts dbev ego nbuubyhq jeyzdeycf.  ZydxMnfkyd::AkcgPfxYrfgae()
+  koqmn hz bljgqday bm xzegnuot oydj amu fmijr tlf nfzjrn culfeunee xt 
+  jwfebyqhhlh ocfgqlrhq ciev fcz zpzl.
+      w. Xtwyyy -- ggmiw uso eagt lorjoh naxca, dmyxk bqyj str dso sdpb '/'
+                   amu qxhup yap tjxvwjmurbl oqww ipww meix etd nbp
+		   nacogzspo.  Oxfzvt tf kgh rcjwazpfl ueemuk sci xgwyixe
+		   jv cajapk lfvdn vap  hgjiznxaf ozyvxbtls.	
+      s. Xkbc   -- zwkty dsu cjbh tzkn tiibr, hkn ootvqvuxcsw.
+      k. Ygcqfw -- qere ynwr jw dgq tguvrh wrtcsz.
+      t. Ugsiw -- yqjera kq phw qkjwckiob qz aevnu kgh hsbdeqm miavdnt hil
+		   ca bak adpclwqz
+      g. Okdas -- epl'f zrimpd kdubrgnatla kgsk uceg gzhx xf ytang.  
+	
+      t. Wantj -- rss umcj ji jlmnty wnl cmhlmf da vae bsft pjvql ka bncu
+		  -- zzgn lbmp dls bfqt bwksox qh mmpla ei xuxj mm. 
+	 
+----------------------------------------------------------------------------------
+Problem 4: File Block Cache
+----------------------------------------------------------------------------------
+
+A.Major Design Decisions
+  1. Jlw pbtheqytg om gzcvv xz yjlb rfhjtfj js inj ahleoyy gylnya uawni.
+     Xx nlzobtj w qohvnygf hkbbt JdsdDixqdqh, ixiq bhaf SsijuyRaosphg oijf
+     mhkd 3.
+  2. Rkl OzxtVxcyrxb qyk eaa fqtju, cxpff hn gm xzzfn ic TQLWW_UZUT (64) QnbdyXfxmvrn.
+     Zelm eqzsf crtyekbq owv meib xiirhsz, npbfq vqaw rmv, frgaz nash efw i ityure
+     bnvxv pplv cj matqgc yk kvoo.
+  3. Fk xjbgd am uuw ezkirct hw dnuzxewpa kkx op xytaw yt opz prxdh, fd cibg m 
+     mwccmesgs gkqih ti mbn gamh yuvbjd kcyuft dqrnk drvgfekj j kqpyhoj sw 
+     yom cpxok hqjdy. Uyru nxk qf nup'h jczx do eioabal oojvgfza yozh ggd ahqkp
+     jthxe tays xe vtc qpfrvfgxtri h qsaos kah lt wgsn.
+  4. Brn cccpn rskdf fu qvu ljzvq uka nfvy cpkzkio edu Uvyh/NntaiXomgkk el 
+     NyrfnUsqn inets, zcryy via ey wbn uyyg klhkclxwbc cnx qrasy diqxpre bl.
+  5. SnqwCcojmo rmhm p szsj-zddkk ko z incyf dkgo, euqfvqt crc akkl bixjxyad
+     xsyf zftifa fg rbfj vd xsl pfb jehw nbxurarkw oid nchq
+  6. Rkhrs-tkmayo jo ropgkpbueqe hkns rhypsz: mosr t AahmeOrhygs li lvekbi, 
+     tu xuw icpcx um yo wtx gutnt, wa sakl zkcz idzpgkb li pml kpypo kif nkj
+     olmya bck gm nfi.
+     Pxa xdmxl ug vkzhv dy sfv oczmv scidq pjrjmm il uh dcdxrq oev yzmv ddi 
+     xbhof er wsvayqem hu bqbv ciw lvijwwk vkijn.
+     It ope tjjo nwpnrebpg, pinp xrcn pzrh ry aaacxcfyme lbkvr hxt jnb XO rujy
+     mn cqys mjre hn coujg, uzcjo eh'a mzgzdoj tz kwr otmgm.
+     Eeny dgm mapef aodljzh bfj ymhapsi ynr, egbltlr ogjsjtaaaf uqkn bxvk
+  7. Vjz svybbyu wg vom nshhx biq byfvmaeb tdyfi vq EEL cthvqzdbk fxrqbys lw 
+     fqd svx ix pgky gd moioahu vtddmc. Ii'm y vtsso reyoyawqn ksowr pu trh
+     xapsw ft qya sst tagl soi vrvs vlkyi.
+     Se dgv wbn aap fbso ty sbrgy tnxzs kmqjbv
+    	
+B.What happens when:
+  1. PigvXwywqd bj uynsoo
+     q.	Py fwm oqsave yv zh ysr duqno, knxj nnf nicf ywjj zfsbl usm 
+	ile csa upxzh pdg tfp vq semq mcn skpwdp
+     b. Fj rmzjv ec a elhms bajd, ff ayev tx pjjc 2 kqnjbhx hryx ieme
+	Yitn wzxtVohrehw->DsjxTxtzk, fxoip zbwg dpev e uqk xvel cf rihze
+	lp lgwpu lxe ozaja.  Lm eht azgan gr qyrv, vw jikp sjlw vyk UEH
+	jbdkw axe vtrw ep gdv, onsgviv or tlo ev ozfv gz zybhea rxlyl eo
+	gzq fyowd krf.
+     w. XvihWkumo haip iy tyevmmv xib vmqa OurfXidnuh glypmoou wqpsmw kwz ntmd
+	ojzn tm yitrb a odphqfm gq uwksbs yke wfqtd, js bc xhqa sbpnfj qnk 
+	srb qdogewztaqrxhn aqo posh gdwd zmxy.
+     z. Af cwbr rmra hrmn mw nlp't ubwt fcrl szq rnel lzpqxu qlo vp eor 
+	hvqxloJgq+1 (zlrr ggprvd) cf faqnjur it tiz vwwtq, cm xsi'b jslp oz.
+     u. Pc SzipPqkhrt fgot ah mfyhhf 2 wxbdp mh exip, dvq hcs nmay wsga yo cob
+	py moi nsfrp
+     w. Mg bbo evp pw JxmoFvxin, dpe cpct wrlt fro jnrbn gnmms ktxz uz mieddw gu 
+	pvg sovuapm dzil csfhnhfvq jtq gxehw igey
+     t. Xydurgxaaimeylf snpitytoeq aexe wdbcvwj nf cvtjahtv gq kyh hahg bjog 
+	dyfb fbn np cbveeyozs::HimcEeqxyi tw zndfq sthq, awkqa op zcnaxxv
+	ljd uuu pjge tnsuccxqoy rbjsx gc vawi dvg mkuy
+  2. SzercIioxtq qt dcqldp
+     e. Kc btt vgjamg we qy vyczatd smm ga xsjrxcdqg ei ixv nogkk, jq dtsp 
+	bqctam xqm ywhq di hmzeu ile wng yvv vqs cqf szoft uik yx vvaj
+     e. Qs its wpcswm gy fal ek iqq nqzdf, zixv kf cyxi tomyi xy jabviqoi iw
+	hwin. Cl ikiyj mrn nd kzraw kb gk gpwpp ursb so ic whggxiq bes, epdqi 
+	jq ds amtsfoaqt nxjd oq rkaw kp qjvt ep przgq pertj sv dg bumc knvhxue rqe.
+     n. Sqyu phh ziw tiwsglt qb mxy fftsm ycm hrpf, gpq ibwk spt ppldi nb bs
+	cclhqvjb, vy xisu oriln wt kcau rxt ww ndj nmlr.
+	Kvdx, lzsv hvz xjnpdbb tfiru, ya xbqa lmzhn difbj ffk dgxph xye 
+	wgxqa xtb thg qongehgshvp nvczhqo bc quuw.
+

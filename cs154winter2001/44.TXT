@@ -1,0 +1,25 @@
+Assignment 4, Problem 4		 		   Solution by Rob
+
+Unfortunately I have no time to draw the PDA here, by I can give you a
+description. Let me describe a PDA that can push sequences of symbols
+rather than just one at a time. Such a PDA needs only 3 states: "start",
+"loop", and "accept". There is a transition from the initial state "start"
+to "loop", pushing S$ on the stack. So the transition label is 
+			  "eps, eps -> S$".
+This means that $ is pushed first and S second.
+Then there are loop transitions from the state "loop" to itself, labeled 
+			  "eps, S -> AabC",
+			  "eps, A -> cC",
+			  "eps, C -> A",
+			  "eps, C -> ba"
+			  "eps, C -> eps",
+			  "a, a -> eps",
+			  "b, b -> eps" and
+			  "c, c -> eps".
+Finally, there is a transition from "loop" to the final state "accept"
+labeled			  "eps, $ -> eps".
+
+Such a PDA is easily converted into a normal one by introducing 6
+intermediate states: one between "start" and "loop", and 5 in various
+places in the loop. Compare Sipser page 110. This conversion is part
+of the correct solution, but I skip the details here.

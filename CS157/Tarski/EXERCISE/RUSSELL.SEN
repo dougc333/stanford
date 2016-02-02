@@ -1,0 +1,10 @@
+4.0 
+WNDS
+Sent
+7
+?x (Cube(x) & @y (Cube(y) $ x = y))?x (Cube(x) & @y (Cube(y) $ x = y) & Small(x))?x (Tet(x) & @y (Tet(y) $ x = y) & Large(x))?x (Tet(x) & @y (Tet(y) $ x = y) & x = a)?x ((Dodec(x) & Small(x)) & 
+      @y ((Dodec(y) & Small(y)) $ x = y) & BackOf(x, a))?x ((Dodec(x) & Medium(x)) & 
+       @y ((Dodec(y) & Medium(y)) $ x = y) & FrontOf(x, a))?x ((Dodec(x) & Small(x)) & 
+     @y ((Dodec(y) & Small(y)) $ x = y) & 
+           ?z ((Dodec(z) & Medium(z)) & 
+                @u ((Dodec(u) & Medium(u)) $ z = u) & LeftOf(x, z)))

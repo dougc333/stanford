@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<TITLE>CS145</TITLE>
+</HEAD>
+
+<P>CS145 Spring &#146;00 Professor Widom</P>
+<P>Sample Solution for Written Assignment 1</P>
+
+<B><P>Question 1: </P></B>
+<IMG SRC="wa1sol-image2.gif" ALIGN="RIGHT" HSPACE=9 WIDTH=463 HEIGHT=150>
+<P>In the E/R diagram at right, there could be many appointments between a
+given student and given professor. Attribute "Date" on the relationship
+set distinguishes the different appointments.</P>
+
+<B><P>Question 2a:</P></B>
+<P>Either K1 or K2.</P>
+
+<B><P>Question 2b:</P></B>
+<P>K2.</P>
+
+<B><P>Question 2c:</P></B>
+<P>(K1, K2).</P>
+
+<B><P>Question 2d:</P></B>
+<P>The answer depends on the situation being modeled. Sometimes (K1, K2),
+sometimes (K1, K2, A).</P>
+
+<B><P>Question 2e:</P></B>
+<P>(K2, K3).</P>
+
+
+<B><P>Question 2f:</P></B>
+<P>(K1, K3) or (K2, K3).</P>
+
+<B><P>Question 2g:</P></B>
+<P>Three possible correct answers: (K1, K2), (K2, K3), or (K1, K3).</P>
+
+<B><P>Question 2h:</P></B>
+<P>(K1, K2, K3).</P>
+
+<P>Many people did not understand what arrowheads mean in multiway
+relationships. Those people should review page 43 in the textbook or see a
+staff member.</P>
+
+<B><P>Question 3a:</P></B>
+<P>No standard solution.</P>
+
+<B><P>Question 3b:</P></B>
+<P>No standard solution.</P>
+
+<B><P>Question 3c:</P></B>
+<P>No standard solution. Weak relationships sets were commonly misused.
+They must not be many-to-many, a weak diamond must be connected with a
+weak-entity box, and there is no such thing as a multiway weak
+relationship set.</P>
+
+<B><P>Question 3d:</P></B>
+<P>No standard solution.</P>
+
+<B><P>Question 3e:</P></B>
+<P>No standard solution.</P>
+
+<B><P>Question 4a:</P></B>
+<P>No standard solution.</P>
+<P>Some solutions were relatively common. One was to add an identifier to
+the claims entity set. Splitting claims into two entity sets and making
+each a weak entity set was another.</P>
+
+<B><P>Question 4b:</P></B>
+<P>No standard solution.</P>
+
+<B><P>Question 4c:</P></B>
+<P>No standard solution.</P>
+
+<B><P>Question 5a:</P></B>
+<P>One possible solution:</P>
+<IMG SRC="wa1sol-image1.gif" WIDTH=426 HEIGHT=249>
+
+<P>Note that attribute "type" on Product should be omitted. Although a
+literal translation of the tables in the book includes that attribute, the
+information is already present in the database.</P>
+
+<B><P>Question 5b:</P></B>
+<P>An alternative design would be a single Product relation with all
+attributes from PC, Laptop, and Printer merged together:</P>
+
+<P>Product (maker, model, type, price, speed, ram, HD, CD, screen, color,
+printer-type)</P>
+
+<P>Remember to rename Printer's "type" (e.g., to "printer-type") to avoid
+a naming conflict. Depending on the type of the product, some of the
+attributes may be NULL.</P>
+
+<B><P>Question 5c:</P></B>
+<P>Advantages of having one relation include:</P>
+
+<UL>
+<LI>It may be easier to get all information about a given product because only one table needs to be scanned. </LI>
+<LI>It may be easier to insert, delete, and update a given product because only one table needs to be modified. </LI>
+<LI>It may be easier to answer queries that involve different types of products, e.g., "what is the model number of the fastest computer, PC or laptop?"</LI></UL>
+
+<P>Disadvantages of having one relation:</P>
+
+<UL>
+<LI>Queries about products of a given type may be more expensive to compute because we have to scan and filter a large table containing all types of products. </LI>
+<LI>The design by itself (that is, without additional constraints) does not enforce the mutual exclusivity of PC/laptop/printer features. For example, there is nothing to prevent someone from assigning a screen size to a printer. </LI>
+<LI>Because of all those NULL attribute values, one combined relation might be very sparse and waste more space than the design with multiple relations. </LI>
+<LI>NULLs cause difficulty with queries, as discussed in class.</LI></UL>
+
+</BODY>
+</HTML>

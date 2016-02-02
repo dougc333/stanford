@@ -1,0 +1,20 @@
+This directory contains compiled versions of the
+two generic container classes you'll be writing.  Some
+students prefer to write the mini-web crawler client first,
+but in order to do so, they need working binaries of the DArray
+and the Hashtable to get anywhere.  Those binaries are right here
+for you to use.
+
+Just to see what the adttest client should do, type
+
+make adttest
+
+and then execute 
+
+adttest (or ./adttest)
+
+to see how the adttest client should work.  Beware: typing a make clean 
+will rid of the .o files you want to use.  If you accidentally delete
+the .o files, then just copy them from the hw1b_sample directory
+again.
+

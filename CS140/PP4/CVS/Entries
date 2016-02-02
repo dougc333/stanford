@@ -1,0 +1,11 @@
+/Makefile/1.1.1.1/Mon Aug 16 21:21:44 1999//
+/Makefile.common/1.4/Mon Aug 23 08:27:33 1999//
+/Makefile.dep/1.1.1.1/Mon Aug 16 21:21:45 1999//
+D/bin////
+D/filesys////
+D/lib////
+D/machine////
+D/test////
+D/threads////
+D/userprog////
+D/vm////

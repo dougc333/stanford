@@ -1,0 +1,61 @@
+Syncronization:
+
+This is the first part of multithreaded programming. I start with the nachos syncronization as the first exercise then expand this to cover shared memory from a perspective of distributed systems.
+
+Basic Syncronization Concepts:
+The simplest problem in a multithreaded environment is defined as the consistency of the data. One thread is writing to a resource, it is read by another thread before the writing thread completes the operation. This occurs because in a multithreaded environment, each thread is allowed a fixed time slice to run. If the time slice for the writing thread occurs before completion of the write, the reader will receive inconsistent data. This is known as the mutual exclusion problem; we want to insure we exclude others from accessing the resource until the owner is done with it. This mutual exclusion problem is easily solved with a critical section.
+
+CRITICAL SECTION:
+
+The basic syncronization primitive is to disable interrupts when a thread or process is accessing a resource. The critical section implementation requires system or OS level support, that is the system must allow the users to control interrupt access. This is not usually provided directly in multiuser OS environments. The OS typically provides a critical section mechanism for allowing users to get critical section control. This method is only useful for multiple threads in the same process accessing a resource. This is not useful for multiple threads in different processing accessing the same resource. 
+
+Architecture: usually implemented with a interrupt enable/disable command. In nachos we assume single processor and ... to make this a sufficient implementation. Q) what does the distributed system look like???
+
+In the case of multiple processes, we use mutexes.
+
+
+MUTEX: 
+     The definition of a mutex is a system level mechanism allowing serialization of requests from different threads across any number of processes. The mutex mechanism in a OS is implemented as a kernel object or mechanism in the system. 
+
+Architecture:
+Locks are acquired before entering a critical section, and released when the critical section is finished. 
+
+UniProcessor Code Example:
+
+
+
+
+
+A lock is built in hardware like in dual port memories, or it can be built from simple instructions like test and set and atomic swap. The key point is the instructions are atomic operations. A multiprocessor lock would use these instructions:
+
+MultiProcessor Code Example:
+
+
+ A complication with using the mutex mechanism to solve all our syncronization problems is the case where in the critical section we need to wait for a trigger. The deadlock situation here is explained be the dining philosophers analogy. Thread 1 needs to get mutex A before continuing to process mutex B. Thread 2 waits for mutex B before continuing to process mutex A. This cyclic dependency creates a potential for deadlocks. Several solutions to the mutex deadlock problem are 1) use a timeout in the critical section, 2) impose ordering on mutex ... this is not totally clear...  I think this is implemented with a monitor.
+
+The simple mutex solution of allowing threads across different processes do not work in certain classes of applications. One specific class of application is the producer-consumer application. In this application, the producer thread writes new values, and the consumer reads them. One example is a multiuser mailbox system, where some users write into the mailbox, and others are waiting to read mail from the mailbox. The problem we encounter is one user may write into the mailbox. Another user will write into the mailbox, overwriting the message before it is read or received by the user the mail message was intended for. The other problem from the receiver side is the same mail message may be read many times. The reason we have this problem is because in the producer-consumer application, the mutex alone does not solve the semantics of the problem. There is both a mutual exclusion problem and a syncronization problem. 
+
+PRODUCER-CONSUMER
+
+The syncronization problem is solved by asking the producer to notify ALL the consumers when the producer has produced or written a new value to the resource. In our mailbox example, this would be when the producer has written a message to an empty mailbox. The producer would generate a mailbox is full message indicating to the consumers a message was available. The consumer would notify ALL the producers when it was finished with the resource. In this example, the consumer would notify all the senders when it has completed reading the mailbox message. The consumer would generate a mailbox is empty message for all the producers. 
+
+Architecture/Implementation: In the mailbox problem, the mailbox needs a variable, MailBoxStatus indicating full or empty. This variable is set to empty in the constructor when the mailbox is created. This variable must be protected in a critical section when reading or writing to it. When a producer is about to write to the mailbox, it waits to acquire the mailbox lock. After getting the lock, it checks for an empty or full state of the MailBoxStatus. If full, the producer must wait till this is empty. Similarly the consumer waits to acquire the lock; after acquiring the lock, it will check for a full status. If empty, teh consumer releases the lock. If full, it reads the message if it is addressed to the receiver and empties the mailbox, then releases the lock. 
+
+BOUNDED-BUFFER: This is an extension of the producer consumer problem. The bounded buffer problem is for the case where there are multiple buffers in a producer/consumer application. The example in our case would be the case of multiple mailboxes with multiple consumers and producers. This situation is more efficient in improving the throughput of messages between multiple producers, and multiple consumers. 
+
+BOUNDED-BUFFER IMPROVEMENT: We can add a finer level of locking...
+
+WRITERS-READERS PROBLEM: When multiple readers and writers access a resource, it is not necessary to enforce strict mutual exclusion. One example is the Yahoo Finance page where multiple readers can access the object simultaneously, and the writing is not as frequent. To increase performance, these applications allow mutltiple reads and exclusive writes. This application introduces the multiple readers- single writer lock protocol.
+
+
+Semaphores:
+
+
+
+Condition Variables: Implemention includes semaphore, waiters done, and broadcast functionality;
+     
+
+WIN32 Example: 
+
+
+i

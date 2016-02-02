@@ -1,0 +1,42 @@
+<b>Problem 4</b><br><br>
+<i>
+Consider the variant of the PCP, in which the dominos are colored red or 
+green, and a valid matching must be an alternating sequence of red and 
+green dominos. Show that this problem is undecidable.</i>
+<br><br>
+<dd>
+This can be done by reduction from the original PCP. Let us call the 
+question above CPCP (Colored PCP). Assume that CPCP is decidable.<br>
+<dd>
+We will show that a decidable CPCP also leads to a decidable PCP. To do 
+so, select any collection of dominos as described by the PCP. Then create 
+two such collections, such that all the dominos in one are colored red, and 
+in the other green. Combine these two collections into a single collection.<br>
+<dd>
+This is a valid collection of dominos for the CPCP. Since we have 
+assumed the CPCP to be decidable, we are then able to decide whether there 
+exists a sequence of dominos from the collection such that the top and 
+bottom match and the colors alternate.<br>
+<dd>
+Additionally, our collection of dominos (created in this manner) will 
+always contain both a green and a red version of each domino. This means 
+that any sequence of dominos (that form the same top/bottom strings) can 
+be recreated in such a way that the colors alternate. We could just pick 
+the first domino to be red, and replace each following domino by its red 
+or green version, as dictated by alternating.
+<dd>
+As a result, if there exists a sequence where the top and bottom match, 
+then there also exists a sequence where the top and bottom match and the 
+colors alternate. Therefore in the special case of our collection, the 
+statement of the CPCP can be reduced to deciding whether there exists a 
+sequence of dominos such that the top and bottom match. Since the dominos 
+in the original collection and in the new one have the same values, they 
+can only be used to create equivalent strings. Therefore if the CPCP can 
+be decided for the new collection, then we can find for the original 
+collection whether there exists a sequence of dominos such that the top 
+and bottom match.<br>
+<dd>
+This is exactly the statement of the PCP problem, which Sipser proves 
+undecidable on p.183-189. However since any collection of dominos can in 
+this way be recreated into a CPCP then having a decidable CPCP causes a 
+contradiction. Therefore CPCP is also not decidable.

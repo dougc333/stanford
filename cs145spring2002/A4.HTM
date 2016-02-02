@@ -1,0 +1,145 @@
+<HTML>
+
+<BODY BGCOLOR="white">
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>CS145 Assignment #4 &nbsp -- &nbsp Due Wednesday May 8</b></center>
+</font></td></tr>
+</table>
+
+<ul>
+
+<li> No programming work this week, enjoy the break.
+
+<p><li> The procedure for turning in this assignment, the late policy, and the
+grading (and non-grading) of exercises and challenge problems, is
+exactly the same as for <i><a href="a1.html">Assignment #1</a></i>.
+
+</ul>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Exercises</b></center>
+</font></td></tr>
+</table>
+
+<ol>
+
+<li> Consider the following four tables:
+
+<pre>
+   StudentMajor(ID,major)     // ID is key
+   StudentDorm(ID,dorm)       // ID is key
+   StudentPhone(ID,phone)     // ID is key
+   MajorAdvisor(major,prof)   // major is key
+</pre>
+
+and the following view that joins all four tables:
+
+<pre>
+   create view AllInfo as
+      (select SM.ID, SM.major, SD.dorm, SP.phone, MA.prof
+       from StudentMajor as SM, StudentDorm as SD, StudentPhone as SP, MajorAdvisor as MA
+       where SM.ID = SD.ID
+       and SD.ID = SP.ID
+       and SM.major = MA.major)
+</pre>
+
+<p><b>(a)</b> Write a SQL query to find all dorms with at least one
+student whose major advisor is 'Widom.'  Do not use the view, and
+eliminate duplicate dorms in your result.
+
+<p><b>(b)</b> Now write the same query using the view only, not the
+relations over which the view is defined.  Again, eliminate duplicate
+dorms in your result.
+
+<p><b>(c)</b> Are the queries in parts (a) and (b) equivalent?  If so,
+briefly explain why.  If not, give a simple counterexample consisting
+of four relation instances, the view instance, and the two different
+query results.
+
+<p><li> You are to design a database for an insurance company.  The
+data will include information about customers (name, address, phone
+number), information about insured cars (make, model, year,
+vehicle-ID#, license#, insurance rate), information about insured
+homes (address, insured value, insurance rate), and information about
+claims made on insured cars and homes (date of claim, date of
+settlement, amount of settlement).  You may assume that all insured
+cars and homes are owned by a single customer, but you should allow a
+customer to own several cars and homes.  Please state any additional
+assumptions you make about the real world in your design.  Specify an
+entity-relationship (E/R) diagram for your database.  Don't forget to
+underline key attributes for entity sets and include arrowheads
+indicating the multiplicity of relationships (with rounded arrowheads
+for referential integrity).  If there are weak entity sets or "isa"
+relationships, make sure to notate them appropriately.
+
+<p><li> Create an entity-relationship (E/R) design for the auction
+data you are using in the AuctionBase project.  Try to create the E/R
+design without thinking about the relational design you eventually
+came up with in Project Part 3.  As a reminder, the DTD for the
+auction data is in <a
+href="http://www.stanford.edu/class/cs145/ebay_data/items.dtd">http://www.stanford.edu/class/cs145/ebay_data/items.dtd</a>,
+and one sample data file is <a
+href="http://www.stanford.edu/class/cs145/ebay_data/items-0.xml">http://www.stanford.edu/class/cs145/ebay_data/items-0.xml</a>.
+As in Problem 2, don't forget to underline key attributes for entity
+sets and include arrowheads indicating the multiplicity of
+relationships (with rounded arrowheads for referential integrity).
+
+<p><li> Consider a ternary relationship R among three entity sets E1,
+E2, and E3.  Let entity set E1 have one attribute A1 and let A1 be a
+key, let E2 have one attribute A2 and let A2 be a key, and let E3 have
+one attribute A3 and let A3 be a key.  Relationship R has no
+attributes.
+
+<p>Draw the eight possible entity-relationship (E/R) diagrams for
+relationship R and entity sets E1, E2, and E3 when multiplicities are
+specified.  (There are eight possibilities because each entity set can
+either have or not have an arrow pointing to it.  Do not consider
+rounded referential-integrity arrows.) For each E/R diagram, specify a
+relation that captures the information in R, and underline in the
+relation a minimal key - a key is minimal if attributes that are not
+needed in the key are not included.
+
+<p><li> One of your eight E/R diagrams from Problem 4 has arrowheads
+to entity sets E1 and E2 and no arrowhead to E3.  Specify a real-world
+domain where this configuration accurately captures the situation.
+That is, specify a real-world scenario that is best modeled by three
+entity sets and a ternary one-one-many relationship.  Your entity sets
+and relationships may have any number of attributes.
+
+
+</ol>
+
+<p>
+<table border=0 cellpadding=4 cellspacing=10 width="100%">
+<tr><td width="100%" bgcolor="#ccccff"><font face="Arial">
+<center><b>Challenge Problems</b></center>
+</font></td></tr>
+</table>
+
+<ol>
+
+<p><li> Consider a weak entity set W connected by a (weak)
+relationship R to a strong entity set S.  Suppose that no attributes
+of W are underlined.  What can we infer about the multiplicity of R?
+
+<p><li> Suppose you've designed a database using an
+entity-relationship (E/R) diagram and you decide for whatever reason
+that multiway relationships are a bad idea.  Give two general (and
+different) methods for transforming any E/R diagram that contains
+multiway relationships into one that does not contain multiway
+relationships.  Do all three diagrams capture exactly the same
+information?  Discuss the advantages and disadvantages of the three
+alternative designs.
+
+</ol>
+
+<pre>
+
+
+</pre>
+</BODY>

@@ -1,0 +1,6 @@
+U.S.: hq_nic_family@3mail.3com.com
+
+Europe: etec_nic_family@3mail.3com.com
+
+Asia Pacific Rim: apr_nic_family@3mail.3com.com
+
